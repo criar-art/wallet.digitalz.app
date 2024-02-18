@@ -16,6 +16,7 @@
     "ts:check": "tsc"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "7.6.1",
     "@react-navigation/drawer": "^6.6.7",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
@@ -31,8 +32,7 @@
     "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
-    "react-native-uuid": "^2.0.1",
-    "@react-native-community/datetimepicker": "7.6.1"
+    "react-native-uuid": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
