@@ -6,8 +6,7 @@ export default function About() {
       testID="about-screen"
       className="p-5"
     >
-      <Text className="text-xl text-black">Wallet Digitalz App</Text>
-      <Text className="my-2 text-black">Foi desenvolvido com o objetivo de auxiliá-lo na organização das suas finanças.</Text>
+      <Text className="my-2 text-black">Wallet Digitalz foi desenvolvido com o objetivo de auxiliá-lo na organização das suas finanças.</Text>
       <Text className="my-2 text-black">Proporcionamos uma maneira simplificada para que você registre suas despesas e valores.</Text>
       <Text className="my-2 text-black">Tenha a liberdade de criar seus registros de forma intuitiva, com a flexibilidade de deletá-los e atualizá-los conforme necessário.</Text>
     </View>
