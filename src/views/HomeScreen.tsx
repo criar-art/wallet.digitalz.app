@@ -2,22 +2,41 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Modal,
+  Pressable,
   Text,
   TextInput,
   TouchableHighlight,
   View,
 } from "react-native";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 import * as SecureStore from "expo-secure-store";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Dropdown } from "react-native-element-dropdown";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, onChangeName] = useState("");
-  const [value, onChangeValue] = useState("");
-  const [date, onChangeDate] = useState("");
-  const [type, onChangeType] = useState("");
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [dateString, setDateString] = useState(new Date().toLocaleDateString());
   const [result, setResult] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const onChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+    setDateString(new Date(currentDate).toLocaleDateString());
+  };
+
+  const dataType = [
+    { label: "Investimento", value: "investiment" },
+    { label: "Entrada", value: "entry" },
+    { label: "Despesa", value: "expense" },
+    { label: "Veículo", value: "vehicle" },
+  ];
 
   async function save(key: string, value: any) {
     await SecureStore.setItemAsync(key, value);
@@ -33,7 +52,7 @@ export default function Home() {
     }
   }
 
-  function saveStore () {
+  function saveStore() {
     const values = JSON.stringify([
       {
         id: uuid.v4(),
@@ -42,15 +61,30 @@ export default function Home() {
         date,
         type,
       },
-      ...result
-    ])
+      ...result,
+    ]);
     save("wallet", values);
+    getValueFor("wallet");
+    setModalVisible(false)
+  }
+
+  function remove(target: string) {
+    const filter = result.filter(({ id }) => id !== target);
+    save("wallet", JSON.stringify(filter));
     getValueFor("wallet");
   }
 
   useEffect(() => {
     getValueFor("wallet");
   }, []);
+
+  useEffect(() => {
+    setType('')
+    setName('')
+    setValue('')
+    setDateString(new Date().toLocaleDateString())
+    setDate(new Date())
+  }, [modalVisible]);
 
   return (
     <View testID="home-screen" className="p-5">
@@ -65,9 +99,18 @@ export default function Home() {
       </TouchableHighlight>
 
       {result.map((item: any) => (
-        <View key={item.id} className="text-black mt-5 bg-white p-4 rounded-lg shadow-lg">
+        <View
+          key={item.id}
+          className="text-black mt-5 bg-white p-4 rounded-lg shadow-lg"
+        >
+          <TouchableHighlight
+            className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-gray-200 rounded-full p-2 text-center"
+            onPress={() => remove(item.id)}
+          >
+            <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
+          </TouchableHighlight>
           <Text className="text-black">Tipo: {item.type}</Text>
-          <Text className="text-black">Data: {item.date}</Text>
+          <Text className="text-black">Data: {new Date(item.date).toLocaleString()}</Text>
           <Text className="text-black">Nome: {item.name}</Text>
           <Text className="text-black">Valor: {item.value}</Text>
         </View>
@@ -92,32 +135,65 @@ export default function Home() {
           <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
             Criar Novo Registro
           </Text>
-          <Text className="text-black mb-2">Tipo</Text>
-          <TextInput
-            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-            placeholder="Tipo do registro"
-            onChangeText={onChangeType}
+          <Dropdown
+            style={{
+              margin: 5,
+              marginBottom: 20,
+              height: 40,
+              borderBottomColor: "gray",
+              borderBottomWidth: 0.5,
+            }}
+            inputSearchStyle={{
+              height: 40,
+              fontSize: 16,
+            }}
+            data={dataType}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecione o tipo"
+            searchPlaceholder="Buscar o tipo..."
             value={type}
+            onChange={(item) => {
+              setType(item.value);
+            }}
           />
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              onChange={onChange}
+            />
+          )}
           <Text className="text-black mb-2">Data</Text>
-          <TextInput
-            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-            placeholder="Data do registro"
-            onChangeText={onChangeDate}
-            value={date}
-          />
+          <Pressable
+            onPress={() => setShow(true)}
+            className="flex flex-row mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+          >
+            <MaterialIcons name="calendar-month" size={22} color="black"/>
+            <TextInput
+              className="ml-2 text-black"
+              placeholder="Data do registro"
+              onChangeText={setDateString}
+              value={dateString}
+              editable={false}
+            />
+          </Pressable>
           <Text className="text-black mb-2">Nome</Text>
           <TextInput
             className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
             placeholder="Nome do registro"
-            onChangeText={onChangeName}
+            onChangeText={setName}
             value={name}
           />
           <Text className="text-black mb-2">Valor</Text>
           <TextInput
             className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
             placeholder="Valor do registro"
-            onChangeText={onChangeValue}
+            onChangeText={setValue}
             value={value}
           />
           <View className="flex flex-row">
@@ -125,7 +201,6 @@ export default function Home() {
               className="flex flex-1 justify-center items-center flex-row bg-gray-600 rounded-lg p-2 text-center mr-1"
               onPress={() => {
                 setModalVisible(false);
-
               }}
             >
               <Text className="ml-2 text-center text-white">Cancelar</Text>
