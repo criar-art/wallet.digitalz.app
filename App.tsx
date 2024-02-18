@@ -1,14 +1,26 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import "react-native-gesture-handler";
+
+import HomeScreen from "./src/views/HomeScreen";
+import AboutScreen from "./src/views/AboutScreen";
+import ContactScreen from "./src/views/ContactScreen";
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <View
-      testID="app-container"
-      className="flex-1 items-center justify-center bg-red-600"
-    >
-      <Text className="text-white">wallet.digitalz.app</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <StatusBar style="auto" />
+        <Drawer.Navigator>
+          <Drawer.Screen name="Home" options={{ title: '', drawerLabel: 'Início' }} component={HomeScreen} />
+          <Drawer.Screen name="About" options={{ title: 'Sobre', drawerLabel: 'Sobre' }} component={AboutScreen} />
+          <Drawer.Screen name="Contact" options={{ title: 'Contato', drawerLabel: 'Contato' }} component={ContactScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
