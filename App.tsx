@@ -12,7 +12,7 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider testID="app-container">
       <NavigationContainer>
         <StatusBar style="auto" />
         <Drawer.Navigator>
