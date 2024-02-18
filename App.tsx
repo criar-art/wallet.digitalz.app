@@ -16,9 +16,21 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Drawer.Navigator>
-          <Drawer.Screen name="Home" options={{ title: '', drawerLabel: 'Início' }} component={HomeScreen} />
-          <Drawer.Screen name="About" options={{ title: 'Sobre', drawerLabel: 'Sobre' }} component={AboutScreen} />
-          <Drawer.Screen name="Contact" options={{ title: 'Contato', drawerLabel: 'Contato' }} component={ContactScreen} />
+          <Drawer.Screen
+            name="Home"
+            options={{ title: "Wallet Digitalz", drawerLabel: "Início" }}
+            component={HomeScreen}
+          />
+          <Drawer.Screen
+            name="About"
+            options={{ title: "Sobre", drawerLabel: "Sobre" }}
+            component={AboutScreen}
+          />
+          <Drawer.Screen
+            name="Contact"
+            options={{ title: "Contato", drawerLabel: "Contato" }}
+            component={ContactScreen}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

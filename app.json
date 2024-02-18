@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "wallet.digitalz.app",
-    "slug": "wallet.digitalz.app",
+    "name": "Wallet Digitalz",
+    "slug": "wallet-digitalz",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -21,13 +21,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.criar.art.walletdigitalz"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dd419cb6-d2f5-4966-a6b7-c05c3d6338c6"
+      }
+    },
+    "owner": "criar.art"
   }
 }
