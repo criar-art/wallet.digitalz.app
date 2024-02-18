@@ -5,7 +5,7 @@ import {
   Pressable,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
 import uuid from "react-native-uuid";
@@ -53,7 +53,7 @@ export default function Home() {
   }
 
   function saveStore() {
-    if(name && value && date && type) {
+    if (name && value && date && type) {
       const values = JSON.stringify([
         {
           id: uuid.v4(),
@@ -103,7 +103,7 @@ export default function Home() {
 
   return (
     <View testID="home-screen" className="p-5">
-      <TouchableHighlight
+      <TouchableOpacity
         className="flex justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center"
         onPress={() => setModalVisible(true)}
       >
@@ -111,14 +111,14 @@ export default function Home() {
           <MaterialIcons name="add-circle" size={22} color="white" />
           <Text className="ml-2 text-center text-white">Novo Registro</Text>
         </>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
       {result.map((item: any) => (
         <View
           key={item.id}
           className="border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg"
         >
-          <TouchableHighlight
+          <TouchableOpacity
             className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-gray-200 rounded-full p-2 text-center"
             onPress={() => remove(item.id)}
           >
@@ -127,7 +127,7 @@ export default function Home() {
               size={24}
               color="red"
             />
-          </TouchableHighlight>
+          </TouchableOpacity>
           <Text className="text-black">Tipo: {item.type}</Text>
           <Text className="text-black">Nome: {item.name}</Text>
           <Text className="text-black">Valor: {item.value}</Text>
@@ -150,12 +150,12 @@ export default function Home() {
         }}
       >
         <View className="bg-white p-4 rounded-lg border-2 border-slate-400 m-10">
-          <TouchableHighlight
+          <TouchableOpacity
             className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-red-600 rounded-full p-2 text-center"
             onPress={() => setModalVisible(!modalVisible)}
           >
             <MaterialIcons name="close" size={22} color="white" />
-          </TouchableHighlight>
+          </TouchableOpacity>
           <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
             Criar Novo Registro
           </Text>
@@ -215,15 +215,18 @@ export default function Home() {
             value={value}
           />
           <View className="flex flex-row">
-            <TouchableHighlight
+            <TouchableOpacity
               className="flex flex-1 justify-center items-center flex-row bg-gray-600 rounded-lg p-2 text-center mr-1"
               onPress={() => {
                 setModalVisible(false);
               }}
             >
-              <Text className="ml-2 text-center text-white">Cancelar</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
+              <>
+                <MaterialCommunityIcons name="cancel" size={22} color="white" />
+                <Text className="ml-2 text-center text-white">Cancelar</Text>
+              </>
+            </TouchableOpacity>
+            <TouchableOpacity
               className="flex flex-1 justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center ml-1"
               onPress={() => saveStore()}
             >
@@ -231,7 +234,7 @@ export default function Home() {
                 <MaterialIcons name="save" size={22} color="white" />
                 <Text className="ml-2 text-center text-white">Salvar</Text>
               </>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
