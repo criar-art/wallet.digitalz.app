@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   Modal,
@@ -7,8 +7,8 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import uuid from 'react-native-uuid';
 import * as SecureStore from "expo-secure-store";
-
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
   const [value, onChangeValue] = useState("");
   const [date, onChangeDate] = useState("");
   const [type, onChangeType] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState([]);
 
   async function save(key: string, value: any) {
     await SecureStore.setItemAsync(key, value);
@@ -26,15 +26,53 @@ export default function Home() {
   async function getValueFor(key: string) {
     let result = await SecureStore.getItemAsync(key);
     if (result) {
-      setResult(result);
+      setResult(JSON.parse(result));
       console.log("🔐 Here's your value 🔐 \n" + result);
     } else {
       console.log("No values stored under that key.");
     }
   }
 
+  function saveStore () {
+    const values = JSON.stringify([
+      {
+        id: uuid.v4(),
+        name,
+        value,
+        date,
+        type,
+      },
+      ...result
+    ])
+    save("wallet", values);
+    getValueFor("wallet");
+  }
+
+  useEffect(() => {
+    getValueFor("wallet");
+  }, []);
+
   return (
     <View testID="home-screen" className="p-5">
+      <TouchableHighlight
+        className="flex justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center"
+        onPress={() => setModalVisible(true)}
+      >
+        <>
+          <MaterialIcons name="add-circle" size={22} color="white" />
+          <Text className="ml-2 text-center text-white">Novo Registro</Text>
+        </>
+      </TouchableHighlight>
+
+      {result.map((item: any) => (
+        <View key={item.id} className="text-black mt-5 bg-white p-4 rounded-lg shadow-lg">
+          <Text className="text-black">Tipo: {item.type}</Text>
+          <Text className="text-black">Data: {item.date}</Text>
+          <Text className="text-black">Nome: {item.name}</Text>
+          <Text className="text-black">Valor: {item.value}</Text>
+        </View>
+      ))}
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -94,17 +132,7 @@ export default function Home() {
             </TouchableHighlight>
             <TouchableHighlight
               className="flex flex-1 justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center ml-1"
-              onPress={() => {
-                save("wallet", [
-                  {
-                    name,
-                    value,
-                    date,
-                    type,
-                  },
-                ]);
-                getValueFor("wallet");
-              }}
+              onPress={() => saveStore()}
             >
               <>
                 <MaterialIcons name="save" size={22} color="white" />
@@ -114,16 +142,6 @@ export default function Home() {
           </View>
         </View>
       </Modal>
-      <TouchableHighlight
-        className="flex justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center"
-        onPress={() => setModalVisible(true)}
-      >
-        <>
-          <MaterialIcons name="add-circle" size={22} color="white" />
-          <Text className="ml-2 text-center text-white">Novo Registro</Text>
-        </>
-      </TouchableHighlight>
-      <Text className="text-black mt-10">Result: {result}</Text>
     </View>
   );
 }
