@@ -53,19 +53,34 @@ export default function Home() {
   }
 
   function saveStore() {
-    const values = JSON.stringify([
-      {
-        id: uuid.v4(),
-        name,
-        value,
-        date,
-        type,
-      },
-      ...result,
-    ]);
-    save("wallet", values);
-    getValueFor("wallet");
-    setModalVisible(false)
+    if(name && value && date && type) {
+      const values = JSON.stringify([
+        {
+          id: uuid.v4(),
+          name,
+          value,
+          date,
+          type,
+        },
+        ...result,
+      ]);
+      save("wallet", values);
+      getValueFor("wallet");
+      setModalVisible(false);
+      // Toast.show({
+      //   type: 'success',
+      //   text1: 'Sucesso',
+      //   text2: 'Novo registro criado 👋',
+      //   props: { className: 'z-50' }
+      // });
+    } else {
+      // Toast.show({
+      //   type: 'error',
+      //   text1: 'Atenção',
+      //   text2: 'Você precisa preencher tudo 👋',
+      //   props: { className: 'z-50' }
+      // });
+    }
   }
 
   function remove(target: string) {
@@ -79,11 +94,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setType('')
-    setName('')
-    setValue('')
-    setDateString(new Date().toLocaleDateString())
-    setDate(new Date())
+    setType("");
+    setName("");
+    setValue("");
+    setDateString(new Date().toLocaleDateString());
+    setDate(new Date());
   }, [modalVisible]);
 
   return (
@@ -101,18 +116,27 @@ export default function Home() {
       {result.map((item: any) => (
         <View
           key={item.id}
-          className="text-black mt-5 bg-white p-4 rounded-lg shadow-lg"
+          className="border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg"
         >
           <TouchableHighlight
             className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-gray-200 rounded-full p-2 text-center"
             onPress={() => remove(item.id)}
           >
-            <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
+            <MaterialCommunityIcons
+              name="trash-can-outline"
+              size={24}
+              color="red"
+            />
           </TouchableHighlight>
           <Text className="text-black">Tipo: {item.type}</Text>
-          <Text className="text-black">Data: {new Date(item.date).toLocaleString()}</Text>
           <Text className="text-black">Nome: {item.name}</Text>
           <Text className="text-black">Valor: {item.value}</Text>
+          <View className="flex flex-row items-center">
+            <MaterialIcons name="calendar-month" size={22} color="black" />
+            <Text className="ml-2 text-black">
+              Data: {new Date(item.date).toLocaleString()}
+            </Text>
+          </View>
         </View>
       ))}
 
@@ -143,17 +167,11 @@ export default function Home() {
               borderBottomColor: "gray",
               borderBottomWidth: 0.5,
             }}
-            inputSearchStyle={{
-              height: 40,
-              fontSize: 16,
-            }}
             data={dataType}
-            search
             maxHeight={300}
             labelField="label"
             valueField="value"
             placeholder="Selecione o tipo"
-            searchPlaceholder="Buscar o tipo..."
             value={type}
             onChange={(item) => {
               setType(item.value);
@@ -173,7 +191,7 @@ export default function Home() {
             onPress={() => setShow(true)}
             className="flex flex-row mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
           >
-            <MaterialIcons name="calendar-month" size={22} color="black"/>
+            <MaterialIcons name="calendar-month" size={22} color="black" />
             <TextInput
               className="ml-2 text-black"
               placeholder="Data do registro"
