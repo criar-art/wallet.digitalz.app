@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Alert,
-  Button,
   Modal,
   Text,
   TextInput,
@@ -57,47 +56,62 @@ export default function Home() {
           </Text>
           <Text className="text-black mb-2">Tipo</Text>
           <TextInput
-            className="mb-4 p-2 px-4 bg-white rounded-lg border-2 border-slate-400"
+            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+            placeholder="Tipo do registro"
             onChangeText={onChangeType}
             value={type}
           />
           <Text className="text-black mb-2">Data</Text>
           <TextInput
-            className="mb-4 p-2 px-4 bg-white rounded-lg border-2 border-slate-400"
+            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+            placeholder="Data do registro"
             onChangeText={onChangeDate}
             value={date}
           />
           <Text className="text-black mb-2">Nome</Text>
           <TextInput
-            className="mb-4 p-2 px-4 bg-white rounded-lg border-2 border-slate-400"
+            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+            placeholder="Nome do registro"
             onChangeText={onChangeName}
             value={name}
           />
           <Text className="text-black mb-2">Valor</Text>
           <TextInput
-            className="mb-4 p-2 px-4 bg-white rounded-lg border-2 border-slate-400"
+            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+            placeholder="Valor do registro"
             onChangeText={onChangeValue}
             value={value}
           />
-          <TouchableHighlight
-            className="flex justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center"
-            onPress={() => {
-              save("wallet", [
-                {
-                  name,
-                  value,
-                  date,
-                  type,
-                }
-              ])
-              getValueFor('wallet')
-            }}
-          >
-            <>
-              <MaterialIcons name="save" size={22} color="white" />
-              <Text className="ml-2 text-center text-white">Salvar</Text>
-            </>
-          </TouchableHighlight>
+          <View className="flex flex-row">
+            <TouchableHighlight
+              className="flex flex-1 justify-center items-center flex-row bg-gray-600 rounded-lg p-2 text-center mr-1"
+              onPress={() => {
+                setModalVisible(false);
+
+              }}
+            >
+              <Text className="ml-2 text-center text-white">Cancelar</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              className="flex flex-1 justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center ml-1"
+              onPress={() => {
+                save("wallet", [
+                  {
+                    name,
+                    value,
+                    date,
+                    type,
+                  },
+                ]);
+                getValueFor("wallet");
+              }}
+            >
+              <>
+                <MaterialIcons name="save" size={22} color="white" />
+                <Text className="ml-2 text-center text-white">Salvar</Text>
+              </>
+            </TouchableHighlight>
+          </View>
         </View>
       </Modal>
       <TouchableHighlight
