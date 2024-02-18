@@ -1,6 +1,11 @@
 {
   "name": "wallet.digitalz.app",
   "version": "0.0.1",
+  "author": "lucasferreiralimax (https://github.com/lucasferreiralimax)",
+  "repository": "https://github.com/criar-art/wallet.digitalz.app",
+  "bugs": {
+    "url": "https://github.com/criar-art/wallet.digitalz.app/issues"
+  },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
