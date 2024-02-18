@@ -159,14 +159,38 @@ export default function Home() {
           <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
             Criar Novo Registro
           </Text>
+          <Text className="text-black mb-2">Tipo</Text>
           <Dropdown
             style={{
-              margin: 5,
               marginBottom: 20,
-              height: 40,
-              borderBottomColor: "gray",
-              borderBottomWidth: 0.5,
+              paddingHorizontal: 10,
+              borderRadius: 8,
+              borderColor: "#94a3b8",
+              borderWidth: 2,
             }}
+            containerStyle={{
+              paddingVertical: 2.5,
+              borderRadius: 8,
+              borderColor: "#94a3b8",
+              borderWidth: 2,
+              backgroundColor: '#fff'
+            }}
+            itemContainerStyle={{
+              borderRadius: 6,
+              marginHorizontal: 5,
+              marginVertical: 2.5,
+              backgroundColor: '#eee',
+              padding: 0,
+              height: 45,
+            }}
+            itemTextStyle={{
+              height: 20,
+              margin: 0,
+              padding: 0,
+              position: 'relative',
+              top: -5,
+            }}
+            activeColor="#dcfce7"
             data={dataType}
             maxHeight={300}
             labelField="label"
