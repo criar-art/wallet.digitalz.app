@@ -15,20 +15,30 @@ import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Home() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [type, setType] = useState("");
-  const [name, setName] = useState("");
-  const [value, setValue] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [dateString, setDateString] = useState(new Date().toLocaleDateString());
+  const intitialForm = {
+    name: "",
+    type: "",
+    value: "",
+    date: new Date().toLocaleDateString(),
+  };
   const [result, setResult] = useState([]);
-  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [showDate, setShowDate] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [formModal, setFormModal] = useState(intitialForm);
+
+  const handleChange = (value: string, name: string) => {
+    setFormModal((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate;
-    setShow(false);
+    setShowDate(false);
     setDate(currentDate);
-    setDateString(new Date(currentDate).toLocaleDateString());
+    handleChange(new Date(currentDate).toLocaleDateString(), "date");
   };
 
   const dataType = [
@@ -53,6 +63,7 @@ export default function Home() {
   }
 
   function saveStore() {
+    const { name, value, date, type } = formModal;
     if (name && value && date && type) {
       const values = JSON.stringify([
         {
@@ -94,10 +105,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setType("");
-    setName("");
-    setValue("");
-    setDateString(new Date().toLocaleDateString());
+    setFormModal(intitialForm);
     setDate(new Date());
   }, [modalVisible]);
 
@@ -173,13 +181,13 @@ export default function Home() {
               borderRadius: 8,
               borderColor: "#94a3b8",
               borderWidth: 2,
-              backgroundColor: '#fff'
+              backgroundColor: "#fff",
             }}
             itemContainerStyle={{
               borderRadius: 6,
               marginHorizontal: 5,
               marginVertical: 2.5,
-              backgroundColor: '#eee',
+              backgroundColor: "#eee",
               padding: 0,
               height: 45,
             }}
@@ -187,7 +195,7 @@ export default function Home() {
               height: 20,
               margin: 0,
               padding: 0,
-              position: 'relative',
+              position: "relative",
               top: -5,
             }}
             activeColor="#dcfce7"
@@ -196,12 +204,10 @@ export default function Home() {
             labelField="label"
             valueField="value"
             placeholder="Selecione o tipo"
-            value={type}
-            onChange={(item) => {
-              setType(item.value);
-            }}
+            value={formModal.type}
+            onChange={({ value }) => handleChange(value, "type")}
           />
-          {show && (
+          {showDate && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -212,15 +218,15 @@ export default function Home() {
           )}
           <Text className="text-black mb-2">Data</Text>
           <Pressable
-            onPress={() => setShow(true)}
+            onPress={() => setShowDate(true)}
             className="flex flex-row mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
           >
             <MaterialIcons name="calendar-month" size={22} color="black" />
             <TextInput
               className="ml-2 text-black"
               placeholder="Data do registro"
-              onChangeText={setDateString}
-              value={dateString}
+              onChangeText={(value: string) => handleChange(value, "date")}
+              value={formModal.date}
               editable={false}
             />
           </Pressable>
@@ -228,15 +234,15 @@ export default function Home() {
           <TextInput
             className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
             placeholder="Nome do registro"
-            onChangeText={setName}
-            value={name}
+            onChangeText={(value: string) => handleChange(value, "name")}
+            value={formModal.name}
           />
           <Text className="text-black mb-2">Valor</Text>
           <TextInput
             className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
             placeholder="Valor do registro"
-            onChangeText={setValue}
-            value={value}
+            onChangeText={(value: string) => handleChange(value, "value")}
+            value={formModal.value}
           />
           <View className="flex flex-row">
             <TouchableOpacity
