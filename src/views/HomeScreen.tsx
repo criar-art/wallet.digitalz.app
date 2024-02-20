@@ -48,6 +48,19 @@ export default function Home() {
     { label: "Veículo", value: "vehicle" },
   ];
 
+  const renderBorderType = (type: string) => {
+    switch (type) {
+      case "investiment":
+        return "border-sky-400";
+      case "entry":
+        return "border-green-400";
+      case "expense":
+        return "border-red-400";
+      case "vehicle":
+        return "border-gray-400";
+    }
+  };
+
   async function save(key: string, value: any) {
     await SecureStore.setItemAsync(key, value);
   }
@@ -75,6 +88,7 @@ export default function Home() {
         },
         ...result,
       ]);
+
       save("wallet", values);
       getValueFor("wallet");
       setModalVisible(false);
@@ -124,7 +138,9 @@ export default function Home() {
       {result.map((item: any) => (
         <View
           key={item.id}
-          className="border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg"
+          className={`border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+            item.type
+          )}`}
         >
           <TouchableOpacity
             className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-gray-200 rounded-full p-2 text-center"
@@ -141,9 +157,7 @@ export default function Home() {
           <Text className="text-black">Valor: {item.value}</Text>
           <View className="flex flex-row items-center">
             <MaterialIcons name="calendar-month" size={22} color="black" />
-            <Text className="ml-2 text-black">
-              Data: {new Date(item.date).toLocaleString()}
-            </Text>
+            <Text className="ml-2 text-black">Data: {item.date}</Text>
           </View>
         </View>
       ))}
