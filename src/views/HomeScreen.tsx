@@ -6,7 +6,6 @@ import {
   Pressable,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import uuid from "react-native-uuid";
@@ -14,6 +13,7 @@ import * as SecureStore from "expo-secure-store";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Button from "../components/Button";
 
 export default function Home() {
   const intitialForm = {
@@ -126,15 +126,13 @@ export default function Home() {
 
   return (
     <View testID="home-screen" className="p-5">
-      <TouchableOpacity
-        className="flex justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center"
+      <Button
+        text="Novo Registro"
+        backgroundColor="bg-green-600"
+        textColor="text-white"
         onPress={() => setModalVisible(true)}
-      >
-        <>
-          <MaterialIcons name="add-circle" size={22} color="white" />
-          <Text className="ml-2 text-center text-white">Novo Registro</Text>
-        </>
-      </TouchableOpacity>
+        icon={<MaterialIcons name="add-circle" size={22} color="white" />}
+      />
 
       {result.map((item: any) => (
         <View
@@ -143,16 +141,18 @@ export default function Home() {
             item.type
           )}`}
         >
-          <TouchableOpacity
-            className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-gray-200 rounded-full p-2 text-center"
+          <Button
+            backgroundColor="bg-gray-100"
+            className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
             onPress={() => remove(item.id)}
-          >
-            <MaterialCommunityIcons
-              name="trash-can-outline"
-              size={24}
-              color="red"
-            />
-          </TouchableOpacity>
+            icon={
+              <MaterialCommunityIcons
+                name="trash-can-outline"
+                size={24}
+                color="red"
+              />
+            }
+          />
           <Text className="text-black">Tipo: {item.type}</Text>
           <Text className="text-black">Nome: {item.name}</Text>
           <Text className="text-black">Valor: {item.value}</Text>
@@ -172,14 +172,17 @@ export default function Home() {
           setModalVisible(!modalVisible);
         }}
       >
-        <KeyboardAvoidingView behavior="padding" className="flex justify-center translate-y-[-40px]">
+        <KeyboardAvoidingView
+          behavior="padding"
+          className="flex justify-center translate-y-[-40px]"
+        >
           <View className="bg-white p-4 rounded-lg border-2 border-slate-400 m-10">
-            <TouchableOpacity
-              className="scale-75 z-20 absolute top-0 right-0 m-2 flex justify-center items-center w-10 bg-red-600 rounded-full p-2 text-center"
+            <Button
+              backgroundColor="bg-red-600"
+              className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
               onPress={() => setModalVisible(!modalVisible)}
-            >
-              <MaterialIcons name="close" size={22} color="white" />
-            </TouchableOpacity>
+              icon={<MaterialIcons name="close" size={22} color="white" />}
+            />
             <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
               Criar Novo Registro
             </Text>
@@ -257,35 +260,29 @@ export default function Home() {
             <TextInput
               className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
               placeholder="Valor do registro"
-              onChangeText={(value: string) => handleChange(value.replace(/[^0-9]/g, '') , "value")}
+              onChangeText={(value: string) =>
+                handleChange(value.replace(/[^0-9]/g, ""), "value")
+              }
               value={formModal.value}
-              keyboardType='numeric'
+              keyboardType="numeric"
             />
             <View className="flex flex-row">
-              <TouchableOpacity
-                className="flex flex-1 justify-center items-center flex-row bg-gray-600 rounded-lg p-2 text-center mr-1"
-                onPress={() => {
-                  setModalVisible(false);
-                }}
-              >
-                <>
-                  <MaterialCommunityIcons
-                    name="cancel"
-                    size={22}
-                    color="white"
-                  />
-                  <Text className="ml-2 text-center text-white">Cancelar</Text>
-                </>
-              </TouchableOpacity>
-              <TouchableOpacity
-                className="flex flex-1 justify-center items-center flex-row bg-green-600 rounded-lg p-2 text-center ml-1"
+              <Button
+                text="Cancelar"
+                backgroundColor="bg-gray-600"
+                className="flex-1 mr-1"
+                textColor="text-white"
+                onPress={() => setModalVisible(false)}
+                icon={<MaterialIcons name="cancel" size={22} color="white" />}
+              />
+              <Button
+                text="Salvar"
+                backgroundColor="bg-green-600"
+                className="flex-1 mr-1"
+                textColor="text-white"
                 onPress={() => saveStore()}
-              >
-                <>
-                  <MaterialIcons name="save" size={22} color="white" />
-                  <Text className="ml-2 text-center text-white">Salvar</Text>
-                </>
-              </TouchableOpacity>
+                icon={<MaterialIcons name="save" size={22} color="white" />}
+              />
             </View>
           </View>
         </KeyboardAvoidingView>
