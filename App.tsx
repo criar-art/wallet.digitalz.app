@@ -1,9 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
-import { DrawerItem, createDrawerNavigator } from "@react-navigation/drawer";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
+
+import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import store from "./src/store";
 
 import HomeScreen from "./src/views/HomeScreen";
 import AboutScreen from "./src/views/AboutScreen";
@@ -36,25 +41,33 @@ const views = [
 ];
 
 export default function App() {
+  const persistor = persistStore(store);
+
   return (
-    <SafeAreaProvider testID="app-container">
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <Drawer.Navigator>
-          {views.map(({ name, title, drawerIcon, drawerLabel, component }) => (
-            <Drawer.Screen
-              key={name}
-              name={name}
-              options={{
-                title,
-                drawerLabel,
-                drawerIcon,
-              }}
-              component={component}
-            />
-          ))}
-        </Drawer.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <SafeAreaProvider testID="app-container">
+          <NavigationContainer>
+            <StatusBar style="auto" />
+            <Drawer.Navigator>
+              {views.map(
+                ({ name, title, drawerIcon, drawerLabel, component }) => (
+                  <Drawer.Screen
+                    key={name}
+                    name={name}
+                    options={{
+                      title,
+                      drawerLabel,
+                      drawerIcon,
+                    }}
+                    component={component}
+                  />
+                )
+              )}
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   );
 }

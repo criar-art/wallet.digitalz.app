@@ -4,22 +4,28 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
-import * as SecureStore from "expo-secure-store";
 
 import { Props } from "./types";
 import Button from "../Button";
 
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { RootState } from '../../store';
+import { setModalRegister, setRegister } from "../../store/commonSlice";
+
 export default function ModalRegister(props: Props) {
+  const dispatch = useAppDispatch();
+  const store = useAppSelector((state: RootState) => state);
+  const common = store.commonState;
+
   const intitialForm = {
     name: "",
     type: "",
     value: "",
     date: new Date().toLocaleDateString(),
   };
-  const [result, setResult] = useState([]);
+
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
   const [formModal, setFormModal] = useState(intitialForm);
 
   const handleChange = (value: string, name: string) => {
@@ -43,25 +49,10 @@ export default function ModalRegister(props: Props) {
     { label: "Veículo", value: "vehicle" },
   ];
 
-
-  async function save(key: string, value: any) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
-  async function getValueFor(key: string) {
-    let result = await SecureStore.getItemAsync(key);
-    if (result) {
-      setResult(JSON.parse(result));
-      console.log("🔐 Here's your value 🔐 \n" + result);
-    } else {
-      console.log("No values stored under that key.");
-    }
-  }
-
   function saveStore() {
     const { name, value, date, type } = formModal;
     if (name && value && date && type) {
-      const values = JSON.stringify([
+      const values = [
         {
           id: uuid.v4(),
           name,
@@ -69,12 +60,11 @@ export default function ModalRegister(props: Props) {
           date,
           type,
         },
-        ...result,
-      ]);
+        ...common.registers,
+      ];
 
-      save("wallet", values);
-      getValueFor("wallet");
-      setModalVisible(false);
+      dispatch(setRegister(values));
+      dispatch(setModalRegister(false));
       // Toast.show({
       //   type: 'success',
       //   text1: 'Sucesso',
@@ -91,28 +81,19 @@ export default function ModalRegister(props: Props) {
     }
   }
 
-  function remove(target: string) {
-    const filter = result.filter(({ id }) => id !== target);
-    save("wallet", JSON.stringify(filter));
-    getValueFor("wallet");
-  }
-
-  useEffect(() => {
-    getValueFor("wallet");
-  }, []);
-
   useEffect(() => {
     setFormModal(intitialForm);
     setDate(new Date());
-  }, [modalVisible]);
+  }, [common.modalRegister]);
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={modalVisible}
+      visible={common.modalRegister}
       onRequestClose={() => {
         Alert.alert("Modal has been closed.");
-        setModalVisible(!modalVisible);
+        dispatch(setModalRegister(false));
       }}
     >
       <KeyboardAvoidingView
@@ -123,7 +104,7 @@ export default function ModalRegister(props: Props) {
           <Button
             backgroundColor="bg-red-600"
             className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() => dispatch(setModalRegister(false))}
             icon={<MaterialIcons name="close" size={22} color="white" />}
           />
           <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
@@ -215,7 +196,7 @@ export default function ModalRegister(props: Props) {
               backgroundColor="bg-gray-600"
               className="flex-1 mr-1"
               textColor="text-white"
-              onPress={() => setModalVisible(false)}
+              onPress={() => dispatch(setModalRegister(false))}
               icon={<MaterialIcons name="cancel" size={22} color="white" />}
             />
             <Button

@@ -1,38 +1,28 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import * as SecureStore from "expo-secure-store";
 import { renderBorderType } from "../../utils";
 import { Props } from "./types";
 import Button from "../Button";
 
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { RootState } from '../../store';
+import { setRegister } from "../../store/commonSlice";
+
 export default function ListRegisters(props: Props) {
-  const [result, setResult] = useState([]);
-
-  async function save(key: string, value: any) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
-  async function getValueFor(key: string) {
-    let result = await SecureStore.getItemAsync(key);
-
-    if (result) {
-      setResult(JSON.parse(result));
-      console.log("🔐 Here's your value 🔐 \n" + result);
-    } else {
-      console.log("No values stored under that key.");
-    }
-  }
+  const dispatch = useAppDispatch();
+  const store = useAppSelector((state: RootState) => state);
+  const common = store.commonState;
 
   function remove(target: string) {
-    const filter = result.filter(({ id }) => id !== target);
-    save("wallet", JSON.stringify(filter));
-    getValueFor("wallet");
+    const filter = common.registers.filter(({ id }) => id !== target);
+    dispatch(setRegister(filter))
   }
+
   return (
     <View testID="list-register">
-      {result.length ? (
-        result.map((item: any) => (
+      {common.registers.length ? (
+        common.registers.map((item: any) => (
           <View
             key={item.id}
             className={`border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
