@@ -7,6 +7,7 @@ import uuid from "react-native-uuid";
 
 import { Props } from "./types";
 import Button from "../Button";
+import Select from "../Select";
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { RootState } from '../../store';
@@ -103,52 +104,21 @@ export default function ModalRegister(props: Props) {
         <View className="bg-white p-4 rounded-lg border-2 border-slate-400 m-10">
           <Button
             backgroundColor="bg-red-600"
-            className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
             onPress={() => dispatch(setModalRegister(false))}
             icon={<MaterialIcons name="close" size={22} color="white" />}
+            className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
           />
           <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
             Criar Novo Registro
           </Text>
           <Text className="text-black mb-2">Tipo</Text>
-          <Dropdown
-            style={{
-              marginBottom: 20,
-              paddingHorizontal: 10,
-              borderRadius: 8,
-              borderColor: "#94a3b8",
-              borderWidth: 2,
-            }}
-            containerStyle={{
-              paddingVertical: 2.5,
-              borderRadius: 8,
-              borderColor: "#94a3b8",
-              borderWidth: 2,
-              backgroundColor: "#fff",
-            }}
-            itemContainerStyle={{
-              borderRadius: 6,
-              marginHorizontal: 5,
-              marginVertical: 2.5,
-              backgroundColor: "#eee",
-              padding: 0,
-              height: 45,
-            }}
-            itemTextStyle={{
-              height: 20,
-              margin: 0,
-              padding: 0,
-              position: "relative",
-              top: -5,
-            }}
-            activeColor="#dcfce7"
+          <Select
             data={dataType}
             maxHeight={300}
-            labelField="label"
-            valueField="value"
             placeholder="Selecione o tipo"
             value={formModal.type}
-            onChange={({ value }) => handleChange(value, "type")}
+            handleChangeObject="type"
+            onChange={handleChange}
           />
           {showDate && (
             <DateTimePicker
