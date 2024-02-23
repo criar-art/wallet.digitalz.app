@@ -27,7 +27,7 @@ export default function ListRegisters(props: Props) {
     vehicle: "Veículo",
   };
 
-  const ItemList = ({ item }): any => (
+  const ItemList = ({ item }: any) => (
     <View
       key={item.id}
       className={`border-l-4 text-black mb-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
@@ -54,7 +54,9 @@ export default function ListRegisters(props: Props) {
         <NumericFormat
           value={item.value}
           displayType={"text"}
-          thousandSeparator={true}
+          decimalSeparator={","}
+          decimalScale={2}
+          fixedDecimalScale
           prefix={"R$ "}
           renderText={(value: string) => <Text>{value}</Text>}
         />

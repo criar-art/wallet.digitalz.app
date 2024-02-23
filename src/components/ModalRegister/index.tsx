@@ -162,10 +162,9 @@ export default function ModalRegister(props: Props) {
           <NumericFormat
             value={formModal.value}
             displayType={"text"}
-            thousandSeparator={true}
-            decimalSeparator={"."}
+            decimalSeparator={","}
             decimalScale={2}
-            prefix={""}
+            prefix={"R$ "}
             renderText={(value) => {
               if (formModal.value.endsWith(".") && !value.includes(".")) {
                 value = value + ".";
