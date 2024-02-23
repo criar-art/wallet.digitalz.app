@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Alert, KeyboardAvoidingView, Modal, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Modal,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
+import { NumericFormat } from "react-number-format";
 
 import { Props } from "./types";
 import Button from "../Button";
 import Select from "../Select";
 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { RootState } from '../../store';
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { RootState } from "../../store";
 import { setModalRegister, setRegister } from "../../store/commonSlice";
 
 export default function ModalRegister(props: Props) {
@@ -151,14 +159,27 @@ export default function ModalRegister(props: Props) {
             value={formModal.name}
           />
           <Text className="text-black mb-2">Valor</Text>
-          <TextInput
-            className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-            placeholder="Valor do registro"
-            onChangeText={(value: string) =>
-              handleChange(value.replace(/[^0-9]/g, ""), "value")
-            }
+          <NumericFormat
             value={formModal.value}
-            keyboardType="numeric"
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalSeparator={"."}
+            decimalScale={2}
+            prefix={""}
+            renderText={(value) => {
+              if (formModal.value.endsWith(".") && !value.includes(".")) {
+                value = value + ".";
+              }
+              return (
+                <TextInput
+                  className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+                  placeholder="Valor do registro"
+                  onChangeText={(value: string) => handleChange(value, "value")}
+                  value={value}
+                  keyboardType="numeric"
+                />
+              );
+            }}
           />
           <View className="flex flex-row">
             <Button

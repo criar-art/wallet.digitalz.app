@@ -1,12 +1,13 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { NumericFormat } from "react-number-format";
 import { renderBorderType } from "../../utils";
 import { Props } from "./types";
 import Button from "../Button";
 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { RootState } from '../../store';
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { RootState } from "../../store";
 import { setRegister } from "../../store/commonSlice";
 
 export default function ListRegisters(props: Props) {
@@ -16,8 +17,15 @@ export default function ListRegisters(props: Props) {
 
   function remove(target: string) {
     const filter = common.registers.filter(({ id }) => id !== target);
-    dispatch(setRegister(filter))
+    dispatch(setRegister(filter));
   }
+
+  const types: any = {
+    investiment: "Investimento",
+    entry: "Entrada",
+    expense: "Despesa",
+    vehicle: "Veículo",
+  };
 
   return (
     <View testID="list-register">
@@ -41,9 +49,19 @@ export default function ListRegisters(props: Props) {
                 />
               }
             />
-            <Text className="text-black">Tipo: {item.type}</Text>
-            <Text className="text-black">Nome: {item.name}</Text>
-            <Text className="text-black">Valor: {item.value}</Text>
+            <Text className="mb-2 text-black">
+              {types[item.type]} {item.name}
+            </Text>
+            <Text className="mb-2 text-black">
+              Valor:{" "}
+              <NumericFormat
+                value={item.value}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"R$ "}
+                renderText={(value: string) => <Text>{value}</Text>}
+              />
+            </Text>
             <View className="flex flex-row items-center">
               <MaterialIcons name="calendar-month" size={22} color="black" />
               <Text className="ml-2 text-black">Data: {item.date}</Text>
