@@ -10,3 +10,13 @@ export const renderBorderType = (type: string) => {
       return "border-gray-400";
   }
 };
+
+export const types: any = {
+  investiment: "Investimento",
+  entry: "Entrada",
+  expense: "Despesa",
+  vehicle: "Veículo",
+};
+
+export const capitalize = (s: string) =>
+  s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();

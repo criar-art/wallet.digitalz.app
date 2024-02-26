@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
-import { renderBorderType } from "../../utils";
+import { renderBorderType, types } from "../../utils";
 import { Props } from "./types";
 import Button from "../Button";
 
@@ -19,13 +19,6 @@ export default function ListRegisters(props: Props) {
     const filter = common.registers.filter(({ id }) => id !== target);
     dispatch(setRegister(filter));
   }
-
-  const types: any = {
-    investiment: "Investimento",
-    entry: "Entrada",
-    expense: "Despesa",
-    vehicle: "Veículo",
-  };
 
   const ItemList = ({ item }: any) => (
     <View
@@ -70,9 +63,9 @@ export default function ListRegisters(props: Props) {
 
   return (
     <View testID="list-register" className="py-5">
-      {common.registers.length ? (
+      {common.registers.filter((item: any) => item.type == props.type).length ? (
         <FlatList
-          data={common.registers}
+          data={common.registers.filter((item: any) => item.type == props.type)}
           renderItem={ItemList}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ paddingBottom: 50 }}
