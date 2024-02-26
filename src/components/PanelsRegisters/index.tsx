@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
-import { useNavigation, ParamListBase,  NavigationProp } from '@react-navigation/native';
-
+import {
+  useNavigation,
+  ParamListBase,
+  NavigationProp,
+} from "@react-navigation/native";
 
 import { renderBorderType, types, capitalize } from "../../utils";
 import { Props } from "./types";
@@ -60,12 +63,12 @@ export default function ListRegisters(props: Props) {
     <View testID="list-register">
       {common.registers.length ? (
         <>
-          <ItemList type="entry" value={entryTotal} />
-          <ItemList type="investiment" value={investTotal} />
-          <ItemList type="expense" value={expensesTotal} />
+          {entryTotal > 0 && <ItemList type="entry" value={entryTotal} />}
+          {investTotal > 0 && <ItemList type="investiment" value={investTotal} />}
+          {expensesTotal > 0 && <ItemList type="expense" value={expensesTotal} />}
         </>
       ) : (
-        <Text className="text-black">Nenhum registro cadastrado.</Text>
+        <Text className="text-black mt-5">Nenhum registro cadastrado.</Text>
       )}
     </View>
   );
