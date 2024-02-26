@@ -11,6 +11,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import store from "./src/store";
 
 import HomeScreen from "./src/views/HomeScreen";
+import ExpenseScreen from "./src/views/ExpenseScreen";
+import EntryScreen from "./src/views/EntryScreen";
+import InvestimentScreen from "./src/views/InvestimentScreen";
 import AboutScreen from "./src/views/AboutScreen";
 import ContactScreen from "./src/views/ContactScreen";
 
@@ -23,6 +26,27 @@ const views = [
     drawerLabel: "Início",
     drawerIcon: () => <MaterialIcons name="home" size={22} color="black" />,
     component: HomeScreen,
+  },
+  {
+    name: "Expense",
+    title: "Despesa",
+    drawerLabel: "Despesa",
+    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    component: ExpenseScreen,
+  },
+  {
+    name: "Entry",
+    title: "Entrada",
+    drawerLabel: "Entrada",
+    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    component: EntryScreen,
+  },
+  {
+    name: "Investiment",
+    title: "Investimento",
+    drawerLabel: "Investimento",
+    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    component: InvestimentScreen,
   },
   {
     name: "About",
@@ -59,6 +83,7 @@ export default function App() {
                       title,
                       drawerLabel,
                       drawerIcon,
+                      drawerActiveTintColor: '#333'
                     }}
                     component={component}
                   />

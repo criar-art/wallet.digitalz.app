@@ -2,17 +2,16 @@ import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
 import ModalRegister from "../components/ModalRegister";
-// import ListRegisters from "../components/ListRegisters";
-import PanelsRegisters from "../components/PanelsRegisters";
+import ListRegisters from "../components/ListRegisters";
 
 import { useAppDispatch } from '../store/hooks';
 import { setModalRegister } from "../store/commonSlice";
 
-export default function Home() {
+export default function Entry() {
   const dispatch = useAppDispatch();
 
   return (
-    <View testID="home-screen" className="p-5">
+    <View testID="entry-screen" className="p-5">
       <Button
         text="Novo Registro"
         backgroundColor="bg-green-600"
@@ -20,8 +19,7 @@ export default function Home() {
         onPress={() => dispatch(setModalRegister(true))}
         icon={<MaterialIcons name="add-circle" size={22} color="white" />}
       />
-      <PanelsRegisters />
-      {/* <ListRegisters /> */}
+      <ListRegisters type="entry" />
       <ModalRegister />
     </View>
   );
