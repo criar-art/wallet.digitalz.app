@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
@@ -31,21 +32,21 @@ const views = [
     name: "Expense",
     title: "Despesa",
     drawerLabel: "Despesa",
-    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    drawerIcon: () => <MaterialCommunityIcons name="cash-remove" size={22} color="black" />,
     component: ExpenseScreen,
   },
   {
     name: "Entry",
     title: "Entrada",
     drawerLabel: "Entrada",
-    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    drawerIcon: () => <MaterialCommunityIcons name="cash-check" size={22} color="black" />,
     component: EntryScreen,
   },
   {
     name: "Investiment",
     title: "Investimento",
     drawerLabel: "Investimento",
-    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    drawerIcon: () => <MaterialIcons name="attach-money" size={22} color="black" />,
     component: InvestimentScreen,
   },
   {
