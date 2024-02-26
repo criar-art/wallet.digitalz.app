@@ -35,6 +35,7 @@ export default function ModalRegister(props: Props) {
 
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const [formModal, setFormModal] = useState(intitialForm);
 
   const handleChange = (value: string, name: string) => {
@@ -93,6 +94,7 @@ export default function ModalRegister(props: Props) {
   useEffect(() => {
     setFormModal(intitialForm);
     setDate(new Date());
+    setInputValue('')
   }, [common.modalRegister]);
 
   return (
@@ -160,20 +162,19 @@ export default function ModalRegister(props: Props) {
           />
           <Text className="text-black mb-2">Valor</Text>
           <NumericFormat
-            value={formModal.value}
+            value={inputValue}
             displayType={"text"}
+            thousandSeparator={"."}
             decimalSeparator={","}
             decimalScale={2}
             prefix={"R$ "}
+            onValueChange={(values) => handleChange(values.value, "value")}
             renderText={(value) => {
-              if (formModal.value.endsWith(".") && !value.includes(".")) {
-                value = value + ".";
-              }
               return (
                 <TextInput
                   className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
                   placeholder="Valor do registro"
-                  onChangeText={(value: string) => handleChange(value, "value")}
+                  onChangeText={(value: string) => setInputValue(value)}
                   value={value}
                   keyboardType="numeric"
                 />
