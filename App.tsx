@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./src/store";
+
+import ModalRegister from "./src/components/ModalRegister";
 
 import HomeScreen from "./src/views/HomeScreen";
 import ExpenseScreen from "./src/views/ExpenseScreen";
@@ -32,21 +34,27 @@ const views = [
     name: "Expense",
     title: "Despesa",
     drawerLabel: "Despesa",
-    drawerIcon: () => <MaterialCommunityIcons name="cash-remove" size={22} color="black" />,
+    drawerIcon: () => (
+      <MaterialCommunityIcons name="cash-remove" size={22} color="black" />
+    ),
     component: ExpenseScreen,
   },
   {
     name: "Entry",
     title: "Entrada",
     drawerLabel: "Entrada",
-    drawerIcon: () => <MaterialCommunityIcons name="cash-check" size={22} color="black" />,
+    drawerIcon: () => (
+      <MaterialCommunityIcons name="cash-check" size={22} color="black" />
+    ),
     component: EntryScreen,
   },
   {
     name: "Investiment",
     title: "Investimento",
     drawerLabel: "Investimento",
-    drawerIcon: () => <MaterialIcons name="attach-money" size={22} color="black" />,
+    drawerIcon: () => (
+      <MaterialIcons name="attach-money" size={22} color="black" />
+    ),
     component: InvestimentScreen,
   },
   {
@@ -84,13 +92,14 @@ export default function App() {
                       title,
                       drawerLabel,
                       drawerIcon,
-                      drawerActiveTintColor: '#333'
+                      drawerActiveTintColor: "#333",
                     }}
                     component={component}
                   />
                 )
               )}
             </Drawer.Navigator>
+            <ModalRegister />
           </NavigationContainer>
         </SafeAreaProvider>
       </PersistGate>
