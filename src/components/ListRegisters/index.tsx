@@ -12,8 +12,7 @@ import { setRegister } from "../../store/commonSlice";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
-  const store = useAppSelector((state: RootState) => state);
-  const common = store.commonState;
+  const common = useAppSelector((state: RootState) => state.commonState);
 
   function remove(target: string) {
     const filter = common.registers.filter(({ id }) => id !== target);

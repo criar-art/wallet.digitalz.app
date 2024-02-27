@@ -23,8 +23,7 @@ import { setModalRegister, setRegister } from "../../store/commonSlice";
 
 export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();
-  const store = useAppSelector((state: RootState) => state);
-  const common = store.commonState;
+  const common = useAppSelector((state: RootState) => state.commonState);
 
   const intitialForm = {
     name: "",

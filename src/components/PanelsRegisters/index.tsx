@@ -14,8 +14,7 @@ import { RootState } from "../../store";
 
 export default function ListRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
-  const store = useAppSelector((state: RootState) => state);
-  const common = store.commonState;
+  const common = useAppSelector((state: RootState) => state.commonState);
 
   const getTotal = (type: string) =>
     common.registers
