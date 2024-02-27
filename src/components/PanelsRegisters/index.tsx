@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   useNavigation,
   ParamListBase,
   NavigationProp,
 } from "@react-navigation/native";
 
-import { renderBorderType, types, capitalize } from "../../utils";
+import {
+  renderBorderType,
+  types,
+  capitalize,
+  ckeckTypeTouchable,
+} from "../../utils";
 import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
@@ -23,20 +29,32 @@ export default function ListRegisters(props: Props) {
         return Number(value) + Number(a);
       }, 0);
 
+  const getLiquidTotal = () => getTotal("entry") - getTotal("expense");
+  const getPatrimonyTotal = () => getLiquidTotal() + getTotal("investiment");
+
   const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
   const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
   const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
+  const [liquidTotal, setLiquidTotal] = useState(getLiquidTotal());
+  const [patrimonyTotal, setPatrimonyTotal] = useState(getPatrimonyTotal());
 
   useEffect(() => {
     setExpensesTotal(getTotal("expense"));
     setEntryTotal(getTotal("investiment"));
     setInvestTotal(getTotal("entry"));
+    setLiquidTotal(getLiquidTotal());
+    setPatrimonyTotal(getPatrimonyTotal());
   }, [common.registers]);
 
   const ItemList = (props: any) => (
-    <Pressable
-      onPress={() => navigation.navigate(capitalize(props.type))}
-      className={`border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+    <TouchableOpacity
+      onPress={() =>
+        ckeckTypeTouchable(props.type)
+          ? navigation.navigate(capitalize(props.type))
+          : null
+      }
+      activeOpacity={ckeckTypeTouchable(props.type) ? 0.5 : 1}
+      className={`flex flex-row justify-between items-center border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
         props.type
       )}`}
     >
@@ -49,22 +67,33 @@ export default function ListRegisters(props: Props) {
         fixedDecimalScale
         prefix={"R$ "}
         renderText={(value: string) => (
-          <Text className="text-black">
-            Total {types[props.type]}:{" "}
+          <View className="flex">
+            <Text className="text-black">Total {types[props.type]}</Text>
             <Text className="font-bold">{value}</Text>
-          </Text>
+          </View>
         )}
       />
-    </Pressable>
+      {ckeckTypeTouchable(props.type) && (
+        <MaterialIcons name="navigate-next" size={30} color="black" />
+      )}
+    </TouchableOpacity>
   );
 
   return (
     <View testID="list-register">
       {common.registers.length ? (
         <>
+          {liquidTotal > 0 && <ItemList type="liquid" value={liquidTotal} />}
+          {patrimonyTotal > 0 && (
+            <ItemList type="patrimony" value={patrimonyTotal} />
+          )}
           {entryTotal > 0 && <ItemList type="entry" value={entryTotal} />}
-          {investTotal > 0 && <ItemList type="investiment" value={investTotal} />}
-          {expensesTotal > 0 && <ItemList type="expense" value={expensesTotal} />}
+          {investTotal > 0 && (
+            <ItemList type="investiment" value={investTotal} />
+          )}
+          {expensesTotal > 0 && (
+            <ItemList type="expense" value={expensesTotal} />
+          )}
         </>
       ) : (
         <Text className="text-black mt-5">Nenhum registro cadastrado.</Text>
