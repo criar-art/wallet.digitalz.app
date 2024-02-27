@@ -1,5 +1,9 @@
 export const renderBorderType = (type: string) => {
   switch (type) {
+    case "liquid":
+      return "border-yellow-400";
+    case "patrimony":
+      return "border-black";
     case "investiment":
       return "border-sky-400";
     case "entry":
@@ -12,6 +16,8 @@ export const renderBorderType = (type: string) => {
 };
 
 export const types: any = {
+  liquid: "Liquido",
+  patrimony: "Patrimônio",
   investiment: "Investimento",
   entry: "Entrada",
   expense: "Despesa",
@@ -20,3 +26,13 @@ export const types: any = {
 
 export const capitalize = (s: string) =>
   s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+
+export const ckeckTypeTouchable = (type: string) => {
+  switch (type) {
+    case "liquid":
+    case "patrimony":
+      return false;
+    default:
+      return true;
+  }
+};
