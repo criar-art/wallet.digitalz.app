@@ -8,11 +8,16 @@ import Button from "../Button";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
-import { setRegister } from "../../store/commonSlice";
+import { setModalRegister, setRegister } from "../../store/commonSlice";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+
+  // function edit(target: string) {
+  //   const itemIndex = common.registers.findIndex(({ id }) => id == target)
+  //   dispatch(setModalRegister(true));
+  // }
 
   function remove(target: string) {
     const filter = common.registers.filter(({ id }) => id !== target);
@@ -26,9 +31,21 @@ export default function ListRegisters(props: Props) {
         item.type
       )}`}
     >
-      <Button
+      {/* <Button
         backgroundColor="bg-gray-100"
         className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
+        onPress={() => edit(item.id)}
+        icon={
+          <MaterialIcons
+            name="edit"
+            size={24}
+            color="black"
+          />
+        }
+      /> */}
+      <Button
+        backgroundColor="bg-gray-100"
+        className="scale-75 z-20 absolute bottom-0 right-0 m-2 rounded-full p-2 w-10"
         onPress={() => remove(item.id)}
         icon={
           <MaterialCommunityIcons
@@ -46,6 +63,7 @@ export default function ListRegisters(props: Props) {
         <NumericFormat
           value={item.value}
           displayType={"text"}
+          thousandSeparator={"."}
           decimalSeparator={","}
           decimalScale={2}
           fixedDecimalScale
