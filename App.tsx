@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
 
 const views = [
   {
-    name: "Home",
+    name: "Root",
     title: "Wallet Digitalz",
     drawerLabel: "Início",
     drawerIcon: () => <MaterialIcons name="home" size={22} color="black" />,
