@@ -5,7 +5,7 @@ export const commonSlice = createSlice({
   name: 'commonState',
   initialState: {
     registers: [],
-    modalRegister: true,
+    modalRegister: false,
   } as common,
   reducers: {
     setRegister(state, payload) {
