@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -21,6 +22,7 @@ import AboutScreen from "./src/views/AboutScreen";
 import ContactScreen from "./src/views/ContactScreen";
 
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const views = [
   {
@@ -28,34 +30,7 @@ const views = [
     title: "Wallet Digitalz",
     drawerLabel: "Início",
     drawerIcon: () => <MaterialIcons name="home" size={22} color="black" />,
-    component: HomeScreen,
-  },
-  {
-    name: "Expense",
-    title: "Despesa",
-    drawerLabel: "Despesa",
-    drawerIcon: () => (
-      <MaterialCommunityIcons name="cash-remove" size={22} color="black" />
-    ),
-    component: ExpenseScreen,
-  },
-  {
-    name: "Entry",
-    title: "Entrada",
-    drawerLabel: "Entrada",
-    drawerIcon: () => (
-      <MaterialCommunityIcons name="cash-check" size={22} color="black" />
-    ),
-    component: EntryScreen,
-  },
-  {
-    name: "Investiment",
-    title: "Investimento",
-    drawerLabel: "Investimento",
-    drawerIcon: () => (
-      <MaterialIcons name="attach-money" size={22} color="black" />
-    ),
-    component: InvestimentScreen,
+    component: HomeStack,
   },
   {
     name: "About",
@@ -72,6 +47,66 @@ const views = [
     component: ContactScreen,
   },
 ];
+
+const viewsTab = [
+  {
+    name: "Home",
+    title: "Geral",
+    tabBarLabel: "Início",
+    tabBarIcon: () => <MaterialIcons name="home" size={22} color="black" />,
+    component: HomeScreen,
+  },
+  {
+    name: "Expense",
+    title: "Despesa",
+    tabBarLabel: "Despesa",
+    tabBarIcon: () => (
+      <MaterialCommunityIcons name="cash-remove" size={22} color="black" />
+    ),
+    component: ExpenseScreen,
+  },
+  {
+    name: "Entry",
+    title: "Entrada",
+    tabBarLabel: "Entrada",
+    tabBarIcon: () => (
+      <MaterialCommunityIcons name="cash-check" size={22} color="black" />
+    ),
+    component: EntryScreen,
+  },
+  {
+    name: "Investiment",
+    title: "Investimento",
+    tabBarLabel: "Investimento",
+    tabBarIcon: () => (
+      <MaterialIcons name="attach-money" size={22} color="black" />
+    ),
+    component: InvestimentScreen,
+  }
+];
+
+function HomeStack() {
+  return (
+    <Tab.Navigator>
+      {viewsTab.map(
+        ({ name, title, tabBarIcon, tabBarLabel, component }) => (
+          <Tab.Screen
+            key={name}
+            name={name}
+            options={{
+              title,
+              tabBarLabel,
+              tabBarIcon,
+              tabBarActiveTintColor: "#333",
+              tabBarActiveBackgroundColor: "#eee"
+            }}
+            component={component}
+          />
+        )
+      )}
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   const persistor = persistStore(store);
