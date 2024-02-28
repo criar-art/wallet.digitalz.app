@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons  } from "@expo/vector-icons";
 import {
   useNavigation,
   ParamListBase,
@@ -31,19 +31,18 @@ export default function ListRegisters(props: Props) {
 
   const getLiquidTotal = () => getTotal("entry") - getTotal("expense");
   const getPatrimonyTotal = () => getLiquidTotal() + getTotal("investiment");
-
-  const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
-  const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
-  const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
   const [liquidTotal, setLiquidTotal] = useState(getLiquidTotal());
   const [patrimonyTotal, setPatrimonyTotal] = useState(getPatrimonyTotal());
+  const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
+  const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
+  const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
 
   useEffect(() => {
-    setExpensesTotal(getTotal("expense"));
-    setEntryTotal(getTotal("investiment"));
-    setInvestTotal(getTotal("entry"));
     setLiquidTotal(getLiquidTotal());
     setPatrimonyTotal(getPatrimonyTotal());
+    setEntryTotal(getTotal("entry"));
+    setExpensesTotal(getTotal("expense"));
+    setInvestTotal(getTotal("investiment"));
   }, [common.registers]);
 
   const ItemList = (props: any) => (
@@ -73,6 +72,12 @@ export default function ListRegisters(props: Props) {
           </View>
         )}
       />
+      {props.type == 'liquid' && (
+        <MaterialIcons name="attach-money" size={30} color="#aaa" />
+      )}
+      {props.type == 'patrimony' && (
+        <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
+      )}
       {ckeckTypeTouchable(props.type) && (
         <MaterialIcons name="navigate-next" size={30} color="black" />
       )}
