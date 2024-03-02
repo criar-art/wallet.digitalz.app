@@ -1,9 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
@@ -82,28 +81,26 @@ const viewsTab = [
       <MaterialIcons name="attach-money" size={22} color="black" />
     ),
     component: InvestimentScreen,
-  }
+  },
 ];
 
 function HomeStack() {
   return (
-    <Tab.Navigator>
-      {viewsTab.map(
-        ({ name, title, tabBarIcon, tabBarLabel, component }) => (
-          <Tab.Screen
-            key={name}
-            name={name}
-            options={{
-              title,
-              tabBarLabel,
-              tabBarIcon,
-              tabBarActiveTintColor: "#333",
-              tabBarActiveBackgroundColor: "#eee"
-            }}
-            component={component}
-          />
-        )
-      )}
+    <Tab.Navigator initialRouteName="Home">
+      {viewsTab.map(({ name, title, tabBarIcon, tabBarLabel, component }) => (
+        <Tab.Screen
+          key={name}
+          name={name}
+          options={{
+            title,
+            tabBarLabel,
+            tabBarIcon,
+            tabBarActiveTintColor: "#333",
+            tabBarActiveBackgroundColor: "#eee",
+          }}
+          component={component}
+        />
+      ))}
     </Tab.Navigator>
   );
 }
@@ -112,12 +109,12 @@ export default function App() {
   const persistor = persistStore(store);
 
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <SafeAreaProvider testID="app-container">
+    <SafeAreaProvider testID="app-container">
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
           <NavigationContainer>
             <StatusBar style="auto" />
-            <Drawer.Navigator>
+            <Drawer.Navigator initialRouteName="Root">
               {views.map(
                 ({ name, title, drawerIcon, drawerLabel, component }) => (
                   <Drawer.Screen
@@ -136,8 +133,8 @@ export default function App() {
             </Drawer.Navigator>
             <ModalRegister />
           </NavigationContainer>
-        </SafeAreaProvider>
-      </PersistGate>
-    </Provider>
+        </PersistGate>
+      </Provider>
+    </SafeAreaProvider>
   );
 }
