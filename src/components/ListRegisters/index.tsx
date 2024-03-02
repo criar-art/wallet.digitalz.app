@@ -80,7 +80,8 @@ export default function ListRegisters(props: Props) {
 
   return (
     <View testID="list-register" className="py-5">
-      {common.registers.filter((item: any) => item.type == props.type).length ? (
+      {common.registers.filter((item: any) => item.type == props.type)
+        .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
           renderItem={ItemList}

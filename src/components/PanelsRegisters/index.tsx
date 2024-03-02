@@ -18,7 +18,7 @@ import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
 
-export default function ListRegisters(props: Props) {
+export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
 
@@ -85,7 +85,7 @@ export default function ListRegisters(props: Props) {
   );
 
   return (
-    <View testID="list-register">
+    <View testID="panels-registers">
       {common.registers.length ? (
         <>
           {liquidTotal > 0 && <ItemList type="liquid" value={liquidTotal} />}

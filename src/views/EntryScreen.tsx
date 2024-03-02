@@ -3,10 +3,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
 import ListRegisters from "../components/ListRegisters";
 
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch } from "../store/hooks";
 import { setModalRegister } from "../store/commonSlice";
 
-export default function Entry() {
+export default function EntryScreen() {
   const dispatch = useAppDispatch();
 
   return (

@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function About() {
+export default function ContactScreen() {
   return (
     <View
       testID="contact-screen"

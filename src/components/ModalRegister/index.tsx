@@ -98,6 +98,7 @@ export default function ModalRegister(props: Props) {
 
   return (
     <Modal
+      testID="modal-register"
       animationType="slide"
       transparent={true}
       visible={common.modalRegister}
