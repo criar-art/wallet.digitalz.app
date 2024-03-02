@@ -1,8 +1,18 @@
-import { render } from '@testing-library/react-native';
-import ExpenseScreen from './ExpenseScreen';
+import { render } from "@testing-library/react-native";
+import EntryScreen from "./EntryScreen";
 
-test('should render ExpenseScreen', () => {
-  const { getByTestId } = render(<ExpenseScreen />);
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "../store";
 
-  expect(getByTestId('expense-screen')).toBeTruthy();
+test("should render EntryScreen", () => {
+  const { getByTestId } = render(
+    <Provider store={store}>
+      <NavigationContainer>
+        <EntryScreen />
+      </NavigationContainer>
+    </Provider>
+  );
+
+  expect(getByTestId("entry-screen")).toBeTruthy();
 });

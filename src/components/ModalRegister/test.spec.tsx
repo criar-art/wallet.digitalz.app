@@ -1,8 +1,18 @@
-import { render } from '@testing-library/react-native';
-import ModalRegister from './index';
+import { render } from "@testing-library/react-native";
+import ModalRegister from "./index";
 
-test('should render ModalRegister', () => {
-  const { getByTestId } = render(<ModalRegister />);
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "../../__mock__/store";
 
-  expect(getByTestId('modal-register')).toBeTruthy();
+test("should render ModalRegister", () => {
+  const { getByTestId } = render(
+    <Provider store={store}>
+      <NavigationContainer>
+        <ModalRegister />
+      </NavigationContainer>
+    </Provider>
+  );
+
+  expect(getByTestId("modal-register")).toBeTruthy();
 });
