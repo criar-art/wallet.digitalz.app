@@ -98,7 +98,15 @@ function HomeStack() {
             tabBarActiveTintColor: "#333",
             tabBarActiveBackgroundColor: "#eee",
             tabBarItemStyle: { padding: 10 },
-            tabBarStyle: { height: 55 }
+            tabBarStyle: { height: 55 },
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: "#ddd",
+              height: 35,
+            },
+            headerTitleStyle: {
+              fontSize: 15,
+            },
           }}
           component={component}
         />
