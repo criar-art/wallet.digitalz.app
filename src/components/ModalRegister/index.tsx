@@ -171,7 +171,7 @@ export default function ModalRegister(props: Props) {
                     placeholder="Valor do registro"
                     onChangeText={(value: string) => setInputValue(value)}
                     value={value}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                   />
                 );
               }}
