@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
-import { MaterialIcons, MaterialCommunityIcons  } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   useNavigation,
   ParamListBase,
