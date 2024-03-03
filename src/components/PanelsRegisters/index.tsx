@@ -53,7 +53,7 @@ export default function PanelsRegisters(props: Props) {
           : null
       }
       activeOpacity={ckeckTypeTouchable(props.type) ? 0.5 : 1}
-      className={`flex flex-row justify-between items-center border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
         props.type
       )}`}
     >
@@ -101,7 +101,7 @@ export default function PanelsRegisters(props: Props) {
           )}
         </>
       ) : (
-        <Text className="text-black mt-5">Nenhum registro cadastrado.</Text>
+        <Text className="text-black text-center">Nenhum registro cadastrado.</Text>
       )}
     </View>
   );

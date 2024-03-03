@@ -27,7 +27,7 @@ export default function ListRegisters(props: Props) {
   const ItemList = ({ item }: any) => (
     <View
       key={item.id}
-      className={`border-l-4 text-black mb-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
         item.type
       )}`}
     >
@@ -79,17 +79,17 @@ export default function ListRegisters(props: Props) {
   );
 
   return (
-    <View testID="list-register" className="py-5">
+    <View testID="list-register">
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
           renderItem={ItemList}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 50 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
         />
       ) : (
-        <Text className="text-black">Nenhum registro cadastrado.</Text>
+        <Text className="text-black text-center p-5">Nenhum registro cadastrado.</Text>
       )}
     </View>
   );

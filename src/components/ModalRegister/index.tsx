@@ -97,106 +97,116 @@ export default function ModalRegister(props: Props) {
   }, [common.modalRegister]);
 
   return (
-    <Modal
-      testID="modal-register"
-      animationType="slide"
-      transparent={true}
-      visible={common.modalRegister}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        dispatch(setModalRegister(false));
-      }}
-    >
-      <View className="bg-black/70 min-h-screen">
-        <KeyboardAvoidingView
-          behavior="padding"
-          className="flex justify-center translate-y-[-30px]"
-        >
-          <View className="bg-white p-4 rounded-lg m-10">
-            <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
-              Criar Novo Registro
-            </Text>
-            <Text className="text-black mb-2">Tipo</Text>
-            <Select
-              data={dataType}
-              maxHeight={300}
-              placeholder="Selecione o tipo"
-              value={formModal.type}
-              handleChangeObject="type"
-              onChange={handleChange}
-            />
-            {showDate && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode="date"
-                is24Hour={true}
-                onChange={onChange}
+    <>
+      <Button
+        text="Novo Registro"
+        backgroundColor="bg-green-600"
+        textColor="text-white"
+        className="rounded-none"
+        onPress={() => dispatch(setModalRegister(true))}
+        icon={<MaterialIcons name="add-circle" size={22} color="white" />}
+      />
+      <Modal
+        testID="modal-register"
+        animationType="slide"
+        transparent={true}
+        visible={common.modalRegister}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          dispatch(setModalRegister(false));
+        }}
+      >
+        <View className="bg-black/70 min-h-screen">
+          <KeyboardAvoidingView
+            behavior="padding"
+            className="flex justify-center translate-y-[-30px]"
+          >
+            <View className="bg-white p-4 rounded-lg m-10">
+              <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
+                Criar Novo Registro
+              </Text>
+              <Text className="text-black mb-2">Tipo</Text>
+              <Select
+                data={dataType}
+                maxHeight={300}
+                placeholder="Selecione o tipo"
+                value={formModal.type}
+                handleChangeObject="type"
+                onChange={handleChange}
               />
-            )}
-            <Text className="text-black mb-2">Data</Text>
-            <Pressable
-              onPress={() => setShowDate(true)}
-              className="flex flex-row mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-            >
-              <MaterialIcons name="calendar-month" size={22} color="black" />
+              {showDate && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode="date"
+                  is24Hour={true}
+                  onChange={onChange}
+                />
+              )}
+              <Text className="text-black mb-2">Data</Text>
+              <Pressable
+                onPress={() => setShowDate(true)}
+                className="flex flex-row mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+              >
+                <MaterialIcons name="calendar-month" size={22} color="black" />
+                <TextInput
+                  className="ml-2 text-black"
+                  placeholder="Data do registro"
+                  onChangeText={(value: string) => handleChange(value, "date")}
+                  value={formModal.date}
+                  editable={false}
+                />
+              </Pressable>
+              <Text className="text-black mb-2">Nome</Text>
               <TextInput
-                className="ml-2 text-black"
-                placeholder="Data do registro"
-                onChangeText={(value: string) => handleChange(value, "date")}
-                value={formModal.date}
-                editable={false}
+                className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+                placeholder="Nome do registro"
+                onChangeText={(value: string) => handleChange(value, "name")}
+                value={formModal.name}
               />
-            </Pressable>
-            <Text className="text-black mb-2">Nome</Text>
-            <TextInput
-              className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-              placeholder="Nome do registro"
-              onChangeText={(value: string) => handleChange(value, "name")}
-              value={formModal.name}
-            />
-            <Text className="text-black mb-2">Valor</Text>
-            <NumericFormat
-              value={inputValue}
-              displayType={"text"}
-              thousandSeparator={"."}
-              decimalSeparator={","}
-              decimalScale={2}
-              prefix={"R$ "}
-              onValueChange={(values) => handleChange(values.value, "value")}
-              renderText={(value) => {
-                return (
-                  <TextInput
-                    className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
-                    placeholder="Valor do registro"
-                    onChangeText={(value: string) => setInputValue(value)}
-                    value={value}
-                    keyboardType="phone-pad"
-                  />
-                );
-              }}
-            />
-            <View className="flex flex-row">
-              <Button
-                text="Cancelar"
-                backgroundColor="bg-gray-600"
-                className="flex-1 mr-1"
-                textColor="text-white"
-                onPress={() => dispatch(setModalRegister(false))}
-                icon={<MaterialIcons name="cancel" size={22} color="white" />}
+              <Text className="text-black mb-2">Valor</Text>
+              <NumericFormat
+                value={inputValue}
+                displayType={"text"}
+                thousandSeparator={"."}
+                decimalSeparator={","}
+                decimalScale={2}
+                prefix={"R$ "}
+                onValueChange={(values) => handleChange(values.value, "value")}
+                renderText={(value) => {
+                  return (
+                    <TextInput
+                      className="mb-4 p-1 px-2 bg-white rounded-lg border-2 border-slate-400"
+                      placeholder="Valor do registro"
+                      onChangeText={(value: string) => setInputValue(value)}
+                      value={value}
+                      keyboardType="phone-pad"
+                    />
+                  );
+                }}
               />
-              <Button
-                text="Salvar"
-                backgroundColor="bg-green-600"
-                className="flex-1 mr-1"
-                textColor="text-white"
-                onPress={() => saveStore()}
-                icon={<MaterialIcons name="save" size={22} color="white" />}
-              />
+              <View className="flex flex-row">
+                <Button
+                  text="Cancelar"
+                  backgroundColor="bg-gray-600"
+                  className="flex-1 mr-1"
+                  textColor="text-white"
+                  onPress={() => dispatch(setModalRegister(false))}
+                  icon={<MaterialIcons name="cancel" size={22} color="white" />}
+                />
+                <Button
+                  text="Salvar"
+                  backgroundColor="bg-green-600"
+                  className="flex-1 mr-1"
+                  textColor="text-white"
+                  onPress={() => saveStore()}
+                  icon={<MaterialIcons name="save" size={22} color="white" />}
+                />
+              </View>
             </View>
-          </View>
-        </KeyboardAvoidingView>
-      </View>
-    </Modal>
+          </KeyboardAvoidingView>
+        </View>
+      </Modal>
+    </>
   );
 }
