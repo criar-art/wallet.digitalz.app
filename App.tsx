@@ -97,6 +97,8 @@ function HomeStack() {
             tabBarIcon,
             tabBarActiveTintColor: "#333",
             tabBarActiveBackgroundColor: "#eee",
+            tabBarItemStyle: { padding: 10 },
+            tabBarStyle: { height: 55 }
           }}
           component={component}
         />
