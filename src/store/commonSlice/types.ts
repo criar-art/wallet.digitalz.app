@@ -1,4 +1,5 @@
 export interface common {
   registers: Array<any>;
-  modalRegister: boolean;
+  modalRegister: string;
+  registerData: any;
 }

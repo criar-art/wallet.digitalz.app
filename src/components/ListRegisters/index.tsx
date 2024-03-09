@@ -8,16 +8,20 @@ import Button from "../Button";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
-import { setModalRegister, setRegister } from "../../store/commonSlice";
+import {
+  setModalRegister,
+  setRegister,
+  setRegisterData,
+} from "../../store/commonSlice";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
 
-  // function edit(target: string) {
-  //   const itemIndex = common.registers.findIndex(({ id }) => id == target)
-  //   dispatch(setModalRegister(true));
-  // }
+  function edit(target: any) {
+    dispatch(setModalRegister("edit"));
+    dispatch(setRegisterData({ ...target }));
+  }
 
   function remove(target: string) {
     const filter = common.registers.filter(({ id }) => id !== target);
@@ -31,18 +35,12 @@ export default function ListRegisters(props: Props) {
         item.type
       )}`}
     >
-      {/* <Button
+      <Button
         backgroundColor="bg-gray-100"
         className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
-        onPress={() => edit(item.id)}
-        icon={
-          <MaterialIcons
-            name="edit"
-            size={24}
-            color="black"
-          />
-        }
-      /> */}
+        onPress={() => edit(item)}
+        icon={<MaterialIcons name="edit" size={24} color="black" />}
+      />
       <Button
         backgroundColor="bg-gray-100"
         className="scale-75 z-20 absolute bottom-0 right-0 m-2 rounded-full p-2 w-10"
@@ -89,7 +87,9 @@ export default function ListRegisters(props: Props) {
           contentContainerStyle={{ paddingBottom: 20 }}
         />
       ) : (
-        <Text className="text-black text-center p-5">Nenhum registro cadastrado.</Text>
+        <Text className="text-black text-center p-5">
+          Nenhum registro cadastrado.
+        </Text>
       )}
     </View>
   );

@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   View,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -20,7 +20,11 @@ import Select from "../Select";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
-import { setModalRegister, setRegister } from "../../store/commonSlice";
+import {
+  setModalRegister,
+  setRegister,
+  setEditRegister,
+} from "../../store/commonSlice";
 
 export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();
@@ -62,19 +66,29 @@ export default function ModalRegister(props: Props) {
   function saveStore() {
     const { name, value, date, type } = formModal;
     if (name && value && date && type) {
-      const values = [
-        {
-          id: uuid.v4(),
-          name,
-          value,
-          date,
-          type,
-        },
-        ...common.registers,
-      ];
+      if (common.modalRegister == "edit") {
+        dispatch(
+          setEditRegister({
+            id: common.registerData.id,
+            ...formModal,
+          })
+        );
+      } else {
+        const values = [
+          {
+            id: uuid.v4(),
+            name,
+            value,
+            date,
+            type,
+          },
+          ...common.registers,
+        ];
+        dispatch(setRegister(values));
+      }
 
-      dispatch(setRegister(values));
-      dispatch(setModalRegister(false));
+      dispatch(setModalRegister(""));
+
       // Toast.show({
       //   type: 'success',
       //   text1: 'Sucesso',
@@ -92,9 +106,18 @@ export default function ModalRegister(props: Props) {
   }
 
   useEffect(() => {
-    setFormModal(intitialForm);
-    setDate(new Date());
-    setInputValue("");
+    if (common.modalRegister == "edit") {
+      const [month, day, year] = common.registerData.date
+        .split("/")
+        .map(Number);
+      setDate(new Date(year, month - 1, day));
+      setFormModal({ ...common.registerData });
+      setInputValue(common.registerData.value);
+    } else {
+      setFormModal(intitialForm);
+      setDate(new Date());
+      setInputValue("");
+    }
   }, [common.modalRegister]);
 
   return (
@@ -104,17 +127,19 @@ export default function ModalRegister(props: Props) {
         backgroundColor="bg-green-600"
         textColor="text-white"
         className="rounded-none"
-        onPress={() => dispatch(setModalRegister(true))}
+        onPress={() => dispatch(setModalRegister("register"))}
         icon={<MaterialIcons name="add-circle" size={22} color="white" />}
       />
       <Modal
         testID="modal-register"
         animationType="slide"
         transparent={true}
-        visible={common.modalRegister}
+        visible={
+          common.modalRegister == "register" || common.modalRegister == "edit"
+        }
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          dispatch(setModalRegister(false));
+          dispatch(setModalRegister(""));
         }}
       >
         <SafeAreaView className="bg-black/70 min-h-screen">
@@ -123,8 +148,10 @@ export default function ModalRegister(props: Props) {
             className="flex justify-center translate-y-[-30px]"
           >
             <View className="bg-white p-4 rounded-lg m-10">
-              <Text className="text-black text-center mb-5 border-b-2 pb-4 border-slate-300">
-                Criar Novo Registro
+              <Text className="text-black text-center mb-2 border-b-2 pb-2 border-slate-300">
+                {common.modalRegister == "edit"
+                  ? "Editar Registro"
+                  : "Criar Novo Registro"}
               </Text>
               <Text className="text-black mb-2">Tipo</Text>
               <Select
@@ -192,11 +219,11 @@ export default function ModalRegister(props: Props) {
                   backgroundColor="bg-gray-600"
                   className="flex-1 mr-1"
                   textColor="text-white"
-                  onPress={() => dispatch(setModalRegister(false))}
+                  onPress={() => dispatch(setModalRegister(""))}
                   icon={<MaterialIcons name="cancel" size={22} color="white" />}
                 />
                 <Button
-                  text="Salvar"
+                  text={common.modalRegister == "edit" ? "Salvar" : "Criar"}
                   backgroundColor="bg-green-600"
                   className="flex-1 mr-1"
                   textColor="text-white"
