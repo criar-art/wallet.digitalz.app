@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   View,
+  SafeAreaView
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -116,7 +117,7 @@ export default function ModalRegister(props: Props) {
           dispatch(setModalRegister(false));
         }}
       >
-        <View className="bg-black/70 min-h-screen">
+        <SafeAreaView className="bg-black/70 min-h-screen">
           <KeyboardAvoidingView
             behavior="padding"
             className="flex justify-center translate-y-[-30px]"
@@ -205,7 +206,7 @@ export default function ModalRegister(props: Props) {
               </View>
             </View>
           </KeyboardAvoidingView>
-        </View>
+        </SafeAreaView>
       </Modal>
     </>
   );
