@@ -11,7 +11,7 @@ export default function ContactScreen() {
         className="my-2 text-black text-green-700 underline"
         onPress={() =>
           Linking.openURL(
-            "mailto:support@example.com?subject=Wallet Digitalz APP&body=Olá tudo bem?\nPreciso de ajuda com"
+            "mailto:contato@criar.art?subject=Wallet Digitalz APP&body=Olá tudo bem?\nPreciso de ajuda com"
           )
         }
       >
