@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 import { HomeStack } from "./viewsTab";
 import AboutScreen from "../views/AboutScreen";
@@ -31,7 +32,7 @@ export const views = [
   },
 ];
 
-export default function Routes() {
+export default function Routes(props: any) {
   return (
     <Drawer.Navigator initialRouteName="Root">
       {views.map(({ name, title, drawerIcon, drawerLabel, component }) => (
@@ -43,6 +44,15 @@ export default function Routes() {
             drawerLabel,
             drawerIcon,
             drawerActiveTintColor: "#333",
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <TouchableOpacity
+                className="p-3"
+                onPress={() => props.toggleDrawer()}
+              >
+                <MaterialIcons name="menu" size={22} color="black" />
+              </TouchableOpacity>
+            ),
           }}
           component={component}
         />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
+  DrawerActions,
   NavigationContainer,
   useNavigationContainerRef,
 } from "@react-navigation/native";
@@ -17,6 +18,12 @@ export default function App() {
   const persistor = persistStore(store);
   const navigationRef = useNavigationContainerRef();
   const [modalRegister, setModalRegister] = useState(false);
+
+  function toggleDrawer() {
+    if (navigationRef.isReady()) {
+      navigationRef.dispatch(DrawerActions.toggleDrawer());
+    }
+  }
 
   function checkRoute() {
     if (navigationRef.isReady()) {
@@ -40,7 +47,7 @@ export default function App() {
             onStateChange={() => checkRoute()}
           >
             <StatusBar style="auto" />
-            <Routes />
+            <Routes toggleDrawer={toggleDrawer} />
             {!modalRegister && <ModalRegister />}
           </NavigationContainer>
         </PersistGate>
