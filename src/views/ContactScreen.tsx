@@ -1,4 +1,4 @@
-import { Linking, Text, View } from "react-native";
+import { Image, Linking, Text, View } from "react-native";
 
 export default function ContactScreen() {
   return (
@@ -25,6 +25,11 @@ export default function ContactScreen() {
       >
         linkedin.com/in/lucasferreiralimax
       </Text>
+      <Image
+        className="mt-5"
+        style={{ resizeMode: "stretch", height: 250, width: '100%' }}
+        source={require("../images/world.png")}
+      />
     </View>
   );
 }
