@@ -2,7 +2,7 @@
   "expo": {
     "name": "Wallet Digitalz",
     "slug": "wallet-digitalz",
-    "version": "0.0.1",
+    "version": "0.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.criar.art.walletdigitalz"
+      "bundleIdentifier": "com.criar.art.walletdigitalzapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.criar.art.walletdigitalz"
+      "package": "com.criar.art.walletdigitalzapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
