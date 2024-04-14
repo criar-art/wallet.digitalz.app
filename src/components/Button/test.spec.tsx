@@ -10,7 +10,7 @@ test("should render Button", () => {
 
 test("renders correctly with text", () => {
   const { getByTestId, getByText } = render(
-    <Button text="Click me" testID="myButton" />
+    <Button text="Click me" testID="myButton" label="Label accessiblity" />
   );
 
   const buttonContainer = getByTestId("myButton");
@@ -24,6 +24,7 @@ test("renders correctly with icon", () => {
   const { getByTestId, getByText } = render(
     <Button
       text="Button Test"
+      label="Label accessiblity"
       icon={<MaterialIcons name="add-circle" size={22} color="white" />}
       testID="myButton"
     />
@@ -39,7 +40,7 @@ test("renders correctly with icon", () => {
 test("calls onPress function when pressed", () => {
   const onPressMock = jest.fn();
   const { getByTestId } = render(
-    <Button onPress={onPressMock} testID="myButton" />
+    <Button onPress={onPressMock} testID="myButton" label="Label accessiblity" />
   );
 
   const buttonContainer = getByTestId("myButton");
@@ -54,6 +55,7 @@ test("applies custom styles correctly", () => {
       testID="myButton"
       backgroundColor="bg-red-600"
       textColor="text-white"
+      label="Label accessiblity"
     />
   );
 
