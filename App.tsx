@@ -46,7 +46,7 @@ export default function App() {
             ref={navigationRef}
             onStateChange={() => checkRoute()}
           >
-            <StatusBar style="auto" />
+            <StatusBar style="dark" />
             <Routes toggleDrawer={toggleDrawer} />
             {!modalRegister && <ModalRegister />}
           </NavigationContainer>
