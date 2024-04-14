@@ -9,6 +9,7 @@ export default function Button(props: Props) {
         props.backgroundColor ? props.backgroundColor : "bg-gray-300"
       } ${props.className}`}
       onPress={props.onPress}
+      accessibilityLabel={props.label}
     >
       <>
         {props.icon}

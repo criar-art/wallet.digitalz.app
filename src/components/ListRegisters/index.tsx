@@ -39,12 +39,14 @@ export default function ListRegisters(props: Props) {
         backgroundColor="bg-gray-100"
         className="scale-75 z-20 absolute top-0 right-0 m-2 rounded-full p-2 w-10"
         onPress={() => edit(item)}
+        label={`Editar registro ${item.name}`}
         icon={<MaterialIcons name="edit" size={24} color="black" />}
       />
       <Button
         backgroundColor="bg-gray-100"
         className="scale-75 z-20 absolute bottom-0 right-0 m-2 rounded-full p-2 w-10"
         onPress={() => remove(item.id)}
+        label={`Excluir registro ${item.name}`}
         icon={
           <MaterialCommunityIcons
             name="trash-can-outline"

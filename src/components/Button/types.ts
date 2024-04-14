@@ -6,6 +6,7 @@ export type Props = {
   textColor?: string;
   className?: string;
   text?: string;
+  label: string;
   icon?: React.ReactNode;
   onPress?: ((event: GestureResponderEvent) => void);
 }
