@@ -5,6 +5,7 @@ import { NumericFormat } from "react-number-format";
 import { renderBorderType, types } from "../../utils";
 import { Props } from "./types";
 import Button from "../Button";
+import FadeView from "../FadeView";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
@@ -79,7 +80,7 @@ export default function ListRegisters(props: Props) {
   );
 
   return (
-    <View testID="list-register">
+    <FadeView testID="list-register">
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
@@ -93,6 +94,6 @@ export default function ListRegisters(props: Props) {
           Nenhum registro cadastrado.
         </Text>
       )}
-    </View>
+    </FadeView>
   );
 }

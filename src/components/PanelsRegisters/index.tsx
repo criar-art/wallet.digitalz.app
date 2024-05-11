@@ -17,6 +17,7 @@ import {
 import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
+import FadeView from "../FadeView";
 
 export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -72,10 +73,10 @@ export default function PanelsRegisters(props: Props) {
           </View>
         )}
       />
-      {props.type == 'liquid' && (
+      {props.type == "liquid" && (
         <MaterialIcons name="attach-money" size={30} color="#aaa" />
       )}
-      {props.type == 'patrimony' && (
+      {props.type == "patrimony" && (
         <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
       )}
       {ckeckTypeTouchable(props.type) && (
@@ -85,7 +86,7 @@ export default function PanelsRegisters(props: Props) {
   );
 
   return (
-    <View testID="panels-registers">
+    <FadeView testID="panels-registers">
       {common.registers.length ? (
         <>
           {liquidTotal > 0 && <ItemList type="liquid" value={liquidTotal} />}
@@ -101,8 +102,10 @@ export default function PanelsRegisters(props: Props) {
           )}
         </>
       ) : (
-        <Text className="text-black text-center">Nenhum registro cadastrado.</Text>
+        <Text className="text-black text-center">
+          Nenhum registro cadastrado.
+        </Text>
       )}
-    </View>
+    </FadeView>
   );
 }
