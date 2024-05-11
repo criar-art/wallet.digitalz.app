@@ -56,7 +56,7 @@ export default function PanelsRegisters(props: Props) {
       activeOpacity={ckeckTypeTouchable(props.type) ? 0.5 : 1}
       className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
         props.type
-      )}`}
+      )} ${props.value < 0 ? "bg-red-100 border-red-600" : ""}`}
     >
       <NumericFormat
         value={props.value}
@@ -74,7 +74,11 @@ export default function PanelsRegisters(props: Props) {
         )}
       />
       {props.type == "liquid" && (
-        <MaterialIcons name="attach-money" size={30} color="#aaa" />
+        <MaterialIcons
+          name="attach-money"
+          size={30}
+          color={props.value < 0 ? "#f00" : "#aaa"}
+        />
       )}
       {props.type == "patrimony" && (
         <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
@@ -89,7 +93,7 @@ export default function PanelsRegisters(props: Props) {
     <FadeView testID="panels-registers">
       {common.registers.length ? (
         <>
-          {liquidTotal > 0 && <ItemList type="liquid" value={liquidTotal} />}
+          {liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
           {patrimonyTotal > 0 && (
             <ItemList type="patrimony" value={patrimonyTotal} />
           )}
