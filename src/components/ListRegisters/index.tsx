@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
@@ -11,7 +11,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
   setModalRegister,
-  setRegister,
+  setModalDelete,
   setRegisterData,
 } from "../../store/commonSlice";
 
@@ -25,8 +25,7 @@ export default function ListRegisters(props: Props) {
   }
 
   function remove(target: string) {
-    const filter = common.registers.filter(({ id }) => id !== target);
-    dispatch(setRegister(filter));
+    dispatch(setModalDelete(target));
   }
 
   const ItemList = ({ item }: any) => (

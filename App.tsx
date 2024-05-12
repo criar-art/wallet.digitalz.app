@@ -13,6 +13,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import store from "./src/store";
 import Routes from "./src/routes/views";
 import ModalRegister from "./src/components/ModalRegister";
+import ModalAlert from "./src/components/ModalDelete";
 
 export default function App() {
   const persistor = persistStore(store);
@@ -48,7 +49,12 @@ export default function App() {
           >
             <StatusBar style="dark" />
             <Routes toggleDrawer={toggleDrawer} />
-            {!modalRegister && <ModalRegister />}
+            {!modalRegister && (
+              <>
+                <ModalRegister />
+                <ModalAlert />
+              </>
+            )}
           </NavigationContainer>
         </PersistGate>
       </Provider>
