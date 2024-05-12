@@ -3,6 +3,7 @@ import {
   types,
   capitalize,
   ckeckTypeTouchable,
+  parseMoney,
 } from "./index";
 
 describe("Utility Functions", () => {
@@ -47,6 +48,15 @@ describe("Utility Functions", () => {
       expect(ckeckTypeTouchable("entry")).toBe(true);
       expect(ckeckTypeTouchable("expense")).toBe(true);
       expect(ckeckTypeTouchable("vehicle")).toBe(true);
+    });
+  });
+
+  describe("Basic render parseMoney function", () => {
+    it("is parseMoney BRL show value", () => {
+      expect(parseMoney("R$ 1.000,00", true)).toBe("R$ 1.000,00");
+    });
+    it("is parseMoney BRL with hidden value", () => {
+      expect(parseMoney("R$ 1.000,00", false)).toBe("R$ ********");
     });
   });
 });
