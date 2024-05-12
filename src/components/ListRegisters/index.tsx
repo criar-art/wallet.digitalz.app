@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FlatList, Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
@@ -14,6 +14,7 @@ import {
   setModalDelete,
   setRegisterData,
 } from "../../store/commonSlice";
+import { parseMoney } from "../../utils";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
@@ -68,7 +69,9 @@ export default function ListRegisters(props: Props) {
           decimalScale={2}
           fixedDecimalScale
           prefix={"R$ "}
-          renderText={(value: string) => <Text>{value}</Text>}
+          renderText={(value: string) => (
+            <Text>{parseMoney(value, common.eyeStatus)}</Text>
+          )}
         />
       </Text>
       <View className="flex flex-row items-center">

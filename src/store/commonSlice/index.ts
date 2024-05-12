@@ -8,6 +8,7 @@ export const commonSlice = createSlice({
     modalRegister: '',
     modalDelete: '',
     registerData: '',
+    eyeStatus: false,
   } as common,
   reducers: {
     setRegister(state, payload) {
@@ -26,6 +27,9 @@ export const commonSlice = createSlice({
     setModalDelete(state, payload) {
       state.modalDelete = payload.payload;
     },
+    setEyeStatus(state, payload) {
+      state.eyeStatus = payload.payload;
+    },
   },
 });
 
@@ -34,7 +38,8 @@ export const {
   setEditRegister,
   setModalRegister,
   setRegisterData,
-  setModalDelete
+  setModalDelete,
+  setEyeStatus
 } = commonSlice.actions;
 
 export default commonSlice.reducer;

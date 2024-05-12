@@ -1,10 +1,14 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 import { HomeStack } from "./viewsTab";
 import AboutScreen from "../views/AboutScreen";
 import ContactScreen from "../views/ContactScreen";
+
+import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { RootState } from "../store";
+import { setEyeStatus } from "../store/commonSlice";
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +37,13 @@ export const views = [
 ];
 
 export default function Routes(props: any) {
+  const dispatch = useAppDispatch();
+  const common = useAppSelector((state: RootState) => state.commonState);
+
+  function toggleEye() {
+    dispatch(setEyeStatus(!common.eyeStatus));
+  }
+
   return (
     <Drawer.Navigator initialRouteName="Root">
       {views.map(({ name, title, drawerIcon, drawerLabel, component }) => (
@@ -51,6 +62,15 @@ export default function Routes(props: any) {
                 onPress={() => props.toggleDrawer()}
               >
                 <MaterialIcons name="menu" size={22} color="black" />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity className="p-3" onPress={() => toggleEye()}>
+                {common.eyeStatus ? (
+                  <Ionicons name="eye" size={22} color="black" />
+                ) : (
+                  <Ionicons name="eye-off" size={22} color="black" />
+                )}
               </TouchableOpacity>
             ),
           }}

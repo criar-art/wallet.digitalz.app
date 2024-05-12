@@ -3,4 +3,5 @@ export interface common {
   modalRegister: string;
   modalDelete: string;
   registerData: any;
+  eyeStatus: boolean;
 }

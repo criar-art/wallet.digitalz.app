@@ -13,6 +13,7 @@ import {
   types,
   capitalize,
   ckeckTypeTouchable,
+  parseMoney,
 } from "../../utils";
 import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
@@ -69,7 +70,7 @@ export default function PanelsRegisters(props: Props) {
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black">Total {types[props.type]}</Text>
-            <Text className="font-bold">{value}</Text>
+            <Text className="font-bold">{parseMoney(value, common.eyeStatus)}</Text>
           </View>
         )}
       />
