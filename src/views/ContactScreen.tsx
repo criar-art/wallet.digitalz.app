@@ -3,7 +3,7 @@ import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import FadeView from "../components/FadeView";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Zocial } from "@expo/vector-icons";
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto } from "@expo/vector-icons";
 
 export default function ContactScreen() {
   return (
@@ -15,9 +15,7 @@ export default function ContactScreen() {
         <Text className="my-2 text-black text-base">Entre em contato.</Text>
         <TouchableOpacity
           className="my-2 p-2 bg-white rounded-lg shadow-lg flex flex-row"
-          onPress={() =>
-            Linking.openURL("https://criar.art/contact")
-          }
+          onPress={() => Linking.openURL("https://criar.art/contact")}
         >
           <Fontisto name="world" size={22} color="black" />
           <Text className="ml-2 text-black text-black text-base">
