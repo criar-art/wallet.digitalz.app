@@ -70,7 +70,9 @@ export default function PanelsRegisters(props: Props) {
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black">Total {types[props.type]}</Text>
-            <Text className="font-bold">{parseMoney(value, common.eyeStatus)}</Text>
+            <Text className="font-bold">
+              {parseMoney(value, common.eyeStatus)}
+            </Text>
           </View>
         )}
       />
@@ -94,7 +96,7 @@ export default function PanelsRegisters(props: Props) {
     <FadeView testID="panels-registers">
       {common.registers.length ? (
         <>
-          {liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
+          {!!liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
           {patrimonyTotal > 0 && (
             <ItemList type="patrimony" value={patrimonyTotal} />
           )}
