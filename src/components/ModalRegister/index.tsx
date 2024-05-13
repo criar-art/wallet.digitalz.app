@@ -148,7 +148,7 @@ export default function ModalRegister(props: Props) {
       />
       <Animated.View
         testID="modal-register"
-        className="p-4 z-10 absolute bg-black/70 min-h-screen min-w-full flex justify-center"
+        className="p-4 z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-center"
         style={{
           opacity: fadeAnim,
         }}

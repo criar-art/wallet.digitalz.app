@@ -53,7 +53,7 @@ export default function ModalDelete(props: Props) {
   return (
     <Animated.View
       testID={props.testID ? props.testID : "fade-view"}
-      className="p-4 bg-red-200 z-10 absolute bg-black/70 min-h-screen min-w-full flex justify-center"
+      className="p-4 bg-red-200 z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-center"
       style={{ opacity: fadeAnim }}
       pointerEvents={!common.modalDelete ? "none" : "auto"}
     >
