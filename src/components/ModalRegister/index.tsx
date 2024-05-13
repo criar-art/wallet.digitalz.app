@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Alert,
+  Keyboard,
   KeyboardAvoidingView,
-  Modal,
   Pressable,
   Text,
   TextInput,
   View,
   SafeAreaView,
+  Animated,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -29,6 +29,10 @@ import {
 export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const inputRange = [0, 1];
+  const outputRange = [0, 1];
+  const scale = fadeAnim.interpolate({ inputRange, outputRange });
 
   const intitialForm = {
     name: "",
@@ -63,6 +67,18 @@ export default function ModalRegister(props: Props) {
     { label: "Veículo", value: "vehicle" },
   ];
 
+  const closeModal = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    Keyboard.dismiss();
+    setTimeout(() => {
+      dispatch(setModalRegister(""));
+    }, 500);
+  };
+
   function saveStore() {
     const { name, value, date, type } = formModal;
     if (name && value && date && type) {
@@ -86,24 +102,23 @@ export default function ModalRegister(props: Props) {
         ];
         dispatch(setRegister(values));
       }
-
-      dispatch(setModalRegister(""));
-
-      // Toast.show({
-      //   type: 'success',
-      //   text1: 'Sucesso',
-      //   text2: 'Novo registro criado 👋',
-      //   props: { className: 'z-50' }
-      // });
-    } else {
-      // Toast.show({
-      //   type: 'error',
-      //   text1: 'Atenção',
-      //   text2: 'Você precisa preencher tudo 👋',
-      //   props: { className: 'z-50' }
-      // });
+      closeModal();
     }
   }
+
+  useEffect(() => {
+    if (common.modalRegister) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    return () => {
+      fadeAnim.setValue(0);
+    };
+  }, [common.modalRegister, fadeAnim]);
 
   useEffect(() => {
     if (common.modalRegister == "edit") {
@@ -131,24 +146,26 @@ export default function ModalRegister(props: Props) {
         onPress={() => dispatch(setModalRegister("register"))}
         icon={<MaterialIcons name="add-circle" size={22} color="white" />}
       />
-      <Modal
+      <Animated.View
         testID="modal-register"
-        animationType="slide"
-        transparent={true}
-        visible={
-          common.modalRegister == "register" || common.modalRegister == "edit"
-        }
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          dispatch(setModalRegister(""));
+        className="p-4 z-10 absolute bg-black/70 min-h-screen min-w-full flex justify-center"
+        style={{
+          opacity: fadeAnim,
         }}
+        pointerEvents={
+          !(
+            common.modalRegister == "register" || common.modalRegister == "edit"
+          )
+            ? "none"
+            : "auto"
+        }
       >
-        <SafeAreaView className="bg-black/70 min-h-screen">
+        <SafeAreaView>
           <KeyboardAvoidingView
             behavior="padding"
             className="flex justify-center translate-y-[-30px]"
           >
-            <View className="bg-white p-4 rounded-lg m-10">
+            <Animated.View className="bg-white p-4 rounded-lg m-10" style={{ transform: [{ scale }] }}>
               <Text className="text-black text-center mb-2 border-b-2 pb-2 border-slate-300">
                 {common.modalRegister == "edit"
                   ? "Editar Registro"
@@ -218,26 +235,34 @@ export default function ModalRegister(props: Props) {
                 <Button
                   text="Cancelar"
                   label="Botão para cancelar e fechar o modal do registro"
-                  backgroundColor="bg-gray-600"
+                  backgroundColor="bg-red-600"
                   className="flex-1 mr-1"
                   textColor="text-white"
-                  onPress={() => dispatch(setModalRegister(""))}
+                  onPress={() => closeModal()}
                   icon={<MaterialIcons name="cancel" size={22} color="white" />}
                 />
                 <Button
                   text={common.modalRegister == "edit" ? "Salvar" : "Criar"}
-                  label={`Botão para ${common.modalRegister == "edit" ? "Salvar" : "Criar"} o registro`}
+                  label={`Botão para ${
+                    common.modalRegister == "edit" ? "Salvar" : "Criar"
+                  } o registro`}
                   backgroundColor="bg-green-600"
                   className="flex-1 mr-1"
                   textColor="text-white"
                   onPress={() => saveStore()}
-                  icon={<MaterialIcons name="save" size={22} color="white" />}
+                  icon={
+                    <MaterialIcons
+                      name="check-circle"
+                      size={22}
+                      color="white"
+                    />
+                  }
                 />
               </View>
-            </View>
+            </Animated.View>
           </KeyboardAvoidingView>
         </SafeAreaView>
-      </Modal>
+      </Animated.View>
     </>
   );
 }

@@ -7,11 +7,15 @@ import { RootState } from "../../store";
 import { setModalDelete, setRegister } from "../../store/commonSlice";
 
 import { Props } from "./types";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function ModalDelete(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const inputRange = [0, 1];
+  const outputRange = [0, 1];
+  const scale = fadeAnim.interpolate({ inputRange, outputRange });
 
   useEffect(() => {
     if (common.modalDelete) {
@@ -30,10 +34,12 @@ export default function ModalDelete(props: Props) {
   const closeModal = () => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 1000,
+      duration: 500,
       useNativeDriver: true,
     }).start();
-    dispatch(setModalDelete(""));
+    setTimeout(() => {
+      dispatch(setModalDelete(""));
+    }, 500);
   };
 
   const confirmModal = () => {
@@ -48,12 +54,10 @@ export default function ModalDelete(props: Props) {
     <Animated.View
       testID={props.testID ? props.testID : "fade-view"}
       className="p-4 bg-red-200 z-10 absolute bg-black/70 min-h-screen min-w-full flex justify-center"
-      style={{
-        opacity: fadeAnim,
-      }}
+      style={{ opacity: fadeAnim }}
       pointerEvents={!common.modalDelete ? "none" : "auto"}
     >
-      <View className="bg-white p-4 rounded-lg m-10">
+      <Animated.View className="bg-white p-4 rounded-lg m-10" style={{ transform: [{ scale }] }}>
         <Text className="text-center">Tem certeza que desejar excluir?</Text>
         <View className="flex flex-row mt-4">
           <Button
@@ -61,15 +65,17 @@ export default function ModalDelete(props: Props) {
             label="Cancelar"
             text="Cancelar"
             onPress={() => closeModal()}
+            icon={<MaterialIcons name="cancel" size={22} color="white" />}
           />
           <Button
             className="text-white bg-green-600 flex-1"
             label="Confirmar"
             text="Confirmar"
             onPress={() => confirmModal()}
+            icon={<MaterialIcons name="check-circle" size={22} color="white" />}
           />
         </View>
-      </View>
+      </Animated.View>
     </Animated.View>
   );
 }
