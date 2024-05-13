@@ -3,7 +3,7 @@ import ListRegisters from "../components/ListRegisters";
 
 export default function ExpenseScreen() {
   return (
-    <View testID="expense-screen" className="px-5">
+    <View testID="expense-screen">
       <ListRegisters type="expense" />
     </View>
   );

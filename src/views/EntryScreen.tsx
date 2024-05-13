@@ -3,7 +3,7 @@ import ListRegisters from "../components/ListRegisters";
 
 export default function EntryScreen() {
   return (
-    <View testID="entry-screen" className="px-5">
+    <View testID="entry-screen">
       <ListRegisters type="entry" />
     </View>
   );

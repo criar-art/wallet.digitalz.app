@@ -53,7 +53,7 @@ export default function ListRegisters(props: Props) {
   const ItemList = ({ item }: any) => (
     <View
       key={item.id}
-      className={`border-l-4 text-black mt-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 text-black mt-5 mx-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
         item.type
       )}`}
     >
@@ -102,7 +102,7 @@ export default function ListRegisters(props: Props) {
 
   const ItemListFull = (props: any) => (
     <View
-      className={`flex flex-row justify-between items-center border-t-4 text-black mt-4 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-t-4 text-black bg-white p-5 px-8 shadow-lg ${renderBorderType(
         props.type
       )}`}
     >
@@ -128,15 +128,6 @@ export default function ListRegisters(props: Props) {
 
   return (
     <FadeView testID="list-register">
-      {props.type == "entry" && getEmpty("entry") && (
-        <ItemListFull type="entry" value={entryTotal} />
-      )}
-      {props.type == "investiment" && getEmpty("investiment") && (
-        <ItemListFull type="investiment" value={investTotal} />
-      )}
-      {props.type == "expense" && getEmpty("expense") && (
-        <ItemListFull type="expense" value={expensesTotal} />
-      )}
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
@@ -144,6 +135,20 @@ export default function ListRegisters(props: Props) {
           renderItem={ItemList}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ paddingBottom: 20 }}
+          ListHeaderComponent={() => (
+            <>
+              {props.type == "entry" && getEmpty("entry") && (
+                <ItemListFull type="entry" value={entryTotal} />
+              )}
+              {props.type == "investiment" && getEmpty("investiment") && (
+                <ItemListFull type="investiment" value={investTotal} />
+              )}
+              {props.type == "expense" && getEmpty("expense") && (
+                <ItemListFull type="expense" value={expensesTotal} />
+              )}
+            </>
+          )}
+          stickyHeaderIndices={[0]}
         />
       ) : (
         <Text className="text-black text-center p-5">
