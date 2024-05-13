@@ -62,7 +62,7 @@ export default function ModalDelete(props: Props) {
         className="bg-white p-4 rounded-lg m-10"
         style={{ transform: [{ scale: scaleAnim }] }}
       >
-        <Text className="text-center">Tem certeza que desejar excluir?</Text>
+        <Text className="text-center text-xl">Tem certeza que desejar excluir?</Text>
         <View className="flex flex-row mt-4">
           <Button
             className="text-white bg-red-600 flex-1 mr-2"

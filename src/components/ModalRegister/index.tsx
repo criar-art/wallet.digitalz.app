@@ -170,7 +170,7 @@ export default function ModalRegister(props: Props) {
               className="bg-white p-4 rounded-lg m-10"
               style={{ transform: [{ scale: scaleAnim }] }}
             >
-              <Text className="text-black text-center mb-2 border-b-2 pb-2 border-slate-300">
+              <Text className="text-black text-center text-xl mb-2 border-b-2 pb-2 border-slate-300">
                 {common.modalRegister == "edit"
                   ? "Editar Registro"
                   : "Criar Novo Registro"}
