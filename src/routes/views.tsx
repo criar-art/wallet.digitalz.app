@@ -64,15 +64,16 @@ export default function Routes(props: any) {
                 <MaterialIcons name="menu" size={22} color="black" />
               </TouchableOpacity>
             ),
-            headerRight: () => (
-              <TouchableOpacity className="p-3" onPress={() => toggleEye()}>
-                {common.eyeStatus ? (
-                  <Ionicons name="eye" size={22} color="black" />
-                ) : (
-                  <Ionicons name="eye-off" size={22} color="black" />
-                )}
-              </TouchableOpacity>
-            ),
+            headerRight: () =>
+              !props.dashboard ? (
+                <TouchableOpacity className="p-3" onPress={() => toggleEye()}>
+                  {common.eyeStatus ? (
+                    <Ionicons name="eye" size={22} color="black" />
+                  ) : (
+                    <Ionicons name="eye-off" size={22} color="black" />
+                  )}
+                </TouchableOpacity>
+              ) : null,
           }}
           component={component}
         />

@@ -18,7 +18,7 @@ import ModalAlert from "./src/components/ModalDelete";
 export default function App() {
   const persistor = persistStore(store);
   const navigationRef = useNavigationContainerRef();
-  const [modalRegister, setModalRegister] = useState(false);
+  const [dashboard, setDashboard] = useState(false);
 
   function toggleDrawer() {
     if (navigationRef.isReady()) {
@@ -29,7 +29,7 @@ export default function App() {
   function checkRoute() {
     if (navigationRef.isReady()) {
       const currentRoute = navigationRef.getCurrentRoute();
-      setModalRegister(
+      setDashboard(
         currentRoute?.name == "About" || currentRoute?.name == "Contact"
       );
     }
@@ -48,8 +48,8 @@ export default function App() {
             onStateChange={() => checkRoute()}
           >
             <StatusBar style="dark" />
-            <Routes toggleDrawer={toggleDrawer} />
-            {!modalRegister && (
+            <Routes toggleDrawer={toggleDrawer} dashboard={dashboard} />
+            {!dashboard && (
               <>
                 <ModalRegister />
                 <ModalAlert />
