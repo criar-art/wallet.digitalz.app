@@ -19,7 +19,7 @@ export default function AboutScreen() {
           flexibilidade de deletá-los e atualizá-los conforme necessário.
         </Text>
         <Image
-          className="mt-5"
+          className="mt-5 rounded-lg"
           style={{ resizeMode: "stretch", height: 250, width: "100%" }}
           source={require("../images/finance.jpg")}
         />

@@ -47,7 +47,7 @@ export default function ContactScreen() {
           </Text>
         </TouchableOpacity>
         <Image
-          className="mt-5"
+          className="mt-5 rounded-lg"
           style={{ resizeMode: "stretch", height: 250, width: "100%" }}
           source={require("../images/world.png")}
         />
