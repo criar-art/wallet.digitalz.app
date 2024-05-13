@@ -30,9 +30,10 @@ export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const inputRange = [0, 1];
-  const outputRange = [0, 1];
-  const scale = fadeAnim.interpolate({ inputRange, outputRange });
+  const scaleAnim = fadeAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
 
   const intitialForm = {
     name: "",
@@ -165,7 +166,10 @@ export default function ModalRegister(props: Props) {
             behavior="padding"
             className="flex justify-center translate-y-[-30px]"
           >
-            <Animated.View className="bg-white p-4 rounded-lg m-10" style={{ transform: [{ scale }] }}>
+            <Animated.View
+              className="bg-white p-4 rounded-lg m-10"
+              style={{ transform: [{ scale: scaleAnim }] }}
+            >
               <Text className="text-black text-center mb-2 border-b-2 pb-2 border-slate-300">
                 {common.modalRegister == "edit"
                   ? "Editar Registro"
