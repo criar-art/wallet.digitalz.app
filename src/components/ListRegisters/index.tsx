@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
@@ -19,6 +19,21 @@ import { parseMoney } from "../../utils";
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
+  const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
+  const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
+
+  function getTotal(type: string) {
+    return common.registers
+      .filter((item: any) => item.type == type)
+      .reduce((a: number, { value }: any) => {
+        return Number(value) + Number(a);
+      }, 0);
+  }
+
+  function getEmpty(type: string) {
+    return common.registers.filter((item: any) => item.type == type).length > 1;
+  }
 
   function edit(target: any) {
     dispatch(setModalRegister("edit"));
@@ -28,6 +43,12 @@ export default function ListRegisters(props: Props) {
   function remove(target: string) {
     dispatch(setModalDelete(target));
   }
+
+  useEffect(() => {
+    setEntryTotal(getTotal("entry"));
+    setExpensesTotal(getTotal("expense"));
+    setInvestTotal(getTotal("investiment"));
+  }, [common.registers]);
 
   const ItemList = ({ item }: any) => (
     <View
@@ -56,9 +77,7 @@ export default function ListRegisters(props: Props) {
           />
         }
       />
-      <Text className="mb-2 text-black">
-        {types[item.type]} {item.name}
-      </Text>
+      <Text className="mb-2 text-black">{item.name}</Text>
       <Text className="mb-2 text-black">
         Valor:{" "}
         <NumericFormat
@@ -81,8 +100,43 @@ export default function ListRegisters(props: Props) {
     </View>
   );
 
+  const ItemListFull = (props: any) => (
+    <View
+      className={`flex flex-row justify-between items-center border-t-4 text-black mt-4 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+        props.type
+      )}`}
+    >
+      <NumericFormat
+        value={props.value}
+        displayType={"text"}
+        thousandSeparator={"."}
+        decimalSeparator={","}
+        decimalScale={2}
+        fixedDecimalScale
+        prefix={"R$ "}
+        renderText={(value: string) => (
+          <View className="flex">
+            <Text className="text-black">Total {types[props.type]}</Text>
+            <Text className="font-bold">
+              {parseMoney(value, common.eyeStatus)}
+            </Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+
   return (
     <FadeView testID="list-register">
+      {props.type == "entry" && getEmpty("entry") && (
+        <ItemListFull type="entry" value={entryTotal} />
+      )}
+      {props.type == "investiment" && getEmpty("investiment") && (
+        <ItemListFull type="investiment" value={investTotal} />
+      )}
+      {props.type == "expense" && getEmpty("expense") && (
+        <ItemListFull type="expense" value={expensesTotal} />
+      )}
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
