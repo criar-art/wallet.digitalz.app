@@ -143,7 +143,7 @@ export default function ModalRegister(props: Props) {
         label="Criar novo registro"
         backgroundColor="bg-green-600"
         textColor="text-white"
-        className="rounded-none"
+        className="p-6 rounded-none"
         onPress={() => dispatch(setModalRegister("register"))}
         icon={<MaterialIcons name="add-circle" size={22} color="white" />}
       />
