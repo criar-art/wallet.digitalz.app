@@ -138,15 +138,16 @@ export default function ModalRegister(props: Props) {
 
   return (
     <>
-      <Button
-        text="Novo Registro"
-        label="Criar novo registro"
-        backgroundColor="bg-green-600"
-        textColor="text-white"
-        className="p-6 rounded-none"
-        onPress={() => dispatch(setModalRegister("register"))}
-        icon={<MaterialIcons name="add-circle" size={22} color="white" />}
-      />
+      {!!common.isDrawerStatus && (
+        <Button
+          label="Criar novo registro"
+          backgroundColor="bg-green-600"
+          textColor="text-white"
+          className="rounded-full absolute bottom-[45] left-1/2 -translate-x-10 w-20 h-20 border-4 border-white"
+          onPress={() => dispatch(setModalRegister("register"))}
+          icon={<MaterialIcons name="add" size={35} color="white" />}
+        />
+      )}
       <Animated.View
         testID="modal-register"
         className="p-4 z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-center"

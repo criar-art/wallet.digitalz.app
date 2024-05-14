@@ -9,6 +9,7 @@ export const commonSlice = createSlice({
     modalDelete: '',
     registerData: '',
     eyeStatus: false,
+    isDrawerStatus: false,
   } as common,
   reducers: {
     setRegister(state, payload) {
@@ -30,6 +31,9 @@ export const commonSlice = createSlice({
     setEyeStatus(state, payload) {
       state.eyeStatus = payload.payload;
     },
+    setIsDrawerStatus(state, payload) {
+      state.isDrawerStatus = payload.payload;
+    },
   },
 });
 
@@ -39,7 +43,8 @@ export const {
   setModalRegister,
   setRegisterData,
   setModalDelete,
-  setEyeStatus
+  setEyeStatus,
+  setIsDrawerStatus
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
