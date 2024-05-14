@@ -37,12 +37,12 @@ export default function ItemList(props: Props) {
       key={props.item.id}
       testID={props.testID}
       onPress={() => setOptionsShow(!optionsShow)}
-      className={`border-l-4 text-black mt-5 mx-5 bg-white p-6 pt-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 text-black mt-5 mx-5 bg-white p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
       )}`}
     >
-      <Text className="mb-2 text-black text-xl">{props.item.name}</Text>
-      <View className="flex flex-row items-center mb-2">
+      <Text className="text-black text-xl mb-1">{props.item.name}</Text>
+      <View className="flex flex-row items-center mb-1">
         <FontAwesome5 name="money-bill-wave" size={16} color="black" />
         <Text className="ml-2 text-black">
           <NumericFormat
@@ -54,14 +54,14 @@ export default function ItemList(props: Props) {
             fixedDecimalScale
             prefix={"R$ "}
             renderText={(value: string) => (
-              <Text>{parseMoney(value, props.eyeStatus)}</Text>
+              <Text className="text-xl">{parseMoney(value, props.eyeStatus)}</Text>
             )}
           />
         </Text>
       </View>
       <View className="flex flex-row items-center">
         <MaterialIcons name="calendar-month" size={22} color="black" />
-        <Text className="ml-2 text-black">{props.item.date}</Text>
+        <Text className="ml-2 text-black text-base">{props.item.date}</Text>
       </View>
       <Animated.View
         className="flex flex-row items-center z-20 absolute top-0 right-0 bottom-0"
