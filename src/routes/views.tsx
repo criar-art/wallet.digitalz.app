@@ -76,6 +76,7 @@ export default function Routes(props: any) {
               <TouchableOpacity
                 className="p-3 bg-gray-100 mr-4 rounded-full"
                 onPress={() => props.toggleDrawer()}
+                accessibilityLabel="Abrir menu drawer de páginas"
               >
                 <MaterialIcons name="menu" size={32} color="black" />
               </TouchableOpacity>
@@ -85,6 +86,9 @@ export default function Routes(props: any) {
                 <TouchableOpacity
                   className="p-4 bg-gray-100 ml-4 rounded-full"
                   onPress={() => toggleEye()}
+                  accessibilityLabel={
+                    common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
+                  }
                 >
                   {common.eyeStatus ? (
                     <Ionicons name="eye" size={25} color="black" />
