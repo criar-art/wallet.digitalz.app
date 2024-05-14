@@ -61,8 +61,12 @@ export default function ModalDelete(props: Props) {
       <Animated.View
         className="bg-white p-4 rounded-lg"
         style={{ transform: [{ scale: scaleAnim }] }}
+        accessibilityViewIsModal
+        aria-hidden={!common.modalDelete}
       >
-        <Text className="text-center text-xl">Tem certeza que desejar excluir?</Text>
+        <Text className="text-center text-xl">
+          Tem certeza que desejar excluir?
+        </Text>
         <View className="flex flex-row mt-4">
           <Button
             className="text-white bg-red-600 flex-1 mr-2 p-3"
