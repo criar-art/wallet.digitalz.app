@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 import { HomeStack } from "./viewsTab";
@@ -24,14 +24,14 @@ export const views = [
     name: "About",
     title: "Sobre",
     drawerLabel: "Sobre",
-    drawerIcon: () => <MaterialIcons name="info" size={22} color="black" />,
+    drawerIcon: () => <Entypo name="info" size={22} color="black" />,
     component: AboutScreen,
   },
   {
     name: "Contact",
     title: "Contato",
     drawerLabel: "Contato",
-    drawerIcon: () => <MaterialIcons name="email" size={22} color="black" />,
+    drawerIcon: () => <MaterialIcons name="call" size={22} color="black" />,
     component: ContactScreen,
   },
 ];
@@ -55,6 +55,13 @@ export default function Routes(props: any) {
             drawerLabel,
             drawerIcon,
             drawerActiveTintColor: "#333",
+            drawerItemStyle: {
+              padding: 10,
+            },
+            drawerStyle: {
+              borderTopEndRadius: 20,
+              borderBottomEndRadius: 20,
+            },
             headerTitleAlign: "center",
             headerLeft: () => (
               <TouchableOpacity
