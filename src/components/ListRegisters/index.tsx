@@ -51,7 +51,7 @@ export default function ListRegisters(props: Props) {
 
   const ItemListFull = (props: any) => (
     <View
-      className={`flex flex-row justify-between items-center border-t-4 text-black bg-white p-5 px-8 shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-b-2 text-black bg-white pt-2 pb-4 px-8 shadow-lg ${renderBorderType(
         props.type
       )}`}
     >

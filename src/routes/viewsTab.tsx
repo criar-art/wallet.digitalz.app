@@ -5,6 +5,7 @@ import HomeScreen from "../views/HomeScreen";
 import ExpenseScreen from "../views/ExpenseScreen";
 import EntryScreen from "../views/EntryScreen";
 import InvestimentScreen from "../views/InvestimentScreen";
+import { renderColorType } from "../utils";
 
 const Tab = createBottomTabNavigator();
 
@@ -60,13 +61,14 @@ export function HomeStack() {
             tabBarActiveBackgroundColor: "#eee",
             tabBarItemStyle: { padding: 10 },
             tabBarStyle: { height: 55 },
-            headerTitleAlign: 'center',
+            headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#ddd",
+              backgroundColor: renderColorType(name.toLocaleLowerCase()),
               height: 35,
             },
             headerTitleStyle: {
               fontSize: 15,
+              fontWeight: "bold"
             },
           }}
           component={component}

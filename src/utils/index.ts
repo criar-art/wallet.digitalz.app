@@ -15,6 +15,25 @@ export const renderBorderType = (type: string) => {
   }
 };
 
+export const renderColorType = (type: string) => {
+  switch (type) {
+    case "home":
+      return "#ddd";
+    case "liquid":
+      return "rgb(250 204 21)";
+    case "patrimony":
+      return "rgb(0 0 0)";
+    case "investiment":
+      return "rgb(125 211 252)";
+    case "entry":
+      return "rgb(134 239 172)";
+    case "expense":
+      return "rgb(252 165 165)";
+    case "vehicle":
+      return "rgb(156 163 175)";
+  }
+};
+
 export const types: any = {
   liquid: "Liquido",
   patrimony: "Patrimônio",
