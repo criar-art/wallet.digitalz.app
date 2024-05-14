@@ -10,6 +10,7 @@ test("should render ItemList", () => {
     <Provider store={store}>
       <NavigationContainer>
         <ItemList
+          testID="item-register"
           item={{
             date: "13/05/2024",
             id: "6ff62c8a-61cb-42d4-977a-4b20f8e5ca53",
@@ -25,5 +26,5 @@ test("should render ItemList", () => {
     </Provider>
   );
 
-  expect(getByTestId("list-register")).toBeTruthy();
+  expect(getByTestId("item-register")).toBeTruthy();
 });

@@ -33,7 +33,10 @@ export default function ItemList(props: Props) {
   }, [optionsShow, fadeAnim]);
 
   return (
-    <TouchableOpacity onPress={() => setOptionsShow(!optionsShow)}>
+    <TouchableOpacity
+      testID={props.testID}
+      onPress={() => setOptionsShow(!optionsShow)}
+    >
       <View
         key={props.item.id}
         className={`border-l-4 text-black mt-5 mx-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
