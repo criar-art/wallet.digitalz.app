@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
-import { NumericFormat } from "react-number-format";
-import { renderBorderType, types } from "../../utils";
+import { FlatList, Text } from "react-native";
+
 import { Props } from "./types";
 import FadeView from "../FadeView";
 import ItemList from "../ItemList";
+import ItemTotal from "../ItemTotal";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
@@ -13,7 +13,6 @@ import {
   setModalDelete,
   setRegisterData,
 } from "../../store/commonSlice";
-import { parseMoney } from "../../utils";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
@@ -49,32 +48,6 @@ export default function ListRegisters(props: Props) {
     setInvestTotal(getTotal("investiment"));
   }, [common.registers]);
 
-  const ItemListFull = (props: any) => (
-    <View
-      className={`flex flex-row justify-between items-center border-b-2 text-black bg-white pt-2 pb-4 px-8 shadow-lg ${renderBorderType(
-        props.type
-      )}`}
-    >
-      <NumericFormat
-        value={props.value}
-        displayType={"text"}
-        thousandSeparator={"."}
-        decimalSeparator={","}
-        decimalScale={2}
-        fixedDecimalScale
-        prefix={"R$ "}
-        renderText={(value: string) => (
-          <View className="flex">
-            <Text className="text-black">Total {types[props.type]}</Text>
-            <Text className="font-bold">
-              {parseMoney(value, common.eyeStatus)}
-            </Text>
-          </View>
-        )}
-      />
-    </View>
-  );
-
   return (
     <FadeView testID="list-register">
       {common.registers.filter((item: any) => item.type == props.type)
@@ -94,13 +67,25 @@ export default function ListRegisters(props: Props) {
           ListHeaderComponent={() => (
             <>
               {props.type == "entry" && getEmpty("entry") && (
-                <ItemListFull type="entry" value={entryTotal} />
+                <ItemTotal
+                  type="entry"
+                  value={entryTotal}
+                  eyeStatus={common.eyeStatus}
+                />
               )}
               {props.type == "investiment" && getEmpty("investiment") && (
-                <ItemListFull type="investiment" value={investTotal} />
+                <ItemTotal
+                  type="investiment"
+                  value={investTotal}
+                  eyeStatus={common.eyeStatus}
+                />
               )}
               {props.type == "expense" && getEmpty("expense") && (
-                <ItemListFull type="expense" value={expensesTotal} />
+                <ItemTotal
+                  type="expense"
+                  value={expensesTotal}
+                  eyeStatus={common.eyeStatus}
+                />
               )}
             </>
           )}
