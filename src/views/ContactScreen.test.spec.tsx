@@ -12,8 +12,8 @@ test("should render ContactScreen", () => {
   expect(getByTestId("contact-screen")).toBeTruthy();
 
   // Check if the expected text content is present
-  const text1 = getByText("Se você tem algum feedback ou precisa de ajuda.");
-  const text2 = getByText("Entre em contato conosco.");
+  const text1 = getByText("Se precisa de ajuda ou feedback.");
+  const text2 = getByText("Entre em contato.");
   const emailText = getByText("contato@criar.art");
   const linkedinText = getByText("linkedin.com/in/lucasferreiralimax");
 
