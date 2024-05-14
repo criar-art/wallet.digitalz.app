@@ -1,25 +1,22 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 
 import { Props } from "./types";
 
 export default function FadeView(props: Props) {
-  const [fadeAnim, setFadeAmin] = useState(new Animated.Value(0));
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
-  useFocusEffect(
-    useCallback(() => {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start();
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
 
-      return () => {
-        setFadeAmin(new Animated.Value(0));
-      };
-    }, [fadeAnim])
-  );
+    return () => {
+      fadeAnim.setValue(0);
+    };
+  }, [fadeAnim]);
 
   return (
     <Animated.View
