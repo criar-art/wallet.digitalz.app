@@ -55,29 +55,41 @@ export default function Routes(props: any) {
             drawerLabel,
             drawerIcon,
             drawerActiveTintColor: "#333",
+            drawerPosition: "right",
             drawerItemStyle: {
-              padding: 10,
+              padding: 5,
+              borderTopStartRadius: 50,
+              borderBottomStartRadius: 50,
             },
             drawerStyle: {
-              borderTopEndRadius: 20,
-              borderBottomEndRadius: 20,
+              borderTopStartRadius: 20,
+              borderBottomStartRadius: 20,
             },
             headerTitleAlign: "center",
-            headerLeft: () => (
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerStyle: {
+              height: 120,
+            },
+            headerRight: () => (
               <TouchableOpacity
-                className="p-3"
+                className="p-3 bg-gray-100 mr-4 rounded-full"
                 onPress={() => props.toggleDrawer()}
               >
-                <MaterialIcons name="menu" size={22} color="black" />
+                <MaterialIcons name="menu" size={32} color="black" />
               </TouchableOpacity>
             ),
-            headerRight: () =>
+            headerLeft: () =>
               !props.dashboard ? (
-                <TouchableOpacity className="p-3" onPress={() => toggleEye()}>
+                <TouchableOpacity
+                  className="p-4 bg-gray-100 ml-4 rounded-full"
+                  onPress={() => toggleEye()}
+                >
                   {common.eyeStatus ? (
-                    <Ionicons name="eye" size={22} color="black" />
+                    <Ionicons name="eye" size={25} color="black" />
                   ) : (
-                    <Ionicons name="eye-off" size={22} color="black" />
+                    <Ionicons name="eye-off" size={25} color="black" />
                   )}
                 </TouchableOpacity>
               ) : null,
