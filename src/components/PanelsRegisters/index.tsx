@@ -18,7 +18,9 @@ import {
 import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
+
 import FadeView from "../FadeView";
+import EmptyRegisters from "../EmptyRegisters";
 
 export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -109,9 +111,7 @@ export default function PanelsRegisters(props: Props) {
           )}
         </>
       ) : (
-        <Text className="text-black text-center">
-          Nenhum registro cadastrado.
-        </Text>
+        <EmptyRegisters />
       )}
     </FadeView>
   );

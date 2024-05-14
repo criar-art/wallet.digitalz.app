@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 
 import { Props } from "./types";
 import FadeView from "../FadeView";
 import ItemList from "../ItemList";
 import ItemTotal from "../ItemTotal";
+import EmptyRegisters from "../EmptyRegisters";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
@@ -92,9 +93,7 @@ export default function ListRegisters(props: Props) {
           stickyHeaderIndices={[0]}
         />
       ) : (
-        <Text className="text-black text-center p-5">
-          Nenhum registro cadastrado.
-        </Text>
+        <EmptyRegisters />
       )}
     </FadeView>
   );
