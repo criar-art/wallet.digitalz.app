@@ -140,7 +140,7 @@ export default function ModalRegister(props: Props) {
     <>
       <Button
         text="Novo Registro"
-        label="Botão para criar novo registro"
+        label="Criar novo registro"
         backgroundColor="bg-green-600"
         textColor="text-white"
         className="rounded-none"
@@ -238,7 +238,7 @@ export default function ModalRegister(props: Props) {
               <View className="flex flex-row">
                 <Button
                   text="Cancelar"
-                  label="Botão para cancelar e fechar o modal do registro"
+                  label="Cancelar e fechar o modal do registro"
                   backgroundColor="bg-red-600"
                   className="flex-1 mr-1"
                   textColor="text-white"
@@ -247,7 +247,7 @@ export default function ModalRegister(props: Props) {
                 />
                 <Button
                   text={common.modalRegister == "edit" ? "Salvar" : "Criar"}
-                  label={`Botão para ${
+                  label={`${
                     common.modalRegister == "edit" ? "Salvar" : "Criar"
                   } o registro`}
                   backgroundColor="bg-green-600"

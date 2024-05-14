@@ -66,14 +66,14 @@ export default function ModalDelete(props: Props) {
         <View className="flex flex-row mt-4">
           <Button
             className="text-white bg-red-600 flex-1 mr-2"
-            label="Cancelar"
+            label="Cancelar exclusão"
             text="Cancelar"
             onPress={() => closeModal()}
             icon={<MaterialIcons name="cancel" size={22} color="white" />}
           />
           <Button
             className="text-white bg-green-600 flex-1"
-            label="Confirmar"
+            label="Confirmar exclusão"
             text="Confirmar"
             onPress={() => confirmModal()}
             icon={<MaterialIcons name="check-circle" size={22} color="white" />}
