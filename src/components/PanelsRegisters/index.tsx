@@ -57,7 +57,7 @@ export default function PanelsRegisters(props: Props) {
           : null
       }
       activeOpacity={ckeckTypeTouchable(props.type) ? 0.5 : 1}
-      className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-6 rounded-lg shadow-lg ${renderBorderType(
         props.type
       )} ${props.value < 0 ? "bg-red-100 border-red-600" : ""}`}
     >
@@ -72,7 +72,7 @@ export default function PanelsRegisters(props: Props) {
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black">Total {types[props.type]}</Text>
-            <Text className="font-bold">
+            <Text className="font-bold text-xl">
               {parseMoney(value, common.eyeStatus)}
             </Text>
           </View>
