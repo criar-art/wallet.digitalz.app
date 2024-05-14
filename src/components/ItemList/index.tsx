@@ -43,32 +43,6 @@ export default function ItemList(props: Props) {
           props.item.type
         )}`}
       >
-        <Animated.View
-          className="flex flex-row z-20 absolute top-0 right-0 bottom-0"
-          style={{ opacity: fadeAnim }}
-          pointerEvents={!optionsShow ? "none" : "auto"}
-        >
-          <Button
-            backgroundColor="bg-gray-100"
-            className="z-20 w-16 my-5 rounded-full"
-            onPress={props.edit}
-            label={`Editar registro ${props.item.name}`}
-            icon={<MaterialIcons name="edit" size={22} color="black" />}
-          />
-          <Button
-            backgroundColor="bg-gray-100"
-            className="z-20 w-16 m-5 rounded-full"
-            onPress={props.remove}
-            label={`Excluir registro ${props.item.name}`}
-            icon={
-              <MaterialCommunityIcons
-                name="trash-can-outline"
-                size={22}
-                color="red"
-              />
-            }
-          />
-        </Animated.View>
         <Text className="mb-2 text-black">{props.item.name}</Text>
         <Text className="mb-2 text-black">
           Valor:{" "}
@@ -89,6 +63,32 @@ export default function ItemList(props: Props) {
           <MaterialIcons name="calendar-month" size={22} color="black" />
           <Text className="ml-2 text-black">Data: {props.item.date}</Text>
         </View>
+        <Animated.View
+          className="flex flex-row items-center z-20 absolute top-0 right-0 bottom-0"
+          style={{ opacity: fadeAnim }}
+          pointerEvents={!optionsShow ? "none" : "auto"}
+        >
+          <Button
+            backgroundColor="bg-white"
+            className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-200"
+            onPress={props.edit}
+            label={`Editar registro ${props.item.name}`}
+            icon={<MaterialIcons name="edit" size={22} color="black" />}
+          />
+          <Button
+            backgroundColor="bg-white"
+            className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-200"
+            onPress={props.remove}
+            label={`Excluir registro ${props.item.name}`}
+            icon={
+              <MaterialCommunityIcons
+                name="trash-can-outline"
+                size={22}
+                color="red"
+              />
+            }
+          />
+        </Animated.View>
       </View>
     </TouchableOpacity>
   );
