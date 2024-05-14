@@ -24,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.criar.art.walletdigitalzapp",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"
