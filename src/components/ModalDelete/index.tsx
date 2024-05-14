@@ -59,24 +59,24 @@ export default function ModalDelete(props: Props) {
       pointerEvents={!common.modalDelete ? "none" : "auto"}
     >
       <Animated.View
-        className="bg-white p-4 rounded-lg m-10"
+        className="bg-white p-4 rounded-lg"
         style={{ transform: [{ scale: scaleAnim }] }}
       >
         <Text className="text-center text-xl">Tem certeza que desejar excluir?</Text>
         <View className="flex flex-row mt-4">
           <Button
-            className="text-white bg-red-600 flex-1 mr-2"
+            className="text-white bg-red-600 flex-1 mr-2 p-3"
             label="Cancelar exclusão"
             text="Cancelar"
             onPress={() => closeModal()}
-            icon={<MaterialIcons name="cancel" size={22} color="white" />}
+            icon={<MaterialIcons name="cancel" size={28} color="white" />}
           />
           <Button
-            className="text-white bg-green-600 flex-1"
+            className="text-white bg-green-600 flex-1 p-3"
             label="Confirmar exclusão"
             text="Confirmar"
             onPress={() => confirmModal()}
-            icon={<MaterialIcons name="check-circle" size={22} color="white" />}
+            icon={<MaterialIcons name="check-circle" size={28} color="white" />}
           />
         </View>
       </Animated.View>

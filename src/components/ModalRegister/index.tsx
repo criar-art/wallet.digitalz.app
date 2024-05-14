@@ -240,10 +240,10 @@ export default function ModalRegister(props: Props) {
                   text="Cancelar"
                   label="Cancelar e fechar o modal do registro"
                   backgroundColor="bg-red-600"
-                  className="flex-1 mr-1"
+                  className="flex-1 mr-1 p-3"
                   textColor="text-white"
                   onPress={() => closeModal()}
-                  icon={<MaterialIcons name="cancel" size={22} color="white" />}
+                  icon={<MaterialIcons name="cancel" size={28} color="white" />}
                 />
                 <Button
                   text={common.modalRegister == "edit" ? "Salvar" : "Criar"}
@@ -251,13 +251,13 @@ export default function ModalRegister(props: Props) {
                     common.modalRegister == "edit" ? "Salvar" : "Criar"
                   } o registro`}
                   backgroundColor="bg-green-600"
-                  className="flex-1 mr-1"
+                  className="flex-1 ml-1 p-3"
                   textColor="text-white"
                   onPress={() => saveStore()}
                   icon={
                     <MaterialIcons
                       name="check-circle"
-                      size={22}
+                      size={28}
                       color="white"
                     />
                   }
