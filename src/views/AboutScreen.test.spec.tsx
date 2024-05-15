@@ -25,4 +25,11 @@ test("should render AboutScreen", () => {
   expect(text1).toBeTruthy();
   expect(text2).toBeTruthy();
   expect(text3).toBeTruthy();
+
+  // Check if the expected text content is present
+  const wallet = getByText("walletdigitalz.web.app");
+  const criar = getByText("criar.art");
+
+  expect(wallet).toBeTruthy();
+  expect(criar).toBeTruthy();
 });
