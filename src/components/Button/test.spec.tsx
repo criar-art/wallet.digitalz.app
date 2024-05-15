@@ -3,7 +3,7 @@ import Button from "./index";
 import { MaterialIcons } from "@expo/vector-icons";
 
 test("should render Button", () => {
-  const { getByTestId } = render(<Button />);
+  const { getByTestId } = render(<Button label="teste" />);
 
   expect(getByTestId("button-container")).toBeTruthy();
 });
@@ -53,7 +53,7 @@ test("applies custom styles correctly", () => {
   const { getByTestId } = render(
     <Button
       testID="myButton"
-      backgroundColor="bg-red-600"
+      className="bg-red-600"
       textColor="text-white"
       label="Label accessiblity"
     />
