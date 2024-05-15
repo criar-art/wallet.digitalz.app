@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import { Props } from "./types";
 
 export default function EmptyRegisters(props: Props) {

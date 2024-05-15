@@ -1,14 +1,12 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
-import { useAppDispatch } from "../../store/hooks";
-import { setModalRegister } from "../../store/commonSlice";
 import Button from "../../components/Button";
-
+import { setModalRegister } from "../../store/commonSlice";
+import { useAppDispatch } from "../../store/hooks";
 import { Props } from "./types";
 
-export default function AppTabBar({ state, descriptors, navigation } : Props) {
+export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const dispatch = useAppDispatch();
 
   return (

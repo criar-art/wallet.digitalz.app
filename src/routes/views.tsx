@@ -7,8 +7,8 @@ import AboutScreen from "../views/AboutScreen";
 import ContactScreen from "../views/ContactScreen";
 
 import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { RootState } from "../store";
 import { setEyeStatus } from "../store/commonSlice";
+import { RootState } from "../store";
 
 const Drawer = createDrawerNavigator();
 

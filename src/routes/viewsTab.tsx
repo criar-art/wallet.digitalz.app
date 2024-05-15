@@ -1,14 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
+import AppTabBar from "../components/AppTabBar";
 import HomeScreen from "../views/HomeScreen";
 import ExpenseScreen from "../views/ExpenseScreen";
 import EntryScreen from "../views/EntryScreen";
 import InvestimentScreen from "../views/InvestimentScreen";
+
 import { renderColorType } from "../utils";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
-import AppTabBar from "../components/AppTabBar";
 
 const Tab = createBottomTabNavigator();
 

@@ -1,9 +1,8 @@
 import { render } from "@testing-library/react-native";
-import ItemList from "./index";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "../../store";
+import ItemList from "./index";
 
 test("should render ItemList", () => {
   const { getByTestId } = render(

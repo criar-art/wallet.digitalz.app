@@ -2,7 +2,6 @@ import { Image, Linking, View, ScrollView } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Zocial } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
-
 import FadeView from "../components/FadeView";
 import Button from "../components/Button";
 

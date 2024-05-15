@@ -1,6 +1,5 @@
 import { Image, Text, View, ScrollView, Linking } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
-
 import FadeView from "../components/FadeView";
 import Button from "../components/Button";
 

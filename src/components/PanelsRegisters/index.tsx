@@ -7,7 +7,6 @@ import {
   ParamListBase,
   NavigationProp,
 } from "@react-navigation/native";
-
 import {
   renderBorderType,
   types,
@@ -15,12 +14,11 @@ import {
   ckeckTypeTouchable,
   parseMoney,
 } from "../../utils";
-import { Props } from "./types";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
-
 import FadeView from "../FadeView";
 import EmptyRegisters from "../EmptyRegisters";
+import { Props } from "./types";
 
 export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();

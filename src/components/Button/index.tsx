@@ -29,7 +29,10 @@ export default function Button(props: Props) {
   };
 
   return (
-    <ButtonConditional buttonProps={buttonProps} pressableButton={props.pressableButton}>
+    <ButtonConditional
+      buttonProps={buttonProps}
+      pressableButton={props.pressableButton}
+    >
       <>
         {props.icon}
         {props.text && (

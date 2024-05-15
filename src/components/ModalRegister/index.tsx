@@ -13,11 +13,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
 import { NumericFormat } from "react-number-format";
-
-import { Props } from "./types";
-import Button from "../Button";
-import Select from "../Select";
-
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
@@ -25,6 +20,9 @@ import {
   setRegister,
   setEditRegister,
 } from "../../store/commonSlice";
+import Button from "../Button";
+import Select from "../Select";
+import { Props } from "./types";
 
 export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();

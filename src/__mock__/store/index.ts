@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { persistReducer } from "redux-persist";
 import * as SecureStore from "expo-secure-store";
-
 import commonSlice from "./commonSlice";
 
 function createSecureStorage(options: any = {}) {

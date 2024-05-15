@@ -57,5 +57,5 @@ export const ckeckTypeTouchable = (type: string) => {
 };
 
 export const parseMoney = (value: any, eye?: boolean) => {
-  return eye ? value : value.replace(/[.,0-9]/g, "*")
-}
+  return eye ? value : value.replace(/[.,0-9]/g, "*");
+};

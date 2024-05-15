@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { common } from './types';
+import { createSlice } from "@reduxjs/toolkit";
+import { common } from "./types";
 
 export const commonSlice = createSlice({
-  name: 'commonState',
+  name: "commonState",
   initialState: {
     registers: [],
-    modalRegister: '',
-    modalDelete: '',
-    registerData: '',
+    modalRegister: "",
+    modalDelete: "",
+    registerData: "",
     eyeStatus: false,
   } as common,
   reducers: {
@@ -15,7 +15,9 @@ export const commonSlice = createSlice({
       state.registers = payload.payload;
     },
     setEditRegister(state, payload) {
-      const itemIndex = state.registers.findIndex(({ id }: any) => id == payload.payload.id)
+      const itemIndex = state.registers.findIndex(
+        ({ id }: any) => id == payload.payload.id
+      );
       state.registers[itemIndex] = payload.payload;
     },
     setRegisterData(state, payload) {

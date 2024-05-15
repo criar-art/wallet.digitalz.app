@@ -1,9 +1,8 @@
 import { render } from "@testing-library/react-native";
-import ModalDelete from "./index";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "../../store";
+import ModalDelete from "./index";
 
 test("should render ModalDelete", () => {
   jest.mock("@react-navigation/native", () => ({

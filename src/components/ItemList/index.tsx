@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Text, View, Animated, TouchableOpacity } from "react-native";
-import { MaterialIcons, MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
-import { renderBorderType } from "../../utils";
-import { Props } from "./types";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import Button from "../Button";
-
-import { parseMoney } from "../../utils";
+import { renderBorderType, parseMoney } from "../../utils";
+import { Props } from "./types";
 
 export default function ItemList(props: Props) {
   const [optionsShow, setOptionsShow] = useState(false);
@@ -54,7 +56,9 @@ export default function ItemList(props: Props) {
             fixedDecimalScale
             prefix={"R$ "}
             renderText={(value: string) => (
-              <Text className="text-xl">{parseMoney(value, props.eyeStatus)}</Text>
+              <Text className="text-xl">
+                {parseMoney(value, props.eyeStatus)}
+              </Text>
             )}
           />
         </Text>

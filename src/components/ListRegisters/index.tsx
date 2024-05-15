@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-
-import { Props } from "./types";
 import FadeView from "../FadeView";
 import ItemList from "../ItemList";
 import ItemTotal from "../ItemTotal";
 import EmptyRegisters from "../EmptyRegisters";
-
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
@@ -14,6 +11,7 @@ import {
   setModalDelete,
   setRegisterData,
 } from "../../store/commonSlice";
+import { Props } from "./types";
 
 export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();

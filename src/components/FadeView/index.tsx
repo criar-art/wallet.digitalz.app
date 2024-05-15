@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
-
 import { Props } from "./types";
 
 export default function FadeView(props: Props) {

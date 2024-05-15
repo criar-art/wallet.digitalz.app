@@ -1,6 +1,6 @@
 import { render, fireEvent } from "@testing-library/react-native";
-import Button from "./index";
 import { MaterialIcons } from "@expo/vector-icons";
+import Button from "./index";
 
 test("should render Button", () => {
   const { getByTestId } = render(<Button label="teste" />);
@@ -40,7 +40,11 @@ test("renders correctly with icon", () => {
 test("calls onPress function when pressed", () => {
   const onPressMock = jest.fn();
   const { getByTestId } = render(
-    <Button onPress={onPressMock} testID="myButton" label="Label accessiblity" />
+    <Button
+      onPress={onPressMock}
+      testID="myButton"
+      label="Label accessiblity"
+    />
   );
 
   const buttonContainer = getByTestId("myButton");

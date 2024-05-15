@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
-import Button from "../Button";
-
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { RootState } from "../../store";
-import { setModalDelete, setRegister } from "../../store/commonSlice";
-
-import { Props } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { setModalDelete, setRegister } from "../../store/commonSlice";
+import { RootState } from "../../store";
+import Button from "../Button";
+import { Props } from "./types";
 
 export default function ModalDelete(props: Props) {
   const dispatch = useAppDispatch();

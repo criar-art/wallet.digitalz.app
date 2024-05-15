@@ -1,9 +1,8 @@
 import { render } from "@testing-library/react-native";
-import AppTabBar from "./index";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "../../store";
+import AppTabBar from "./index";
 
 test("should render AppTabBar", () => {
   jest.mock("@react-navigation/native", () => ({

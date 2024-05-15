@@ -1,9 +1,8 @@
 import { render } from "@testing-library/react-native";
-import HomeScreen from "./HomeScreen";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "../store";
+import HomeScreen from "./HomeScreen";
 
 test("should render HomeScreen", () => {
   const { getByTestId } = render(

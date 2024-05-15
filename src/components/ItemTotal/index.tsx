@@ -1,10 +1,8 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
-
-import { renderBorderType, types } from "../../utils";
+import { renderBorderType, types, parseMoney } from "../../utils";
 import { Props } from "./types";
-import { parseMoney } from "../../utils";
 
 export default function ItemTotal(props: Props) {
   return (
