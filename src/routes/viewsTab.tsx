@@ -85,14 +85,6 @@ export function HomeStack() {
               title,
               tabBarLabel,
               tabBarIcon,
-              tabBarActiveTintColor: "#333",
-              tabBarActiveBackgroundColor: "#eee",
-              tabBarItemStyle: { padding: 10 },
-              tabBarLabelStyle: {
-                fontSize: 12,
-                color: "#000",
-              },
-              tabBarStyle: { height: 75 },
               tabBarBadge,
               headerTitleAlign: "center",
               headerStyle: {
