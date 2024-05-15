@@ -140,10 +140,10 @@ export default function ModalRegister(props: Props) {
     <>
       {!!common.isDrawerStatus && (
         <Button
+          pressableButton
           label="Criar novo registro"
-          backgroundColor="bg-green-600"
           textColor="text-white"
-          className="rounded-full absolute bottom-[45] left-1/2 -translate-x-10 w-20 h-20 border-4 border-white"
+          className="rounded-full absolute bottom-[45] left-1/2 -translate-x-10 w-20 h-20 border-4 border-white bg-green-600"
           onPress={() => dispatch(setModalRegister("register"))}
           icon={<MaterialIcons name="add" size={35} color="white" />}
         />
@@ -247,8 +247,7 @@ export default function ModalRegister(props: Props) {
                 <Button
                   text="Cancelar"
                   label="Cancelar e fechar o modal do registro"
-                  backgroundColor="bg-red-600"
-                  className="flex-1 mr-1 p-3"
+                  className="flex-1 mr-1 p-3 bg-red-600"
                   textColor="text-white"
                   onPress={() => closeModal()}
                   icon={<MaterialIcons name="cancel" size={28} color="white" />}
@@ -258,8 +257,7 @@ export default function ModalRegister(props: Props) {
                   label={`${
                     common.modalRegister == "edit" ? "Salvar" : "Criar"
                   } o registro`}
-                  backgroundColor="bg-green-600"
-                  className="flex-1 ml-1 p-3"
+                  className="flex-1 ml-1 p-3 bg-green-600"
                   textColor="text-white"
                   onPress={() => saveStore()}
                   icon={

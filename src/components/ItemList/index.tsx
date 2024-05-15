@@ -69,15 +69,13 @@ export default function ItemList(props: Props) {
         pointerEvents={!optionsShow ? "none" : "auto"}
       >
         <Button
-          backgroundColor="bg-white"
-          className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-200"
+          className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-200 bg-white"
           onPress={props.edit}
           label={`Editar registro ${props.item.name}`}
           icon={<MaterialIcons name="edit" size={22} color="black" />}
         />
         <Button
-          backgroundColor="bg-white"
-          className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-200"
+          className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-200 bg-white"
           onPress={props.remove}
           label={`Excluir registro ${props.item.name}`}
           icon={

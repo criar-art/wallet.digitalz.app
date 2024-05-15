@@ -17,16 +17,14 @@ export default function ContactScreen() {
         <Button
           text="criar.art"
           label="Acessar site criar.art"
-          backgroundColor="bg-white"
           textColor="text-black"
           onPress={() => Linking.openURL("https://criar.art/contact")}
           icon={<Fontisto name="world" size={28} color="black" />}
-          className="justify-start mt-4 p-6 shadow-lg"
+          className="justify-start mt-4 p-6 shadow-lg bg-white"
         />
         <Button
           text="contato@criar.art"
           label="Enviar email para contato@criar.art"
-          backgroundColor="bg-white"
           textColor="text-black"
           onPress={() =>
             Linking.openURL(
@@ -34,18 +32,17 @@ export default function ContactScreen() {
             )
           }
           icon={<MaterialIcons name="email" size={28} color="black" />}
-          className="justify-start mt-4 p-6 shadow-lg"
+          className="justify-start mt-4 p-6 shadow-lg bg-white"
         />
         <Button
           text="@lucasferreiralimax"
           label="Acessar linkedin do Lucas Ferreira"
-          backgroundColor="bg-white"
           textColor="text-black"
           onPress={() =>
             Linking.openURL("https://linkedin.com/in/lucasferreiralimax")
           }
           icon={<Zocial name="linkedin" size={28} color="rgb(10, 102, 194)" />}
-          className="justify-start mt-4 p-6 shadow-lg"
+          className="justify-start mt-4 p-6 shadow-lg bg-white"
         />
         <Image
           className="mt-5 rounded-lg"
