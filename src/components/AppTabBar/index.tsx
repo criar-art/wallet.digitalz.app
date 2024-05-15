@@ -8,11 +8,11 @@ import Button from "../../components/Button";
 
 import { Props } from "./types";
 
-export default function AppTabBar(props: Props) {
+export default function AppTabBar({ state, descriptors, navigation } : Props) {
   const dispatch = useAppDispatch();
 
   return (
-    <View className="flex flex-row">
+    <View className="flex flex-row" testID="app-tab-bar">
       <Button
         pressableButton
         label="Criar novo registro"
@@ -21,8 +21,8 @@ export default function AppTabBar(props: Props) {
         onPress={() => dispatch(setModalRegister("register"))}
         icon={<MaterialIcons name="add" size={35} color="white" />}
       />
-      {props.state.routes.map((route: any, index: number) => {
-        const { options } = props.descriptors[route.key];
+      {state?.routes.map((route: any, index: number) => {
+        const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
@@ -30,22 +30,22 @@ export default function AppTabBar(props: Props) {
             ? options.title
             : route.name;
 
-        const isFocused = props.state.index === index;
+        const isFocused = state.index === index;
 
         const onPress = () => {
-          const event = props.navigation.emit({
+          const event = navigation.emit({
             type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            props.navigation.navigate(route.name, route.params);
+            navigation.navigate(route.name, route.params);
           }
         };
 
         const onLongPress = () => {
-          props.navigation.emit({
+          navigation.emit({
             type: "tabLongPress",
             target: route.key,
           });
