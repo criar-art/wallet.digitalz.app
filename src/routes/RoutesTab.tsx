@@ -9,7 +9,7 @@ import RegisterScreen from "../views/RegisterScreen";
 
 const Tab = createBottomTabNavigator();
 
-export function HomeStack() {
+export function RoutesTab() {
   const common = useAppSelector((state: RootState) => state.commonState);
   const getCountRegisters = (type: string) => {
     return common.registers.filter((item: any) => item.type == type).length;

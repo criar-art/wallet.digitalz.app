@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./src/store";
-import Routes from "./src/routes/views";
+import Routes from "./src/routes";
 import ModalRegister from "./src/components/ModalRegister";
 import ModalAlert from "./src/components/ModalDelete";
 

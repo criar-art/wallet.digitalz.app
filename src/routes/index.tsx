@@ -1,14 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-
-import { HomeStack } from "./viewsTab";
-import AboutScreen from "../views/AboutScreen";
-import ContactScreen from "../views/ContactScreen";
-
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { setEyeStatus } from "../store/commonSlice";
 import { RootState } from "../store";
+import { RoutesTab } from "./RoutesTab";
+import AboutScreen from "../views/AboutScreen";
+import ContactScreen from "../views/ContactScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -18,7 +16,7 @@ export const views = [
     title: "Wallet Digitalz",
     drawerLabel: "Início",
     drawerIcon: () => <MaterialIcons name="home" size={22} color="black" />,
-    component: HomeStack,
+    component: RoutesTab,
   },
   {
     name: "About",
