@@ -208,6 +208,7 @@ export default function ModalRegister(props: Props) {
               placeholder="Nome do registro"
               onChangeText={(value: string) => handleChange(value, "name")}
               value={formModal.name}
+              placeholderTextColor="#000"
             />
             <Text className="text-black mb-2">Valor</Text>
             <NumericFormat
@@ -226,6 +227,7 @@ export default function ModalRegister(props: Props) {
                     onChangeText={(value: string) => setInputValue(value)}
                     value={value}
                     keyboardType="phone-pad"
+                    placeholderTextColor="#000"
                   />
                 );
               }}
