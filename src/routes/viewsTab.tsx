@@ -1,15 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-
-import AppTabBar from "../components/AppTabBar";
-import HomeScreen from "../views/HomeScreen";
-import ExpenseScreen from "../views/ExpenseScreen";
-import EntryScreen from "../views/EntryScreen";
-import InvestimentScreen from "../views/InvestimentScreen";
-
 import { renderColorType } from "../utils";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
+import AppTabBar from "../components/AppTabBar";
+import HomeScreen from "../views/HomeScreen";
+import RegisterScreen from "../views/RegisterScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +14,18 @@ export function HomeStack() {
   const getCountRegisters = (type: string) => {
     return common.registers.filter((item: any) => item.type == type).length;
   };
+
+  function configRegisterScreen(name: string, title: string, icon: any) {
+    return {
+      name,
+      title,
+      tabBarLabel: title,
+      tabBarIcon: icon,
+      tabBarBadge: getCountRegisters(name.toLowerCase()),
+      children: <RegisterScreen type={name.toLocaleLowerCase()} />,
+    };
+  }
+
   const viewsTab = [
     {
       name: "Home",
@@ -26,50 +34,29 @@ export function HomeStack() {
       tabBarIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
       ),
-      component: HomeScreen,
+      children: <HomeScreen />,
     },
-    {
-      name: "Expense",
-      title: "Despesa",
-      tabBarLabel: "Despesa",
-      tabBarIcon: (props: any) => (
-        <MaterialCommunityIcons
-          name="cash-remove"
-          size={props.size}
-          color={props.color}
-        />
-      ),
-      component: ExpenseScreen,
-      tabBarBadge: getCountRegisters("expense"),
-    },
-    {
-      name: "Entry",
-      title: "Entrada",
-      tabBarLabel: "Entrada",
-      tabBarIcon: (props: any) => (
-        <MaterialCommunityIcons
-          name="cash-check"
-          size={props.size}
-          color={props.color}
-        />
-      ),
-      component: EntryScreen,
-      tabBarBadge: getCountRegisters("entry"),
-    },
-    {
-      name: "Investiment",
-      title: "Investimento",
-      tabBarLabel: "Investimento",
-      tabBarIcon: (props: any) => (
-        <MaterialIcons
-          name="attach-money"
-          size={props.size}
-          color={props.color}
-        />
-      ),
-      component: InvestimentScreen,
-      tabBarBadge: getCountRegisters("investiment"),
-    },
+    configRegisterScreen("Expense", "Despesa", (props: any) => (
+      <MaterialCommunityIcons
+        name="cash-remove"
+        size={props.size}
+        color={props.color}
+      />
+    )),
+    configRegisterScreen("Entry", "Entrada", (props: any) => (
+      <MaterialCommunityIcons
+        name="cash-check"
+        size={props.size}
+        color={props.color}
+      />
+    )),
+    configRegisterScreen("Investiment", "Investimento", (props: any) => (
+      <MaterialIcons
+        name="attach-money"
+        size={props.size}
+        color={props.color}
+      />
+    )),
   ];
 
   return (
@@ -77,30 +64,29 @@ export function HomeStack() {
       initialRouteName="Home"
       tabBar={(props) => <AppTabBar {...props} />}
     >
-      {viewsTab.map(
-        ({ name, title, tabBarIcon, tabBarLabel, tabBarBadge, component }) => (
-          <Tab.Screen
-            key={name}
-            name={name}
-            options={{
-              title,
-              tabBarLabel,
-              tabBarIcon,
-              tabBarBadge,
-              headerTitleAlign: "center",
-              headerStyle: {
-                backgroundColor: renderColorType(name.toLocaleLowerCase()),
-                height: 35,
-              },
-              headerTitleStyle: {
-                fontSize: 15,
-                fontWeight: "bold",
-              },
-            }}
-            component={component}
-          />
-        )
-      )}
+      {viewsTab.map((item: any) => (
+        <Tab.Screen
+          key={item.name}
+          name={item.name}
+          options={{
+            title: item.title,
+            tabBarLabel: item.tabBarLabel,
+            tabBarIcon: item.tabBarIcon,
+            tabBarBadge: item.tabBarBadge,
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: renderColorType(item.name.toLocaleLowerCase()),
+              height: 35,
+            },
+            headerTitleStyle: {
+              fontSize: 15,
+              fontWeight: "bold",
+            },
+          }}
+        >
+          {() => item.children}
+        </Tab.Screen>
+      ))}
     </Tab.Navigator>
   );
 }
