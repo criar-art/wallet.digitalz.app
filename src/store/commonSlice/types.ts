@@ -4,5 +4,4 @@ export interface common {
   modalDelete: string;
   registerData: any;
   eyeStatus: boolean;
-  isDrawerStatus: boolean;
 }
