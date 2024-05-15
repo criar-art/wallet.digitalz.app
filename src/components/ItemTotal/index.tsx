@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
 import { renderBorderType, types, parseMoney } from "../../utils";

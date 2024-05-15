@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text, View, Animated, TouchableOpacity } from "react-native";
 import { NumericFormat } from "react-number-format";
 import {

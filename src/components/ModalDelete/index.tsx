@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
