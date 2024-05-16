@@ -38,7 +38,7 @@ export default function ModalDelete(props: Props) {
     }).start();
     setTimeout(() => {
       dispatch(setModalDelete(""));
-    }, 500);
+    }, 100);
   };
 
   const confirmModal = () => {
