@@ -190,7 +190,7 @@ export default function ModalRegister(props: Props) {
             </Text>
             <View className="flex flex-row mb-3">
               <View className="flex-1 mr-2">
-                <Text className="text-black mb-1 text-sm">Data</Text>
+                <Text className="text-black mb-1 text-base">Data</Text>
                 <TouchableOpacity
                   onPress={() => setShowDate(true)}
                   className="flex flex-row p-3 pr-4 rounded-lg border-2 border-slate-600"
@@ -224,7 +224,7 @@ export default function ModalRegister(props: Props) {
                 )}
               </View>
               <View className="flex-1 ml-2">
-                <Text className="text-black mb-1 text-sm">Tipo</Text>
+                <Text className="text-black mb-1 text-base">Tipo</Text>
                 <Select
                   data={dataType}
                   maxHeight={300}
@@ -237,17 +237,16 @@ export default function ModalRegister(props: Props) {
             </View>
             <View className="flex flex-row mb-6">
               <View className="flex-1 mr-2">
-                <Text className="text-black mb-1 text-sm">Nome</Text>
+                <Text className="text-black mb-1 text-base">Nome</Text>
                 <TextInput
+                  aria-label="Nome do registro"
                   className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
-                  placeholder="Nome do registro"
                   onChangeText={(value: string) => handleChange(value, "name")}
                   value={formModal.name}
-                  placeholderTextColor="#000"
                 />
               </View>
               <View className="flex-1 ml-2">
-                <Text className="text-black mb-1 text-sm">Valor</Text>
+                <Text className="text-black mb-1 text-base">Valor</Text>
                 <NumericFormat
                   value={inputValue}
                   displayType={"text"}
@@ -261,8 +260,9 @@ export default function ModalRegister(props: Props) {
                   renderText={(value) => {
                     return (
                       <TextInput
+                        aria-label="valor do registro"
                         className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
-                        placeholder="Valor do registro"
+                        placeholder="R$"
                         onChangeText={(value: string) => setInputValue(value)}
                         value={value}
                         keyboardType="phone-pad"
