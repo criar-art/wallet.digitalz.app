@@ -22,6 +22,7 @@ export default function AppDrawerContent({
               ? options.title
               : route.name;
 
+          const labelButton = label == "Wallet Digitalz" ? "Ínicio" : label;
           const isFocused = state.index === index;
 
           const onPress = () => {
@@ -36,8 +37,8 @@ export default function AppDrawerContent({
             <Button
               key={index}
               accessibilityState={isFocused ? { selected: true } : {}}
-              text={label == "Wallet Digitalz" ? "Ínicio" : label}
-              label={label}
+              text={labelButton}
+              label={labelButton}
               onPress={onPress}
               className={`justify-start py-7 ml-2 pl-6 bg-transparent rounded-none ${
                 !!isFocused && "bg-gray-200 rounded-tl-full rounded-bl-full"
