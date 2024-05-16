@@ -1,3 +1,10 @@
+export const formatDate = (date: string) => {
+  const [day, month, year] = date.split("/").map(Number);
+  return new Date(year, month - 1, day);
+};
+
+export const isDatePast = (date: string) => new Date() > formatDate(date);
+
 export const renderBorderType = (type: string) => {
   switch (type) {
     case "liquid":
@@ -32,6 +39,22 @@ export const renderColorType = (type: string) => {
     case "vehicle":
       return "rgb(156 163 175)";
   }
+};
+
+export const renderBackgroundClass = (type: string, date: string) => {
+  if (isDatePast(date)) {
+    switch (type) {
+      case "expense":
+        return "bg-red-100";
+      case "investiment":
+        return "bg-blue-100/50";
+      case "entry":
+        return "bg-green-100/30";
+      default:
+        return "";
+    }
+  }
+  return "";
 };
 
 export const types: any = {
