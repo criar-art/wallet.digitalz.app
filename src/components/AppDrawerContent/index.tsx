@@ -38,7 +38,7 @@ export default function AppDrawerContent({
               key={index}
               accessibilityState={isFocused ? { selected: true } : {}}
               text={labelButton}
-              label={labelButton}
+              label={`Navegar para ${labelButton}`}
               onPress={onPress}
               className={`justify-start py-7 ml-2 pl-6 bg-transparent rounded-none ${
                 !!isFocused && "bg-gray-200 rounded-tl-full rounded-bl-full"
