@@ -12,7 +12,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
     <View className="flex flex-row" testID="app-tab-bar">
       <Button
         pressableButton
-        label="Criar novo registro"
+        label="Novo registro"
         textColor="text-white"
         className="z-10 rounded-full absolute bottom-[60] left-1/2 -translate-x-7 w-18 h-18 border-2 border-white bg-green-600"
         onPress={() => dispatch(setModalRegister("register"))}
