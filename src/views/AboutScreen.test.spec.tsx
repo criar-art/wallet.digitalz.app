@@ -27,9 +27,11 @@ test("should render AboutScreen", () => {
   expect(text3).toBeTruthy();
 
   // Check if the expected text content is present
+  const privacy = getByText("Política de Privacidade");
   const wallet = getByText("walletdigitalz.web.app");
-  const criar = getByText("criar.art");
+  const criar = getByText("Criar.Art");
 
+  expect(privacy).toBeTruthy();
   expect(wallet).toBeTruthy();
   expect(criar).toBeTruthy();
 });
