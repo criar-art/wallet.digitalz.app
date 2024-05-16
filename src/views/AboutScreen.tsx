@@ -15,6 +15,7 @@ export default function AboutScreen() {
           className="p-5"
           contentContainerStyle={{
             flexGrow: 1,
+            paddingBottom: 20,
           }}
         >
           <Text className="my-2 text-black text-base">

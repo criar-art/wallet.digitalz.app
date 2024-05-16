@@ -17,6 +17,7 @@ export default function ContactScreen() {
           className="px-5"
           contentContainerStyle={{
             flexGrow: 1,
+            paddingBottom: 20,
           }}
         >
           <Button
@@ -47,6 +48,16 @@ export default function ContactScreen() {
               )
             }
             icon={<MaterialIcons name="email" size={28} color="black" />}
+            className="justify-start mt-4 p-6 shadow-lg bg-white"
+          />
+          <Button
+            text="+55 (83) 98210-7202"
+            label="Enviar mensagemo no whatsapp Criar.Art"
+            textColor="text-black"
+            onPress={() =>
+              Linking.openURL("https://wa.me/5583982107202?text=Ol%C3%A1+tudo+bem%3F")
+            }
+            icon={<Fontisto name="whatsapp" size={28} color="black" />}
             className="justify-start mt-4 p-6 shadow-lg bg-white"
           />
           <Button
