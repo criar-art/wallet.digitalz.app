@@ -193,7 +193,7 @@ export default function ModalRegister(props: Props) {
                 <Text className="text-black mb-1 text-base">Data</Text>
                 <TouchableOpacity
                   onPress={() => setShowDate(true)}
-                  className="flex flex-row p-3 pr-4 rounded-lg border-2 border-slate-600"
+                  className="flex flex-row items-center p-3 pr-4 rounded-lg border-2 border-slate-600"
                   accessibilityLabel="Data do registro"
                   accessibilityRole="button"
                 >
@@ -202,16 +202,9 @@ export default function ModalRegister(props: Props) {
                     size={25}
                     color="black"
                   />
-                  <TextInput
-                    className="text-base ml-2 text-black"
-                    placeholder="Data do registro"
-                    onChangeText={(value: string) =>
-                      handleChange(value, "date")
-                    }
-                    value={formModal.date}
-                    editable={false}
-                    pointerEvents="none"
-                  />
+                  <Text className="text-base ml-2 text-black">
+                    {formModal.date}
+                  </Text>
                 </TouchableOpacity>
                 {showDate && (
                   <DateTimePicker
