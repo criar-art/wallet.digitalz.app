@@ -23,7 +23,7 @@ describe("Utility Functions", () => {
   describe("types", () => {
     test("contains the expected type labels", () => {
       const expectedTypes = {
-        liquid: "Liquido",
+        liquid: "Líquido",
         patrimony: "Patrimônio",
         investiment: "Investimento",
         entry: "Entrada",

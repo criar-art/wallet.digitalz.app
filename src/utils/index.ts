@@ -61,7 +61,7 @@ export const renderBackgroundClass = (type: string, date: string) => {
 };
 
 export const types: any = {
-  liquid: "Liquido",
+  liquid: "Líquido",
   patrimony: "Patrimônio",
   investiment: "Investimento",
   entry: "Entrada",
