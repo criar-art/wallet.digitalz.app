@@ -1,8 +1,24 @@
 import { render } from "@testing-library/react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EmptyRegisters from "./index";
 
-test("should render EmptyRegisters", () => {
-  const { getByTestId } = render(<EmptyRegisters testID="empty-registers" />);
+describe("EmptyRegisters Component", () => {
+  test("should render EmptyRegisters", () => {
+    const { getByTestId, getByText } = render(
+      <EmptyRegisters testID="empty-registers" />
+    );
 
-  expect(getByTestId("empty-registers")).toBeTruthy();
+    const mainContainer = getByTestId("empty-registers");
+    expect(mainContainer).toBeTruthy();
+
+    const icon = mainContainer.findByType(MaterialCommunityIcons);
+    expect(icon).toBeTruthy();
+    expect(icon.props.name).toBe("sticker-alert-outline");
+    expect(icon.props.size).toBe(60);
+    expect(icon.props.color).toBe("black");
+
+    const text = getByText("Nenhum registro cadastrado.");
+    expect(text).toBeTruthy();
+    expect(text.props.children).toBe("Nenhum registro cadastrado.");
+  });
 });
