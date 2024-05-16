@@ -70,7 +70,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
             </View>
             <Text className="text-black text-xs">{label}</Text>
             {!!options.tabBarBadge && (
-              <Text className="scale-[.85] text-xs bg-red-400 font-bold text-white px-2 py-1 absolute -top-3 rounded-full">
+              <Text className="scale-[.85] text-xs bg-black font-bold text-white px-2 py-1 absolute -top-3 rounded-full">
                 {options.tabBarBadge}
               </Text>
             )}
