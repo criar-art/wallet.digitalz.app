@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   Animated,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
 import { NumericFormat } from "react-number-format";
@@ -183,11 +183,24 @@ export default function ModalRegister(props: Props) {
               )
             }
           >
-            <Text className="text-black text-center text-xl mb-4 border-b-2 pb-2 border-slate-300">
-              {common.modalRegister == "edit"
-                ? "Editar Registro"
-                : "Novo Registro"}
-            </Text>
+            <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300">
+              <Text className="text-black text-center text-xl mr-2">
+                {common.modalRegister == "edit"
+                  ? "Editar Registro"
+                  : "Novo Registro"}
+              </Text>
+              <View className="ml-auto">
+                <MaterialCommunityIcons
+                  name={
+                    common.modalRegister === "edit"
+                      ? "note-edit-outline"
+                      : "note-plus-outline"
+                  }
+                  size={30}
+                  color="#aaa"
+                />
+              </View>
+            </View>
             <View className="flex flex-row mb-3">
               <View className="flex-1 mr-2">
                 <Text className="text-black mb-1 text-base">Data</Text>
