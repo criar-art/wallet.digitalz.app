@@ -28,6 +28,7 @@ export default function Button(props: Props) {
     accessibilityLabel: props.label,
     accessibilityRole: "button",
     accessibilityState: props.accessibilityState,
+    disabled: props.disabled,
   };
 
   return (

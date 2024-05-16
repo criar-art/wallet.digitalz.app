@@ -7,6 +7,7 @@ export type Props = {
   text?: string;
   label: string;
   icon?: React.ReactNode;
+  disabled?: boolean;
   pressableButton?: boolean;
   accessibilityState?: any;
   onPress?: ((event: GestureResponderEvent) => void);

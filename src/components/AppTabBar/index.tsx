@@ -59,6 +59,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
             onLongPress={onLongPress}
             className="flex flex-1 items-center py-5 border-y-2 border-l-2 border-gray-200"
             style={{ backgroundColor: !isFocused ? "white" : "#eee" }}
+            disabled={isFocused}
           >
             <View
               className={`flex items-center ${
