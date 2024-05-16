@@ -50,9 +50,9 @@ export const renderBackgroundClass = (type: string, date: string) => {
       case "expense":
         return "bg-red-100";
       case "investiment":
-        return "bg-blue-100/50";
+        return "bg-blue-100";
       case "entry":
-        return "bg-green-100/30";
+        return "bg-green-100";
       default:
         return "";
     }
