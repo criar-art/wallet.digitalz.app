@@ -1,5 +1,6 @@
-import { Text, View } from "react-native";
+import { Text, View, Platform } from "react-native";
 import pkg from "../../../package.json";
+import app from "../../../app.json";
 import Button from "../Button";
 import { Props } from "./types";
 
@@ -9,6 +10,7 @@ export default function AppDrawerContent({
   navigation,
 }: Props) {
   const appVersion = pkg.version;
+  const versionCode = app.expo.android.versionCode;
 
   return (
     <View testID="app-drawer-content" className="flex flex-row w-full h-full">
@@ -57,7 +59,10 @@ export default function AppDrawerContent({
           );
         })}
         <View className="flex p-10 mt-auto">
-          <Text className="text-center">Versão {appVersion}</Text>
+          <Text className="text-center">
+            Versão {appVersion}
+            {Platform.OS === "android" && ` - Build ${versionCode}`}
+          </Text>
         </View>
       </View>
     </View>
