@@ -35,6 +35,7 @@ export default function AppDrawerContent({
           return (
             <Button
               key={index}
+              accessibilityState={isFocused ? { selected: true } : {}}
               text={label == "Wallet Digitalz" ? "Ínicio" : label}
               label={label}
               onPress={onPress}

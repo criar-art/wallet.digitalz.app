@@ -8,5 +8,6 @@ export type Props = {
   label: string;
   icon?: React.ReactNode;
   pressableButton?: boolean;
+  accessibilityState: any;
   onPress?: ((event: GestureResponderEvent) => void);
 }
