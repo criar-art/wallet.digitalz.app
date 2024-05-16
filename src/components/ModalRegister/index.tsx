@@ -239,7 +239,7 @@ export default function ModalRegister(props: Props) {
               <View className="flex-1 mr-2">
                 <Text className="text-black mb-1 text-base">Nome</Text>
                 <TextInput
-                  aria-label="Nome do registro"
+                  accessibilityLabel="Nome do registro"
                   className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
                   onChangeText={(value: string) => handleChange(value, "name")}
                   value={formModal.name}
@@ -260,7 +260,7 @@ export default function ModalRegister(props: Props) {
                   renderText={(value) => {
                     return (
                       <TextInput
-                        aria-label="valor do registro"
+                        accessibilityLabel="Valor do registro"
                         className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
                         placeholder="R$"
                         onChangeText={(value: string) => setInputValue(value)}
