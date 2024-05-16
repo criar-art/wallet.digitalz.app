@@ -1,18 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { Text, View, Animated, TouchableOpacity } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { NumericFormat } from "react-number-format";
 import {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import Button from "../Button";
 import { renderBorderType, parseMoney } from "../../utils";
+import Button from "../Button";
 import { Props } from "./types";
 
 export default function ItemList(props: Props) {
+  const isFocused = useIsFocused();
   const [optionsShow, setOptionsShow] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!isFocused) setOptionsShow(false);
+  }, [isFocused]);
 
   useEffect(() => {
     if (optionsShow) {
