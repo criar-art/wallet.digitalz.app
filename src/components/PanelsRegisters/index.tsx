@@ -80,12 +80,20 @@ export default function PanelsRegisters(props: Props) {
           </View>
         )}
       />
+      {props.type == "liquid" && props.value < 0 && (
+        <View
+          className={`bg-red-600 p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
+        >
+          <Text className="text-white text-xs">Carteira Negativada</Text>
+        </View>
+      )}
       {!!getCountRegisters(props.type) && (
         <View
           className={`bg-black p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
           <Text className="text-white text-xs">
-            Quantidade {getCountRegisters(props.type)}
+            {getCountRegisters(props.type)} Registro
+            {`${getCountRegisters(props.type) > 1 ? "s" : ""}`}
           </Text>
         </View>
       )}
@@ -109,9 +117,10 @@ export default function PanelsRegisters(props: Props) {
     <FadeView testID="panels-registers">
       {common.registers.length ? (
         <ScrollView
-          className="p-5"
+          className="p-5 pt-0"
           contentContainerStyle={{
             paddingBottom: 20,
+            paddingTop: 25,
           }}
         >
           {!!liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
