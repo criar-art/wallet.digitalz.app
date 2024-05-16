@@ -6,6 +6,7 @@ export const commonSlice = createSlice({
   initialState: {
     registers: [],
     modalRegister: "",
+    modalInfo: "",
     modalDelete: "",
     registerData: "",
     eyeStatus: false,
@@ -23,6 +24,9 @@ export const commonSlice = createSlice({
     setRegisterData(state, payload) {
       state.registerData = payload.payload;
     },
+    setModalInfo(state, payload) {
+      state.modalInfo = payload.payload;
+    },
     setModalRegister(state, payload) {
       state.modalRegister = payload.payload;
     },
@@ -38,6 +42,7 @@ export const commonSlice = createSlice({
 export const {
   setRegister,
   setEditRegister,
+  setModalInfo,
   setModalRegister,
   setRegisterData,
   setModalDelete,

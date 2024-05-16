@@ -14,6 +14,7 @@ import store from "./src/store";
 import Routes from "./src/routes";
 import ModalRegister from "./src/components/ModalRegister";
 import ModalAlert from "./src/components/ModalDelete";
+import ModalInfo from "./src/components/ModalInfo";
 
 export default function App() {
   const persistor = persistStore(store);
@@ -57,6 +58,7 @@ export default function App() {
               <>
                 <ModalRegister />
                 <ModalAlert />
+                <ModalInfo />
               </>
             )}
           </NavigationContainer>

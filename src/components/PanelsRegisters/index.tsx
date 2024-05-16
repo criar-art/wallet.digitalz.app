@@ -14,13 +14,15 @@ import {
   ckeckTypeTouchable,
   parseMoney,
 } from "../../utils";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
+import { setModalInfo } from "../../store/commonSlice";
 import FadeView from "../FadeView";
 import EmptyRegisters from "../EmptyRegisters";
 import { Props } from "./types";
 
 export default function PanelsRegisters(props: Props) {
+  const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
 
@@ -56,9 +58,8 @@ export default function PanelsRegisters(props: Props) {
       onPress={() =>
         ckeckTypeTouchable(props.type)
           ? navigation.navigate(capitalize(props.type))
-          : null
+          : dispatch(setModalInfo(props.type))
       }
-      activeOpacity={ckeckTypeTouchable(props.type) ? 0.5 : 1}
       className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-6 rounded-lg shadow-lg ${renderBorderType(
         props.type
       )} ${props.value < 0 ? "bg-red-100 border-red-600" : ""}`}
@@ -84,7 +85,7 @@ export default function PanelsRegisters(props: Props) {
         <View
           className={`bg-red-600 p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
-          <Text className="text-white text-xs">Carteira Negativada</Text>
+          <Text className="text-white text-xs">Carteira Negativa</Text>
         </View>
       )}
       {!!getCountRegisters(props.type) && (
