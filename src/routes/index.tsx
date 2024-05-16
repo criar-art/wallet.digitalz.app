@@ -76,7 +76,7 @@ export default function Routes(props: any) {
             headerLeft: () =>
               !props.dashboard ? (
                 <TouchableOpacity
-                  className="p-4 bg-gray-100 ml-4 rounded-full"
+                  className="p-4 ml-4 rounded-full"
                   onPress={() => toggleEye()}
                   accessibilityLabel={
                     common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
@@ -88,7 +88,15 @@ export default function Routes(props: any) {
                     <Ionicons name="eye-off" size={25} color="black" />
                   )}
                 </TouchableOpacity>
-              ) : null,
+              ) : (
+                <TouchableOpacity
+                  className="p-4 bg-gray-100 ml-4 rounded-full"
+                  onPress={() => props.navigation.goBack()}
+                  accessibilityLabel="Voltar página"
+                >
+                  <MaterialIcons name="arrow-back-ios-new" size={25} color="black" />
+                </TouchableOpacity>
+              ),
           }}
           component={component}
         />

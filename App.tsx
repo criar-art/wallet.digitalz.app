@@ -48,7 +48,11 @@ export default function App() {
             onStateChange={() => checkRoute()}
           >
             <StatusBar style="dark" />
-            <Routes toggleDrawer={toggleDrawer} dashboard={dashboard} />
+            <Routes
+              toggleDrawer={toggleDrawer}
+              dashboard={dashboard}
+              navigation={navigationRef}
+            />
             {!dashboard && (
               <>
                 <ModalRegister />
