@@ -7,9 +7,31 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { renderBorderType, parseMoney } from "../../utils";
+import {
+  renderBorderType,
+  parseMoney,
+  isDatePast,
+  renderBackgroundClass,
+} from "../../utils";
 import Button from "../Button";
 import { Props } from "./types";
+
+export const renderBadge = (type: string, date: string) => {
+  if (isDatePast(date)) {
+    const badgeText = type === "expense" ? "VENCIDO" : "DISPONÍVEL";
+    const badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
+    return (
+      <View
+        className={`${badgeColor} p-1 px-2 rounded-full absolute z-10 left-2 -top-3`}
+      >
+        <Text className="text-white text-center font-black text-xs">
+          {badgeText}
+        </Text>
+      </View>
+    );
+  }
+  return null;
+};
 
 export default function ItemList(props: Props) {
   const isFocused = useIsFocused();
@@ -21,19 +43,11 @@ export default function ItemList(props: Props) {
   }, [isFocused]);
 
   useEffect(() => {
-    if (optionsShow) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }
+    Animated.timing(fadeAnim, {
+      toValue: optionsShow ? 1 : 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
 
     return () => {
       fadeAnim.setValue(0);
@@ -47,8 +61,9 @@ export default function ItemList(props: Props) {
       onPress={() => setOptionsShow(!optionsShow)}
       className={`border-l-4 text-black mt-5 mx-5 bg-white p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
-      )}`}
+      )} ${renderBackgroundClass(props.item.type, props.item.date)}`}
     >
+      {renderBadge(props.item.type, props.item.date)}
       <Text className="text-black text-xl mb-1">{props.item.name}</Text>
       <View className="flex flex-row items-center mb-1">
         <FontAwesome5 name="money-bill-wave" size={16} color="black" />
@@ -79,13 +94,13 @@ export default function ItemList(props: Props) {
         pointerEvents={!optionsShow ? "none" : "auto"}
       >
         <Button
-          className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-200 bg-white"
+          className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-300 bg-white"
           onPress={props.edit}
           label={`Editar registro ${props.item.name}`}
           icon={<MaterialIcons name="edit" size={22} color="black" />}
         />
         <Button
-          className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-200 bg-white"
+          className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-300 bg-white"
           onPress={props.remove}
           label={`Excluir registro ${props.item.name}`}
           icon={
