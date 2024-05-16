@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TouchableOpacity, Text, View } from "react-native";
+import { TouchableOpacity, Text, View, ScrollView } from "react-native";
 import { NumericFormat } from "react-number-format";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
@@ -23,6 +23,10 @@ import { Props } from "./types";
 export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
+
+  const getCountRegisters = (type: string) => {
+    return common.registers.filter((item: any) => item.type == type).length;
+  };
 
   const getTotal = (type: string) =>
     common.registers
@@ -76,6 +80,15 @@ export default function PanelsRegisters(props: Props) {
           </View>
         )}
       />
+      {!!getCountRegisters(props.type) && (
+        <View
+          className={`bg-black p-2 py-1 absolute -bottom-3 left-2 rounded-full flex flex-nowrap`}
+        >
+          <Text className="text-white text-xs uppercase">
+            Quantidade {getCountRegisters(props.type)}
+          </Text>
+        </View>
+      )}
       {props.type == "liquid" && (
         <MaterialIcons
           name="attach-money"
@@ -95,7 +108,12 @@ export default function PanelsRegisters(props: Props) {
   return (
     <FadeView testID="panels-registers">
       {common.registers.length ? (
-        <>
+        <ScrollView
+          className="p-5"
+          contentContainerStyle={{
+            paddingBottom: 20,
+          }}
+        >
           {!!liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
           {patrimonyTotal > 0 && (
             <ItemList type="patrimony" value={patrimonyTotal} />
@@ -107,7 +125,7 @@ export default function PanelsRegisters(props: Props) {
           {expensesTotal > 0 && (
             <ItemList type="expense" value={expensesTotal} />
           )}
-        </>
+        </ScrollView>
       ) : (
         <EmptyRegisters />
       )}
