@@ -7,7 +7,7 @@ export default function Select(props: Props) {
       testID="select-container"
       style={{
         paddingHorizontal: 12,
-        paddingVertical: 4,
+        paddingVertical: 8.4,
         borderRadius: 8,
         borderColor: "rgb(71 85 105)",
         borderWidth: 2,

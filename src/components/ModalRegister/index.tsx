@@ -188,12 +188,12 @@ export default function ModalRegister(props: Props) {
                 ? "Editar Registro"
                 : "Novo Registro"}
             </Text>
-            <View className="flex flex-row mb-5">
+            <View className="flex flex-row mb-3">
               <View className="flex-1 mr-2">
                 <Text className="text-black mb-1 text-sm">Data</Text>
                 <TouchableOpacity
                   onPress={() => setShowDate(true)}
-                  className="flex flex-row p-2 pr-4 rounded-lg border-2 border-slate-600"
+                  className="flex flex-row p-3 pr-4 rounded-lg border-2 border-slate-600"
                   accessibilityLabel="Data do registro"
                   accessibilityRole="button"
                 >
@@ -228,18 +228,18 @@ export default function ModalRegister(props: Props) {
                 <Select
                   data={dataType}
                   maxHeight={300}
-                  placeholder="Selecione o tipo"
+                  placeholder="Selecionar"
                   value={formModal.type}
                   handleChangeObject="type"
                   onChange={handleChange}
                 />
               </View>
             </View>
-            <View className="flex flex-row mb-5">
+            <View className="flex flex-row mb-6">
               <View className="flex-1 mr-2">
                 <Text className="text-black mb-1 text-sm">Nome</Text>
                 <TextInput
-                  className="text-base p-2 px-4 bg-white rounded-lg border-2 border-slate-600"
+                  className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
                   placeholder="Nome do registro"
                   onChangeText={(value: string) => handleChange(value, "name")}
                   value={formModal.name}
@@ -261,7 +261,7 @@ export default function ModalRegister(props: Props) {
                   renderText={(value) => {
                     return (
                       <TextInput
-                        className="text-base p-2 px-4 bg-white rounded-lg border-2 border-slate-600"
+                        className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
                         placeholder="Valor do registro"
                         onChangeText={(value: string) => setInputValue(value)}
                         value={value}
@@ -277,7 +277,7 @@ export default function ModalRegister(props: Props) {
               <Button
                 text="Cancelar"
                 label="Cancelar e fechar o modal do registro"
-                className="flex-1 mr-1 p-3 bg-red-600"
+                className="flex-1 mr-2 p-3 bg-red-600"
                 textColor="text-white"
                 onPress={() => closeModal()}
                 icon={<MaterialIcons name="cancel" size={28} color="white" />}
@@ -287,7 +287,7 @@ export default function ModalRegister(props: Props) {
                 label={`${
                   common.modalRegister == "edit" ? "Salvar" : "Criar"
                 } o registro`}
-                className="flex-1 ml-1 p-3 bg-green-600"
+                className="flex-1 ml-2 p-3 bg-green-600"
                 textColor="text-white"
                 onPress={() => saveStore()}
                 icon={
