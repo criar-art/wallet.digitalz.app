@@ -6,17 +6,24 @@ export default function Select(props: Props) {
     <Dropdown
       testID="select-container"
       style={{
-        marginBottom: 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: 12,
+        paddingVertical: 4,
         borderRadius: 8,
-        borderColor: "#94a3b8",
+        borderColor: "rgb(71 85 105)",
         borderWidth: 2,
+      }}
+      placeholderStyle={{
+        fontSize: 17
+      }}
+      iconStyle={{
+        tintColor: "rgb(71 85 105)",
+        transform: "scale(1.5)"
       }}
       containerStyle={{
         paddingVertical: 2.5,
         borderRadius: 8,
-        borderColor: "#94a3b8",
-        borderWidth: 2,
+        borderColor: "#aaa",
+        borderWidth: 1,
         backgroundColor: "#fff",
       }}
       itemContainerStyle={{
