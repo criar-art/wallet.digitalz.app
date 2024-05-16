@@ -82,9 +82,9 @@ export default function PanelsRegisters(props: Props) {
       />
       {!!getCountRegisters(props.type) && (
         <View
-          className={`bg-black p-2 py-1 absolute -bottom-3 left-2 rounded-full flex flex-nowrap`}
+          className={`bg-black p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
-          <Text className="text-white text-xs uppercase">
+          <Text className="text-white text-xs">
             Quantidade {getCountRegisters(props.type)}
           </Text>
         </View>
