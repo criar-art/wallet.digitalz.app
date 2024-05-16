@@ -30,6 +30,7 @@ export function RoutesTab() {
     {
       name: "Home",
       title: "Geral",
+      headerShown: false,
       tabBarLabel: "Início",
       tabBarIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
@@ -73,6 +74,7 @@ export function RoutesTab() {
             tabBarLabel: item.tabBarLabel,
             tabBarIcon: item.tabBarIcon,
             tabBarBadge: item.tabBarBadge,
+            headerShown: item.headerShown,
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: renderColorType(item.name.toLocaleLowerCase()),
