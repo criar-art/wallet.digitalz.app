@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
-  TouchableOpacity,
+  Pressable,
   Text,
   TextInput,
   View,
@@ -204,7 +204,7 @@ export default function ModalRegister(props: Props) {
             <View className="flex flex-row mb-3">
               <View className="flex-1 mr-2">
                 <Text className="text-black mb-1 text-base">Data</Text>
-                <TouchableOpacity
+                <Pressable
                   onPress={() => setShowDate(true)}
                   className="flex flex-row items-center p-3 pr-4 rounded-lg border-2 border-slate-600"
                   accessibilityLabel="Data do registro"
@@ -218,7 +218,7 @@ export default function ModalRegister(props: Props) {
                   <Text className="text-base ml-2 text-black">
                     {formModal.date}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
                 {showDate && (
                   <DateTimePicker
                     testID="dateTimePicker"
