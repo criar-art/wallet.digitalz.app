@@ -4,6 +4,8 @@ import {
   capitalize,
   ckeckTypeTouchable,
   parseMoney,
+  formatDate,
+  isDatePast,
 } from "./index";
 
 describe("Utility Functions", () => {
@@ -57,6 +59,49 @@ describe("Utility Functions", () => {
     });
     it("is parseMoney BRL with hidden value", () => {
       expect(parseMoney("R$ 1.000,00", false)).toBe("R$ ********");
+    });
+  });
+
+  describe("Date Utilities", () => {
+    describe("formatDate", () => {
+      test("should correctly format a date string into a Date object", () => {
+        const dateStr = "15/05/2023";
+        const expectedDate = new Date(2023, 4, 15); // Note que o mês é zero-based, então maio é 4
+        expect(formatDate(dateStr)).toEqual(expectedDate);
+      });
+
+      test("should correctly format a date string with leading zeros", () => {
+        const dateStr = "01/01/2024";
+        const expectedDate = new Date(2024, 0, 1); // Janeiro é 0
+        expect(formatDate(dateStr)).toEqual(expectedDate);
+      });
+
+      test("should handle invalid date strings gracefully", () => {
+        const dateStr = "invalid-date";
+        expect(() => formatDate(dateStr)).toThrow("Invalid date format");
+      });
+    });
+
+    describe("isDatePast", () => {
+      test("should return true for a date in the past", () => {
+        const dateStr = "15/05/2020";
+        expect(isDatePast(dateStr)).toBe(true);
+      });
+
+      test("should return false for a date in the future", () => {
+        const dateStr = "15/05/2025";
+        expect(isDatePast(dateStr)).toBe(false);
+      });
+
+      test("should return false for today's date", () => {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, "0");
+        const month = String(today.getMonth() + 2).padStart(2, "0");
+        const year = today.getFullYear();
+        const dateStr = `${day}/${month}/${year}`;
+
+        expect(isDatePast(dateStr)).toBe(false);
+      });
     });
   });
 });
