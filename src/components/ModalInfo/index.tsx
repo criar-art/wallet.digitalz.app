@@ -96,7 +96,7 @@ export default function ModalInfo(props: Props) {
                 despesas do total das entradas de registros.
               </Text>
               <View className="bg-yellow-100 p-4 rounded-xl">
-                <Text className="text-sm mb-4">
+                <Text className="text-sm">
                   Investimentos não são diretamente considerados nesse cálculo.
                 </Text>
                 <Text className="text-sm">
