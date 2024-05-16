@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
 import { NumericFormat } from "react-number-format";
+import { formatDate } from "../../utils";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
@@ -132,10 +133,7 @@ export default function ModalRegister(props: Props) {
 
   useEffect(() => {
     if (common.modalRegister == "edit") {
-      const [month, day, year] = common.registerData.date
-        .split("/")
-        .map(Number);
-      setDate(new Date(year, month - 1, day));
+      setDate(formatDate(common.registerData.date));
       setFormModal({ ...common.registerData });
       setInputValue(common.registerData.value);
     } else {
@@ -188,7 +186,7 @@ export default function ModalRegister(props: Props) {
             <Text className="text-black text-center text-xl mb-4 border-b-2 pb-2 border-slate-300">
               {common.modalRegister == "edit"
                 ? "Editar Registro"
-                : "Criar Novo Registro"}
+                : "Novo Registro"}
             </Text>
             <View className="flex flex-row mb-5">
               <View className="flex-1 mr-2">
