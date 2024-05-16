@@ -31,6 +31,14 @@ export default function AboutScreen() {
             flexibilidade de deletá-los e atualizá-los conforme necessário.
           </Text>
           <Button
+            text="Política de Privacidade"
+            label="Acessar a Política de Privacidade"
+            textColor="text-black"
+            onPress={() => Linking.openURL("https://walletdigitalz.web.app/privacy")}
+            icon={<Fontisto name="world" size={28} color="black" />}
+            className="justify-start mt-4 p-6 shadow-lg bg-white"
+          />
+          <Button
             text="walletdigitalz.web.app"
             label="Acessar site walletdigitalz.web.app"
             textColor="text-black"
@@ -39,7 +47,7 @@ export default function AboutScreen() {
             className="justify-start mt-4 p-6 shadow-lg bg-white"
           />
           <Button
-            text="criar.art"
+            text="Criar.Art"
             label="Acessar site criar.art"
             textColor="text-black"
             onPress={() => Linking.openURL("https://criar.art/contact")}
