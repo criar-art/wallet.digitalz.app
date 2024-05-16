@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { setEyeStatus } from "../store/commonSlice";
 import { RootState } from "../store";
 import { RoutesTab } from "./RoutesTab";
+import AppDrawerContent from "../components/AppDrawerContent";
 import AboutScreen from "../views/AboutScreen";
 import ContactScreen from "../views/ContactScreen";
 
@@ -43,7 +44,10 @@ export default function Routes(props: any) {
   }
 
   return (
-    <Drawer.Navigator initialRouteName="Root">
+    <Drawer.Navigator
+      initialRouteName="Root"
+      drawerContent={(props: any) => <AppDrawerContent {...props} />}
+    >
       {views.map(({ name, title, drawerIcon, drawerLabel, component }) => (
         <Drawer.Screen
           key={name}
@@ -52,17 +56,7 @@ export default function Routes(props: any) {
             title,
             drawerLabel,
             drawerIcon,
-            drawerActiveTintColor: "#333",
             drawerPosition: "right",
-            drawerItemStyle: {
-              padding: 5,
-              borderTopStartRadius: 50,
-              borderBottomStartRadius: 50,
-            },
-            drawerStyle: {
-              borderTopStartRadius: 20,
-              borderBottomStartRadius: 20,
-            },
             headerTitleAlign: "center",
             headerTitleStyle: {
               fontWeight: "bold",
