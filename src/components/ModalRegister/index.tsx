@@ -79,7 +79,7 @@ export default function ModalRegister(props: Props) {
     Keyboard.dismiss();
     setTimeout(() => {
       dispatch(setModalRegister(""));
-    }, 500);
+    }, 100);
   };
 
   function saveStore() {
