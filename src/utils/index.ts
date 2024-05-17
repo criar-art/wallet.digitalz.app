@@ -91,3 +91,10 @@ export const checkTypeTouchable = (type: string): boolean => {
 export const parseMoney = (value: string, eye?: boolean): string => {
   return eye ? value : value.replace(/[.,0-9]/g, "*");
 };
+
+export const getLabel = (options: any, route: any): string =>
+  options.tabBarLabel !== undefined
+    ? options.tabBarLabel
+    : options.title !== undefined
+    ? options.title
+    : route.name;

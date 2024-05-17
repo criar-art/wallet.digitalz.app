@@ -2,6 +2,7 @@ import { Text, View, Platform } from "react-native";
 import pkg from "../../../package.json";
 import app from "../../../app.json";
 import Button from "../Button";
+import { getLabel } from "../../utils";
 import { Props, RenderButtonParams } from "./types";
 
 export default function AppDrawerContent({
@@ -12,13 +13,6 @@ export default function AppDrawerContent({
   const appVersion = pkg.version;
   const versionCode =
     Platform.OS === "android" ? app.expo.android.versionCode : "";
-
-  const getLabel = (options: any, route: any): string =>
-    options.tabBarLabel !== undefined
-      ? options.tabBarLabel
-      : options.title !== undefined
-      ? options.title
-      : route.name;
 
   const onPress = (route: any, isFocused: boolean): void => {
     if (!isFocused) {
