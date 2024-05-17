@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setModalDelete, setRegister } from "../../store/commonSlice";
 import { RootState } from "../../store";
@@ -35,10 +35,9 @@ export default function ModalDelete(props: Props) {
       toValue: 0,
       duration: 500,
       useNativeDriver: true,
-    }).start();
-    setTimeout(() => {
+    }).start(() => {
       dispatch(setModalDelete(""));
-    }, 100);
+    });
   };
 
   const confirmModal = () => {
@@ -46,7 +45,7 @@ export default function ModalDelete(props: Props) {
       ({ id }) => id !== common.modalDelete
     );
     dispatch(setRegister(filter));
-    dispatch(setModalDelete(""));
+    closeModal();
   };
 
   return (
@@ -57,27 +56,28 @@ export default function ModalDelete(props: Props) {
       pointerEvents={!common.modalDelete ? "none" : "auto"}
     >
       <Animated.View
-        className="bg-white p-4 rounded-lg"
+        className="bg-white p-4 rounded-lg flex flex-col items-center"
         style={{ transform: [{ scale: scaleAnim }] }}
         accessibilityViewIsModal
         aria-hidden={!common.modalDelete}
       >
-        <Text className="text-center text-xl">
-          Tem certeza que desejar excluir?
+        <MaterialCommunityIcons name="delete-alert" size={50} color="black" />
+        <Text className="text-center text-xl my-4">
+          Tem certeza que desejar deletar?
         </Text>
         <View className="flex flex-row mt-4">
           <Button
             className="text-white bg-red-600 flex-1 mr-2 p-3"
             label="Cancelar exclusão"
             text="Cancelar"
-            onPress={() => closeModal()}
+            onPress={closeModal}
             icon={<MaterialIcons name="cancel" size={28} color="white" />}
           />
           <Button
             className="text-white bg-green-600 flex-1 p-3"
             label="Confirmar exclusão"
             text="Confirmar"
-            onPress={() => confirmModal()}
+            onPress={confirmModal}
             icon={<MaterialIcons name="check-circle" size={28} color="white" />}
           />
         </View>
