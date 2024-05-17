@@ -57,22 +57,21 @@ export default function ModalRegister(props: Props) {
   };
 
   const closeModal = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(transformAnim, {
-      toValue: 500,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-
-    Keyboard.dismiss();
-    setTimeout(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(transformAnim, {
+        toValue: 500,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      Keyboard.dismiss();
       dispatch(setModalRegister(""));
-    }, 100);
+    });
   };
 
   const saveStore = () => {
@@ -96,24 +95,20 @@ export default function ModalRegister(props: Props) {
 
   useEffect(() => {
     if (common.modalRegister) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-
-      Animated.timing(transformAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(transformAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
-
-    return () => {
-      fadeAnim.setValue(0);
-      transformAnim.setValue(500);
-    };
-  }, [common.modalRegister, fadeAnim]);
+  }, [common.modalRegister, fadeAnim, transformAnim]);
 
   useEffect(() => {
     if (isEditing()) {
