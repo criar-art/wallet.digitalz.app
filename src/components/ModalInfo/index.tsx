@@ -11,7 +11,7 @@ export default function ModalInfo(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const transformAnim = useRef(new Animated.Value(0)).current;
+  const transformAnim = useRef(new Animated.Value(500)).current;
   const isOpenModal = (): boolean =>
     ["liquid", "patrimony"].includes(common.modalInfo);
 

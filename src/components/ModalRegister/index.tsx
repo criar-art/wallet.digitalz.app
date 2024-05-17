@@ -33,7 +33,7 @@ export default function ModalRegister(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const transformAnim = useRef(new Animated.Value(0)).current;
+  const transformAnim = useRef(new Animated.Value(500)).current;
   const [date, setDate] = useState<Date>(new Date());
   const [showDate, setShowDate] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
@@ -108,6 +108,10 @@ export default function ModalRegister(props: Props) {
         }),
       ]).start();
     }
+    return () => {
+      fadeAnim.setValue(0);
+      transformAnim.setValue(500);
+    };
   }, [common.modalRegister, fadeAnim, transformAnim]);
 
   useEffect(() => {
