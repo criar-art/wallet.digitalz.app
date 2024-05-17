@@ -194,8 +194,9 @@ export default function ModalRegister(props: Props) {
       <SafeAreaView>
         <KeyboardAvoidingView behavior="padding" className="flex justify-end">
           {(formError.name || formError.type || formError.value) && (
-            <View className="bg-red-300 p-5 rounded-full m-4">
-              <Text className="font-base font-bold">
+            <View className="flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black">
+              <MaterialCommunityIcons name="alert" size={25} color="black" />
+              <Text className="ml-2 font-base font-bold">
                 Você precisar preencher todos os campos para criar.
               </Text>
             </View>
