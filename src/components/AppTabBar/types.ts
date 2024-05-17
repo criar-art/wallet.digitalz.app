@@ -4,3 +4,10 @@ export type Props = {
   navigation?: any;
   descriptors?: any;
 }
+
+export type Route = {
+  key: string;
+  name: string;
+  params?: any;
+  label: string;
+};
