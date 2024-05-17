@@ -2,7 +2,7 @@ import {
   renderBorderType,
   types,
   capitalize,
-  ckeckTypeTouchable,
+  checkTypeTouchable,
   parseMoney,
   formatDate,
   isDatePast,
@@ -42,14 +42,14 @@ describe("Utility Functions", () => {
     });
   });
 
-  describe("ckeckTypeTouchable", () => {
+  describe("checkTypeTouchable", () => {
     test('returns false for "liquid" and "patrimony", true otherwise', () => {
-      expect(ckeckTypeTouchable("liquid")).toBe(false);
-      expect(ckeckTypeTouchable("patrimony")).toBe(false);
-      expect(ckeckTypeTouchable("investiment")).toBe(true);
-      expect(ckeckTypeTouchable("entry")).toBe(true);
-      expect(ckeckTypeTouchable("expense")).toBe(true);
-      expect(ckeckTypeTouchable("vehicle")).toBe(true);
+      expect(checkTypeTouchable("liquid")).toBe(false);
+      expect(checkTypeTouchable("patrimony")).toBe(false);
+      expect(checkTypeTouchable("investiment")).toBe(true);
+      expect(checkTypeTouchable("entry")).toBe(true);
+      expect(checkTypeTouchable("expense")).toBe(true);
+      expect(checkTypeTouchable("vehicle")).toBe(true);
     });
   });
 

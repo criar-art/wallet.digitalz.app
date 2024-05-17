@@ -11,7 +11,7 @@ import {
   renderBorderType,
   types,
   capitalize,
-  ckeckTypeTouchable,
+  checkTypeTouchable,
   parseMoney,
 } from "../../utils";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -56,7 +56,7 @@ export default function PanelsRegisters(props: Props) {
   const ItemList = (props: any) => (
     <TouchableOpacity
       onPress={() =>
-        ckeckTypeTouchable(props.type)
+        checkTypeTouchable(props.type)
           ? navigation.navigate(capitalize(props.type))
           : dispatch(setModalInfo(props.type))
       }
@@ -108,7 +108,7 @@ export default function PanelsRegisters(props: Props) {
       {props.type == "patrimony" && (
         <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
       )}
-      {ckeckTypeTouchable(props.type) && (
+      {checkTypeTouchable(props.type) && (
         <MaterialIcons name="navigate-next" size={30} color="black" />
       )}
     </TouchableOpacity>
