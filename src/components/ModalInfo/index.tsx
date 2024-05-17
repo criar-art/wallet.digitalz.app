@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Keyboard, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
@@ -12,53 +12,54 @@ export default function ModalInfo(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const transformAnim = useRef(new Animated.Value(0)).current;
+  const isOpenModal = (): boolean =>
+    ["liquid", "patrimony"].includes(common.modalInfo);
 
   const closeModal = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(transformAnim, {
-      toValue: 500,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-    setTimeout(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(transformAnim, {
+        toValue: 500,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
       dispatch(setModalInfo(""));
-    }, 100);
+    });
   };
 
   useEffect(() => {
     if (common.modalInfo) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(transformAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(transformAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
 
     return () => {
       fadeAnim.setValue(0);
       transformAnim.setValue(500);
     };
-  }, [common.modalInfo, fadeAnim]);
+  }, [common.modalInfo, fadeAnim, transformAnim]);
 
   return (
     <Animated.View
       testID={props.testID}
       className="z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-end"
       style={{ opacity: fadeAnim }}
-      pointerEvents={
-        common.modalInfo === "liquid" || common.modalInfo === "patrimony"
-          ? "auto"
-          : "none"
-      }
+      pointerEvents={isOpenModal() ? "auto" : "none"}
     >
       <Animated.View
         className="bg-white p-5 rounded-t-3xl"
@@ -66,14 +67,8 @@ export default function ModalInfo(props: Props) {
         style={{
           transform: [{ translateY: transformAnim }],
         }}
-        pointerEvents={
-          common.modalInfo === "liquid" || common.modalInfo === "patrimony"
-            ? "auto"
-            : "none"
-        }
-        aria-hidden={
-          common.modalInfo !== "liquid" && common.modalInfo !== "patrimony"
-        }
+        pointerEvents={isOpenModal() ? "auto" : "none"}
+        aria-hidden={!isOpenModal()}
       >
         <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300">
           <Text className="text-black text-center text-xl mr-2">
