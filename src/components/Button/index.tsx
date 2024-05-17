@@ -1,43 +1,21 @@
 import { Pressable, Text, TouchableOpacity } from "react-native";
 import { Props } from "./types";
 
-function ButtonConditional(props: any) {
-  if (props.pressableButton) {
-    return (
-      <Pressable {...props.buttonProps} className={props.buttonProps.className}>
-        {props.children}
-      </Pressable>
-    );
-  }
+function Button(props: Props) {
+  const ButtonComponent = props.pressableButton ? Pressable : TouchableOpacity;
 
   return (
-    <TouchableOpacity
-      {...props.buttonProps}
-      className={props.buttonProps.className}
-    >
-      {props.children}
-    </TouchableOpacity>
-  );
-}
-
-export default function Button(props: Props) {
-  const buttonProps = {
-    testID: props.testID ? props.testID : "button-container",
-    className: `flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.className}`,
-    onPress: props.onPress,
-    accessibilityLabel: props.label,
-    accessibilityRole: "button",
-    accessibilityState: props.accessibilityState,
-    disabled: props.disabled,
-  };
-
-  return (
-    <ButtonConditional
-      buttonProps={buttonProps}
-      pressableButton={props.pressableButton}
+    <ButtonComponent
+      testID={props.testID ? props.testID : "button-container"}
+      className={`flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.className || ""}`}
+      onPress={props.onPress}
+      accessibilityLabel={props.label}
+      accessibilityState={props.accessibilityState}
+      disabled={props.disabled}
+      accessibilityRole="button"
     >
       <>
-        {props.icon}
+        {props.icon && props.icon}
         {props.text && (
           <Text
             className={`text-center ${props.icon ? "ml-2" : ""} ${
@@ -48,6 +26,8 @@ export default function Button(props: Props) {
           </Text>
         )}
       </>
-    </ButtonConditional>
+    </ButtonComponent>
   );
 }
+
+export default Button;
