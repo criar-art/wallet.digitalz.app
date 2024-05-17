@@ -1,4 +1,4 @@
-export const formatDate = (date: string) => {
+export const formatDate = (date: string): Date => {
   const [day, month, year] = date.split("/").map(Number);
   if (isNaN(day) || isNaN(month) || isNaN(year)) {
     throw new Error("Invalid date format");
@@ -6,9 +6,11 @@ export const formatDate = (date: string) => {
   return new Date(year, month - 1, day);
 };
 
-export const isDatePast = (date: string) => new Date() > formatDate(date);
+export const isDatePast = (date: string): boolean => {
+  return new Date() > formatDate(date);
+};
 
-export const renderBorderType = (type: string) => {
+export const renderBorderType = (type: string): string => {
   switch (type) {
     case "liquid":
       return "border-yellow-400";
@@ -22,10 +24,12 @@ export const renderBorderType = (type: string) => {
       return "border-red-400";
     case "vehicle":
       return "border-gray-400";
+    default:
+      return "";
   }
 };
 
-export const renderColorType = (type: string) => {
+export const renderColorType = (type: string): string => {
   switch (type) {
     case "home":
       return "#ddd";
@@ -41,10 +45,12 @@ export const renderColorType = (type: string) => {
       return "rgb(252 165 165)";
     case "vehicle":
       return "rgb(156 163 175)";
+    default:
+      return "";
   }
 };
 
-export const renderBackgroundClass = (type: string, date: string) => {
+export const renderBackgroundClass = (type: string, date: string): string => {
   if (isDatePast(date)) {
     switch (type) {
       case "expense":
@@ -60,7 +66,7 @@ export const renderBackgroundClass = (type: string, date: string) => {
   return "";
 };
 
-export const types: any = {
+export const types: { [key: string]: string } = {
   liquid: "Líquido",
   patrimony: "Patrimônio",
   investiment: "Investimento",
@@ -69,10 +75,10 @@ export const types: any = {
   vehicle: "Veículo",
 };
 
-export const capitalize = (s: string) =>
+export const capitalize = (s: string): string =>
   s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 
-export const ckeckTypeTouchable = (type: string) => {
+export const checkTypeTouchable = (type: string): boolean => {
   switch (type) {
     case "liquid":
     case "patrimony":
@@ -82,6 +88,6 @@ export const ckeckTypeTouchable = (type: string) => {
   }
 };
 
-export const parseMoney = (value: any, eye?: boolean) => {
+export const parseMoney = (value: string, eye?: boolean): string => {
   return eye ? value : value.replace(/[.,0-9]/g, "*");
 };
