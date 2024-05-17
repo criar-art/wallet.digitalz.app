@@ -9,15 +9,15 @@ export default function Select(props: Props) {
         paddingHorizontal: 12,
         paddingVertical: 8.4,
         borderRadius: 8,
-        borderColor: "rgb(71 85 105)",
+        borderColor: props.error ? "rgb(239 68 68)" : "rgb(71 85 105)",
         borderWidth: 2,
       }}
       placeholderStyle={{
-        fontSize: 17
+        fontSize: 17,
       }}
       iconStyle={{
-        tintColor: "rgb(71 85 105)",
-        transform: "scale(1.5)"
+        tintColor: props.error ? "rgb(239 68 68)" : "rgb(71 85 105)",
+        transform: "scale(1.5)",
       }}
       containerStyle={{
         paddingVertical: 2.5,

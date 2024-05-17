@@ -38,12 +38,24 @@ export default function ModalRegister(props: Props) {
     date: new Date().toLocaleDateString(),
   };
 
+  const initialFormError = {
+    type: false,
+    name: false,
+    value: false,
+  };
+
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [formModal, setFormModal] = useState(intitialForm);
+  const [formError, setFormError] = useState(initialFormError);
 
   const handleChange = (value: string, name: string) => {
+    setFormError((prevState) => ({
+      ...prevState,
+      [name]: !value,
+    }));
+
     setFormModal((prevState) => ({
       ...prevState,
       [name]: value,
@@ -85,6 +97,28 @@ export default function ModalRegister(props: Props) {
 
   function saveStore() {
     const { name, value, date, type } = formModal;
+
+    if (!name) {
+      setFormError((prevState) => ({
+        ...prevState,
+        name: !name,
+      }));
+    }
+
+    if (!value) {
+      setFormError((prevState) => ({
+        ...prevState,
+        value: !value,
+      }));
+    }
+
+    if (!type) {
+      setFormError((prevState) => ({
+        ...prevState,
+        type: !type,
+      }));
+    }
+
     if (name && value && date && type) {
       if (common.modalRegister == "edit") {
         dispatch(
@@ -138,6 +172,7 @@ export default function ModalRegister(props: Props) {
       setInputValue(common.registerData.value);
     } else {
       setFormModal(intitialForm);
+      setFormError(initialFormError);
       setDate(new Date());
       setInputValue("");
     }
@@ -158,6 +193,13 @@ export default function ModalRegister(props: Props) {
     >
       <SafeAreaView>
         <KeyboardAvoidingView behavior="padding" className="flex justify-end">
+          {(formError.name || formError.type || formError.value) && (
+            <View className="bg-red-300 p-5 rounded-full m-4">
+              <Text className="font-base font-bold">
+                Você precisar preencher todos os campos para criar.
+              </Text>
+            </View>
+          )}
           <Animated.View
             className="bg-white p-5 rounded-t-3xl"
             accessibilityViewIsModal
@@ -238,6 +280,7 @@ export default function ModalRegister(props: Props) {
                   value={formModal.type}
                   handleChangeObject="type"
                   onChange={handleChange}
+                  error={formError.type}
                 />
               </View>
             </View>
@@ -246,7 +289,9 @@ export default function ModalRegister(props: Props) {
                 <Text className="text-black mb-1 text-base">Nome</Text>
                 <TextInput
                   accessibilityLabel="Nome do registro"
-                  className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
+                  className={`text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600 ${
+                    !!formError.name && "border-red-500"
+                  }`}
                   onChangeText={(value: string) => handleChange(value, "name")}
                   value={formModal.name}
                 />
@@ -267,7 +312,9 @@ export default function ModalRegister(props: Props) {
                     return (
                       <TextInput
                         accessibilityLabel="Valor do registro"
-                        className="text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600"
+                        className={`text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600 ${
+                          !!formError.value && "border-red-500"
+                        }`}
                         placeholder="R$"
                         onChangeText={(value: string) => setInputValue(value)}
                         value={value}

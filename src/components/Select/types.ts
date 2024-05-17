@@ -7,4 +7,5 @@ export type Props = {
   data: any;
   value: any;
   onChange: any;
+  error: boolean;
 }
