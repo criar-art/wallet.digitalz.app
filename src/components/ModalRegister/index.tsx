@@ -10,7 +10,9 @@ import {
   Animated,
 } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
 import { NumericFormat } from "react-number-format";
 import { formatDate } from "../../utils";
@@ -23,6 +25,8 @@ import {
 } from "../../store/commonSlice";
 import Button from "../Button";
 import Select from "../Select";
+import { intitialForm, initialFormError, dataType } from "./formConstants";
+
 import { Props } from "./types";
 
 export default function ModalRegister(props: Props) {
@@ -30,51 +34,27 @@ export default function ModalRegister(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const transformAnim = useRef(new Animated.Value(0)).current;
-
-  const intitialForm = {
-    name: "",
-    type: "",
-    value: "",
-    date: new Date().toLocaleDateString(),
-  };
-
-  const initialFormError = {
-    type: false,
-    name: false,
-    value: false,
-  };
-
-  const [date, setDate] = useState(new Date());
-  const [showDate, setShowDate] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
+  const [showDate, setShowDate] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);
+  const isEditing = (): boolean => common.modalRegister === "edit";
+  const isOpenModal = (): boolean =>
+    ["register", "edit"].includes(common.modalRegister);
 
   const handleChange = (value: string, name: string) => {
-    setFormError((prevState) => ({
-      ...prevState,
-      [name]: !value,
-    }));
-
-    setFormModal((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormError((prevState) => ({ ...prevState, [name]: !value }));
+    setFormModal((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    setShowDate(false);
-    setDate(currentDate);
-    handleChange(new Date(currentDate).toLocaleDateString(), "date");
+  const onChange = (event: DateTimePickerEvent, date?: Date) => {
+    if (date) {
+      setShowDate(false);
+      setDate(date);
+      handleChange(new Date(date).toLocaleDateString(), "date");
+    }
   };
-
-  const dataType = [
-    { label: "Investimento", value: "investiment" },
-    { label: "Entrada", value: "entry" },
-    { label: "Despesa", value: "expense" },
-    // { label: "Veículo", value: "vehicle" },
-  ];
 
   const closeModal = () => {
     Animated.timing(fadeAnim, {
@@ -95,54 +75,24 @@ export default function ModalRegister(props: Props) {
     }, 100);
   };
 
-  function saveStore() {
-    const { name, value, date, type } = formModal;
+  const saveStore = () => {
+    const { name, value, type } = formModal;
+    const errors = { name: !name, value: !value, type: !type };
+    setFormError(errors);
 
-    if (!name) {
-      setFormError((prevState) => ({
-        ...prevState,
-        name: !name,
-      }));
-    }
+    const data = isEditing()
+      ? { id: common.registerData.id, ...formModal }
+      : { id: uuid.v4(), ...formModal };
 
-    if (!value) {
-      setFormError((prevState) => ({
-        ...prevState,
-        value: !value,
-      }));
-    }
-
-    if (!type) {
-      setFormError((prevState) => ({
-        ...prevState,
-        type: !type,
-      }));
-    }
-
-    if (name && value && date && type) {
-      if (common.modalRegister == "edit") {
-        dispatch(
-          setEditRegister({
-            id: common.registerData.id,
-            ...formModal,
-          })
-        );
-      } else {
-        const values = [
-          {
-            id: uuid.v4(),
-            name,
-            value,
-            date,
-            type,
-          },
-          ...common.registers,
-        ];
-        dispatch(setRegister(values));
-      }
+    if (!Object.values(errors).some((error) => error)) {
+      dispatch(
+        isEditing()
+          ? setEditRegister(data)
+          : setRegister([data, ...common.registers])
+      );
       closeModal();
     }
-  }
+  };
 
   useEffect(() => {
     if (common.modalRegister) {
@@ -166,7 +116,7 @@ export default function ModalRegister(props: Props) {
   }, [common.modalRegister, fadeAnim]);
 
   useEffect(() => {
-    if (common.modalRegister == "edit") {
+    if (isEditing()) {
       setDate(formatDate(common.registerData.date));
       setFormModal({ ...common.registerData });
       setInputValue(common.registerData.value);
@@ -185,19 +135,15 @@ export default function ModalRegister(props: Props) {
       style={{
         opacity: fadeAnim,
       }}
-      pointerEvents={
-        !(common.modalRegister == "register" || common.modalRegister == "edit")
-          ? "none"
-          : "auto"
-      }
+      pointerEvents={isOpenModal() ? "auto" : "none"}
     >
       <SafeAreaView>
         <KeyboardAvoidingView behavior="padding" className="flex justify-end">
-          {(formError.name || formError.type || formError.value) && (
+          {Object.values(formError).includes(true) && (
             <View className="flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black">
               <MaterialCommunityIcons name="alert" size={25} color="black" />
               <Text className="ml-2 font-base font-bold">
-                Você precisar preencher todos os campos para criar.
+                Você precisa preencher todos os campos para criar.
               </Text>
             </View>
           )}
@@ -211,26 +157,12 @@ export default function ModalRegister(props: Props) {
                 },
               ],
             }}
-            pointerEvents={
-              !(
-                common.modalRegister == "register" ||
-                common.modalRegister == "edit"
-              )
-                ? "none"
-                : "auto"
-            }
-            aria-hidden={
-              !(
-                common.modalRegister == "register" ||
-                common.modalRegister == "edit"
-              )
-            }
+            pointerEvents={isOpenModal() ? "auto" : "none"}
+            aria-hidden={!isOpenModal()}
           >
             <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300">
               <Text className="text-black text-center text-xl mr-2">
-                {common.modalRegister == "edit"
-                  ? "Editar Registro"
-                  : "Novo Registro"}
+                {isEditing() ? "Editar Registro" : "Novo Registro"}
               </Text>
               <View className="ml-auto">
                 <MaterialCommunityIcons
@@ -337,10 +269,8 @@ export default function ModalRegister(props: Props) {
                 icon={<MaterialIcons name="cancel" size={28} color="white" />}
               />
               <Button
-                text={common.modalRegister == "edit" ? "Salvar" : "Criar"}
-                label={`${
-                  common.modalRegister == "edit" ? "Salvar" : "Criar"
-                } o registro`}
+                text={isEditing() ? "Salvar" : "Criar"}
+                label={`${isEditing() ? "Salvar" : "Criar"} o registro`}
                 className="flex-1 ml-2 p-3 bg-green-600"
                 textColor="text-white"
                 onPress={() => saveStore()}
