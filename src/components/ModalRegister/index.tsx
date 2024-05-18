@@ -17,6 +17,7 @@ import uuid from "react-native-uuid";
 import { useColorScheme } from "nativewind";
 import { NumericFormat } from "react-number-format";
 import { formatDate } from "../../utils";
+import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
@@ -32,6 +33,7 @@ import { Props } from "./types";
 
 export default function ModalRegister(props: Props) {
   const { colorScheme } = useColorScheme();
+  const orientation = useOrientation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -139,21 +141,32 @@ export default function ModalRegister(props: Props) {
       pointerEvents={isOpenModal() ? "auto" : "none"}
     >
       <SafeAreaView>
-        <KeyboardAvoidingView behavior="padding" className="flex justify-end">
+        <KeyboardAvoidingView
+          behavior="padding"
+          className="flex justify-end items-center"
+        >
           {Object.values(formError).includes(true) && (
-            <View className="flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black">
+            <View
+              className={`flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black ${
+                orientation === 4 || orientation === 3
+                  ? "absolute z-10 -top-12"
+                  : ""
+              }`}
+            >
               <MaterialCommunityIcons
                 name="alert"
                 size={25}
                 color={colorScheme === "dark" ? "white" : "black"}
               />
               <Text className="ml-2 font-base font-bold">
-                Você precisa preencher todos os campos para criar.
+                Você precisa preencher todos os campos.
               </Text>
             </View>
           )}
           <Animated.View
-            className="bg-white dark:bg-zinc-900 p-5 rounded-t-3xl"
+            className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
+              orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
+            }`}
             accessibilityViewIsModal
             style={{
               transform: [

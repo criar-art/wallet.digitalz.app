@@ -72,7 +72,7 @@ export default function Routes(props: any) {
               color: colorScheme === "dark" ? "white" : "black",
             },
             headerStyle: {
-              height: 120,
+              height: 100,
               backgroundColor:
                 colorScheme === "dark" ? "rgb(39 39 42)" : "white",
               elevation: 0,
@@ -81,7 +81,7 @@ export default function Routes(props: any) {
             },
             headerRight: () => (
               <TouchableOpacity
-                className="p-3 bg-gray-100 dark:bg-zinc-700 mr-4 rounded-full"
+                className="p-3 mr-4 rounded-full"
                 onPress={() => props.toggleDrawer()}
                 accessibilityLabel="Abrir menu drawer de páginas"
               >
@@ -117,7 +117,7 @@ export default function Routes(props: any) {
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  className="p-4 bg-gray-100 dark:bg-zinc-700 ml-4 rounded-full"
+                  className="p-4 ml-4 rounded-full"
                   onPress={() => props.navigation.goBack()}
                   accessibilityLabel="Voltar página"
                 >

@@ -3,6 +3,7 @@ export type Props = {
   className?: string;
   item: any;
   eyeStatus: boolean;
+  orientation?: number | null;
   edit: any;
   remove: any;
 }

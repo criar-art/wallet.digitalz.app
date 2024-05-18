@@ -58,12 +58,15 @@ export default function ItemList(props: Props) {
 
   return (
     <TouchableOpacity
-      key={props.item.id}
       testID={props.testID}
       onPress={() => setOptionsShow(!optionsShow)}
-      className={`border-l-4 mt-5 mx-5 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
-      )} ${renderBackgroundClass(props.item.type, props.item.date)}`}
+      )} ${renderBackgroundClass(props.item.type, props.item.date)} ${
+        props.orientation !== 1 && props.orientation !== 2
+          ? "mt-5 mr-2 ml-2"
+          : "m-5 mb-0"
+      }`}
     >
       {renderBadge(props.item.type, props.item.date)}
       <Text className="text-black dark:text-white text-xl mb-1">

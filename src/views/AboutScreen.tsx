@@ -1,20 +1,28 @@
 import { Image, Text, View, ScrollView, Linking } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import useOrientation from "../hooks/useOrientation";
 import FadeView from "../components/FadeView";
 import Button from "../components/Button";
 
 export default function AboutScreen() {
   const { colorScheme } = useColorScheme();
+  const orientation = useOrientation();
 
   return (
     <FadeView>
       <View
         testID="about-screen"
-        className="dark:bg-zinc-900 flex flex-col h-full"
+        className={`flex flex-col h-full ${
+          orientation === 4 || orientation === 3 ? "flex-row" : ""
+        }`}
       >
         <Image
-          style={{ resizeMode: "stretch", height: 250, width: "100%" }}
+          style={{
+            resizeMode: "cover",
+            height: orientation === 4 || orientation === 3 ? "100%" : 250,
+            width: orientation === 4 || orientation === 3 ? "50%" : "100%",
+          }}
           source={require("../images/finance.jpg")}
         />
         <ScrollView
@@ -39,7 +47,7 @@ export default function AboutScreen() {
           <Button
             text="Política de Privacidade"
             label="Acessar a Política de Privacidade"
-            textColor="text-black dark:text-white"
+            textColor="text-lg text-black dark:text-white"
             onPress={() =>
               Linking.openURL("https://walletdigitalz.web.app/privacy")
             }
@@ -55,7 +63,7 @@ export default function AboutScreen() {
           <Button
             text="walletdigitalz.web.app"
             label="Acessar site walletdigitalz.web.app"
-            textColor="text-black dark:text-white"
+            textColor="text-lg text-black dark:text-white"
             onPress={() => Linking.openURL("https://walletdigitalz.web.app")}
             icon={
               <Fontisto
@@ -69,7 +77,7 @@ export default function AboutScreen() {
           <Button
             text="Criar.Art"
             label="Acessar site criar.art"
-            textColor="text-black dark:text-white"
+            textColor="text-lg text-black dark:text-white"
             onPress={() => Linking.openURL("https://criar.art/contact")}
             icon={
               <Fontisto

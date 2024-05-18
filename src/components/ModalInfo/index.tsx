@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
@@ -8,6 +9,7 @@ import Button from "../Button";
 import { Props } from "./types";
 
 export default function ModalInfo(props: Props) {
+  const orientation = useOrientation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -57,12 +59,14 @@ export default function ModalInfo(props: Props) {
   return (
     <Animated.View
       testID={props.testID}
-      className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end"
+      className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end items-center"
       style={{ opacity: fadeAnim }}
       pointerEvents={isOpenModal() ? "auto" : "none"}
     >
       <Animated.View
-        className="bg-white dark:bg-zinc-900 p-5 rounded-t-3xl"
+        className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
+          orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
+        }`}
         accessibilityViewIsModal
         style={{
           transform: [{ translateY: transformAnim }],

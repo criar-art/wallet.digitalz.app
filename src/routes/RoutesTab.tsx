@@ -72,26 +72,22 @@ export function RoutesTab() {
           key={item.name}
           name={item.name}
           options={{
-            title: item.title,
             tabBarLabel: item.tabBarLabel,
             tabBarIcon: item.tabBarIcon,
             tabBarBadge: item.tabBarBadge,
             headerShown: item.headerShown,
-            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: renderColorType(
                 item.name.toLocaleLowerCase(),
                 colorScheme
               ),
-              height: 50,
+              height: 5,
               elevation: 0,
               shadowOpacity: 0,
               borderWidth: 0
             },
             headerTitleStyle: {
-              fontSize: 15,
-              fontWeight: "bold",
-              color: colorScheme === "dark" ? "white" : "black",
+              fontSize: 0,
             },
           }}
         >

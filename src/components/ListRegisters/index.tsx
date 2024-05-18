@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import FadeView from "../FadeView";
 import ItemList from "../ItemList";
 import ItemTotal from "../ItemTotal";
 import EmptyRegisters from "../EmptyRegisters";
+import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
@@ -14,6 +15,7 @@ import {
 import { Props } from "./types";
 
 export default function ListRegisters(props: Props) {
+  const orientation = useOrientation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
@@ -47,22 +49,54 @@ export default function ListRegisters(props: Props) {
     setInvestTotal(getTotal("investiment"));
   }, [common.registers]);
 
+  const filteredData = common.registers.filter(
+    (item: any) => item.type == props.type
+  );
+  const isOdd = filteredData.length % 2 !== 0;
+
   return (
     <FadeView testID="list-register">
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
-          renderItem={({ item }: any) => (
-            <ItemList
-              item={item}
-              eyeStatus={common.eyeStatus}
-              edit={() => edit(item)}
-              remove={() => remove(item.id)}
-            />
-          )}
+          numColumns={orientation === 1 || orientation === 2 ? 1 : 2}
+          renderItem={({ item, index }: any) => {
+            const isLastItem = isOdd && index === filteredData.length - 1;
+            return (
+              <View
+                className={[
+                  "flex",
+                  orientation === 4 || orientation === 3 ? "w-1/2" : "w-full",
+                  (orientation === 4 || orientation === 3) && isLastItem
+                    ? "w-1/2"
+                    : "",
+                ].join(" ")}
+              >
+                <ItemList
+                  key={item.id}
+                  item={item}
+                  orientation={orientation}
+                  eyeStatus={common.eyeStatus}
+                  edit={() => edit(item)}
+                  remove={() => remove(item.id)}
+                />
+              </View>
+            );
+          }}
           keyExtractor={(item) => item.id}
+          key={orientation}
           contentContainerStyle={{ paddingBottom: 20 }}
+          columnWrapperStyle={
+            orientation !== 1 && orientation !== 2
+              ? {
+                  flex: 1,
+                  flexWrap: "nowrap",
+                  paddingLeft: 30,
+                  paddingRight: 30,
+                }
+              : null
+          }
           ListHeaderComponent={() => (
             <>
               {props.type == "entry" && getEmpty("entry") && (
@@ -70,6 +104,7 @@ export default function ListRegisters(props: Props) {
                   type="entry"
                   value={entryTotal}
                   eyeStatus={common.eyeStatus}
+                  orientation={orientation}
                 />
               )}
               {props.type == "investiment" && getEmpty("investiment") && (
@@ -77,6 +112,7 @@ export default function ListRegisters(props: Props) {
                   type="investiment"
                   value={investTotal}
                   eyeStatus={common.eyeStatus}
+                  orientation={orientation}
                 />
               )}
               {props.type == "expense" && getEmpty("expense") && (
@@ -84,11 +120,14 @@ export default function ListRegisters(props: Props) {
                   type="expense"
                   value={expensesTotal}
                   eyeStatus={common.eyeStatus}
+                  orientation={orientation}
                 />
               )}
             </>
           )}
-          stickyHeaderIndices={[0]}
+          stickyHeaderIndices={
+            orientation === 4 || orientation === 3 ? undefined : [0]
+          }
         />
       ) : (
         <EmptyRegisters />

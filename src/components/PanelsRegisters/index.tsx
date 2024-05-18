@@ -15,6 +15,7 @@ import {
   checkTypeTouchable,
   parseMoney,
 } from "../../utils";
+import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
@@ -22,6 +23,7 @@ import FadeView from "../FadeView";
 import { Props } from "./types";
 
 export default function PanelsRegisters(props: Props) {
+  const orientation = useOrientation();
   const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -39,7 +41,10 @@ export default function PanelsRegisters(props: Props) {
       }, 0);
 
   const getLiquidTotal = () => getTotal("entry") - getTotal("expense");
-  const getPatrimonyTotal = () => getLiquidTotal() + getTotal("investiment");
+  const getPatrimonyTotal = () =>
+    getLiquidTotal() > 0
+      ? getTotal("investiment") + getLiquidTotal()
+      : getTotal("investiment");
   const [liquidTotal, setLiquidTotal] = useState(getLiquidTotal());
   const [patrimonyTotal, setPatrimonyTotal] = useState(getPatrimonyTotal());
   const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
@@ -63,7 +68,13 @@ export default function PanelsRegisters(props: Props) {
       }
       className={`flex flex-row justify-between items-center border-l-4 mb-5 bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg ${renderBorderType(
         props.type
-      )} ${props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""}`}
+      )} ${
+        props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
+      } ${
+        orientation === 4 || orientation === 3
+          ? "flex-auto basis-1/3 mr-2 ml-2"
+          : "w-full"
+      }`}
     >
       <NumericFormat
         value={props.value}
@@ -130,11 +141,13 @@ export default function PanelsRegisters(props: Props) {
           paddingTop: 25,
         }}
       >
-        <ItemList type="liquid" value={liquidTotal} />
-        <ItemList type="patrimony" value={patrimonyTotal} />
-        <ItemList type="expense" value={expensesTotal} />
-        <ItemList type="entry" value={entryTotal} />
-        <ItemList type="investiment" value={investTotal} />
+        <View className="flex flex-row flex-wrap">
+          <ItemList type="liquid" value={liquidTotal} />
+          <ItemList type="patrimony" value={patrimonyTotal} />
+          <ItemList type="expense" value={expensesTotal} />
+          <ItemList type="entry" value={entryTotal} />
+          <ItemList type="investiment" value={investTotal} />
+        </View>
       </ScrollView>
     </FadeView>
   );

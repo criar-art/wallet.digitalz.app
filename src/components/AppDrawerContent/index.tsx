@@ -1,5 +1,6 @@
 import { Text, View, Platform } from "react-native";
 import { useColorScheme } from "nativewind";
+import useOrientation from "../../hooks/useOrientation";
 import pkg from "../../../package.json";
 import app from "../../../app.json";
 import Button from "../Button";
@@ -13,6 +14,7 @@ export default function AppDrawerContent({
   navigation,
 }: Props) {
   const { colorScheme, toggleColorScheme } = useColorScheme();
+  const orientation = useOrientation();
   const appVersion = pkg.version;
   const versionCode =
     Platform.OS === "android" ? app.expo.android.versionCode : "";
@@ -38,11 +40,11 @@ export default function AppDrawerContent({
       text={labelButton}
       label={`Navegar para ${labelButton}`}
       onPress={() => onPress(route, isFocused)}
-      className={`justify-start py-7 ml-2 pl-6 bg-transparent rounded-none ${
+      className={`justify-start ml-2 pl-6 ${
         isFocused
           ? "bg-gray-200 dark:bg-zinc-800 rounded-tl-full rounded-bl-full"
-          : ""
-      }`}
+          : "bg-transparent rounded-none"
+      } ${orientation === 4 || orientation === 3 ? "py-5" : "py-7"}`}
       textColor="text-black dark:text-white"
       icon={
         <View
@@ -84,7 +86,11 @@ export default function AppDrawerContent({
           });
         })}
 
-        <View className="flex p-10 mt-auto">
+        <View
+          className={`flex mt-auto ${
+            orientation === 4 || orientation === 3 ? "pb-5 px-10" : "p-10"
+          }`}
+        >
           <Button
             onPress={toggleColorScheme}
             className="bg-transparent border-2 border-gray-200 dark:border-zinc-700 my-4 rounded-full py-4"
