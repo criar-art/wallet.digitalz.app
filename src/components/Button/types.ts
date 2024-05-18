@@ -11,4 +11,5 @@ export type Props = {
   pressableButton?: boolean;
   accessibilityState?: any;
   onPress?: ((event: GestureResponderEvent) => void);
+  children?: React.ReactElement | React.ReactElement[] | React.ReactNode;
 }

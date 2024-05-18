@@ -18,13 +18,14 @@ function Button(props: Props) {
         {props.icon && props.icon}
         {props.text && (
           <Text
-            className={`text-center ${props.icon ? "ml-2" : ""} ${
+            className={`text-center ${props.icon ? "ml-4" : ""} ${
               props.textColor ? props.textColor : "text-white"
             }`}
           >
             {props.text}
           </Text>
         )}
+        {props.children}
       </>
     </ButtonComponent>
   );
