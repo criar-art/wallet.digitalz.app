@@ -125,9 +125,7 @@ export default function ListRegisters(props: Props) {
               )}
             </>
           )}
-          stickyHeaderIndices={
-            orientation === 4 || orientation === 3 ? undefined : [0]
-          }
+          stickyHeaderIndices={[0]}
         />
       ) : (
         <EmptyRegisters />
