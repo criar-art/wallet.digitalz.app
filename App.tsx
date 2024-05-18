@@ -4,6 +4,7 @@ import {
   DrawerActions,
   NavigationContainer,
   useNavigationContainerRef,
+  DefaultTheme,
 } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
@@ -42,6 +43,14 @@ export default function App() {
     checkRoute();
   }, []);
 
+  const walletTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colorScheme === "dark" ? "rgb(24 24 27)" : "#eee",
+    },
+  };
+
   return (
     <SafeAreaProvider testID="app-container">
       <Provider store={store}>
@@ -49,6 +58,7 @@ export default function App() {
           <NavigationContainer
             ref={navigationRef}
             onStateChange={() => checkRoute()}
+            theme={walletTheme}
           >
             <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
             <Routes
