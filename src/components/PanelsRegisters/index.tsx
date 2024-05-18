@@ -72,7 +72,7 @@ export default function PanelsRegisters(props: Props) {
         props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
       } ${
         orientation === 4 || orientation === 3
-          ? "flex-auto basis-1/3 mr-2 ml-2"
+          ? "flex-auto basis-1/3 mr-2 ml-3"
           : "w-full"
       }`}
     >
@@ -135,15 +135,17 @@ export default function PanelsRegisters(props: Props) {
   return (
     <FadeView testID="panels-registers">
       <ScrollView
-        className="p-5 pt-0"
+        className="p-4"
         contentContainerStyle={{
-          paddingBottom: 20,
-          paddingTop: 25,
+          paddingBottom: orientation === 4 || orientation === 3 ? 80 : 20,
+          paddingTop: orientation === 4 || orientation === 3 ? 15 : 4,
         }}
       >
         <View className="flex flex-row flex-wrap">
+          {(orientation === 1 || orientation === 2) && (
+            <ItemList type="patrimony" value={patrimonyTotal} />
+          )}
           <ItemList type="liquid" value={liquidTotal} />
-          <ItemList type="patrimony" value={patrimonyTotal} />
           <ItemList type="expense" value={expensesTotal} />
           <ItemList type="entry" value={entryTotal} />
           <ItemList type="investiment" value={investTotal} />
