@@ -1,4 +1,5 @@
 export type Props = {
+  className?: string;
   labelButton: string;
   isFocused: boolean;
   onPress: () => void;

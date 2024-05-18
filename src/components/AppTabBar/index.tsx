@@ -16,60 +16,61 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
   return (
     <View
       testID="app-tab-bar"
-      className={`flex bg-white dark:bg-zinc-900 ${
-        orientation === 4 || orientation === 3
-          ? "flex-col flex-nowrap h-full w-[90] absolute right-0"
-          : "flex-row"
+      className={`flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
+        orientation === 4 || orientation === 3 ? "h-0" : ""
       }`}
     >
-      <Button
-        pressableButton
-        label="Novo registro"
-        textColor="text-white"
-        className={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 ${
-          orientation === 4 || orientation === 3
-            ? "left-0 top-1/2 -translate-y-7 -translate-x-7"
-            : "bottom-[60] left-1/2 -translate-x-7"
+      <View
+        className={`flex flex-row ${
+          orientation === 4 || orientation === 3 ? "w-[400] absolute bottom-0" : "w-full"
         }`}
-        onPress={handleNewRegister}
-        icon={<MaterialIcons name="add" size={35} color="white" />}
-      />
-      {state?.routes.map((route: Route, index: number) => {
-        const { options } = descriptors[route.key];
-        const labelButton: string = getLabel(options, route);
-        const isFocused = state.index === index;
+      >
+        <Button
+          pressableButton
+          label="Novo registro"
+          textColor="text-white"
+          className={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[30] left-1/2 -translate-x-7`}
+          onPress={handleNewRegister}
+          icon={<MaterialIcons name="add" size={35} color="white" />}
+        />
+        {state?.routes.map((route: Route, index: number) => {
+          const { options } = descriptors[route.key];
+          const labelButton: string = getLabel(options, route);
+          const isFocused = state.index === index;
 
-        const onPress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true,
-          });
+          const onPress = () => {
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-          }
-        };
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
+          };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: "tabLongPress",
-            target: route.key,
-          });
-        };
+          const onLongPress = () => {
+            navigation.emit({
+              type: "tabLongPress",
+              target: route.key,
+            });
+          };
 
-        return (
-          <AppTabButton
-            key={index}
-            labelButton={labelButton}
-            isFocused={isFocused}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            options={options}
-            orientation={orientation}
-          />
-        );
-      })}
+          return (
+            <AppTabButton
+              className={`${index == 0 ? "rounded-tl-3xl" : (state?.routes.length - 1) == index ? "rounded-tr-3xl" : ""}`}
+              key={index}
+              labelButton={labelButton}
+              isFocused={isFocused}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              options={options}
+              orientation={orientation}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 }
