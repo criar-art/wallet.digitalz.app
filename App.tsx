@@ -16,7 +16,6 @@ import Routes from "./src/routes";
 import ModalRegister from "./src/components/ModalRegister";
 import ModalAlert from "./src/components/ModalDelete";
 import ModalInfo from "./src/components/ModalInfo";
-import { View } from "react-native";
 
 export default function App() {
   const persistor = persistStore(store);
