@@ -1,5 +1,5 @@
 import { Image, Text, View, ScrollView, Linking } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
+import { Fontisto, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "../hooks/useOrientation";
 import FadeView from "../components/FadeView";
@@ -59,7 +59,14 @@ export default function AboutScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="walletdigitalz.web.app"
             label="Acessar site walletdigitalz.web.app"
@@ -73,7 +80,14 @@ export default function AboutScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="Criar.Art"
             label="Acessar site criar.art"
@@ -87,7 +101,14 @@ export default function AboutScreen() {
               />
             }
             className="justify-start mt-4 mb-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
         </ScrollView>
       </View>
     </FadeView>

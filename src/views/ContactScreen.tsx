@@ -47,7 +47,14 @@ export default function ContactScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="criar.art.tecnologia"
             label="Acessar Instagram criar.art.tecnologia"
@@ -63,7 +70,14 @@ export default function ContactScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="contato@criar.art"
             label="Enviar email para contato@criar.art"
@@ -81,7 +95,14 @@ export default function ContactScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="+55 (83) 98210-7202"
             label="Enviar mensagemo no whatsapp Criar.Art"
@@ -99,7 +120,14 @@ export default function ContactScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
           <Button
             text="@lucasferreiralimax"
             label="Acessar linkedin do Lucas Ferreira"
@@ -115,7 +143,14 @@ export default function ContactScreen() {
               />
             }
             className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          />
+          >
+            <MaterialIcons
+              name="navigate-next"
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{ marginLeft: "auto" }}
+            />
+          </Button>
         </ScrollView>
       </View>
     </FadeView>

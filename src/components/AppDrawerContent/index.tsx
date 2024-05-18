@@ -48,7 +48,7 @@ export default function AppDrawerContent({
       textColor="text-black dark:text-white"
       icon={
         <View
-          className={`flex items-center mr-4 ${
+          className={`flex items-center ${
             !isFocused ? "scale-100" : "scale-125"
           }`}
         >
