@@ -12,7 +12,7 @@ describe("Utility Functions", () => {
   describe("renderBorderType", () => {
     test("returns the correct border type for each input", () => {
       expect(renderBorderType("liquid")).toBe("border-yellow-400");
-      expect(renderBorderType("patrimony")).toBe("border-black");
+      expect(renderBorderType("patrimony")).toBe("border-black dark:border-white");
       expect(renderBorderType("investiment")).toBe("border-sky-400");
       expect(renderBorderType("entry")).toBe("border-green-400");
       expect(renderBorderType("expense")).toBe("border-red-400");
