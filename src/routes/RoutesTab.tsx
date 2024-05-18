@@ -48,14 +48,14 @@ export function RoutesTab() {
     )),
     configRegisterScreen("Entry", "Entrada", (props: any) => (
       <MaterialCommunityIcons
-        name="cash-check"
+        name="cash-plus"
         size={props.size}
         color={props.color}
       />
     )),
     configRegisterScreen("Investiment", "Investimento", (props: any) => (
       <MaterialIcons
-        name="attach-money"
+        name="trending-up"
         size={props.size}
         color={props.color}
       />
@@ -88,6 +88,7 @@ export function RoutesTab() {
             },
             headerTitleStyle: {
               fontSize: 0,
+              display: 'none'
             },
           }}
         >
