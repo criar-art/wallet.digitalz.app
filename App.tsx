@@ -21,7 +21,8 @@ import ModalInfo from "./src/components/ModalInfo";
 export default function App() {
   const persistor = persistStore(store);
   const navigationRef = useNavigationContainerRef();
-  const [dashboard, setDashboard] = useState(false);
+  const [dashboard, setDashboard] = useState<boolean>(false);
+  const [currentRouteName, setCurrentRouteName] = useState<string>();
   const { colorScheme } = useColorScheme();
 
   function toggleDrawer() {
@@ -36,6 +37,7 @@ export default function App() {
       setDashboard(
         currentRoute?.name == "About" || currentRoute?.name == "Contact"
       );
+      setCurrentRouteName(currentRoute?.name);
     }
   }
 
@@ -65,6 +67,7 @@ export default function App() {
               toggleDrawer={toggleDrawer}
               dashboard={dashboard}
               navigation={navigationRef}
+              name={currentRouteName}
             />
             {!dashboard && (
               <>
