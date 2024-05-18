@@ -7,6 +7,7 @@ import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
 import Button from "../Button";
 import { Props } from "./types";
+import { types } from "../../utils";
 
 export default function ModalInfo(props: Props) {
   const orientation = useOrientation();
@@ -15,7 +16,7 @@ export default function ModalInfo(props: Props) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const transformAnim = useRef(new Animated.Value(500)).current;
   const isOpenModal = (): boolean =>
-    ["liquid", "patrimony"].includes(common.modalInfo);
+    ["liquid", "patrimony", "entry", "expense", "investiment"].includes(common.modalInfo);
 
   const closeModal = () => {
     Animated.parallel([
@@ -56,6 +57,112 @@ export default function ModalInfo(props: Props) {
     };
   }, [common.modalInfo, fadeAnim, transformAnim]);
 
+  const modalContent: any = {
+    liquid: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          O cálculo do valor líquido é feito subtraindo o total das despesas do
+          total das entradas de registros.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Investimentos não são diretamente considerados nesse cálculo.
+          </Text>
+          <Text className="text-sm dark:text-yellow-100">
+            São reservas de capital para futuros retornos, gerenciados
+            separadamente.
+          </Text>
+        </View>
+      </>
+    ),
+    patrimony: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          O valor do patrimônio é a soma do valor líquido com o valor dos
+          investimentos. Essencialmente, é a combinação do valor líquido e dos
+          investimentos.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Esta medida proporciona uma visão abrangente do valor total dos
+            ativos e passivos da entidade.
+          </Text>
+        </View>
+      </>
+    ),
+    investiment: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          Investimentos são alocações de recursos com o objetivo de obter
+          retornos futuros. Eles são parte importante do planejamento
+          financeiro.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Avaliar corretamente os investimentos é crucial para garantir a
+            saúde financeira a longo prazo.
+          </Text>
+        </View>
+      </>
+    ),
+    entry: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          Entradas representam o total de receitas recebidas em determinado
+          período, como vendas, juros recebidos e outros ganhos.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Monitorar as entradas ajuda a entender a capacidade de geração de
+            receita da entidade.
+          </Text>
+        </View>
+      </>
+    ),
+    expense: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          Despesas são os custos incorridos para operar e manter as atividades
+          da entidade. Elas podem incluir salários, aluguel, e outras
+          obrigações.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Controlar as despesas é essencial para manter a saúde financeira e
+            evitar déficits.
+          </Text>
+        </View>
+      </>
+    ),
+    vehicle: (
+      <>
+        <Text className="text-black dark:text-white text-base mb-4">
+          Veículos são ativos tangíveis que podem ser usados para operações ou
+          como parte dos ativos da entidade. Eles podem incluir carros,
+          caminhões e outros meios de transporte.
+        </Text>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            A depreciação dos veículos deve ser considerada para refletir seu
+            valor atual corretamente.
+          </Text>
+        </View>
+      </>
+    ),
+  };
+
+  const modalIcons: any = {
+    liquid: <MaterialIcons name="attach-money" size={30} color="#aaa" />,
+    patrimony: <MaterialCommunityIcons name="gold" size={30} color="#aaa" />,
+    investiment: <MaterialIcons name="trending-up" size={30} color="#aaa" />,
+    entry: <MaterialCommunityIcons name="cash-plus" size={30} color="#aaa" />,
+    expense: <MaterialCommunityIcons name="cash-remove" size={30} color="#aaa" />,
+    vehicle: <MaterialCommunityIcons name="car" size={30} color="#aaa" />, // Assumindo um ícone para veículo, ajuste conforme necessário
+  };
+
+  const renderModalIcon = (type: any) => modalIcons[type] || null;
+  const renderModalContent = (type: string) => modalContent[type] || null;
+
   return (
     <Animated.View
       testID={props.testID}
@@ -76,49 +183,15 @@ export default function ModalInfo(props: Props) {
       >
         <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
           <Text className="text-black dark:text-white text-center text-xl mr-2">
-            Valor {common.modalInfo === "liquid" ? "Líquido" : "Patrimônio"}
+            Valor {types[common.modalInfo]}
           </Text>
           <View className="ml-auto">
-            {common.modalInfo === "patrimony" ? (
-              <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
-            ) : (
-              <MaterialIcons name="attach-money" size={30} color="#aaa" />
-            )}
+            {renderModalIcon(common.modalInfo)}
           </View>
         </View>
 
         <View className="mb-6 px-2 pt-0">
-          {common.modalInfo === "liquid" ? (
-            <>
-              <Text className="text-black dark:text-white text-base mb-4">
-                O cálculo do valor líquido é feito subtraindo o total das
-                despesas do total das entradas de registros.
-              </Text>
-              <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
-                <Text className="text-sm dark:text-yellow-100">
-                  Investimentos não são diretamente considerados nesse cálculo.
-                </Text>
-                <Text className="text-sm dark:text-yellow-100">
-                  São reservas de capital para futuros retornos, gerenciados
-                  separadamente.
-                </Text>
-              </View>
-            </>
-          ) : (
-            <>
-              <Text className="text-black dark:text-white text-base mb-4">
-                O valor do patrimônio é a soma do valor líquido com o valor dos
-                investimentos. Essencialmente, é a combinação do valor líquido e
-                dos investimentos.
-              </Text>
-              <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
-                <Text className="text-sm dark:text-yellow-100">
-                  Esta medida proporciona uma visão abrangente do valor total
-                  dos ativos e passivos da entidade.
-                </Text>
-              </View>
-            </>
-          )}
+          {renderModalContent(common.modalInfo)}
         </View>
 
         <View className="flex flex-row">
