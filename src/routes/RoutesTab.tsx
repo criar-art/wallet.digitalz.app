@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useColorScheme } from "nativewind";
 import { renderColorType } from "../utils";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
@@ -10,6 +11,7 @@ import RegisterScreen from "../views/RegisterScreen";
 const Tab = createBottomTabNavigator();
 
 export function RoutesTab() {
+  const { colorScheme } = useColorScheme();
   const common = useAppSelector((state: RootState) => state.commonState);
   const getCountRegisters = (type: string) => {
     return common.registers.filter((item: any) => item.type == type).length;
@@ -77,12 +79,19 @@ export function RoutesTab() {
             headerShown: item.headerShown,
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: renderColorType(item.name.toLocaleLowerCase()),
-              height: 35,
+              backgroundColor: renderColorType(
+                item.name.toLocaleLowerCase(),
+                colorScheme
+              ),
+              height: 50,
+              elevation: 0,
+              shadowOpacity: 0,
+              borderWidth: 0
             },
             headerTitleStyle: {
               fontSize: 15,
               fontWeight: "bold",
+              color: colorScheme === "dark" ? "white" : "black",
             },
           }}
         >

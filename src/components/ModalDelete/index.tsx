@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setModalDelete, setRegister } from "../../store/commonSlice";
 import { RootState } from "../../store";
@@ -8,6 +9,7 @@ import Button from "../Button";
 import { Props } from "./types";
 
 export default function ModalDelete(props: Props) {
+  const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -51,18 +53,18 @@ export default function ModalDelete(props: Props) {
   return (
     <Animated.View
       testID={props.testID ? props.testID : "fade-view"}
-      className="p-4 bg-red-200 z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-center"
+      className="p-4 bg-red-200 z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-center"
       style={{ opacity: fadeAnim }}
       pointerEvents={!common.modalDelete ? "none" : "auto"}
     >
       <Animated.View
-        className="bg-white p-4 rounded-lg flex flex-col items-center"
+        className="bg-white dark:bg-zinc-900 p-4 rounded-lg flex flex-col items-center"
         style={{ transform: [{ scale: scaleAnim }] }}
         accessibilityViewIsModal
         aria-hidden={!common.modalDelete}
       >
-        <MaterialCommunityIcons name="delete-alert" size={50} color="black" />
-        <Text className="text-center text-xl my-4">
+        <MaterialCommunityIcons name="delete-alert" size={50} color={colorScheme === "dark" ? "white" : "black"} />
+        <Text className="text-black dark:text-white text-center text-xl my-4">
           Tem certeza que desejar deletar?
         </Text>
         <View className="flex flex-row mt-4">

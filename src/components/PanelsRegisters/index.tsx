@@ -7,6 +7,7 @@ import {
   ParamListBase,
   NavigationProp,
 } from "@react-navigation/native";
+import { useColorScheme } from "nativewind";
 import {
   renderBorderType,
   types,
@@ -18,13 +19,13 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
 import FadeView from "../FadeView";
-import EmptyRegisters from "../EmptyRegisters";
 import { Props } from "./types";
 
 export default function PanelsRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const { colorScheme } = useColorScheme();
 
   const getCountRegisters = (type: string) => {
     return common.registers.filter((item: any) => item.type == type).length;
@@ -60,9 +61,9 @@ export default function PanelsRegisters(props: Props) {
           ? navigation.navigate(capitalize(props.type))
           : dispatch(setModalInfo(props.type))
       }
-      className={`flex flex-row justify-between items-center border-l-4 text-black mb-5 bg-white p-6 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-l-4 mb-5 bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg ${renderBorderType(
         props.type
-      )} ${props.value < 0 ? "bg-red-100 border-red-600" : ""}`}
+      )} ${props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""}`}
     >
       <NumericFormat
         value={props.value}
@@ -74,8 +75,10 @@ export default function PanelsRegisters(props: Props) {
         prefix={"R$ "}
         renderText={(value: string) => (
           <View className="flex">
-            <Text className="text-black">Total {types[props.type]}</Text>
-            <Text className="font-bold text-xl">
+            <Text className="text-black dark:text-white">
+              Total {types[props.type]}
+            </Text>
+            <Text className="text-black dark:text-white font-bold text-xl">
               {parseMoney(value, common.eyeStatus)}
             </Text>
           </View>
@@ -90,9 +93,9 @@ export default function PanelsRegisters(props: Props) {
       )}
       {!!getCountRegisters(props.type) && (
         <View
-          className={`bg-black p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
+          className={`bg-black dark:bg-white p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
-          <Text className="text-white text-xs">
+          <Text className="text-white dark:text-black text-xs">
             {getCountRegisters(props.type)} Registro
             {`${getCountRegisters(props.type) > 1 ? "s" : ""}`}
           </Text>
@@ -109,7 +112,11 @@ export default function PanelsRegisters(props: Props) {
         <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
       )}
       {checkTypeTouchable(props.type) && (
-        <MaterialIcons name="navigate-next" size={30} color="black" />
+        <MaterialIcons
+          name="navigate-next"
+          size={30}
+          color={colorScheme === "dark" ? "white" : "black"}
+        />
       )}
     </TouchableOpacity>
   );

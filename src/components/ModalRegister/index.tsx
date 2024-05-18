@@ -14,6 +14,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
+import { useColorScheme } from "nativewind";
 import { NumericFormat } from "react-number-format";
 import { formatDate } from "../../utils";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -30,6 +31,7 @@ import { intitialForm, initialFormError, dataType } from "./formConstants";
 import { Props } from "./types";
 
 export default function ModalRegister(props: Props) {
+  const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -130,7 +132,7 @@ export default function ModalRegister(props: Props) {
   return (
     <Animated.View
       testID="modal-register"
-      className="z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-end"
+      className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end"
       style={{
         opacity: fadeAnim,
       }}
@@ -140,14 +142,18 @@ export default function ModalRegister(props: Props) {
         <KeyboardAvoidingView behavior="padding" className="flex justify-end">
           {Object.values(formError).includes(true) && (
             <View className="flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black">
-              <MaterialCommunityIcons name="alert" size={25} color="black" />
+              <MaterialCommunityIcons
+                name="alert"
+                size={25}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
               <Text className="ml-2 font-base font-bold">
                 Você precisa preencher todos os campos para criar.
               </Text>
             </View>
           )}
           <Animated.View
-            className="bg-white p-5 rounded-t-3xl"
+            className="bg-white dark:bg-zinc-900 p-5 rounded-t-3xl"
             accessibilityViewIsModal
             style={{
               transform: [
@@ -159,8 +165,8 @@ export default function ModalRegister(props: Props) {
             pointerEvents={isOpenModal() ? "auto" : "none"}
             aria-hidden={!isOpenModal()}
           >
-            <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300">
-              <Text className="text-black text-center text-xl mr-2">
+            <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
+              <Text className="text-black dark:text-white text-center text-xl mr-2">
                 {isEditing() ? "Editar Registro" : "Novo Registro"}
               </Text>
               <View className="ml-auto">
@@ -177,19 +183,21 @@ export default function ModalRegister(props: Props) {
             </View>
             <View className="flex flex-row mb-3">
               <View className="flex-1 mr-2">
-                <Text className="text-black mb-1 text-base">Data</Text>
+                <Text className="text-black dark:text-white mb-1 text-base">
+                  Data
+                </Text>
                 <Pressable
                   onPress={() => setShowDate(true)}
-                  className="flex flex-row items-center p-3 pr-4 rounded-lg border-2 border-slate-600"
+                  className="flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500"
                   accessibilityLabel="Data do registro"
                   accessibilityRole="button"
                 >
                   <MaterialIcons
                     name="calendar-month"
                     size={25}
-                    color="black"
+                    color={colorScheme === "dark" ? "white" : "black"}
                   />
-                  <Text className="text-base ml-2 text-black">
+                  <Text className="text-base ml-2 text-black dark:text-white">
                     {formModal.date}
                   </Text>
                 </Pressable>
@@ -204,7 +212,9 @@ export default function ModalRegister(props: Props) {
                 )}
               </View>
               <View className="flex-1 ml-2">
-                <Text className="text-black mb-1 text-base">Tipo</Text>
+                <Text className="text-black dark:text-white mb-1 text-base">
+                  Tipo
+                </Text>
                 <Select
                   data={dataType}
                   maxHeight={300}
@@ -218,10 +228,12 @@ export default function ModalRegister(props: Props) {
             </View>
             <View className="flex flex-row mb-6">
               <View className="flex-1 mr-2">
-                <Text className="text-black mb-1 text-base">Nome</Text>
+                <Text className="text-black dark:text-white mb-1 text-base">
+                  Nome
+                </Text>
                 <TextInput
                   accessibilityLabel="Nome do registro"
-                  className={`text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600 ${
+                  className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
                     !!formError.name && "border-red-500"
                   }`}
                   onChangeText={(value: string) => handleChange(value, "name")}
@@ -229,7 +241,9 @@ export default function ModalRegister(props: Props) {
                 />
               </View>
               <View className="flex-1 ml-2">
-                <Text className="text-black mb-1 text-base">Valor</Text>
+                <Text className="text-black dark:text-white mb-1 text-base">
+                  Valor
+                </Text>
                 <NumericFormat
                   value={inputValue}
                   displayType={"text"}
@@ -244,14 +258,16 @@ export default function ModalRegister(props: Props) {
                     return (
                       <TextInput
                         accessibilityLabel="Valor do registro"
-                        className={`text-base p-3 px-4 bg-white rounded-lg border-2 border-slate-600 ${
+                        className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
                           !!formError.value && "border-red-500"
                         }`}
                         placeholder="R$"
                         onChangeText={(value: string) => setInputValue(value)}
                         value={value}
                         keyboardType="phone-pad"
-                        placeholderTextColor="#000"
+                        placeholderTextColor={
+                          colorScheme === "dark" ? "white" : "black"
+                        }
                       />
                     );
                   }}

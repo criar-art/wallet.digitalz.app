@@ -15,12 +15,12 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
   };
 
   return (
-    <View className="flex flex-row" testID="app-tab-bar">
+    <View className="flex flex-row bg-white dark:bg-zinc-900" testID="app-tab-bar">
       <Button
         pressableButton
         label="Novo registro"
         textColor="text-white"
-        className="z-10 rounded-full absolute bottom-[60] left-1/2 -translate-x-7 w-18 h-18 border-2 border-white bg-green-600"
+        className="z-10 rounded-full absolute bottom-[60] left-1/2 -translate-x-7 w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600"
         onPress={handleNewRegister}
         icon={<MaterialIcons name="add" size={35} color="white" />}
       />

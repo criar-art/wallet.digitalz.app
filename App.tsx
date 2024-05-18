@@ -10,16 +10,19 @@ import "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { useColorScheme } from "nativewind";
 import store from "./src/store";
 import Routes from "./src/routes";
 import ModalRegister from "./src/components/ModalRegister";
 import ModalAlert from "./src/components/ModalDelete";
 import ModalInfo from "./src/components/ModalInfo";
+import { View } from "react-native";
 
 export default function App() {
   const persistor = persistStore(store);
   const navigationRef = useNavigationContainerRef();
   const [dashboard, setDashboard] = useState(false);
+  const { colorScheme } = useColorScheme();
 
   function toggleDrawer() {
     if (navigationRef.isReady()) {
@@ -48,7 +51,7 @@ export default function App() {
             ref={navigationRef}
             onStateChange={() => checkRoute()}
           >
-            <StatusBar style="dark" />
+            <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
             <Routes
               toggleDrawer={toggleDrawer}
               dashboard={dashboard}

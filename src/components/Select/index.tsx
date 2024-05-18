@@ -1,7 +1,10 @@
 import { Dropdown } from "react-native-element-dropdown";
+import { useColorScheme } from "nativewind";
 import { Props } from "./types";
 
 export default function Select(props: Props) {
+  const { colorScheme } = useColorScheme();
+
   return (
     <Dropdown
       testID="select-container"
@@ -9,14 +12,25 @@ export default function Select(props: Props) {
         paddingHorizontal: 12,
         paddingVertical: 8.4,
         borderRadius: 8,
-        borderColor: props.error ? "rgb(239 68 68)" : "rgb(71 85 105)",
+        backgroundColor: `${
+          colorScheme === "dark" ? "rgb(39 39 42)" : "white"
+        }`,
+        borderColor: props.error
+          ? "rgb(239 68 68)"
+          : `${colorScheme === "dark" ? "rgb(113 113 122)" : "rgb(71 85 105)"}`,
         borderWidth: 2,
+      }}
+      selectedTextStyle={{
+        color: `${colorScheme === "dark" ? "white" : "black"}`,
       }}
       placeholderStyle={{
         fontSize: 17,
+        color: `${colorScheme === "dark" ? "white" : "black"}`,
       }}
       iconStyle={{
-        tintColor: props.error ? "rgb(239 68 68)" : "rgb(71 85 105)",
+        tintColor: props.error
+          ? "rgb(239 68 68)"
+          : `${colorScheme === "dark" ? "rgb(113 113 122)" : "rgb(71 85 105)"}`,
         transform: "scale(1.5)",
       }}
       containerStyle={{
@@ -24,13 +38,15 @@ export default function Select(props: Props) {
         borderRadius: 8,
         borderColor: "#aaa",
         borderWidth: 1,
-        backgroundColor: "#fff",
+        backgroundColor: `${
+          colorScheme === "dark" ? "rgb(113 113 122)" : "white"
+        }`,
       }}
       itemContainerStyle={{
         borderRadius: 6,
         marginHorizontal: 5,
         marginVertical: 2.5,
-        backgroundColor: "#eee",
+        backgroundColor: `${colorScheme === "dark" ? "rgb(63 63 70)" : "#eee"}`,
         padding: 0,
         height: 45,
       }}
@@ -40,8 +56,9 @@ export default function Select(props: Props) {
         padding: 0,
         position: "relative",
         top: -5,
+        color: `${colorScheme === "dark" ? "white" : "black"}`,
       }}
-      activeColor="#dcfce7"
+      activeColor={`${colorScheme === "dark" ? "rgb(39 39 42)" : "#dcfce7"}`}
       data={props.data}
       maxHeight={props.maxHeight}
       labelField="label"

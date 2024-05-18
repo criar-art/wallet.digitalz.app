@@ -1,15 +1,18 @@
 import { Text, View, Platform } from "react-native";
+import { useColorScheme } from "nativewind";
 import pkg from "../../../package.json";
 import app from "../../../app.json";
 import Button from "../Button";
 import { getLabel } from "../../utils";
 import { Props, RenderButtonParams } from "./types";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function AppDrawerContent({
   state,
   descriptors,
   navigation,
 }: Props) {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   const appVersion = pkg.version;
   const versionCode =
     Platform.OS === "android" ? app.expo.android.versionCode : "";
@@ -36,27 +39,40 @@ export default function AppDrawerContent({
       label={`Navegar para ${labelButton}`}
       onPress={() => onPress(route, isFocused)}
       className={`justify-start py-7 ml-2 pl-6 bg-transparent rounded-none ${
-        isFocused ? "bg-gray-200 rounded-tl-full rounded-bl-full" : ""
+        isFocused
+          ? "bg-gray-200 dark:bg-zinc-800 rounded-tl-full rounded-bl-full"
+          : ""
       }`}
-      textColor="black"
+      textColor="text-black dark:text-white"
       icon={
         <View
           className={`flex items-center mr-4 ${
             !isFocused ? "scale-100" : "scale-125"
           }`}
         >
-          {<options.drawerIcon size={28} color="black" />}
+          {
+            <options.drawerIcon
+              size={28}
+              color={colorScheme === "dark" ? "white" : "black"}
+            />
+          }
         </View>
       }
     />
   );
 
   return (
-    <View testID="app-drawer-content" className="flex flex-row w-full h-full">
+    <View
+      testID="app-drawer-content"
+      className="dark:bg-zinc-900 flex flex-row w-full h-full"
+    >
       <View className="pt-12 w-full">
         {state?.routes.map((route: any, index: number) => {
           const { options }: { options: any } = descriptors[route.key];
-          const labelButton: string = getLabel(options, route);
+          const labelButton: string =
+            getLabel(options, route) == "Wallet Digitalz"
+              ? "Ínicio"
+              : getLabel(options, route);
           const isFocused: boolean = state.index === index;
 
           return renderButton({
@@ -69,7 +85,21 @@ export default function AppDrawerContent({
         })}
 
         <View className="flex p-10 mt-auto">
-          <Text className="text-center">
+          <Button
+            onPress={toggleColorScheme}
+            className="bg-transparent border-2 border-gray-200 dark:border-zinc-700 my-4 rounded-full py-4"
+            text="Darkmode"
+            textColor="text-black dark:text-white"
+            label="Toogle darkmode"
+            icon={
+              <MaterialIcons
+                name={colorScheme === "dark" ? "dark-mode" : "light-mode"}
+                size={22}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
+            }
+          />
+          <Text className="text-center dark:text-white">
             Versão {appVersion}
             {versionCode && ` - Build ${versionCode}`}
           </Text>

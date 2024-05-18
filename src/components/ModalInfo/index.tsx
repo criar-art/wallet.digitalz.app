@@ -57,12 +57,12 @@ export default function ModalInfo(props: Props) {
   return (
     <Animated.View
       testID={props.testID}
-      className="z-10 absolute bg-black/70 min-h-full min-w-full top-0 bottom-0 flex justify-end"
+      className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end"
       style={{ opacity: fadeAnim }}
       pointerEvents={isOpenModal() ? "auto" : "none"}
     >
       <Animated.View
-        className="bg-white p-5 rounded-t-3xl"
+        className="bg-white dark:bg-zinc-900 p-5 rounded-t-3xl"
         accessibilityViewIsModal
         style={{
           transform: [{ translateY: transformAnim }],
@@ -70,8 +70,8 @@ export default function ModalInfo(props: Props) {
         pointerEvents={isOpenModal() ? "auto" : "none"}
         aria-hidden={!isOpenModal()}
       >
-        <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300">
-          <Text className="text-black text-center text-xl mr-2">
+        <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
+          <Text className="text-black dark:text-white text-center text-xl mr-2">
             Valor {common.modalInfo === "liquid" ? "Líquido" : "Patrimônio"}
           </Text>
           <View className="ml-auto">
@@ -86,15 +86,15 @@ export default function ModalInfo(props: Props) {
         <View className="mb-6 px-2 pt-0">
           {common.modalInfo === "liquid" ? (
             <>
-              <Text className="text-base mb-4">
+              <Text className="text-black dark:text-white text-base mb-4">
                 O cálculo do valor líquido é feito subtraindo o total das
                 despesas do total das entradas de registros.
               </Text>
-              <View className="bg-yellow-100 p-4 rounded-xl">
-                <Text className="text-sm">
+              <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+                <Text className="text-sm dark:text-yellow-100">
                   Investimentos não são diretamente considerados nesse cálculo.
                 </Text>
-                <Text className="text-sm">
+                <Text className="text-sm dark:text-yellow-100">
                   São reservas de capital para futuros retornos, gerenciados
                   separadamente.
                 </Text>
@@ -102,13 +102,13 @@ export default function ModalInfo(props: Props) {
             </>
           ) : (
             <>
-              <Text className="text-base mb-4">
+              <Text className="text-black dark:text-white text-base mb-4">
                 O valor do patrimônio é a soma do valor líquido com o valor dos
                 investimentos. Essencialmente, é a combinação do valor líquido e
                 dos investimentos.
               </Text>
-              <View className="bg-yellow-100 p-4 rounded-xl">
-                <Text className="text-sm">
+              <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+                <Text className="text-sm dark:text-yellow-100">
                   Esta medida proporciona uma visão abrangente do valor total
                   dos ativos e passivos da entidade.
                 </Text>

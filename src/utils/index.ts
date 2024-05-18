@@ -15,7 +15,7 @@ export const renderBorderType = (type: string): string => {
     case "liquid":
       return "border-yellow-400";
     case "patrimony":
-      return "border-black";
+      return "border-black dark:border-white";
     case "investiment":
       return "border-sky-400";
     case "entry":
@@ -29,7 +29,7 @@ export const renderBorderType = (type: string): string => {
   }
 };
 
-export const renderColorType = (type: string): string => {
+export const renderColorType = (type: string, colorScheme: string): string => {
   switch (type) {
     case "home":
       return "#ddd";
@@ -38,11 +38,11 @@ export const renderColorType = (type: string): string => {
     case "patrimony":
       return "rgb(0 0 0)";
     case "investiment":
-      return "rgb(125 211 252)";
+      return colorScheme === "dark" ? "rgb(30 58 138)" : "rgb(191 219 254)";
     case "entry":
-      return "rgb(134 239 172)";
+      return colorScheme === "dark" ? "rgb(20 83 45)" : "rgb(187 247 208)";
     case "expense":
-      return "rgb(252 165 165)";
+      return colorScheme === "dark" ? "rgb(153 27 27)" : "rgb(254 202 202)";
     case "vehicle":
       return "rgb(156 163 175)";
     default:
@@ -54,11 +54,11 @@ export const renderBackgroundClass = (type: string, date: string): string => {
   if (isDatePast(date)) {
     switch (type) {
       case "expense":
-        return "bg-red-100";
+        return "bg-red-100 dark:bg-red-900";
       case "investiment":
-        return "bg-blue-100";
+        return "bg-blue-100 dark:bg-blue-900";
       case "entry":
-        return "bg-green-100";
+        return "bg-green-100 dark:bg-green-900";
       default:
         return "";
     }
