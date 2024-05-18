@@ -12,9 +12,7 @@ export default function RegisterScreen({ type }: Props) {
   return (
     <View
       testID={`${type}-screen`}
-      className={`flex-1 justify-between flex-col ${
-        orientation === 4 || orientation === 3 ? "mr-[90]" : ""
-      }`}
+      className={`flex-1 justify-between flex-col`}
     >
       <ListRegisters type={type} />
     </View>

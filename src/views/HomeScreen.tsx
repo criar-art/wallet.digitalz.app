@@ -8,9 +8,7 @@ export default function HomeScreen() {
   return (
     <View
       testID="home-screen"
-      className={`flex-1 justify-between flex-col ${
-        orientation === 4 || orientation === 3 ? "mr-[100]" : ""
-      }`}
+      className={`flex-1 justify-between flex-col`}
     >
       <PanelsRegisters />
     </View>
