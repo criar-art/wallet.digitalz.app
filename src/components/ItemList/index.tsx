@@ -64,7 +64,7 @@ export default function ItemList(props: Props) {
         props.item.type
       )} ${renderBackgroundClass(props.item.type, props.item.date)} ${
         props.orientation !== 1 && props.orientation !== 2
-          ? "mt-5 mr-2 ml-2"
+          ? "mt-6 ml-3 mr-3"
           : "m-5 mb-0"
       }`}
     >
