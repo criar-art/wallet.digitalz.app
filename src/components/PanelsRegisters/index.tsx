@@ -116,29 +116,19 @@ export default function PanelsRegisters(props: Props) {
 
   return (
     <FadeView testID="panels-registers">
-      {common.registers.length ? (
-        <ScrollView
-          className="p-5 pt-0"
-          contentContainerStyle={{
-            paddingBottom: 20,
-            paddingTop: 25,
-          }}
-        >
-          {!!liquidTotal && <ItemList type="liquid" value={liquidTotal} />}
-          {patrimonyTotal > 0 && (
-            <ItemList type="patrimony" value={patrimonyTotal} />
-          )}
-          {entryTotal > 0 && <ItemList type="entry" value={entryTotal} />}
-          {investTotal > 0 && (
-            <ItemList type="investiment" value={investTotal} />
-          )}
-          {expensesTotal > 0 && (
-            <ItemList type="expense" value={expensesTotal} />
-          )}
-        </ScrollView>
-      ) : (
-        <EmptyRegisters />
-      )}
+      <ScrollView
+        className="p-5 pt-0"
+        contentContainerStyle={{
+          paddingBottom: 20,
+          paddingTop: 25,
+        }}
+      >
+        <ItemList type="liquid" value={liquidTotal} />
+        <ItemList type="patrimony" value={patrimonyTotal} />
+        <ItemList type="expense" value={expensesTotal} />
+        <ItemList type="entry" value={entryTotal} />
+        <ItemList type="investiment" value={investTotal} />
+      </ScrollView>
     </FadeView>
   );
 }
