@@ -26,8 +26,11 @@ export default function ItemTotal(props: Props) {
     investiment: (
       <MaterialIcons
         name="trending-up"
-        size={35}
+        size={38}
         color={colorScheme === "dark" ? "white" : "black"}
+        style={{
+          transform: [{ translateY: 6 }],
+        }}
       />
     ),
     entry: (
@@ -35,6 +38,9 @@ export default function ItemTotal(props: Props) {
         name="cash-plus"
         size={35}
         color={colorScheme === "dark" ? "white" : "black"}
+        style={{
+          transform: [{ translateY: 3 }],
+        }}
       />
     ),
     expense: (
@@ -42,6 +48,9 @@ export default function ItemTotal(props: Props) {
         name="cash-remove"
         size={35}
         color={colorScheme === "dark" ? "white" : "black"}
+        style={{
+          transform: [{ translateY: 3 }],
+        }}
       />
     ),
   };
@@ -52,7 +61,7 @@ export default function ItemTotal(props: Props) {
       testID={props.testID}
       className={`flex flex-row items-center${renderBorderType(props.type)} ${
         props.orientation === 4 || props.orientation === 3
-          ? "justify-end mr-36"
+          ? "justify-end mr-20 pr-[75] border-r-2 border-zinc-700"
           : "justify-center px-8 pt-5 pb-6  bg-white dark:bg-zinc-800 shadow-lg"
       }`}
     >
@@ -79,8 +88,8 @@ export default function ItemTotal(props: Props) {
               {parseMoney(value, props.eyeStatus)}
             </Text>
             {(props.orientation === 4 || props.orientation === 3) && (
-              <View className="absolute -right-[50] bottom-[4]">
-                {renderModalIcon(props.type)}
+              <View className="flex justify-center items-center absolute -right-[50] bottom-[8]">
+                <View className="flex">{renderModalIcon(props.type)}</View>
               </View>
             )}
           </View>
