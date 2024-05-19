@@ -1,8 +1,10 @@
+import { format } from 'date-fns';
+
 export const intitialForm = {
   name: "",
   type: "",
   value: "",
-  date: new Date().toLocaleDateString(),
+  date: format(new Date(), 'dd/MM/yyyy'),
 };
 
 export const initialFormError = {

@@ -3,6 +3,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
+  TouchableWithoutFeedback,
   Text,
   TextInput,
   View,
@@ -28,6 +29,7 @@ import {
 import Button from "../Button";
 import Select from "../Select";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
+import { formatDateString } from "../../utils";
 
 import { Props } from "./types";
 
@@ -38,6 +40,7 @@ export default function ModalRegister(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const transformAnim = useRef(new Animated.Value(500)).current;
+  const [shakeAnimation] = useState(new Animated.Value(0));
   const [date, setDate] = useState<Date>(new Date());
   const [showDate, setShowDate] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
@@ -56,8 +59,33 @@ export default function ModalRegister(props: Props) {
     if (date) {
       setShowDate(false);
       setDate(date);
-      handleChange(new Date(date).toLocaleDateString(), "date");
+      handleChange(formatDateString(date), "date");
     }
+  };
+
+  const startShakeAnimation = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
   };
 
   const closeModal = () => {
@@ -94,6 +122,8 @@ export default function ModalRegister(props: Props) {
           : setRegister([data, ...common.registers])
       );
       closeModal();
+    } else {
+      startShakeAnimation();
     }
   };
 
@@ -132,184 +162,196 @@ export default function ModalRegister(props: Props) {
   }, [common.modalRegister]);
 
   return (
-    <Animated.View
-      testID="modal-register"
-      className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end"
-      style={{
-        opacity: fadeAnim,
-      }}
-      pointerEvents={isOpenModal() ? "auto" : "none"}
-    >
-      <SafeAreaView>
-        <KeyboardAvoidingView
-          behavior="padding"
-          className="flex justify-end items-center"
-        >
-          {Object.values(formError).includes(true) && (
-            <View
-              className={`flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black ${
-                orientation === 4 || orientation === 3
-                  ? "absolute z-10 -top-12"
-                  : ""
-              }`}
-            >
-              <MaterialCommunityIcons
-                name="alert"
-                size={25}
-                color={colorScheme === "dark" ? "white" : "black"}
-              />
-              <Text className="ml-2 font-base font-bold">
-                Você precisa preencher todos os campos.
-              </Text>
-            </View>
-          )}
-          <Animated.View
-            className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
-              orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
-            }`}
-            accessibilityViewIsModal
-            style={{
-              transform: [
-                {
-                  translateY: transformAnim,
-                },
-              ],
-            }}
-            pointerEvents={isOpenModal() ? "auto" : "none"}
-            aria-hidden={!isOpenModal()}
+    <TouchableWithoutFeedback onPress={() => startShakeAnimation()}>
+      <Animated.View
+        testID="modal-register"
+        className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end"
+        style={{
+          opacity: fadeAnim,
+        }}
+        pointerEvents={isOpenModal() ? "auto" : "none"}
+      >
+        <SafeAreaView>
+          <KeyboardAvoidingView
+            behavior="padding"
+            className="flex justify-end items-center"
           >
-            <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
-              <Text className="text-black dark:text-white text-center text-xl mr-2">
-                {isEditing() ? "Editar Registro" : "Novo Registro"}
-              </Text>
-              <View className="ml-auto">
-                <MaterialCommunityIcons
-                  name={
-                    common.modalRegister === "edit"
-                      ? "note-edit-outline"
-                      : "note-plus-outline"
-                  }
-                  size={30}
-                  color="#aaa"
-                />
-              </View>
-            </View>
-            <View className="flex flex-row mb-3">
-              <View className="flex-1 mr-2">
-                <Text className="text-black dark:text-white mb-1 text-base">
-                  Data
+            {Object.values(formError).includes(true) && (
+              <Animated.View
+                style={{
+                  transform: [{ translateY: shakeAnimation }],
+                }}
+                className={`flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black ${
+                  orientation === 4 || orientation === 3
+                    ? "absolute z-10 -top-12"
+                    : ""
+                }`}
+              >
+                <MaterialCommunityIcons name="alert" size={25} color="black" />
+                <Text className="ml-2 font-base font-bold">
+                  Você precisa preencher todos os campos.
                 </Text>
-                <Pressable
-                  onPress={() => setShowDate(true)}
-                  className="flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500"
-                  accessibilityLabel="Data do registro"
-                  accessibilityRole="button"
-                >
-                  <MaterialIcons
-                    name="calendar-month"
-                    size={25}
-                    color={colorScheme === "dark" ? "white" : "black"}
-                  />
-                  <Text className="text-base ml-2 text-black dark:text-white">
-                    {formModal.date}
+              </Animated.View>
+            )}
+            <TouchableWithoutFeedback onPress={undefined}>
+              <Animated.View
+                className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
+                  orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
+                }`}
+                accessibilityViewIsModal
+                style={{
+                  transform: [
+                    { translateY: shakeAnimation },
+                    { translateY: transformAnim },
+                  ],
+                }}
+                pointerEvents={isOpenModal() ? "auto" : "none"}
+                aria-hidden={!isOpenModal()}
+              >
+                <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
+                  <Text className="text-black dark:text-white text-center text-xl mr-2">
+                    {isEditing() ? "Editar Registro" : "Novo Registro"}
                   </Text>
-                </Pressable>
-                {showDate && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode="date"
-                    is24Hour={true}
-                    onChange={onChange}
-                  />
-                )}
-              </View>
-              <View className="flex-1 ml-2">
-                <Text className="text-black dark:text-white mb-1 text-base">
-                  Tipo
-                </Text>
-                <Select
-                  data={dataType}
-                  maxHeight={300}
-                  placeholder="Selecionar"
-                  value={formModal.type}
-                  handleChangeObject="type"
-                  onChange={handleChange}
-                  error={formError.type}
-                />
-              </View>
-            </View>
-            <View className="flex flex-row mb-6">
-              <View className="flex-1 mr-2">
-                <Text className="text-black dark:text-white mb-1 text-base">
-                  Nome
-                </Text>
-                <TextInput
-                  accessibilityLabel="Nome do registro"
-                  className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
-                    !!formError.name && "border-red-500"
-                  }`}
-                  onChangeText={(value: string) => handleChange(value, "name")}
-                  value={formModal.name}
-                />
-              </View>
-              <View className="flex-1 ml-2">
-                <Text className="text-black dark:text-white mb-1 text-base">
-                  Valor
-                </Text>
-                <NumericFormat
-                  value={inputValue}
-                  displayType={"text"}
-                  thousandSeparator={"."}
-                  decimalSeparator={","}
-                  decimalScale={2}
-                  prefix={"R$ "}
-                  onValueChange={(values) =>
-                    handleChange(values.value, "value")
-                  }
-                  renderText={(value) => {
-                    return (
-                      <TextInput
-                        accessibilityLabel="Valor do registro"
-                        className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
-                          !!formError.value && "border-red-500"
-                        }`}
-                        placeholder="R$"
-                        onChangeText={(value: string) => setInputValue(value)}
-                        value={value}
-                        keyboardType="phone-pad"
-                        placeholderTextColor={
-                          colorScheme === "dark" ? "white" : "black"
-                        }
+                  <View className="ml-auto">
+                    <MaterialCommunityIcons
+                      name={
+                        common.modalRegister === "edit"
+                          ? "note-edit-outline"
+                          : "note-plus-outline"
+                      }
+                      size={30}
+                      color="#aaa"
+                    />
+                  </View>
+                </View>
+                <View className="flex flex-row mb-3">
+                  <View className="flex-1 mr-2">
+                    <Text className="text-black dark:text-white mb-1 text-base">
+                      Data
+                    </Text>
+                    <Pressable
+                      onPress={() => setShowDate(true)}
+                      className="flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500"
+                      accessibilityLabel="Data do registro"
+                      accessibilityRole="button"
+                    >
+                      <MaterialIcons
+                        name="calendar-month"
+                        size={25}
+                        color={colorScheme === "dark" ? "white" : "black"}
                       />
-                    );
-                  }}
-                />
-              </View>
-            </View>
-            <View className="flex flex-row">
-              <Button
-                text="Cancelar"
-                label="Cancelar e fechar o modal do registro"
-                className="flex-1 mr-2 p-3 bg-red-600"
-                textColor="text-white"
-                onPress={() => closeModal()}
-                icon={<MaterialIcons name="cancel" size={28} color="white" />}
-              />
-              <Button
-                text={isEditing() ? "Salvar" : "Criar"}
-                label={`${isEditing() ? "Salvar" : "Criar"} o registro`}
-                className="flex-1 ml-2 p-3 bg-green-600"
-                textColor="text-white"
-                onPress={() => saveStore()}
-                icon={
-                  <MaterialIcons name="check-circle" size={28} color="white" />
-                }
-              />
-            </View>
-          </Animated.View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </Animated.View>
+                      <Text className="text-base ml-2 text-black dark:text-white">
+                        {formModal.date}
+                      </Text>
+                    </Pressable>
+                    {showDate && (
+                      <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode="date"
+                        is24Hour={true}
+                        onChange={onChange}
+                      />
+                    )}
+                  </View>
+                  <View className="flex-1 ml-2">
+                    <Text className="text-black dark:text-white mb-1 text-base">
+                      Tipo
+                    </Text>
+                    <Select
+                      data={dataType}
+                      maxHeight={300}
+                      placeholder="Selecionar"
+                      value={formModal.type}
+                      handleChangeObject="type"
+                      onChange={handleChange}
+                      error={formError.type}
+                    />
+                  </View>
+                </View>
+                <View className="flex flex-row mb-6">
+                  <View className="flex-1 mr-2">
+                    <Text className="text-black dark:text-white mb-1 text-base">
+                      Nome
+                    </Text>
+                    <TextInput
+                      accessibilityLabel="Nome do registro"
+                      className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
+                        !!formError.name && "border-red-500"
+                      }`}
+                      onChangeText={(value: string) =>
+                        handleChange(value, "name")
+                      }
+                      value={formModal.name}
+                    />
+                  </View>
+                  <View className="flex-1 ml-2">
+                    <Text className="text-black dark:text-white mb-1 text-base">
+                      Valor
+                    </Text>
+                    <NumericFormat
+                      value={inputValue}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      decimalScale={2}
+                      prefix={"R$ "}
+                      onValueChange={(values) =>
+                        handleChange(values.value, "value")
+                      }
+                      renderText={(value) => {
+                        return (
+                          <TextInput
+                            accessibilityLabel="Valor do registro"
+                            className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
+                              !!formError.value && "border-red-500"
+                            }`}
+                            placeholder="R$"
+                            onChangeText={(value: string) =>
+                              setInputValue(value)
+                            }
+                            value={value}
+                            keyboardType="phone-pad"
+                            placeholderTextColor={
+                              colorScheme === "dark" ? "white" : "black"
+                            }
+                          />
+                        );
+                      }}
+                    />
+                  </View>
+                </View>
+                <View className="flex flex-row">
+                  <Button
+                    text="Cancelar"
+                    label="Cancelar e fechar o modal do registro"
+                    className="flex-1 mr-2 p-3 bg-red-600"
+                    textColor="text-white"
+                    onPress={() => closeModal()}
+                    icon={
+                      <MaterialIcons name="cancel" size={28} color="white" />
+                    }
+                  />
+                  <Button
+                    text={isEditing() ? "Salvar" : "Criar"}
+                    label={`${isEditing() ? "Salvar" : "Criar"} o registro`}
+                    className="flex-1 ml-2 p-3 bg-green-600"
+                    textColor="text-white"
+                    onPress={() => saveStore()}
+                    icon={
+                      <MaterialIcons
+                        name="check-circle"
+                        size={28}
+                        color="white"
+                      />
+                    }
+                  />
+                </View>
+              </Animated.View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 }
