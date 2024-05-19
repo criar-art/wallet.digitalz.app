@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import useOrientation from "../hooks/useOrientation";
 import ListRegisters from "../components/ListRegisters";
 
 export type Props = {
@@ -7,13 +6,8 @@ export type Props = {
 };
 
 export default function RegisterScreen({ type }: Props) {
-  const orientation = useOrientation();
-
   return (
-    <View
-      testID={`${type}-screen`}
-      className={`flex-1 justify-between flex-col`}
-    >
+    <View testID={`${type}-screen`} className="flex-1 justify-between flex-col">
       <ListRegisters type={type} />
     </View>
   );
