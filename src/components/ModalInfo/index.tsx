@@ -85,7 +85,7 @@ export default function ModalInfo(props: Props) {
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
             Esta medida proporciona uma visão abrangente do valor total dos
-            ativos e passivos da entidade.
+            ativos e passivos da sua carteira.
           </Text>
         </View>
       </>
@@ -114,7 +114,7 @@ export default function ModalInfo(props: Props) {
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
             Monitorar as entradas ajuda a entender a capacidade de geração de
-            receita da entidade.
+            receita de suas finanças.
           </Text>
         </View>
       </>
@@ -123,7 +123,7 @@ export default function ModalInfo(props: Props) {
       <>
         <Text className="text-black dark:text-white text-base mb-4">
           Despesas são os custos incorridos para operar e manter as atividades
-          da entidade. Elas podem incluir salários, aluguel, e outras
+          na sua carteira. Elas podem incluir salários, aluguel, e outras
           obrigações.
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
@@ -138,7 +138,7 @@ export default function ModalInfo(props: Props) {
       <>
         <Text className="text-black dark:text-white text-base mb-4">
           Veículos são ativos tangíveis que podem ser usados para operações ou
-          como parte dos ativos da entidade. Eles podem incluir carros,
+          como parte dos ativos da sua carteira. Eles podem incluir carros,
           caminhões e outros meios de transporte.
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
