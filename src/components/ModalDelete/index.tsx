@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated, Easing, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "../../hooks/useOrientation";
@@ -19,27 +19,74 @@ export default function ModalDelete(props: Props) {
     inputRange: [0, 1],
     outputRange: [0, 1],
   });
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
+  const scaleAnimation = useRef(new Animated.Value(0)).current;
+
+  const startShakeAnimation = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const shakeInterpolate = shakeAnimation.interpolate({
+    inputRange: [-1, 1],
+    outputRange: ["-5deg", "5deg"],
+  });
 
   useEffect(() => {
     if (common.modalDelete) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.spring(scaleAnimation, {
+          toValue: 1,
+          friction: 5,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
 
     return () => {
       fadeAnim.setValue(0);
+      scaleAnimation.setValue(0);
     };
   }, [common.modalDelete, fadeAnim]);
 
   const closeModal = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: true,
-    }).start(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      // Callback após a animação terminar
       dispatch(setModalDelete(""));
     });
   };
@@ -49,7 +96,74 @@ export default function ModalDelete(props: Props) {
       ({ id }) => id !== common.modalDelete
     );
     dispatch(setRegister(filter));
-    closeModal();
+
+    Animated.sequence([
+      Animated.spring(scaleAnimation, {
+        toValue: 1.5,
+        friction: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnimation, {
+        toValue: .8,
+        friction: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnimation, {
+        toValue: 1.8,
+        friction: 50,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      closeModal();
+    });
   };
 
   return (
@@ -67,11 +181,13 @@ export default function ModalDelete(props: Props) {
         accessibilityViewIsModal
         aria-hidden={!common.modalDelete}
       >
-        <MaterialCommunityIcons
-          name="delete-alert"
-          size={50}
-          color={colorScheme === "dark" ? "white" : "black"}
-        />
+        <Animated.View style={{ transform: [{ rotate: shakeInterpolate }, { scale: scaleAnimation }] }}>
+          <MaterialCommunityIcons
+            name="delete-alert"
+            size={50}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
+        </Animated.View>
         <Text className="text-black dark:text-white text-center text-xl my-4">
           Tem certeza que desejar deletar?
         </Text>
