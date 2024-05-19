@@ -56,6 +56,7 @@ export default function ItemTotal(props: Props) {
   };
 
   const renderModalIcon = (type: any) => modalIcons[type] || null;
+
   return (
     <View
       testID={props.testID}

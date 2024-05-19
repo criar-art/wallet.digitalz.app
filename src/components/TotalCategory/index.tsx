@@ -25,10 +25,6 @@ export default function TotalCategory(props: Props) {
   const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
   const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
 
-  function getEmpty(type: string) {
-    return common.registers.filter((item: any) => item.type == type).length > 1;
-  }
-
   useEffect(() => {
     setPatrimonyTotal(getPatrimonyTotal());
     setEntryTotal(getTotal("entry"));
@@ -50,7 +46,7 @@ export default function TotalCategory(props: Props) {
           orientation={props.orientation}
         />
       )}
-      {props.type == "entry" && getEmpty("entry") && (
+      {props.type == "entry" && (
         <ItemTotal
           type={props.type}
           value={entryTotal}
@@ -58,7 +54,7 @@ export default function TotalCategory(props: Props) {
           orientation={props.orientation}
         />
       )}
-      {props.type == "investiment" && getEmpty("investiment") && (
+      {props.type == "investiment" && (
         <ItemTotal
           type={props.type}
           value={investTotal}
@@ -66,7 +62,7 @@ export default function TotalCategory(props: Props) {
           orientation={props.orientation}
         />
       )}
-      {props.type == "expense" && getEmpty("expense") && (
+      {props.type == "expense" && (
         <ItemTotal
           type={props.type}
           value={expensesTotal}
