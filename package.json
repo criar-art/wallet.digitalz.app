@@ -24,9 +24,12 @@
     "@react-navigation/native-stack": "^6.9.18",
     "@reduxjs/toolkit": "^2.2.4",
     "@types/react": "^18.2.79",
+    "date-fns": "^3.6.0",
     "expo": "~51.0.8",
+    "expo-screen-orientation": "~7.0.5",
     "expo-secure-store": "~13.0.1",
     "expo-status-bar": "~1.12.1",
+    "expo-updates": "~0.25.14",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.1",
@@ -39,9 +42,7 @@
     "react-number-format": "^5.3.4",
     "react-redux": "^9.1.2",
     "redux-persist": "^6.0.0",
-    "typescript": "^5.3.3",
-    "expo-updates": "~0.25.14",
-    "expo-screen-orientation": "~7.0.5"
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",
