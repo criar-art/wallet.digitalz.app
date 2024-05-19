@@ -4,5 +4,5 @@ export type Props = {
   type: string;
   orientation: number | null;
   time?: boolean;
-  onPress?: any;
+  onPress?: () => void;
 }
