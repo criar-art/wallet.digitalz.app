@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { TouchableOpacity, Text, View, ScrollView } from "react-native";
 import { NumericFormat } from "react-number-format";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -16,6 +15,7 @@ import {
   parseMoney,
 } from "../../utils";
 import useOrientation from "../../hooks/useOrientation";
+import { useBalance } from "../../hooks/useBalance";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
@@ -28,36 +28,7 @@ export default function PanelsRegisters(props: Props) {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
   const { colorScheme } = useColorScheme();
-
-  const getCountRegisters = (type: string) => {
-    return common.registers.filter((item: any) => item.type == type).length;
-  };
-
-  const getTotal = (type: string) =>
-    common.registers
-      .filter((item: any) => item.type == type)
-      .reduce((a: number, { value }: any) => {
-        return Number(value) + Number(a);
-      }, 0);
-
-  const getLiquidTotal = () => getTotal("entry") - getTotal("expense");
-  const getPatrimonyTotal = () =>
-    getLiquidTotal() > 0
-      ? getTotal("investiment") + getLiquidTotal()
-      : getTotal("investiment");
-  const [liquidTotal, setLiquidTotal] = useState(getLiquidTotal());
-  const [patrimonyTotal, setPatrimonyTotal] = useState(getPatrimonyTotal());
-  const [entryTotal, setEntryTotal] = useState(getTotal("entry"));
-  const [expensesTotal, setExpensesTotal] = useState(getTotal("expense"));
-  const [investTotal, setInvestTotal] = useState(getTotal("investiment"));
-
-  useEffect(() => {
-    setLiquidTotal(getLiquidTotal());
-    setPatrimonyTotal(getPatrimonyTotal());
-    setEntryTotal(getTotal("entry"));
-    setExpensesTotal(getTotal("expense"));
-    setInvestTotal(getTotal("investiment"));
-  }, [common.registers]);
+  const { getQuantity, getTotal, getPatrimonyTotal, getLiquid } = useBalance();
 
   const ItemList = (props: any) => (
     <TouchableOpacity
@@ -102,13 +73,13 @@ export default function PanelsRegisters(props: Props) {
           <Text className="text-white text-xs">Carteira Negativa</Text>
         </View>
       )}
-      {!!getCountRegisters(props.type) && (
+      {!!getQuantity(props.type) && (
         <View
           className={`bg-black dark:bg-white p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
           <Text className="text-white dark:text-black text-xs">
-            {getCountRegisters(props.type)} Registro
-            {`${getCountRegisters(props.type) > 1 ? "s" : ""}`}
+            {getQuantity(props.type)} Registro
+            {`${getQuantity(props.type) > 1 ? "s" : ""}`}
           </Text>
         </View>
       )}
@@ -143,12 +114,12 @@ export default function PanelsRegisters(props: Props) {
       >
         <View className="flex flex-row flex-wrap">
           {(orientation === 1 || orientation === 2) && (
-            <ItemList type="patrimony" value={patrimonyTotal} />
+            <ItemList type="patrimony" value={getPatrimonyTotal()} />
           )}
-          <ItemList type="liquid" value={liquidTotal} />
-          <ItemList type="expense" value={expensesTotal} />
-          <ItemList type="entry" value={entryTotal} />
-          <ItemList type="investiment" value={investTotal} />
+          <ItemList type="liquid" value={getLiquid()} />
+          <ItemList type="expense" value={getTotal("expense")} />
+          <ItemList type="entry" value={getTotal("entry")} />
+          <ItemList type="investiment" value={getTotal("investiment")} />
         </View>
       </ScrollView>
     </FadeView>
