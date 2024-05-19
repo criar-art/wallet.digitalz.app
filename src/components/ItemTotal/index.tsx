@@ -1,17 +1,48 @@
 import { Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
+import { useColorScheme } from "nativewind";
 import { renderBorderType, types, parseMoney } from "../../utils";
 import { Props } from "./types";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 export default function ItemTotal(props: Props) {
+  const { colorScheme } = useColorScheme();
+
   const modalIcons: any = {
-    liquid: <MaterialIcons name="attach-money" size={35} color="#000" />,
-    patrimony: <MaterialCommunityIcons name="gold" size={35} color="#000" />,
-    investiment: <MaterialIcons name="trending-up" size={35} color="#000" />,
-    entry: <MaterialCommunityIcons name="cash-plus" size={35} color="#000" />,
+    liquid: (
+      <MaterialIcons
+        name="attach-money"
+        size={35}
+        color={colorScheme === "dark" ? "white" : "black"}
+      />
+    ),
+    patrimony: (
+      <MaterialCommunityIcons
+        name="gold"
+        size={35}
+        color={colorScheme === "dark" ? "white" : "black"}
+      />
+    ),
+    investiment: (
+      <MaterialIcons
+        name="trending-up"
+        size={35}
+        color={colorScheme === "dark" ? "white" : "black"}
+      />
+    ),
+    entry: (
+      <MaterialCommunityIcons
+        name="cash-plus"
+        size={35}
+        color={colorScheme === "dark" ? "white" : "black"}
+      />
+    ),
     expense: (
-      <MaterialCommunityIcons name="cash-remove" size={35} color="#000" />
+      <MaterialCommunityIcons
+        name="cash-remove"
+        size={35}
+        color={colorScheme === "dark" ? "white" : "black"}
+      />
     ),
   };
 
@@ -48,7 +79,9 @@ export default function ItemTotal(props: Props) {
               {parseMoney(value, props.eyeStatus)}
             </Text>
             {(props.orientation === 4 || props.orientation === 3) && (
-              <View className="absolute -right-[50] bottom-[4]">{renderModalIcon(props.type)}</View>
+              <View className="absolute -right-[50] bottom-[4]">
+                {renderModalIcon(props.type)}
+              </View>
             )}
           </View>
         )}
