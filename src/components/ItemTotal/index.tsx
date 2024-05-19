@@ -59,10 +59,10 @@ export default function ItemTotal(props: Props) {
   return (
     <View
       testID={props.testID}
-      className={`flex flex-row items-center${renderBorderType(props.type)} ${
+      className={`flex flex-row items-center ${renderBorderType(props.type)} ${
         props.orientation === 4 || props.orientation === 3
-          ? "justify-end mr-20 pr-[75] border-r-2 border-zinc-700"
-          : "justify-center px-8 pt-5 pb-6  bg-white dark:bg-zinc-800 shadow-lg"
+          ? "justify-end mr-20 pr-[75] border-r-2 border-gray-100 dark:border-zinc-700"
+          : "justify-center px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
       }`}
     >
       <NumericFormat
