@@ -181,7 +181,7 @@ export default function ModalRegister(props: Props) {
                 style={{
                   transform: [{ translateY: shakeAnimation }],
                 }}
-                className={`flex flex-row items-center bg-red-300 p-5 rounded-full m-4 border-2 border-black ${
+                className={`flex flex-row items-center bg-red-300 p-3 rounded-full m-4 ${
                   orientation === 4 || orientation === 3
                     ? "absolute z-10 -top-12"
                     : ""
@@ -189,7 +189,7 @@ export default function ModalRegister(props: Props) {
               >
                 <MaterialCommunityIcons name="alert" size={25} color="black" />
                 <Text className="ml-2 font-base font-bold">
-                  Você precisa preencher todos os campos.
+                  Você precisa preencher todos os campos
                 </Text>
               </Animated.View>
             )}
