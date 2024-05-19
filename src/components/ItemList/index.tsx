@@ -12,26 +12,39 @@ import {
   renderBorderType,
   parseMoney,
   isDatePast,
+  isDateToday,
   renderBackgroundClass,
+  isDateTomorrow,
 } from "../../utils";
 import Button from "../Button";
 import { Props } from "./types";
 
 export const renderBadge = (type: string, date: string) => {
-  if (isDatePast(date)) {
-    const badgeText = type === "expense" ? "VENCIDO" : "DISPONÍVEL";
-    const badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-    return (
-      <View
-        className={`${badgeColor} p-1 px-2 rounded-full absolute z-10 left-2 -top-3`}
-      >
-        <Text className="text-white text-center font-black text-xs">
-          {badgeText}
-        </Text>
-      </View>
-    );
+  let badgeText = "";
+  let badgeColor = "";
+
+  if (isDateToday(date)) {
+    badgeText = type === "expense" ? "VENCE HOJE" : "DISPONÍVEL HOJE";
+    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
+  } else if (isDateTomorrow(date)) {
+    badgeText = type === "expense" ? "VENCE AMANHÃ" : "DISPONÍVEL AMANHÃ";
+    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
+  } else if (isDatePast(date)) {
+    badgeText = type === "expense" ? "VENCIDO" : "DISPONÍVEL";
+    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
+  } else {
+    return null;
   }
-  return null;
+
+  return (
+    <View
+      className={`${badgeColor} p-1 px-2 rounded-full absolute z-10 left-2 -top-3`}
+    >
+      <Text className="text-white text-center font-black text-xs">
+        {badgeText}
+      </Text>
+    </View>
+  );
 };
 
 export default function ItemList(props: Props) {
