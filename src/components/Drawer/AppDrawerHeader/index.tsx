@@ -7,13 +7,16 @@ import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { setEyeStatus, setModalInfo } from "../../../store/commonSlice";
 import { RootState } from "../../../store";
 import TotalCategory from "../../TotalCategory";
+import { useNavigation } from "@react-navigation/native";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const store = useAppSelector((state: RootState) => state.userState);
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
+  const navigation: any = useNavigation();
   const iconConfig = {
     size: 25,
     color: colorScheme === "dark" ? "white" : "black",
@@ -51,10 +54,12 @@ export default function AppDrawerHeader(props: Props) {
       <TouchableOpacity
         testID={props.testID}
         className="p-4 mr-4 rounded-full"
-        onPress={props.onPress}
+        onPress={
+          () => store.isLogin ? navigation.goBack() : navigation.navigate("Login")
+        }
         accessibilityLabel="Voltar página"
       >
-        <MaterialIcons name="close" {...iconConfig} />
+        <MaterialIcons name={store.isLogin ? "close" : "lock"} {...iconConfig} />
       </TouchableOpacity>
     );
   }
