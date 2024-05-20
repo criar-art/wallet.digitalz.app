@@ -100,16 +100,18 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
         <Button
           text="Cancelar"
           label="Cancele essa ação"
-          className="flex-1 mr-1 p-3 bg-red-600"
+          className="flex-1 mr-2 p-3 bg-red-600"
           textColor="text-white"
           onPress={closeModal}
-          icon={<MaterialIcons name="cancel" size={28} color="white" />}
+          icon={<MaterialIcons name="close" size={28} color="white" />}
         />
       )}
       <Button
         text={props.confirmButton.text}
         label={props.confirmButton.label}
-        className="flex-1 mr-1 p-3 bg-green-600"
+        className={`flex-1 p-3 bg-green-600 ${
+          !props.cancelButton?.hidden ? "ml-2" : ""
+        }`}
         textColor="text-white"
         onPress={props.confirmAction}
         icon={props.confirmButton.icon}
