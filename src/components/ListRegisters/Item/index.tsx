@@ -19,11 +19,14 @@ import {
 import Button from "../../Button";
 import { Props } from "./types";
 
-export const renderBadge = (type: string, date: string) => {
+export const renderBadge = (type: string, date: string, isPaid: boolean) => {
   let badgeText = "";
   let badgeColor = "";
 
-  if (isDateToday(date)) {
+  if (isPaid) {
+    badgeText = "PAGO";
+    badgeColor = "bg-green-500";
+  } else if (isDateToday(date)) {
     badgeText = type === "expense" ? "VENCE HOJE" : "DISPONÍVEL HOJE";
     badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
   } else if (isDateTomorrow(date)) {
@@ -75,13 +78,13 @@ export default function ItemList(props: Props) {
       onPress={() => setOptionsShow(!optionsShow)}
       className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
-      )} ${renderBackgroundClass(props.item.type, props.item.date)} ${
+      )} ${renderBackgroundClass(props.item.type, props.item.date, props.item.pay)} ${
         props.orientation !== 1 && props.orientation !== 2
           ? "mt-6 ml-3 mr-3"
           : "m-5 mb-0"
       }`}
     >
-      {renderBadge(props.item.type, props.item.date)}
+      {renderBadge(props.item.type, props.item.date, props.item.pay)}
       <Text className="text-black dark:text-white text-xl mb-1">
         {props.item.name}
       </Text>
@@ -123,6 +126,20 @@ export default function ItemList(props: Props) {
         style={{ opacity: fadeAnim }}
         pointerEvents={!optionsShow ? "none" : "auto"}
       >
+        {!props.item.pay && props.item.type == "expense" && (
+          <Button
+            className="z-20 w-14 h-14 m-5 rounded-full border-2 border-green-500 dark:border-green-500 bg-white dark:bg-zinc-800"
+            onPress={props.handlePay}
+            label={`Pagar ${props.item.name}`}
+            icon={
+              <MaterialIcons
+                name="check"
+                size={30}
+                color="rgb(34 197 94)"
+              />
+            }
+          />
+        )}
         <Button
           className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
           onPress={props.edit}

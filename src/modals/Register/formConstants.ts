@@ -5,6 +5,7 @@ export const intitialForm = {
   type: "",
   value: "",
   date: format(new Date(), 'dd/MM/yyyy'),
+  pay: false,
 };
 
 export const initialFormError = {

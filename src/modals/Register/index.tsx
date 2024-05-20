@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Keyboard, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  Pressable,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -36,8 +43,10 @@ export default function ModalRegister(props: Props) {
   const isOpenModal = (): boolean =>
     ["register", "edit"].includes(common.modalRegister);
 
-  const handleChange = (value: string, name: string) => {
-    setFormError((prevState) => ({ ...prevState, [name]: !value }));
+  const handleChange = (value: string | boolean, name: string) => {
+    if (name !== "pay") {
+      setFormError((prevState) => ({ ...prevState, [name]: !value }));
+    }
     setFormModal((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -120,7 +129,7 @@ export default function ModalRegister(props: Props) {
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
-      <View className="flex flex-row mb-3">
+      <View className="flex flex-row mb-3 mt-3">
         <View className="flex-1 mr-2">
           <Text className="text-black dark:text-white mb-1 text-base">
             Data
@@ -211,6 +220,25 @@ export default function ModalRegister(props: Props) {
           />
         </View>
       </View>
+      {formModal.type === "expense" && (
+        <View className="flex flex-row items-center justify-center mb-6">
+          <View className="flex-1">
+            <Text className="text-black dark:text-white mb-1 text-base text-center">
+              Paga
+            </Text>
+            <View className="flex items-center justify-center pb-2">
+              <Switch
+                accessibilityLabel="Pagamento"
+                value={formModal.pay}
+                onValueChange={(value) => handleChange(value, "pay")}
+                trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
+                thumbColor="#f4f3f4"
+                style={{ transform: [{ scale: 1.5 }] }}
+              />
+            </View>
+          </View>
+        </View>
+      )}
     </Modal>
   );
 }

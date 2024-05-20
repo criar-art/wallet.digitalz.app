@@ -11,6 +11,7 @@ import {
   setModalDelete,
   setRegisterData,
   setModalInfo,
+  setEditRegister,
 } from "../../store/commonSlice";
 import { Props } from "./types";
 
@@ -26,6 +27,11 @@ export default function ListRegisters(props: Props) {
 
   function remove(target: string) {
     dispatch(setModalDelete(target));
+  }
+
+  function handlePay(item: any) {
+    const updatedItem = { ...item, pay: true }; // Marcando o item como pago
+    dispatch(setEditRegister(updatedItem)); // Enviando o item modificado para a store
   }
 
   const filteredData = common.registers.filter(
@@ -56,6 +62,7 @@ export default function ListRegisters(props: Props) {
                   eyeStatus={common.eyeStatus}
                   edit={() => edit(item)}
                   remove={() => remove(item.id)}
+                  handlePay={() => handlePay(item)}
                 />
               </View>
             );

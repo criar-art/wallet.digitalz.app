@@ -73,7 +73,11 @@ export const renderColorType = (type: string, colorScheme: string): string => {
   }
 };
 
-export const renderBackgroundClass = (type: string, date: string): string => {
+export const renderBackgroundClass = (
+  type: string,
+  date: string,
+  isPay: boolean
+): string => {
   let colorClass = "";
 
   const todayColors: any = {
@@ -93,8 +97,9 @@ export const renderBackgroundClass = (type: string, date: string): string => {
     entry: "bg-green-300 dark:bg-green-900",
     investiment: "bg-blue-300 dark:bg-blue-900",
   };
-
-  if (isDateToday(date)) {
+  if (isPay) {
+    colorClass = "";
+  } else if (isDateToday(date)) {
     colorClass = todayColors[type] || "";
   } else if (isDateTomorrow(date)) {
     colorClass = tomorrowColors[type] || "";
