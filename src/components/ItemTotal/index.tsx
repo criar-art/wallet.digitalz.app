@@ -9,27 +9,19 @@ import useOrientation from "../../hooks/useOrientation";
 export default function ItemTotal(props: Props) {
   const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
+  const iconConfig = {
+    size: 35,
+    color: colorScheme === "dark" ? "white" : "black",
+  };
 
   const modalIcons: any = {
-    liquid: (
-      <MaterialIcons
-        name="attach-money"
-        size={35}
-        color={colorScheme === "dark" ? "white" : "black"}
-      />
-    ),
-    patrimony: (
-      <MaterialCommunityIcons
-        name="gold"
-        size={35}
-        color={colorScheme === "dark" ? "white" : "black"}
-      />
-    ),
+    liquid: <MaterialIcons name="attach-money" {...iconConfig} />,
+    patrimony: <MaterialCommunityIcons name="gold" {...iconConfig} />,
     investiment: (
       <MaterialIcons
         name="trending-up"
         size={38}
-        color={colorScheme === "dark" ? "white" : "black"}
+        color={iconConfig.color}
         style={{
           transform: [{ translateY: 6 }],
         }}
@@ -38,8 +30,7 @@ export default function ItemTotal(props: Props) {
     entry: (
       <MaterialCommunityIcons
         name="cash-plus"
-        size={35}
-        color={colorScheme === "dark" ? "white" : "black"}
+        {...iconConfig}
         style={{
           transform: [{ translateY: 3 }],
         }}
@@ -48,8 +39,7 @@ export default function ItemTotal(props: Props) {
     expense: (
       <MaterialCommunityIcons
         name="cash-remove"
-        size={35}
-        color={colorScheme === "dark" ? "white" : "black"}
+        {...iconConfig}
         style={{
           transform: [{ translateY: 3 }],
         }}
