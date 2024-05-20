@@ -1,3 +1,4 @@
+import React from "react";
 import { Image, Text, View, ScrollView, Linking } from "react-native";
 import { Fontisto, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
@@ -7,21 +8,40 @@ import Button from "../components/Button";
 
 export default function AboutScreen() {
   const { colorScheme } = useColorScheme();
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
+  const iconConfig = {
+    size: 28,
+    color: colorScheme === "dark" ? "white" : "black",
+  };
+
+  const renderButton = (text: string, label: string, url: string) => (
+    <Button
+      text={text}
+      label={label}
+      textColor="text-lg text-black dark:text-white"
+      onPress={() => Linking.openURL(url)}
+      icon={<Fontisto name="world" {...iconConfig} />}
+      className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
+    >
+      <MaterialIcons
+        name="navigate-next"
+        {...iconConfig}
+        style={{ marginLeft: "auto" }}
+      />
+    </Button>
+  );
 
   return (
     <FadeView>
       <View
         testID="about-screen"
-        className={`flex flex-col h-full ${
-          orientation === 4 || orientation === 3 ? "flex-row" : ""
-        }`}
+        className={`flex flex-col h-full ${landscape ? "flex-row" : ""}`}
       >
         <Image
           style={{
             resizeMode: "cover",
-            height: orientation === 4 || orientation === 3 ? "100%" : 250,
-            width: orientation === 4 || orientation === 3 ? "50%" : "100%",
+            height: landscape ? "100%" : 250,
+            width: landscape ? "50%" : "100%",
           }}
           source={require("../images/finance.jpg")}
         />
@@ -44,71 +64,21 @@ export default function AboutScreen() {
             Tenha a liberdade de criar seus registros de forma intuitiva, com a
             flexibilidade de deletá-los e atualizá-los conforme necessário.
           </Text>
-          <Button
-            text="Política de Privacidade"
-            label="Acessar a Política de Privacidade"
-            textColor="text-lg text-black dark:text-white"
-            onPress={() =>
-              Linking.openURL("https://walletdigitalz.web.app/privacy")
-            }
-            icon={
-              <Fontisto
-                name="world"
-                size={28}
-                color={colorScheme === "dark" ? "white" : "black"}
-              />
-            }
-            className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          >
-            <MaterialIcons
-              name="navigate-next"
-              size={28}
-              color={colorScheme === "dark" ? "white" : "black"}
-              style={{ marginLeft: "auto" }}
-            />
-          </Button>
-          <Button
-            text="walletdigitalz.web.app"
-            label="Acessar site walletdigitalz.web.app"
-            textColor="text-lg text-black dark:text-white"
-            onPress={() => Linking.openURL("https://walletdigitalz.web.app")}
-            icon={
-              <Fontisto
-                name="world"
-                size={28}
-                color={colorScheme === "dark" ? "white" : "black"}
-              />
-            }
-            className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          >
-            <MaterialIcons
-              name="navigate-next"
-              size={28}
-              color={colorScheme === "dark" ? "white" : "black"}
-              style={{ marginLeft: "auto" }}
-            />
-          </Button>
-          <Button
-            text="Criar.Art"
-            label="Acessar site criar.art"
-            textColor="text-lg text-black dark:text-white"
-            onPress={() => Linking.openURL("https://criar.art/contact")}
-            icon={
-              <Fontisto
-                name="world"
-                size={28}
-                color={colorScheme === "dark" ? "white" : "black"}
-              />
-            }
-            className="justify-start mt-4 mb-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
-          >
-            <MaterialIcons
-              name="navigate-next"
-              size={28}
-              color={colorScheme === "dark" ? "white" : "black"}
-              style={{ marginLeft: "auto" }}
-            />
-          </Button>
+          {renderButton(
+            "Política de Privacidade",
+            "Acessar a Política de Privacidade",
+            "https://walletdigitalz.web.app/privacy"
+          )}
+          {renderButton(
+            "walletdigitalz.web.app",
+            "Acessar site walletdigitalz.web.app",
+            "https://walletdigitalz.web.app"
+          )}
+          {renderButton(
+            "Criar.Art",
+            "Acessar site criar.art",
+            "https://criar.art/contact"
+          )}
         </ScrollView>
       </View>
     </FadeView>
