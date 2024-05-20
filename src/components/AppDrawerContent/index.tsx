@@ -5,8 +5,9 @@ import pkg from "../../../package.json";
 import app from "../../../app.json";
 import Button from "../Button";
 import { getLabel } from "../../utils";
-import { Props, RenderButtonParams } from "./types";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { Props } from "./types";
+import { MaterialIcons } from "@expo/vector-icons";
+import AppDrawerButton from "../AppDrawerButton";
 
 export default function AppDrawerContent({
   state,
@@ -27,56 +28,6 @@ export default function AppDrawerContent({
     }
   };
 
-  const renderButton = ({
-    route,
-    index,
-    isFocused,
-    labelButton,
-    options,
-  }: RenderButtonParams): JSX.Element => (
-    <Button
-      key={index}
-      accessibilityState={isFocused ? { selected: true } : {}}
-      text={labelButton}
-      label={`Navegar para ${labelButton}`}
-      onPress={() => onPress(route, isFocused)}
-      className={`justify-start mx-4 mb-4 p-4 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
-        isFocused ? "bg-gray-200 dark:bg-zinc-800" : "bg-transparent"
-      } ${orientation === 4 || orientation === 3 ? "py-3" : "py-4"}`}
-      textColor="text-black dark:text-white ml-5"
-      icon={
-        <View
-          className={`flex items-center${
-            !isFocused ? "scale-100" : "scale-125"
-          }`}
-        >
-          {
-            <options.drawerIcon
-              size={28}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
-          }
-        </View>
-      }
-    >
-      {!isFocused ? (
-        <MaterialIcons
-          name="navigate-next"
-          size={28}
-          color={colorScheme === "dark" ? "white" : "black"}
-          style={{ marginLeft: "auto" }}
-        />
-      ) : (
-        <MaterialCommunityIcons
-          name="star-four-points-outline"
-          size={20}
-          color={colorScheme === "dark" ? "white" : "black"}
-          style={{ marginLeft: "auto" }}
-        />
-      )}
-    </Button>
-  );
-
   return (
     <View
       testID="app-drawer-content"
@@ -91,13 +42,19 @@ export default function AppDrawerContent({
               : getLabel(options, route);
           const isFocused: boolean = state.index === index;
 
-          return renderButton({
-            route,
-            index,
-            isFocused,
-            labelButton,
-            options,
-          });
+          return (
+            <AppDrawerButton
+              key={index}
+              onPress={() => onPress(route, isFocused)}
+              drawerOptions={{
+                route,
+                index,
+                isFocused,
+                labelButton,
+                options,
+              }}
+            />
+          );
         })}
 
         <View
