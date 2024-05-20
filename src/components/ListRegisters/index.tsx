@@ -39,7 +39,7 @@ export default function ListRegisters(props: Props) {
         .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
-          numColumns={landscape ? 2 : 1}
+          numColumns={portrait ? 1 : 2}
           renderItem={({ item, index }: any) => {
             const isLastItem = isOdd && index === filteredData.length - 1;
             return (
