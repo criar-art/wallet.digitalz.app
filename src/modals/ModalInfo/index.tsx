@@ -1,89 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import { Animated, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
-import Button from "../Button";
 import { Props } from "./types";
 import { types } from "../../utils";
+import Modal from "../../components/Modal";
 
 export default function ModalInfo(props: Props) {
-  const orientation = useOrientation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const [shakeAnimation] = useState(new Animated.Value(0));
-  const transformAnim = useRef(new Animated.Value(500)).current;
   const isOpenModal = (): boolean =>
     ["liquid", "patrimony", "entry", "expense", "investiment"].includes(
       common.modalInfo
     );
-
-  const closeModal = () => {
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-      Animated.timing(transformAnim, {
-        toValue: 500,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      dispatch(setModalInfo(""));
-    });
-  };
-
-  const startShakeAnimation = () => {
-    Animated.sequence([
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: -10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 0,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  useEffect(() => {
-    if (common.modalInfo) {
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 500,
-          useNativeDriver: true,
-        }),
-        Animated.timing(transformAnim, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
-
-    return () => {
-      fadeAnim.setValue(0);
-      transformAnim.setValue(500);
-    };
-  }, [common.modalInfo, fadeAnim, transformAnim]);
 
   const modalContent: any = {
     liquid: (
@@ -194,54 +124,27 @@ export default function ModalInfo(props: Props) {
   const renderModalContent = (type: string) => modalContent[type] || null;
 
   return (
-    <TouchableWithoutFeedback onPress={() => startShakeAnimation()}>
-      <Animated.View
-        testID={props.testID}
-        className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end items-center"
-        style={{ opacity: fadeAnim }}
-        pointerEvents={isOpenModal() ? "auto" : "none"}
-      >
-        <TouchableWithoutFeedback onPress={undefined}>
-          <Animated.View
-            className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
-              orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
-            }`}
-            accessibilityViewIsModal
-            style={{
-              transform: [
-                { translateY: transformAnim },
-                { translateY: shakeAnimation },
-              ],
-            }}
-            pointerEvents={isOpenModal() ? "auto" : "none"}
-            aria-hidden={!isOpenModal()}
-          >
-            <View className="flex flex-row items-center justify-center mb-4 border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
-              <Text className="text-black dark:text-white text-center text-xl mr-2">
-                Valor {types[common.modalInfo]}
-              </Text>
-              <View className="ml-auto">
-                {renderModalIcon(common.modalInfo)}
-              </View>
-            </View>
-
-            <View className="mb-6 px-2 pt-0">
-              {renderModalContent(common.modalInfo)}
-            </View>
-
-            <View className="flex flex-row">
-              <Button
-                text="Entendi"
-                label="Ok fechar o modal de informações"
-                className="flex-1 mr-1 p-3 bg-green-600"
-                textColor="text-white"
-                onPress={() => closeModal()}
-                icon={<MaterialIcons name="check" size={28} color="white" />}
-              />
-            </View>
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </Animated.View>
-    </TouchableWithoutFeedback>
+    <Modal
+      isOpen={isOpenModal()}
+      testID="teste-modal"
+      closeAction={() => dispatch(setModalInfo(""))}
+      confirmAction={() => dispatch(setModalInfo(""))}
+      header={{
+        title: `Valor ${types[common.modalInfo]}`,
+        icon: renderModalIcon(common.modalInfo),
+      }}
+      cancelButton={{
+        hidden: true,
+      }}
+      confirmButton={{
+        text: "Entendi",
+        label: "Ok fechar o modal de informações",
+        icon: <MaterialIcons name="check" size={28} color="white" />,
+      }}
+    >
+      <View className="mb-6 px-2 pt-0">
+        {renderModalContent(common.modalInfo)}
+      </View>
+    </Modal>
   );
 }

@@ -14,9 +14,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { useColorScheme } from "nativewind";
 import store from "./src/store";
 import Routes from "./src/routes";
-import ModalRegister from "./src/components/ModalRegister";
-import ModalAlert from "./src/components/ModalDelete";
-import ModalInfo from "./src/components/ModalInfo";
+import ModalGlobal from "./src/modals/ModalGlobal";
 
 export default function App() {
   const persistor = persistStore(store);
@@ -69,13 +67,7 @@ export default function App() {
               navigation={navigationRef}
               name={currentRouteName}
             />
-            {!dashboard && (
-              <>
-                <ModalRegister />
-                <ModalAlert />
-                <ModalInfo />
-              </>
-            )}
+            {!dashboard && <ModalGlobal />}
           </NavigationContainer>
         </PersistGate>
       </Provider>
