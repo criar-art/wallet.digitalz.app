@@ -44,8 +44,8 @@ export default function ModalDelete(props: Props) {
 
     Animated.sequence([
       Animated.spring(scaleAnimation, {
-        toValue: 1.5,
-        friction: 50,
+        toValue: 1.3,
+        friction: 5,
         useNativeDriver: true,
       }),
       Animated.timing(shakeAnimation, {
@@ -70,40 +70,6 @@ export default function ModalDelete(props: Props) {
         toValue: 0,
         duration: 100,
         easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.spring(scaleAnimation, {
-        toValue: 0.8,
-        friction: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: -1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 0,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.spring(scaleAnimation, {
-        toValue: 1.8,
-        friction: 50,
         useNativeDriver: true,
       }),
     ]).start(() => {
