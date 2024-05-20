@@ -150,21 +150,6 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
         style={{ opacity: fadeAnim }}
         pointerEvents={props.isOpen ? "auto" : "none"}
       >
-        {props.alertModal?.show && (
-          <Animated.View
-            style={{
-              transform: [{ translateY: shakeAnimation }],
-            }}
-            className={`flex flex-row items-center bg-red-300 p-3 rounded-full m-4 ${
-              landscape ? "absolute z-10 -top-12" : ""
-            }`}
-          >
-            {props.alertModal?.icon}
-            <Text className="ml-2 font-base font-bold">
-              {props.alertModal?.text}
-            </Text>
-          </Animated.View>
-        )}
         <TouchableWithoutFeedback onPress={undefined}>
           <Animated.View
             className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
@@ -180,6 +165,24 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
             pointerEvents={props.isOpen ? "auto" : "none"}
             aria-hidden={!props.isOpen}
           >
+            {props.alertModal?.show && (
+              <View
+                className="flex flex-row items-center justify-center"
+                pointerEvents="none"
+              >
+                <Animated.View
+                  style={{
+                    transform: [{ translateY: shakeAnimation }],
+                  }}
+                  className={`flex flex-row items-center bg-red-300 p-3 rounded-full m-4 absolute -top-[65]`}
+                >
+                  {props.alertModal?.icon}
+                  <Text className="ml-2 font-base font-bold">
+                    {props.alertModal?.text}
+                  </Text>
+                </Animated.View>
+              </View>
+            )}
             {props.header && (
               <View className="flex flex-row items-center justify-center border-b-2 pb-2 px-2 border-slate-300 dark:border-zinc-600">
                 <Text className="text-black dark:text-white text-center text-xl mr-2">
