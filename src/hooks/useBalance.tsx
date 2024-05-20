@@ -8,6 +8,7 @@ interface Totals {
   entry: number;
   expenses: number;
   investiment: number;
+  paidExpenses: number;
 }
 
 export function useBalance() {
@@ -19,7 +20,12 @@ export function useBalance() {
 
   const getTotal = (type: string): number =>
     common.registers
-      .filter((item: any) => item.type === type)
+      .filter((item: any) => item.type === type && !item.pay)
+      .reduce((acc: number, { value }: any) => acc + Number(value), 0);
+
+  const getPaidExpensesTotal = (): number =>
+    common.registers
+      .filter((item: any) => item.type === "expense" && item.pay)
       .reduce((acc: number, { value }: any) => acc + Number(value), 0);
 
   const [totals, setTotals] = useState<Totals>({
@@ -28,6 +34,7 @@ export function useBalance() {
     entry: getTotal("entry"),
     expenses: getTotal("expense"),
     investiment: getTotal("investiment"),
+    paidExpenses: getPaidExpensesTotal(),
   });
 
   useEffect(() => {
@@ -37,6 +44,7 @@ export function useBalance() {
       entry: getTotal("entry"),
       expenses: getTotal("expense"),
       investiment: getTotal("investiment"),
+      paidExpenses: getPaidExpensesTotal(),
     });
   }, [common.registers]);
 
@@ -49,5 +57,12 @@ export function useBalance() {
     return totals?.investiment + liquidTotal;
   }
 
-  return { totals, getTotal, getQuantity, getPatrimonyTotal, getLiquid };
+  return {
+    totals,
+    getTotal,
+    getQuantity,
+    getPatrimonyTotal,
+    getLiquid,
+    getPaidExpensesTotal,
+  };
 }
