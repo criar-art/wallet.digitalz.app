@@ -1,5 +1,7 @@
 import { render } from "@testing-library/react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "../../../store";
 import AppDrawerHeader from "./index";
 
 test("should render AppDrawerHeader", () => {
@@ -9,8 +11,12 @@ test("should render AppDrawerHeader", () => {
   }));
 
   const { getByTestId } = render(
-    <AppDrawerHeader />
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppDrawerHeader testID="app-drawer-content" />
+      </NavigationContainer>
+    </Provider>
   );
 
-  expect(getByTestId("app-drawer-header")).toBeTruthy();
+  expect(getByTestId("app-drawer-content")).toBeTruthy();
 });

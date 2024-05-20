@@ -8,7 +8,7 @@ test("should render ModalRegister", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <ModalRegister />
+        <ModalRegister testID="modal-register" />
       </NavigationContainer>
     </Provider>
   );

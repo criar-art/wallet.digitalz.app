@@ -7,7 +7,9 @@ test("should render AppDrawerButton", () => {
     useNavigation: jest.fn(),
   }));
 
-  const { getByTestId } = render(<AppDrawerButton />);
+  const { getByTestId } = render(
+    <AppDrawerButton testID="app-drawer-button" />
+  );
 
-  expect(getByTestId("app-tab-button")).toBeTruthy();
+  expect(getByTestId("app-drawer-button")).toBeTruthy();
 });

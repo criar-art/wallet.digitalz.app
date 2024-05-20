@@ -130,7 +130,7 @@ export default function ModalInfo(props: Props) {
     <Modal
       ref={modalRef}
       isOpen={isOpenModal()}
-      testID="teste-modal"
+      testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalInfo(""))}
       confirmAction={() => modalRef.current?.closeModal()}
       header={{

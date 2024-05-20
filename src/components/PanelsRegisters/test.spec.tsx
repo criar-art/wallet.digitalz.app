@@ -13,7 +13,7 @@ test("should render PanelsRegisters", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <PanelsRegisters />
+        <PanelsRegisters testID="panels-registers" />
       </NavigationContainer>
     </Provider>
   );

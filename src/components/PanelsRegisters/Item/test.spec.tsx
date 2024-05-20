@@ -13,10 +13,10 @@ test("should render ItemList", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <ItemList type="entry" value={0} />
+        <ItemList type="entry" value={0} testID="panels-item-registers" />
       </NavigationContainer>
     </Provider>
   );
 
-  expect(getByTestId("panels-registers")).toBeTruthy();
+  expect(getByTestId("panels-item-registers")).toBeTruthy();
 });

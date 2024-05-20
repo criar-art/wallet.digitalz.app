@@ -116,7 +116,7 @@ export default function ModalDelete(props: Props) {
       ref={modalRef}
       type="window"
       isOpen={isOpenModal()}
-      testID="teste-modal"
+      testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalDelete(""))}
       confirmAction={confirmModal}
       confirmButton={{

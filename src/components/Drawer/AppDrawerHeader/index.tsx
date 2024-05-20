@@ -22,7 +22,7 @@ export default function AppDrawerHeader(props: Props) {
   if (props.type === "header") {
     return (
       <>
-        {(landscape) && (
+        {landscape && (
           <TotalCategory
             className="top-[20] absolute"
             onPress={() => dispatch(setModalInfo(props.category))}
@@ -30,6 +30,7 @@ export default function AppDrawerHeader(props: Props) {
           />
         )}
         <TouchableOpacity
+          testID={props.testID}
           className="p-4 mr-4 rounded-full"
           onPress={toggleEye}
           accessibilityLabel={
@@ -48,6 +49,7 @@ export default function AppDrawerHeader(props: Props) {
   if (props.type === "back") {
     return (
       <TouchableOpacity
+        testID={props.testID}
         className="p-4 mr-4 rounded-full"
         onPress={props.onPress}
         accessibilityLabel="Voltar página"
@@ -59,6 +61,7 @@ export default function AppDrawerHeader(props: Props) {
 
   return (
     <TouchableOpacity
+      testID={props.testID}
       className="p-4 ml-4 rounded-full"
       onPress={props.onPress}
       accessibilityLabel="Abrir menu drawer de páginas"

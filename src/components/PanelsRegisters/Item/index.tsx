@@ -31,6 +31,7 @@ export default function ItemList(props: Props) {
 
   return (
     <TouchableOpacity
+      testID={props.testID}
       onPress={() =>
         checkTypeTouchable(props.type)
           ? navigation.navigate(capitalize(props.type))

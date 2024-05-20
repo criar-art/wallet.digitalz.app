@@ -10,7 +10,7 @@ export default function PanelsRegisters(props: Props) {
   const { getTotal, getPatrimonyTotal, getLiquid } = useBalance();
 
   return (
-    <FadeView testID="panels-registers">
+    <FadeView testID={props.testID ? props.testID : "panels-registers"}>
       <ScrollView
         className="p-4"
         contentContainerStyle={{
