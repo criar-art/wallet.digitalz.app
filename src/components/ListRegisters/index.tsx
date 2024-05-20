@@ -1,8 +1,8 @@
 import { FlatList, View } from "react-native";
 import FadeView from "../FadeView";
-import ItemList from "../ItemList";
+import ItemList from "./Item";
 import TotalCategory from "../TotalCategory";
-import EmptyRegisters from "../EmptyRegisters";
+import EmptyRegisters from "./Empty";
 import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";

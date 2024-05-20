@@ -14,7 +14,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { useColorScheme } from "nativewind";
 import store from "./src/store";
 import Routes from "./src/routes";
-import ModalGlobal from "./src/modals/ModalGlobal";
+import ModalGlobal from "./src/modals";
 
 export default function App() {
   const persistor = persistStore(store);

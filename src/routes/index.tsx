@@ -3,14 +3,12 @@ import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "../hooks/useOrientation";
 import { RoutesTab } from "./RoutesTab";
-import AboutScreen from "../views/About/About";
-import ContactScreen from "../views/Contact/Contact";
-import AppDrawerContent from "../components/AppDrawerContent";
-import AppDrawerHeader from "../components/AppDrawerHeader";
+import Page from "../pages";
+import AppDrawer from "../components/Drawer";
 
 const Drawer = createDrawerNavigator();
 
-export const views = [
+export const pages = [
   {
     name: "Root",
     title: "Wallet Digitalz",
@@ -27,7 +25,7 @@ export const views = [
     drawerIcon: (props: any) => (
       <Entypo name="info" size={props.size} color={props.color} />
     ),
-    component: AboutScreen,
+    component: Page.About,
   },
   {
     name: "Contact",
@@ -36,7 +34,7 @@ export const views = [
     drawerIcon: (props: any) => (
       <MaterialIcons name="call" size={props.size} color={props.color} />
     ),
-    component: ContactScreen,
+    component: Page.Contact,
   },
 ];
 
@@ -52,9 +50,9 @@ export default function Routes(props: any) {
   return (
     <Drawer.Navigator
       initialRouteName="Root"
-      drawerContent={(props: any) => <AppDrawerContent {...props} />}
+      drawerContent={(props: any) => <AppDrawer.Content {...props} />}
     >
-      {views.map(({ name, title, drawerIcon, drawerLabel, component }) => (
+      {pages.map(({ name, title, drawerIcon, drawerLabel, component }) => (
         <Drawer.Screen
           key={name}
           name={name}
@@ -77,9 +75,9 @@ export default function Routes(props: any) {
               shadowOpacity: 0,
               borderWidth: 0,
             },
-            headerLeft: () => <AppDrawerHeader onPress={props.toggleDrawer} />,
+            headerLeft: () => <AppDrawer.Header onPress={props.toggleDrawer} />,
             headerRight: () => (
-              <AppDrawerHeader
+              <AppDrawer.Header
                 type={!props.dashboard ? "header" : "back"}
                 category={typeCategory}
                 onPress={() => props.navigation.goBack()}

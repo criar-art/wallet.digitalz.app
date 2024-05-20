@@ -4,9 +4,8 @@ import { useColorScheme } from "nativewind";
 import { renderColorType } from "../utils";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
-import AppTabBar from "../components/AppTabBar";
-import HomeScreen from "../views/Home/Home";
-import RegisterScreen from "../views/Register";
+import TabBar from "../components/TabBar";
+import Page from "../pages";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +23,7 @@ export function RoutesTab() {
       tabBarLabel: title,
       tabBarIcon: icon,
       tabBarBadge: getCountRegisters(name.toLowerCase()),
-      children: <RegisterScreen type={name.toLocaleLowerCase()} />,
+      children: <Page.Register type={name.toLocaleLowerCase()} />,
     };
   }
 
@@ -37,7 +36,7 @@ export function RoutesTab() {
       tabBarIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
       ),
-      children: <HomeScreen />,
+      children: <Page.Home />,
     },
     configRegisterScreen("Expense", "Despesa", (props: any) => (
       <MaterialCommunityIcons
@@ -54,18 +53,14 @@ export function RoutesTab() {
       />
     )),
     configRegisterScreen("Investiment", "Investimento", (props: any) => (
-      <MaterialIcons
-        name="trending-up"
-        size={props.size}
-        color={props.color}
-      />
+      <MaterialIcons name="trending-up" size={props.size} color={props.color} />
     )),
   ];
 
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      tabBar={(props) => <AppTabBar {...props} />}
+      tabBar={(props) => <TabBar {...props} />}
     >
       {viewsTab.map((item: any) => (
         <Tab.Screen
@@ -84,11 +79,11 @@ export function RoutesTab() {
               height: 5,
               elevation: 0,
               shadowOpacity: 0,
-              borderWidth: 0
+              borderWidth: 0,
             },
             headerTitleStyle: {
               fontSize: 0,
-              display: 'none'
+              display: "none",
             },
           }}
         >
