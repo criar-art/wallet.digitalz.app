@@ -32,7 +32,6 @@ export default function ModalRegister(props: Props) {
   const [inputValue, setInputValue] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);
-  const [modalShake, setModalShake] = useState(false);
   const isEditing = (): boolean => common.modalRegister === "edit";
   const isOpenModal = (): boolean =>
     ["register", "edit"].includes(common.modalRegister);

@@ -1,15 +1,18 @@
+import { useRef } from "react";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
-import { Props } from "./types";
+import { ModalHandle } from "../../components/Modal/types";
 import { types } from "../../utils";
+import { Props } from "./types";
 import Modal from "../../components/Modal";
 
 export default function ModalInfo(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
     ["liquid", "patrimony", "entry", "expense", "investiment"].includes(
       common.modalInfo
@@ -125,10 +128,11 @@ export default function ModalInfo(props: Props) {
 
   return (
     <Modal
+      ref={modalRef}
       isOpen={isOpenModal()}
       testID="teste-modal"
       closeAction={() => dispatch(setModalInfo(""))}
-      confirmAction={() => dispatch(setModalInfo(""))}
+      confirmAction={() => modalRef.current?.closeModal()}
       header={{
         title: `Valor ${types[common.modalInfo]}`,
         icon: renderModalIcon(common.modalInfo),
