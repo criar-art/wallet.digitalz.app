@@ -76,7 +76,7 @@ export default function ListRegisters(props: Props) {
             orientation !== 1 && orientation !== 2
               ? {
                   flex: 1,
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   paddingLeft: 15,
                   paddingRight: 15,
                 }

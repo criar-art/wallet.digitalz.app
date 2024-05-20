@@ -18,6 +18,7 @@ import {
 } from "../../../utils";
 import Button from "../../Button";
 import { Props } from "./types";
+import useOrientation from "../../../hooks/useOrientation";
 
 export const renderBadge = (type: string, date: string, isPaid: boolean) => {
   let badgeText = "";
@@ -52,6 +53,7 @@ export const renderBadge = (type: string, date: string, isPaid: boolean) => {
 
 export default function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
+  const { landscape } = useOrientation();
   const isFocused = useIsFocused();
   const [optionsShow, setOptionsShow] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -76,13 +78,13 @@ export default function ItemList(props: Props) {
     <TouchableOpacity
       testID={props.testID}
       onPress={() => setOptionsShow(!optionsShow)}
-      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-6 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
-      )} ${renderBackgroundClass(props.item.type, props.item.date, props.item.pay)} ${
-        props.orientation !== 1 && props.orientation !== 2
-          ? "mt-6 ml-3 mr-3"
-          : "m-5 mb-0"
-      }`}
+      )} ${renderBackgroundClass(
+        props.item.type,
+        props.item.date,
+        props.item.pay
+      )} ${landscape ? "mx-3" : "mx-5"}`}
     >
       {renderBadge(props.item.type, props.item.date, props.item.pay)}
       <Text className="text-black dark:text-white text-xl mb-1">
@@ -132,11 +134,7 @@ export default function ItemList(props: Props) {
             onPress={props.handlePay}
             label={`Pagar ${props.item.name}`}
             icon={
-              <MaterialIcons
-                name="check"
-                size={30}
-                color="rgb(34 197 94)"
-              />
+              <MaterialIcons name="check" size={30} color="rgb(34 197 94)" />
             }
           />
         )}
