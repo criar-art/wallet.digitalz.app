@@ -4,9 +4,11 @@ import { useColorScheme } from "nativewind";
 import { renderBorderType, types, parseMoney } from "../../utils";
 import { Props } from "./types";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import useOrientation from "../../hooks/useOrientation";
 
 export default function ItemTotal(props: Props) {
   const { colorScheme } = useColorScheme();
+  const { landscape } = useOrientation();
 
   const modalIcons: any = {
     liquid: (
@@ -61,7 +63,7 @@ export default function ItemTotal(props: Props) {
     <View
       testID={props.testID}
       className={`flex flex-row items-center ${renderBorderType(props.type)} ${
-        props.orientation === 4 || props.orientation === 3
+        landscape
           ? "justify-end mr-20 pr-[75] border-r-2 border-gray-100 dark:border-zinc-700"
           : "justify-center px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
       }`}
@@ -77,9 +79,7 @@ export default function ItemTotal(props: Props) {
         renderText={(value: string) => (
           <View
             className={`flex flex-col ${
-              props.orientation === 4 || props.orientation === 3
-                ? "items-end justify-end"
-                : "items-center"
+              landscape ? "items-end justify-end" : "items-center"
             }`}
           >
             <Text className="text-sm text-black dark:text-white">
@@ -88,7 +88,7 @@ export default function ItemTotal(props: Props) {
             <Text className="text-black dark:text-white font-bold text-2xl">
               {parseMoney(value, props.eyeStatus)}
             </Text>
-            {(props.orientation === 4 || props.orientation === 3) && (
+            {landscape && (
               <View className="flex justify-center items-center absolute -right-[50] bottom-[8]">
                 <View className="flex">{renderModalIcon(props.type)}</View>
               </View>

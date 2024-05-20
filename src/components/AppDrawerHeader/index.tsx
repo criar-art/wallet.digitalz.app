@@ -9,7 +9,7 @@ import { RootState } from "../../store";
 import TotalCategory from "../TotalCategory";
 
 export default function AppDrawerHeader(props: Props) {
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -22,10 +22,9 @@ export default function AppDrawerHeader(props: Props) {
   if (props.type === "header") {
     return (
       <>
-        {(orientation === 4 || orientation === 3) && (
+        {(landscape) && (
           <TotalCategory
             className="top-[20] absolute"
-            orientation={orientation}
             onPress={() => dispatch(setModalInfo(props.category))}
             type={String(props.category)}
           />

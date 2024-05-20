@@ -9,7 +9,7 @@ import { Props, Route } from "./types";
 import AppTabButton from "../AppTabButton";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
   const dispatch = useAppDispatch();
   const handleNewRegister = () => dispatch(setModalRegister("register"));
 
@@ -17,12 +17,12 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
     <View
       testID="app-tab-bar"
       className={`flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
-        orientation === 4 || orientation === 3 ? "h-0" : ""
+        landscape ? "h-0" : ""
       }`}
     >
       <View
         className={`flex flex-row ${
-          orientation === 4 || orientation === 3 ? "w-[400] absolute bottom-0" : "w-full"
+          landscape ? "w-[400] absolute bottom-0" : "w-full"
         }`}
       >
         <Button
@@ -59,14 +59,19 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
 
           return (
             <AppTabButton
-              className={`${index == 0 ? "rounded-tl-3xl" : (state?.routes.length - 1) == index ? "rounded-tr-3xl" : ""}`}
+              className={`${
+                index == 0
+                  ? "rounded-tl-3xl"
+                  : state?.routes.length - 1 == index
+                  ? "rounded-tr-3xl"
+                  : ""
+              }`}
               key={index}
               labelButton={labelButton}
               isFocused={isFocused}
               onPress={onPress}
               onLongPress={onLongPress}
               options={options}
-              orientation={orientation}
             />
           );
         })}

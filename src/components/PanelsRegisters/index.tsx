@@ -23,7 +23,7 @@ import FadeView from "../FadeView";
 import { Props } from "./types";
 
 export default function PanelsRegisters(props: Props) {
-  const orientation = useOrientation();
+  const { landscape, portrait } = useOrientation();
   const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -41,11 +41,7 @@ export default function PanelsRegisters(props: Props) {
         props.type
       )} ${
         props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
-      } ${
-        orientation === 4 || orientation === 3
-          ? "flex-auto basis-1/3 mr-2 ml-3"
-          : "w-full"
-      }`}
+      } ${landscape ? "flex-auto basis-1/3 mr-2 ml-3" : "w-full"}`}
     >
       <NumericFormat
         value={props.value}
@@ -108,12 +104,12 @@ export default function PanelsRegisters(props: Props) {
       <ScrollView
         className="p-4"
         contentContainerStyle={{
-          paddingBottom: orientation === 4 || orientation === 3 ? 80 : 20,
-          paddingTop: orientation === 4 || orientation === 3 ? 15 : 4,
+          paddingBottom: landscape ? 80 : 20,
+          paddingTop: landscape ? 15 : 4,
         }}
       >
         <View className="flex flex-row flex-wrap">
-          {(orientation === 1 || orientation === 2) && (
+          {portrait && (
             <ItemList type="patrimony" value={getPatrimonyTotal()} />
           )}
           <ItemList type="liquid" value={getLiquid()} />

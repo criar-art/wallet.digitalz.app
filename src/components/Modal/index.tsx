@@ -12,7 +12,7 @@ import Button from "../Button";
 import { MaterialIcons } from "@expo/vector-icons";
 
 function Modal(props: Props, ref: React.Ref<ModalHandle>) {
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [shakeAnimation] = useState(new Animated.Value(0));
   const transformAnim = useRef(new Animated.Value(500)).current;
@@ -127,7 +127,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
       >
         <Animated.View
           className={`bg-white dark:bg-zinc-900 p-4 rounded-lg flex flex-col items-center ${
-            orientation === 4 || orientation === 3 ? "w-1/2" : ""
+            landscape ? "w-1/2" : ""
           }`}
           style={{ transform: [{ scale: scaleAnim }] }}
           accessibilityViewIsModal
@@ -154,9 +154,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
               transform: [{ translateY: shakeAnimation }],
             }}
             className={`flex flex-row items-center bg-red-300 p-3 rounded-full m-4 ${
-              orientation === 4 || orientation === 3
-                ? "absolute z-10 -top-12"
-                : ""
+              landscape ? "absolute z-10 -top-12" : ""
             }`}
           >
             {props.alertModal?.icon}
@@ -168,7 +166,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
         <TouchableWithoutFeedback onPress={undefined}>
           <Animated.View
             className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
-              orientation === 4 || orientation === 3 ? "w-1/2" : "w-full"
+              landscape ? "w-1/2" : "w-full"
             }`}
             accessibilityViewIsModal
             style={{

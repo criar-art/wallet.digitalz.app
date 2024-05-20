@@ -15,7 +15,7 @@ import {
 import { Props } from "./types";
 
 export default function ListRegisters(props: Props) {
-  const orientation = useOrientation();
+  const { orientation, landscape, portrait } = useOrientation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
 
@@ -39,23 +39,20 @@ export default function ListRegisters(props: Props) {
         .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
-          numColumns={orientation === 1 || orientation === 2 ? 1 : 2}
+          numColumns={landscape ? 2 : 1}
           renderItem={({ item, index }: any) => {
             const isLastItem = isOdd && index === filteredData.length - 1;
             return (
               <View
                 className={[
                   "flex",
-                  orientation === 4 || orientation === 3 ? "w-1/2" : "w-full",
-                  (orientation === 4 || orientation === 3) && isLastItem
-                    ? "w-1/2"
-                    : "",
+                  landscape ? "w-1/2" : "w-full",
+                  landscape && isLastItem ? "w-1/2" : "",
                 ].join(" ")}
               >
                 <ItemList
                   key={item.id}
                   item={item}
-                  orientation={orientation}
                   eyeStatus={common.eyeStatus}
                   edit={() => edit(item)}
                   remove={() => remove(item.id)}
@@ -66,10 +63,10 @@ export default function ListRegisters(props: Props) {
           keyExtractor={(item) => item.id}
           key={orientation}
           contentContainerStyle={{
-            paddingBottom: orientation === 4 || orientation === 3 ? 100 : 40,
+            paddingBottom: landscape ? 100 : 40,
           }}
           columnWrapperStyle={
-            orientation !== 1 && orientation !== 2
+            landscape
               ? {
                   flex: 1,
                   flexWrap: "nowrap",
@@ -79,9 +76,8 @@ export default function ListRegisters(props: Props) {
               : null
           }
           ListHeaderComponent={() =>
-            (orientation === 1 || orientation === 2) && (
+            portrait && (
               <TotalCategory
-                orientation={orientation}
                 type={props.type}
                 onPress={() => dispatch(setModalInfo(props.type))}
               />

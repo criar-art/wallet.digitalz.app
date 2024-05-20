@@ -15,7 +15,7 @@ export default function AppDrawerContent({
   navigation,
 }: Props) {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
   const appVersion = pkg.version;
   const versionCode =
     Platform.OS === "android" ? app.expo.android.versionCode : "";
@@ -57,11 +57,7 @@ export default function AppDrawerContent({
           );
         })}
 
-        <View
-          className={`flex mt-auto ${
-            orientation === 4 || orientation === 3 ? "pb-5 px-10" : "p-10"
-          }`}
-        >
+        <View className={`flex mt-auto ${landscape ? "pb-5 px-10" : "p-10"}`}>
           <Button
             onPress={toggleColorScheme}
             className="bg-transparent border-2 border-gray-200 dark:border-zinc-700 my-4 rounded-full py-4"

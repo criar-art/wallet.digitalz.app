@@ -5,7 +5,6 @@ export type Props = {
   onPress: () => void;
   onLongPress: () => void;
   options: Options;
-  orientation?: number | null;
 }
 
 export type Options = {

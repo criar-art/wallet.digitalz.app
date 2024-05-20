@@ -8,6 +8,8 @@ import {
 
 export default function useOrientation() {
   const [orientation, setOrientation] = useState<Orientation | null>(null);
+  const [landscape, setLandscape] = useState<boolean>(false);
+  const [portrait, setPortrait] = useState<boolean>(false);
 
   const handleOrientationChange = useCallback((event: any) => {
     setOrientation((prevOrientation) => {
@@ -16,6 +18,9 @@ export default function useOrientation() {
       }
       return prevOrientation;
     });
+
+    setLandscape(event.orientationInfo.orientation === 4 || event.orientationInfo.orientation === 3);
+    setPortrait(event.orientationInfo.orientation === 1 || event.orientationInfo.orientation === 2);
   }, []);
 
   useEffect(() => {
@@ -24,6 +29,8 @@ export default function useOrientation() {
     getOrientationAsync().then((value) => {
       if (isMounted) {
         setOrientation(value);
+        setLandscape(value === 4 || value === 3);
+        setPortrait(value === 1 || value === 2);
       }
     });
 
@@ -35,5 +42,5 @@ export default function useOrientation() {
     };
   }, [handleOrientationChange]);
 
-  return orientation;
+  return { orientation, landscape, portrait };
 }

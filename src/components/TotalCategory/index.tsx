@@ -23,7 +23,6 @@ export default function TotalCategory(props: Props) {
             : getTotal(props.type)
         }
         eyeStatus={common.eyeStatus}
-        orientation={props.orientation}
       />
     </TouchableOpacity>
   );

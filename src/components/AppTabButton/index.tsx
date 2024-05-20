@@ -1,6 +1,7 @@
 import { Text, Pressable, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { Props } from "./types";
+import useOrientation from "../../hooks/useOrientation";
 
 export default function NavigationButton({
   className,
@@ -9,9 +10,9 @@ export default function NavigationButton({
   onPress,
   onLongPress,
   options,
-  orientation,
 }: Props) {
   const { colorScheme } = useColorScheme();
+  const { landscape } = useOrientation();
 
   return (
     <Pressable
@@ -25,9 +26,7 @@ export default function NavigationButton({
         !isFocused
           ? "bg-white dark:bg-zinc-800"
           : "bg-gray-100 dark:bg-zinc-700"
-      } ${
-        orientation === 4 || orientation === 3 ? "border-t-2" : "border-y-2"
-      } ${className}`}
+      } ${landscape ? "border-t-2" : "border-y-2"} ${className}`}
       disabled={isFocused}
     >
       <View

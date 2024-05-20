@@ -41,7 +41,7 @@ export const views = [
 ];
 
 export default function Routes(props: any) {
-  const orientation = useOrientation();
+  const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
 
   const nameOfRoute = props.name?.toLowerCase();
@@ -64,8 +64,7 @@ export default function Routes(props: any) {
             drawerIcon,
             drawerPosition: "left",
             overlayColor: "rgba(0,0,0,0.8)",
-            headerTitleAlign:
-              orientation === 4 || orientation === 3 ? "left" : "center",
+            headerTitleAlign: landscape ? "left" : "center",
             headerTitleStyle: {
               fontWeight: "bold",
               color: colorScheme === "dark" ? "white" : "black",
