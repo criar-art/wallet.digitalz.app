@@ -5,8 +5,8 @@ import { renderColorType } from "../utils";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
 import AppTabBar from "../components/AppTabBar";
-import HomeScreen from "../views/HomeScreen";
-import RegisterScreen from "../views/RegisterScreen";
+import HomeScreen from "../views/Home/Home";
+import RegisterScreen from "../views/Register";
 
 const Tab = createBottomTabNavigator();
 

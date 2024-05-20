@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import PanelsRegisters from "../components/PanelsRegisters";
+import PanelsRegisters from "../../components/PanelsRegisters";
 
 export default function HomeScreen() {
   return (

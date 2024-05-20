@@ -1,9 +1,6 @@
 import { View } from "react-native";
-import ListRegisters from "../components/ListRegisters";
-
-export type Props = {
-  type: string;
-};
+import ListRegisters from "../../components/ListRegisters";
+import { Props } from "./type";
 
 export default function RegisterScreen({ type }: Props) {
   return (

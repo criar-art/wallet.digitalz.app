@@ -1,17 +1,17 @@
 import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "../store";
-import RegisterScreen from "./RegisterScreen";
+import store from "../../store";
+import HomeScreen from "./Home";
 
-test("should render RegisterScreen", () => {
+test("should render HomeScreen", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <RegisterScreen type="entry" />
+        <HomeScreen />
       </NavigationContainer>
     </Provider>
   );
 
-  expect(getByTestId("entry-screen")).toBeTruthy();
+  expect(getByTestId("home-screen")).toBeTruthy();
 });

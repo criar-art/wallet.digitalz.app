@@ -3,8 +3,8 @@ import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "../hooks/useOrientation";
 import { RoutesTab } from "./RoutesTab";
-import AboutScreen from "../views/AboutScreen";
-import ContactScreen from "../views/ContactScreen";
+import AboutScreen from "../views/About/About";
+import ContactScreen from "../views/Contact/Contact";
 import AppDrawerContent from "../components/AppDrawerContent";
 import AppDrawerHeader from "../components/AppDrawerHeader";
 

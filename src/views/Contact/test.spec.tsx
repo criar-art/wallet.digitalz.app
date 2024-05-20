@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import ContactScreen from "./ContactScreen";
+import ContactScreen from "./Contact";
 
 test("should render ContactScreen", () => {
   const { getByTestId, getByText } = render(

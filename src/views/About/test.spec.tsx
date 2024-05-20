@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import AboutScreen from "./AboutScreen";
+import AboutScreen from "./About";
 
 test("should render AboutScreen", () => {
   const { getByTestId, getByText } = render(
