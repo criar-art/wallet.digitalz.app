@@ -39,7 +39,7 @@ export default function ListRegisters(props: Props) {
         .length ? (
         <FlatList
           data={common.registers.filter((item: any) => item.type == props.type)}
-          numColumns={portrait ? 1 : 2}
+          numColumns={orientation === 1 || orientation === 2 ? 1 : 2}
           renderItem={({ item, index }: any) => {
             const isLastItem = isOdd && index === filteredData.length - 1;
             return (
@@ -66,7 +66,7 @@ export default function ListRegisters(props: Props) {
             paddingBottom: landscape ? 100 : 40,
           }}
           columnWrapperStyle={
-            landscape
+            orientation !== 1 && orientation !== 2
               ? {
                   flex: 1,
                   flexWrap: "nowrap",

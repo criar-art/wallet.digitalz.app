@@ -19,8 +19,15 @@ export default function useOrientation() {
       return prevOrientation;
     });
 
-    setLandscape(event.orientationInfo.orientation === 4 || event.orientationInfo.orientation === 3);
-    setPortrait(event.orientationInfo.orientation === 1 || event.orientationInfo.orientation === 2);
+    setLandscape(
+      event.orientationInfo.orientation === 4 ||
+        event.orientationInfo.orientation === 3
+    );
+    setPortrait(
+      event.orientationInfo.orientation === 1 ||
+        event.orientationInfo.orientation === 2 ||
+        event.orientationInfo.orientation === 0
+    );
   }, []);
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function useOrientation() {
       if (isMounted) {
         setOrientation(value);
         setLandscape(value === 4 || value === 3);
-        setPortrait(value === 1 || value === 2);
+        setPortrait(value === 1 || value === 2 || value === 0);
       }
     });
 
