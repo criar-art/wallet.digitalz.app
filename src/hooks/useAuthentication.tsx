@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BackHandler } from "react-native";
+import { BackHandler, AppState } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setIsLogin } from "../store/userSlice";
@@ -48,13 +48,29 @@ const useAuthentication = (navigate: any) => {
   useEffect(() => {
     authenticate();
 
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-      cancelAuthentication();
-      handleLogout();
-      return false;
-    });
+    const handleAppStateChange = (nextAppState: any) => {
+      if (nextAppState === "background") {
+        cancelAuthentication();
+        handleLogout();
+      }
+    };
+
+    const appStateListener = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        cancelAuthentication();
+        handleLogout();
+        return false;
+      }
+    );
 
     return () => {
+      appStateListener.remove();
       handleLogout();
       backHandler.remove();
     };

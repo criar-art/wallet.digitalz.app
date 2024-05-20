@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   DrawerActions,
@@ -66,7 +66,7 @@ function AppContainer() {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkRoute();
   }, []);
 
