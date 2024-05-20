@@ -46,7 +46,7 @@ const LoginScreen = ({ navigation }: any) => {
           width: "200%",
           transform: [{ translateX: translateX }],
         }}
-        source={require("../../images/world.webp")}
+        source={require("../../images/world-login.webp")}
       />
       <BlurView
         intensity={100}
