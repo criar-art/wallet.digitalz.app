@@ -3,7 +3,7 @@ import { Fontisto, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import Button from "../../components/Button";
 
-export default function AboutScreen() {
+export default function ListLinks() {
   const { colorScheme } = useColorScheme();
   const iconConfig = {
     size: 28,
