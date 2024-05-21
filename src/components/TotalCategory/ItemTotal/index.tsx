@@ -75,7 +75,7 @@ export default function ItemTotal(props: Props) {
             <Text className="text-sm text-black dark:text-white">
               Total {types[props.type]}
             </Text>
-            <Text className="text-black dark:text-white font-bold text-2xl">
+            <Text className={`text-black dark:text-white font-bold text-2xl ${props.value < 0 && "text-red-700"}`}>
               {parseMoney(value, props.eyeStatus)}
             </Text>
             {landscape && (

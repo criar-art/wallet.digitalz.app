@@ -14,12 +14,12 @@ import {
   checkTypeTouchable,
   parseMoney,
 } from "../../../utils";
-import useOrientation from "../../../hooks/useOrientation";
 import { useBalance } from "../../../hooks/useBalance";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { RootState } from "../../../store";
 import { setModalInfo } from "../../../store/commonSlice";
 import { Props } from "./types";
+import useOrientation from "../../../hooks/useOrientation";
 
 export default function ItemList(props: Props) {
   const { landscape } = useOrientation();
@@ -37,9 +37,11 @@ export default function ItemList(props: Props) {
           ? navigation.navigate(capitalize(props.type))
           : dispatch(setModalInfo(props.type))
       }
-      className={`flex flex-row justify-between items-center border-l-4 bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-l-4 bg-white dark:bg-zinc-800 p-6 mt-6 rounded-lg shadow-lg ${renderBorderType(
         props.type
-      )} ${props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""}`}
+      )} ${
+        props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
+      } ${landscape ? "mx-3" : "mx-5"}`}
     >
       <NumericFormat
         value={props.value}

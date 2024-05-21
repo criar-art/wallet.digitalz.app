@@ -1,16 +1,19 @@
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import useOrientation from "../../hooks/useOrientation";
 import { useBalance } from "../../hooks/useBalance";
 import FadeView from "../FadeView";
 import ItemList from "./Item";
 import { Props } from "./types";
+import TotalCategory from "../TotalCategory";
+import { setModalInfo } from "../../store/commonSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 export default function PanelsRegisters(props: Props) {
+  const dispatch = useAppDispatch();
   const { landscape } = useOrientation();
-  const { getTotal, getPatrimonyTotal, getLiquid } = useBalance();
+  const { getTotal, getLiquid } = useBalance();
 
   const listData = [
-    { type: "patrimony", value: getPatrimonyTotal(), isVisible: !landscape },
     { type: "liquid", value: getLiquid(), isVisible: true },
     { type: "expense", value: getTotal("expense"), isVisible: true },
     { type: "entry", value: getTotal("entry"), isVisible: true },
@@ -22,22 +25,34 @@ export default function PanelsRegisters(props: Props) {
       <ScrollView
         contentContainerStyle={{
           paddingBottom: landscape ? 80 : 20,
-          paddingTop: landscape ? 30 : 20,
-          paddingHorizontal: landscape ? 27 : 20
         }}
       >
-        <View className="flex flex-row flex-wrap gap-6 justify-center">
-          {listData.map(
-            (item: any) =>
-              item.isVisible && (
-                <View
-                  key={item.type}
-                  className="flex-1 text-center min-w-[400]"
-                >
-                  <ItemList type={item.type} value={item.value} />
-                </View>
-              )
+        <View>
+          {!landscape && (
+            <TotalCategory
+              type="patrimony"
+              onPress={() => dispatch(setModalInfo("patrimony"))}
+            />
           )}
+          <View
+            className="flex flex-row flex-wrap justify-center pt-1"
+            style={{
+              paddingLeft: landscape ? 15 : 0,
+              paddingRight: landscape ? 15 : 0,
+            }}
+          >
+            {listData.map(
+              (item: any) =>
+                item.isVisible && (
+                  <View
+                    key={item.type}
+                    className={`text-center ${landscape ? "w-1/2" : " w-full"}`}
+                  >
+                    <ItemList type={item.type} value={item.value} />
+                  </View>
+                )
+            )}
+          </View>
         </View>
       </ScrollView>
     </FadeView>
