@@ -1,12 +1,12 @@
 import { View, ScrollView } from "react-native";
-import useOrientation from "../../hooks/useOrientation";
-import { useBalance } from "../../hooks/useBalance";
-import FadeView from "../FadeView";
-import ItemList from "./Item";
+import useOrientation from "@hooks/useOrientation";
+import { useBalance } from "@hooks/useBalance";
+import FadeView from "@components/FadeView";
+import ItemList from "@components/PanelsRegisters/Item";
+import TotalCategory from "@components/TotalCategory";
+import { setModalInfo } from "@store/modalsSlice";
+import { useAppDispatch } from "@store/hooks";
 import { Props } from "./types";
-import TotalCategory from "../TotalCategory";
-import { setModalInfo } from "../../store/modalsSlice";
-import { useAppDispatch } from "../../store/hooks";
 
 export default function PanelsRegisters(props: Props) {
   const dispatch = useAppDispatch();

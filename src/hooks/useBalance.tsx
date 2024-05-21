@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../store/hooks";
-import { RootState } from "../store";
+import { useAppSelector } from "@store/hooks";
+import { RootState } from "@store";
 
 interface Totals {
   liquid: number;

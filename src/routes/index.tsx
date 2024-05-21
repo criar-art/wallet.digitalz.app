@@ -1,13 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import useOrientation from "../hooks/useOrientation";
+import useOrientation from "@hooks/useOrientation";
+import { useAppSelector } from "@store/hooks";
+import { RootState } from "@store";
 import { RoutesTab } from "./RoutesTab";
-import Page from "../pages";
-import AppDrawer from "../components/Drawer";
-
-import { useAppSelector } from "../store/hooks";
-import { RootState } from "../store";
+import Page from "@pages";
+import AppDrawer from "@components/Drawer";
 
 const Drawer = createDrawerNavigator();
 

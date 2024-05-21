@@ -6,5 +6,5 @@ export type Props = {
   orientation?: number | null;
   edit: any;
   remove: any;
-  handlePay: any;
+  handlePay?: any;
 }

@@ -15,10 +15,13 @@ import {
   isDateToday,
   renderBackgroundClass,
   isDateTomorrow,
-} from "../../../utils";
-import Button from "../../Button";
+} from "@utils";
 import { Props } from "./types";
-import useOrientation from "../../../hooks/useOrientation";
+import useOrientation from "@hooks/useOrientation";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
+import Button from "../../Button";
 
 export const renderBadge = (type: string, date: string, isPaid: boolean) => {
   let badgeText = "";

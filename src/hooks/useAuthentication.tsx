@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { BackHandler, AppState } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setIsLogin, setIsProtected } from "../store/userSlice";
-import { setEyeStatus } from "../store/commonSlice";
-import { setModalInfo } from "../store/modalsSlice";
-import { RootState } from "../store";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { setIsLogin, setIsProtected } from "@store/userSlice";
+import { setEyeStatus } from "@store/commonSlice";
+import { setModalInfo } from "@store/modalsSlice";
+import { RootState } from "@store";
 
 const useAuthentication = (navigate?: any) => {
   const dispatch = useAppDispatch();

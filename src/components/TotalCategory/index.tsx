@@ -1,8 +1,8 @@
 import { TouchableOpacity } from "react-native";
 import ItemTotal from "./ItemTotal";
-import { useAppSelector } from "../../store/hooks";
-import { useBalance } from "../../hooks/useBalance";
-import { RootState } from "../../store";
+import { useAppSelector } from "@store/hooks";
+import { useBalance } from "@hooks/useBalance";
+import { RootState } from "@store";
 import { Props } from "./types";
 
 export default function TotalCategory(props: Props) {

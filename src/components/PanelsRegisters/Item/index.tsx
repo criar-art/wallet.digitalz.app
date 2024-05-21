@@ -13,13 +13,13 @@ import {
   capitalize,
   checkTypeTouchable,
   parseMoney,
-} from "../../../utils";
-import { useBalance } from "../../../hooks/useBalance";
-import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { RootState } from "../../../store";
-import { setModalInfo } from "../../../store/modalsSlice";
+} from "@utils";
+import { useBalance } from "@hooks/useBalance";
+import useOrientation from "@hooks/useOrientation";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { RootState } from "@store";
+import { setModalInfo } from "@store/modalsSlice";
 import { Props } from "./types";
-import useOrientation from "../../../hooks/useOrientation";
 
 export default function ItemList(props: Props) {
   const { landscape } = useOrientation();

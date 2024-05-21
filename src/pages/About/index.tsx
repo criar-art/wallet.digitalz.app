@@ -1,6 +1,6 @@
 import { Image, Text, View, ScrollView } from "react-native";
-import useOrientation from "../../hooks/useOrientation";
-import FadeView from "../../components/FadeView";
+import useOrientation from "@hooks/useOrientation";
+import FadeView from "@components/FadeView";
 import ListLinks from "./ListLinks";
 
 export default function AboutScreen() {

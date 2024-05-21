@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "../../store";
+import store from "@store";
 import FadeView from "./index";
 import { Animated, Text } from "react-native";
 

@@ -2,12 +2,12 @@ import { TouchableOpacity } from "react-native";
 import { Props } from "./types";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import useOrientation from "../../../hooks/useOrientation";
-import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { setEyeStatus } from "../../../store/commonSlice";
-import { setModalInfo } from "../../../store/modalsSlice";
-import { RootState } from "../../../store";
-import TotalCategory from "../../TotalCategory";
+import useOrientation from "@hooks/useOrientation";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { setEyeStatus } from "@store/commonSlice";
+import { setModalInfo } from "@store/modalsSlice";
+import { RootState } from "@store";
+import TotalCategory from "@components/TotalCategory";
 import { useNavigation } from "@react-navigation/native";
 
 export default function AppDrawerHeader(props: Props) {

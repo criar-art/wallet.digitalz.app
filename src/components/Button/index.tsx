@@ -7,7 +7,7 @@ function Button(props: Props) {
   return (
     <ButtonComponent
       testID={props.testID ? props.testID : "button-container"}
-      className={`flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.className || ""}`}
+      className={`flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.className}`}
       onPress={props.onPress}
       accessibilityLabel={props.label}
       accessibilityState={props.accessibilityState}

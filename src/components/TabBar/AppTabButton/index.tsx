@@ -1,7 +1,7 @@
 import { Text, Pressable, View } from "react-native";
 import { useColorScheme } from "nativewind";
+import useOrientation from "@hooks/useOrientation";
 import { Props } from "./types";
-import useOrientation from "../../../hooks/useOrientation";
 
 export default function NavigationButton({
   className,

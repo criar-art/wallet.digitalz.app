@@ -6,10 +6,13 @@ import {
   useImperativeHandle,
 } from "react";
 import { Animated, Text, TouchableWithoutFeedback, View } from "react-native";
-import useOrientation from "../../hooks/useOrientation";
-import { Props, ModalHandle } from "./types";
-import Button from "../Button";
 import { MaterialIcons } from "@expo/vector-icons";
+import useOrientation from "@hooks/useOrientation";
+import { Props, ModalHandle } from "./types";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
+import Button from "../Button";
 
 function Modal(props: Props, ref: React.Ref<ModalHandle>) {
   const { landscape } = useOrientation();

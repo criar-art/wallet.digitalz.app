@@ -11,6 +11,7 @@ const dataType = [
 test("should render Select", () => {
   const { getByTestId } = render(
     <Select
+      error={false}
       data={dataType}
       maxHeight={300}
       placeholder="Selecione o tipo"

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "../../store";
+import store from "@store";
 import ModalDelete from "./index";
 
 test("should render ModalDelete", () => {

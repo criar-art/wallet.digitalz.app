@@ -1,6 +1,6 @@
 import { Image, View, ScrollView } from "react-native";
-import useOrientation from "../../hooks/useOrientation";
-import FadeView from "../../components/FadeView";
+import useOrientation from "@hooks/useOrientation";
+import FadeView from "@components/FadeView";
 import ListContact from "./ListContact";
 
 export default function ContactScreen() {

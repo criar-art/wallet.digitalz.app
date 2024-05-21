@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "../../../store";
+import store from "@store";
 import ItemList from "./index";
 
 test("should render ItemList", () => {
@@ -9,6 +9,7 @@ test("should render ItemList", () => {
     <Provider store={store}>
       <NavigationContainer>
         <ItemList
+          handlePay={null}
           testID="item-register"
           item={{
             date: "13/05/2024",

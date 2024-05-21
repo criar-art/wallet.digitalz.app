@@ -14,22 +14,17 @@ import DateTimePicker, {
 import uuid from "react-native-uuid";
 import { useColorScheme } from "nativewind";
 import { NumericFormat } from "react-number-format";
-import { formatDate } from "../../utils";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { RootState } from "../../store";
-import {
-  setRegister,
-  setEditRegister,
-} from "../../store/commonSlice";
-import {
-  setModalRegister
-} from "../../store/modalsSlice";
-import Select from "../../components/Select";
+import { formatDate } from "@utils";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { RootState } from "@store";
+import { setRegister, setEditRegister } from "@store/commonSlice";
+import { setModalRegister } from "@store/modalsSlice";
+import Select from "@components/Select";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
-import { formatDateString } from "../../utils";
+import { formatDateString } from "@utils";
+import Modal from "@components/Modal";
+import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
-import Modal from "../../components/Modal";
-import { ModalHandle } from "../../components/Modal/types";
 
 export default function ModalRegister(props: Props) {
   const modalRef = useRef<ModalHandle>(null);

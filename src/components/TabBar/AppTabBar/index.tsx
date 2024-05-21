@@ -1,12 +1,15 @@
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import useOrientation from "../../../hooks/useOrientation";
-import { setModalRegister } from "../../../store/commonSlice";
-import { useAppDispatch } from "../../../store/hooks";
-import Button from "../../Button";
-import { getLabel } from "../../../utils";
+import useOrientation from "@hooks/useOrientation";
+import { setModalRegister } from "@store/modalsSlice";
+import { useAppDispatch } from "@store/hooks";
+import { getLabel } from "@utils";
+import AppTabButton from "@components/TabBar/AppTabButton";
 import { Props, Route } from "./types";
-import AppTabButton from "../AppTabButton";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
+import Button from "../../Button";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const { landscape } = useOrientation();

@@ -1,15 +1,15 @@
 import { useRef } from "react";
 import { Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { RootState } from "../../store";
-import { setModalInfo } from "../../store/modalsSlice";
-import { setIsProtected } from "../../store/userSlice";
-import { ModalHandle } from "../../components/Modal/types";
-import { types } from "../../utils";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import useAuthentication from "@hooks/useAuthentication";
+import { RootState } from "@store";
+import { setModalInfo } from "@store/modalsSlice";
+import { setIsProtected } from "@store/userSlice";
+import { types } from "@utils";
+import Modal from "@components/Modal";
+import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
-import Modal from "../../components/Modal";
-import useAuthentication from "../../hooks/useAuthentication";
 
 export default function ModalInfo(props: Props) {
   const { isEnrolled, isSupported, protection } = useAuthentication();

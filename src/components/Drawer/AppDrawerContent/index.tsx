@@ -1,13 +1,16 @@
 import { Text, View, Platform } from "react-native";
 import { useColorScheme } from "nativewind";
-import useOrientation from "../../../hooks/useOrientation";
-import pkg from "../../../../package.json";
-import app from "../../../../app.json";
-import Button from "../../Button";
-import { getLabel } from "../../../utils";
+import useOrientation from "@hooks/useOrientation";
+import pkg from "@root/package.json";
+import app from "@root/app.json";
+import { getLabel } from "@utils";
 import { Props } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppDrawerButton from "../AppDrawerButton";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
+import Button from "../../Button";
 
 export default function AppDrawerContent({
   state,

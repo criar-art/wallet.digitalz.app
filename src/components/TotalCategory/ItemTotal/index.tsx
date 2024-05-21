@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
 import { useColorScheme } from "nativewind";
-import { renderBorderType, types, parseMoney } from "../../../utils";
-import { Props } from "./types";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import useOrientation from "../../../hooks/useOrientation";
+import { renderBorderType, types, parseMoney } from "@utils";
+import useOrientation from "@hooks/useOrientation";
+import { Props } from "./types";
 
 export default function ItemTotal(props: Props) {
   const { colorScheme } = useColorScheme();

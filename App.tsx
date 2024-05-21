@@ -12,11 +12,11 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { useColorScheme } from "nativewind";
-import store from "./src/store";
-import Routes from "./src/routes";
-import ModalGlobal from "./src/modals";
+import store from "@store";
+import Routes from "@routes";
+import ModalGlobal from "@modals";
 
-import useAuthentication from "./src/hooks/useAuthentication";
+import useAuthentication from "@hooks/useAuthentication";
 
 function App(props: any) {
   const { colorScheme } = useColorScheme();

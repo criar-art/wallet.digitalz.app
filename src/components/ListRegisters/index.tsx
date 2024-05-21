@@ -1,17 +1,17 @@
 import { FlatList, View } from "react-native";
-import FadeView from "../FadeView";
-import ItemList from "./Item";
-import TotalCategory from "../TotalCategory";
-import EmptyRegisters from "./Empty";
-import useOrientation from "../../hooks/useOrientation";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { RootState } from "../../store";
-import { setEditRegister, setRegisterData } from "../../store/commonSlice";
+import FadeView from "@components/FadeView";
+import ItemList from "@components/ListRegisters/Item";
+import TotalCategory from "@components/TotalCategory";
+import EmptyRegisters from "@components/ListRegisters/Empty";
+import useOrientation from "@hooks/useOrientation";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { RootState } from "@store";
+import { setEditRegister, setRegisterData } from "@store/commonSlice";
 import {
   setModalRegister,
   setModalDelete,
   setModalInfo,
-} from "../../store/modalsSlice";
+} from "@store/modalsSlice";
 import { Props } from "./types";
 
 export default function ListRegisters(props: Props) {

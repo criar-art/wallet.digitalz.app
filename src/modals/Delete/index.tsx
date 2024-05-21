@@ -2,13 +2,13 @@ import { useEffect, useRef } from "react";
 import { Animated, Easing, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { setRegister } from "../../store/commonSlice";
-import { setModalDelete } from "../../store/modalsSlice";
-import { RootState } from "../../store";
-import Modal from "../../components/Modal";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { setRegister } from "@store/commonSlice";
+import { setModalDelete } from "@store/modalsSlice";
+import { RootState } from "@store";
+import Modal from "@components/Modal";
+import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
-import { ModalHandle } from "../../components/Modal/types";
 
 export default function ModalDelete(props: Props) {
   const modalRef = useRef<ModalHandle>(null);

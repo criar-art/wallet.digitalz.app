@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { renderColorType } from "../utils";
-import { useAppSelector } from "../store/hooks";
-import { RootState } from "../store";
-import TabBar from "../components/TabBar";
-import Page from "../pages";
+import { renderColorType } from "@utils";
+import { useAppSelector } from "@store/hooks";
+import { RootState } from "@store";
+import TabBar from "@components/TabBar";
+import Page from "@pages";
 
 const Tab = createBottomTabNavigator();
 

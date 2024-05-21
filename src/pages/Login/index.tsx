@@ -1,10 +1,13 @@
-import { View, Text, Image, Animated } from "react-native";
-import useAuthentication from "../../hooks/useAuthentication";
-import Button from "../../components/Button";
+import { View, Text, Animated } from "react-native";
+import useAuthentication from "@hooks/useAuthentication";
 import { MaterialIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { useEffect } from "react";
 import { format } from "date-fns";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
+import Button from "../../components/Button";
 
 const LoginScreen = ({ navigation }: any) => {
   const auth = useAuthentication(navigation.navigate);

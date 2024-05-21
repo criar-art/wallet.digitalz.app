@@ -2,6 +2,9 @@ import { View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { Props } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
+
+// @todo verificar porque não esta trazendo style
+// import Button from "@components/Button";
 import Button from "../../Button";
 
 export default function AppDrawerButton({
