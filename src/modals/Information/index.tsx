@@ -151,7 +151,11 @@ export default function ModalInfo(props: Props) {
           </Text>
         </View>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
-          <Text className="text-sm dark:text-yellow-100">
+          <Text
+            className={`text-sm dark:text-yellow-100 ${
+              isEnrolled ? "text-green-700 dark:text-green-200" : "dark:text-red-200"
+            }`}
+          >
             Bloqueio de tela configurado:{" "}
             {isEnrolled !== null
               ? isEnrolled
@@ -160,7 +164,9 @@ export default function ModalInfo(props: Props) {
               : "Carregando..."}
           </Text>
           {isEnrolled !== null && (
-            <Text className="text-black dark:text-white text-sm">
+            <Text className={`text-sm dark:text-yellow-100 ${
+              isSupported ? "text-green-700 dark:text-green-200" : "dark:text-red-200"
+            }`}>
               Suporte para autenticação local:{" "}
               {isSupported !== null
                 ? isSupported
