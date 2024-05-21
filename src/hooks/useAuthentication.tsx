@@ -1,22 +1,51 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { BackHandler, AppState } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setIsLogin } from "../store/userSlice";
-import { setEyeStatus } from "../store/commonSlice";
+import { setIsLogin, setIsProtected } from "../store/userSlice";
+import { setEyeStatus, setModalInfo } from "../store/commonSlice";
 import { RootState } from "../store";
 
-const useAuthentication = (navigate: any) => {
+const useAuthentication = (navigate?: any) => {
   const dispatch = useAppDispatch();
-  const isLogin = useAppSelector((state: RootState) => state.userState.isLogin);
+  const { isLogin, isProtected } = useAppSelector(
+    (state: RootState) => state.userState
+  );
+  const [isSupported, setIsSupported] = useState<boolean | null>(null);
+  const [isEnrolled, setIsEnrolled] = useState<boolean | null>(null);
 
-  const authenticate = async () => {
+  const protection = useCallback(async () => {
+    dispatch(setIsProtected(true));
+    handleLogout();
+  }, [dispatch]);
+
+  const protectionInformation = useCallback(
+    (shouldShow: boolean = false) => {
+      dispatch(setModalInfo(shouldShow ? "loginSupported" : ""));
+    },
+    [dispatch]
+  );
+
+  const checkLocalAuth = useCallback(async () => {
+    const supported = await LocalAuthentication.hasHardwareAsync();
+    setIsSupported(supported);
+
+    const enrolled = await LocalAuthentication.isEnrolledAsync();
+    setIsEnrolled(enrolled);
+
+    protectionInformation(!supported || !enrolled || !isProtected);
+  }, [isProtected, protectionInformation]);
+
+  const authenticate = useCallback(async () => {
+    await checkLocalAuth();
+
     const result = await LocalAuthentication.authenticateAsync({
       promptMessage: "Use seu padrão.",
     });
 
     if (result.success) {
       console.log("Padrão correto. Autenticado!");
+      protectionInformation(false);
       dispatch(setIsLogin(true));
 
       if (navigate) {
@@ -28,29 +57,34 @@ const useAuthentication = (navigate: any) => {
       handleLogout();
       console.log("Padrão incorreto ou autenticação cancelada.");
     }
-  };
+  }, [checkLocalAuth, dispatch, navigate, protectionInformation]);
 
-  const cancelAuthentication = async () => {
+  const cancelAuthentication = useCallback(async () => {
     try {
       await LocalAuthentication.cancelAuthenticate();
       console.log("Autenticação cancelada.");
-      handleLogout();
     } catch (error) {
       console.log("Erro ao cancelar autenticação:", error);
     }
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
+    cancelAuthentication();
     dispatch(setIsLogin(false));
     dispatch(setEyeStatus(false));
-  };
+  }, [cancelAuthentication, dispatch]);
 
   useEffect(() => {
-    authenticate();
+    if (isProtected) {
+      authenticate();
+    } else {
+      checkLocalAuth();
+      dispatch(setIsLogin(true));
+      return;
+    }
 
-    const handleAppStateChange = (nextAppState: any) => {
+    const handleAppStateChange = (nextAppState: string) => {
       if (nextAppState === "background") {
-        cancelAuthentication();
         handleLogout();
       }
     };
@@ -63,7 +97,6 @@ const useAuthentication = (navigate: any) => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
-        cancelAuthentication();
         handleLogout();
         return false;
       }
@@ -74,9 +107,18 @@ const useAuthentication = (navigate: any) => {
       handleLogout();
       backHandler.remove();
     };
-  }, []);
+  }, [isProtected, authenticate, checkLocalAuth, dispatch, handleLogout]);
 
-  return { isLogin, cancelAuthentication, authenticate };
+  return {
+    isLogin,
+    isProtected,
+    authenticate,
+    protection,
+    protectionInformation,
+    isSupported,
+    isEnrolled,
+    handleLogout,
+  };
 };
 
 export default useAuthentication;
