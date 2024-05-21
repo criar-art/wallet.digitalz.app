@@ -202,7 +202,9 @@ export default function ModalInfo(props: Props) {
       testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalInfo(""))}
       confirmAction={() =>
-        isProtected ? activeProtection() : modalRef.current?.closeModal()
+        isProtected && modals.modalInfo == "loginSupported"
+          ? activeProtection()
+          : modalRef.current?.closeModal()
       }
       header={{
         title:
