@@ -6,4 +6,5 @@ interface User {
 export interface user {
   user: User;
   isLogin: boolean;
+  isProtected: boolean;
 }

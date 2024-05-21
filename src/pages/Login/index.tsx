@@ -54,56 +54,88 @@ const LoginScreen = ({ navigation }: any) => {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: 30,
+          borderRadius: !auth.isLogin && auth.isProtected ? 100 : 20,
           borderColor: "rgba(255,255,255,.4)",
           borderWidth: 1,
           overflow: "hidden",
-          padding: 40,
-          paddingVertical: 40,
+          padding: 20,
+          paddingVertical: 20,
           margin: "auto",
           position: "absolute",
         }}
       >
-        <View className="flex">
-          {auth.isLogin && (
+        <View className="flex flex-col">
+          {(auth.isLogin || !auth.isProtected) && (
             <>
               <Text className="text-white font-black text-2xl text-center mb-10">
                 Wallet Digitalz
               </Text>
-              <Text className="text-green-400 font-black text-3xl text-center mb-10 -mt-8">
+              <Text className="text-green-400 font-black text-3xl text-center mb-2 -mt-8">
                 {format(new Date(), "yyyy")}
               </Text>
             </>
           )}
 
-          <View className="flex flex-row justify-center">
-            <Button
-              className={`mx-auto p-4 px-6 rounded-full border-white/10 border-2 ${
-                auth.isLogin ? "bg-red-600 mr-2" : "bg-green-600"
-              }`}
-              textColor="text-lg text-white"
-              text={auth.isLogin ? "Sair" : "Entrar"}
-              label={auth.isLogin ? "Faça logout" : "Faça login"}
-              onPress={
-                !auth.isLogin ? auth.authenticate : auth.cancelAuthentication
-              }
-              icon={
-                <MaterialIcons
-                  name={auth.isLogin ? "logout" : "fingerprint"}
-                  size={25}
-                  color="#fff"
-                />
-              }
-            />
-            {auth.isLogin && (
+          <View className="flex flex-col flex-nowrap justify-center">
+            {(!auth.isProtected || auth.isLogin) && (
               <Button
-                className={`mx-auto p-4 px-6 ml-2 rounded-full bg-zinc-900 border-white/10 border-2`}
+                className={`p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2`}
                 textColor="text-lg text-white"
                 text="Ínicio"
                 label="Ir para o ínicio"
                 onPress={() => navigation.navigate("Root")}
                 icon={<MaterialIcons name="home" size={25} color="#fff" />}
               />
+            )}
+            {!auth.isLogin && (
+              <Button
+                className={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2`}
+                textColor="text-lg text-white"
+                text={auth.isProtected ? "Entrar" : "Proteção"}
+                label={auth.isProtected ? "Faça login" : "Faça proteção"}
+                onPress={() =>
+                  auth.isProtected
+                    ? auth.authenticate()
+                    : auth.protectionInformation(true)
+                }
+                icon={
+                  <MaterialIcons
+                    name={auth.isProtected ? "fingerprint" : "lock"}
+                    size={25}
+                    color="#fff"
+                  />
+                }
+              />
+            )}
+            {auth.isLogin && (
+              <>
+                <Button
+                  className={`p-4 px-6 my-2 rounded-full bg-green-600 border-white/10 border-2`}
+                  textColor="text-lg text-white"
+                  text="Proteção"
+                  label="Mostrar informações de proteção"
+                  onPress={() => auth.protectionInformation(true)}
+                  icon={
+                    <MaterialIcons
+                      name={auth.isProtected ? "lock" : "lock-open"}
+                      size={25}
+                      color="#fff"
+                    />
+                  }
+                />
+                {auth.isProtected && (
+                  <Button
+                    className={`p-4 px-6 my-2 rounded-full bg-red-600 border-white/10 border-2`}
+                    textColor="text-lg text-white"
+                    text="Sair"
+                    label="Faça logout"
+                    onPress={auth.handleLogout}
+                    icon={
+                      <MaterialIcons name="logout" size={25} color="#fff" />
+                    }
+                  />
+                )}
+              </>
             )}
           </View>
         </View>

@@ -53,9 +53,9 @@ export const pages = [
 export default function Routes(props: any) {
   const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
-  const store = useAppSelector((state: RootState) => state.userState);
-  const isLoggedIn = store.isLogin;
-
+  const { isLogin, isProtected } = useAppSelector(
+    (state: RootState) => state.userState
+  );
   const nameOfRoute = props.name?.toLowerCase();
   const typeCategory = ["entry", "expense", "investiment"].includes(nameOfRoute)
     ? nameOfRoute
@@ -63,11 +63,15 @@ export default function Routes(props: any) {
 
   return (
     <Drawer.Navigator
-      initialRouteName={isLoggedIn ? "Root" : "Login"}
+      initialRouteName={isLogin ? "Root" : "Login"}
       drawerContent={(props: any) => <AppDrawer.Content {...props} />}
     >
       {pages.map(({ name, title, drawerIcon, drawerLabel, component }) => {
-        if (!isLoggedIn && !["Login", "Contact", "About"].includes(name)) {
+        if (
+          !isLogin &&
+          isProtected &&
+          !["Login", "Contact", "About"].includes(name)
+        ) {
           // Se a tela requer autenticação e o usuário não estiver logado, e não for a tela de login
           return null; // Não renderiza a tela
         }

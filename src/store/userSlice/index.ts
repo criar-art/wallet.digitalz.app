@@ -8,11 +8,15 @@ export const userSlice = createSlice({
       email: "",
       pass: "",
     },
+    isProtected: true,
     isLogin: false,
   } as user,
   reducers: {
     setUser(state, payload) {
       state.user = payload.payload;
+    },
+    setIsProtected(state, payload) {
+      state.isProtected = payload.payload;
     },
     setIsLogin(state, payload) {
       state.isLogin = payload.payload;
@@ -20,6 +24,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, setIsLogin } = userSlice.actions;
+export const { setUser, setIsLogin, setIsProtected } = userSlice.actions;
 
 export default userSlice.reducer;
