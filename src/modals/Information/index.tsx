@@ -1,22 +1,40 @@
 import { useRef } from "react";
-import { Text, View } from "react-native";
+import { Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import { setModalInfo } from "../../store/commonSlice";
+import { setIsProtected } from "../../store/userSlice";
 import { ModalHandle } from "../../components/Modal/types";
 import { types } from "../../utils";
 import { Props } from "./types";
 import Modal from "../../components/Modal";
+import useAuthentication from "../../hooks/useAuthentication";
 
 export default function ModalInfo(props: Props) {
+  const { isEnrolled, isSupported, protection } = useAuthentication();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const { isProtected } = useAppSelector((state: RootState) => state.userState);
   const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
-    ["liquid", "patrimony", "entry", "expense", "investiment"].includes(
-      common.modalInfo
-    );
+    [
+      "liquid",
+      "patrimony",
+      "entry",
+      "expense",
+      "investiment",
+      "loginSupported",
+    ].includes(common.modalInfo);
+
+  const handleProtected = (value: any) => {
+    dispatch(setIsProtected(value));
+  };
+
+  const activeProtection = () => {
+    protection();
+    modalRef.current?.closeModal();
+  };
 
   const modalContent: any = {
     liquid: (
@@ -110,6 +128,50 @@ export default function ModalInfo(props: Props) {
         </View>
       </>
     ),
+    loginSupported: (
+      <>
+        <Text className="text-black dark:text-white text-base">
+          Para melhor proteção, ative o bloqueio para manter suas informações
+          privadas. Se você desativar, o acesso se tornará livre, sem nenhuma
+          restrição ou segurança.
+        </Text>
+        <View className="flex flex-row items-center mb-2 ml-2">
+          <View className="flex items-center justify-center">
+            <Switch
+              accessibilityLabel="Pagamento"
+              value={isProtected}
+              onValueChange={handleProtected}
+              trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
+              thumbColor="#f4f3f4"
+              style={{ transform: [{ scale: 1.5 }] }}
+            />
+          </View>
+          <Text className="ml-5 text-black dark:text-white text-base text-center">
+            Proteção
+          </Text>
+        </View>
+        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
+          <Text className="text-sm dark:text-yellow-100">
+            Bloqueio de tela configurado:{" "}
+            {isEnrolled !== null
+              ? isEnrolled
+                ? "Sim"
+                : "Não"
+              : "Carregando..."}
+          </Text>
+          {isEnrolled !== null && (
+            <Text className="text-black dark:text-white text-sm">
+              Suporte para autenticação local:{" "}
+              {isSupported !== null
+                ? isSupported
+                  ? "Sim"
+                  : "Não"
+                : "Carregando..."}
+            </Text>
+          )}
+        </View>
+      </>
+    ),
   };
 
   const modalIcons: any = {
@@ -120,7 +182,14 @@ export default function ModalInfo(props: Props) {
     expense: (
       <MaterialCommunityIcons name="cash-remove" size={30} color="#aaa" />
     ),
-    vehicle: <MaterialCommunityIcons name="car" size={30} color="#aaa" />, // Assumindo um ícone para veículo, ajuste conforme necessário
+    vehicle: <MaterialCommunityIcons name="car" size={30} color="#aaa" />,
+    loginSupported: (
+      <MaterialCommunityIcons
+        name={isProtected ? "lock" : "lock-open"}
+        size={30}
+        color="#aaa"
+      />
+    ),
   };
 
   const renderModalIcon = (type: any) => modalIcons[type] || null;
@@ -132,9 +201,14 @@ export default function ModalInfo(props: Props) {
       isOpen={isOpenModal()}
       testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalInfo(""))}
-      confirmAction={() => modalRef.current?.closeModal()}
+      confirmAction={() =>
+        isProtected ? activeProtection() : modalRef.current?.closeModal()
+      }
       header={{
-        title: `Valor ${types[common.modalInfo]}`,
+        title:
+          common.modalInfo == "loginSupported"
+            ? "Informação de Proteção"
+            : `Valor ${types[common.modalInfo]}`,
         icon: renderModalIcon(common.modalInfo),
       }}
       cancelButton={{
@@ -146,7 +220,7 @@ export default function ModalInfo(props: Props) {
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
-      <View className="mb-6 px-2 pt-0">
+      <View className="mb-6 px-2 pt-4">
         {renderModalContent(common.modalInfo)}
       </View>
     </Modal>

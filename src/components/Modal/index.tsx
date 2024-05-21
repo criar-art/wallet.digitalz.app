@@ -152,7 +152,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
       >
         <TouchableWithoutFeedback onPress={undefined}>
           <Animated.View
-            className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl ${
+            className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl max-h-screen ${
               landscape ? "w-1/2" : "w-full"
             }`}
             accessibilityViewIsModal
