@@ -55,7 +55,7 @@ export const renderBorderType = (type: string): string => {
 export const renderColorType = (type: string, colorScheme: string): string => {
   switch (type) {
     case "home":
-      return "#ddd";
+      return colorScheme === "dark" ? "#111" : "#ddd";
     case "liquid":
       return "rgb(250 204 21)";
     case "patrimony":
