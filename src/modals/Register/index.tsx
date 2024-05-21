@@ -18,10 +18,12 @@ import { formatDate } from "../../utils";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
 import {
-  setModalRegister,
   setRegister,
   setEditRegister,
 } from "../../store/commonSlice";
+import {
+  setModalRegister
+} from "../../store/modalsSlice";
 import Select from "../../components/Select";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
 import { formatDateString } from "../../utils";
@@ -34,14 +36,15 @@ export default function ModalRegister(props: Props) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const modals = useAppSelector((state: RootState) => state.modalsState);
   const [date, setDate] = useState<Date>(new Date());
   const [showDate, setShowDate] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);
-  const isEditing = (): boolean => common.modalRegister === "edit";
+  const isEditing = (): boolean => modals.modalRegister === "edit";
   const isOpenModal = (): boolean =>
-    ["register", "edit"].includes(common.modalRegister);
+    ["register", "edit"].includes(modals.modalRegister);
 
   const handleChange = (value: string | boolean, name: string) => {
     if (name !== "pay") {
@@ -95,7 +98,7 @@ export default function ModalRegister(props: Props) {
       setDate(new Date());
       setInputValue("");
     }
-  }, [common.modalRegister]);
+  }, [modals.modalRegister]);
 
   return (
     <Modal
@@ -114,7 +117,7 @@ export default function ModalRegister(props: Props) {
         icon: (
           <MaterialCommunityIcons
             name={
-              common.modalRegister === "edit"
+              modals.modalRegister === "edit"
                 ? "note-edit-outline"
                 : "note-plus-outline"
             }

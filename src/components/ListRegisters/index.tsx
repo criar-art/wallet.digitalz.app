@@ -6,13 +6,12 @@ import EmptyRegisters from "./Empty";
 import useOrientation from "../../hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
+import { setEditRegister, setRegisterData } from "../../store/commonSlice";
 import {
   setModalRegister,
   setModalDelete,
-  setRegisterData,
   setModalInfo,
-  setEditRegister,
-} from "../../store/commonSlice";
+} from "../../store/modalsSlice";
 import { Props } from "./types";
 
 export default function ListRegisters(props: Props) {

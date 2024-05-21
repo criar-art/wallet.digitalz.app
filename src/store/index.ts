@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import * as SecureStore from "expo-secure-store";
 import commonSlice from "./commonSlice";
 import userSlice from "./userSlice";
+import modalsSlice from "./modalsSlice";
 
 function createSecureStorage(options: any = {}) {
   const replaceCharacter = options.replaceCharacter || "_";
@@ -30,6 +31,7 @@ const persistConfig = {
 export const rootReducers = combineReducers({
   commonState: commonSlice,
   userState: userSlice,
+  modalsState: modalsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

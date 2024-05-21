@@ -17,7 +17,7 @@ import {
 import { useBalance } from "../../../hooks/useBalance";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { RootState } from "../../../store";
-import { setModalInfo } from "../../../store/commonSlice";
+import { setModalInfo } from "../../../store/modalsSlice";
 import { Props } from "./types";
 import useOrientation from "../../../hooks/useOrientation";
 

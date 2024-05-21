@@ -3,7 +3,7 @@ import { Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store";
-import { setModalInfo } from "../../store/commonSlice";
+import { setModalInfo } from "../../store/modalsSlice";
 import { setIsProtected } from "../../store/userSlice";
 import { ModalHandle } from "../../components/Modal/types";
 import { types } from "../../utils";
@@ -14,7 +14,7 @@ import useAuthentication from "../../hooks/useAuthentication";
 export default function ModalInfo(props: Props) {
   const { isEnrolled, isSupported, protection } = useAuthentication();
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const modals = useAppSelector((state: RootState) => state.modalsState);
   const { isProtected } = useAppSelector((state: RootState) => state.userState);
   const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
@@ -25,7 +25,7 @@ export default function ModalInfo(props: Props) {
       "expense",
       "investiment",
       "loginSupported",
-    ].includes(common.modalInfo);
+    ].includes(modals.modalInfo);
 
   const handleProtected = (value: any) => {
     dispatch(setIsProtected(value));
@@ -206,10 +206,10 @@ export default function ModalInfo(props: Props) {
       }
       header={{
         title:
-          common.modalInfo == "loginSupported"
+          modals.modalInfo == "loginSupported"
             ? "Informação de Proteção"
-            : `Valor ${types[common.modalInfo]}`,
-        icon: renderModalIcon(common.modalInfo),
+            : `Valor ${types[modals.modalInfo]}`,
+        icon: renderModalIcon(modals.modalInfo),
       }}
       cancelButton={{
         hidden: true,
@@ -221,7 +221,7 @@ export default function ModalInfo(props: Props) {
       }}
     >
       <View className="mb-6 px-2 pt-4">
-        {renderModalContent(common.modalInfo)}
+        {renderModalContent(modals.modalInfo)}
       </View>
     </Modal>
   );

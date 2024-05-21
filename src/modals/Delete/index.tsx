@@ -3,7 +3,8 @@ import { Animated, Easing, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { setModalDelete, setRegister } from "../../store/commonSlice";
+import { setRegister } from "../../store/commonSlice";
+import { setModalDelete } from "../../store/modalsSlice";
 import { RootState } from "../../store";
 import Modal from "../../components/Modal";
 import { Props } from "./types";
@@ -14,16 +15,17 @@ export default function ModalDelete(props: Props) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const modals = useAppSelector((state: RootState) => state.modalsState);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(0)).current;
-  const isOpenModal = (): boolean => Boolean(common.modalDelete);
+  const isOpenModal = (): boolean => Boolean(modals.modalDelete);
   const shakeInterpolate = shakeAnimation.interpolate({
     inputRange: [-1, 1],
     outputRange: ["-5deg", "5deg"],
   });
 
   useEffect(() => {
-    if (common.modalDelete) {
+    if (modals.modalDelete) {
       Animated.spring(scaleAnimation, {
         toValue: 1,
         friction: 5,
@@ -34,11 +36,11 @@ export default function ModalDelete(props: Props) {
     return () => {
       scaleAnimation.setValue(0);
     };
-  }, [common.modalDelete, scaleAnimation]);
+  }, [modals.modalDelete, scaleAnimation]);
 
   const confirmModal = () => {
     const filter = common.registers.filter(
-      ({ id }) => id !== common.modalDelete
+      ({ id }) => id !== modals.modalDelete
     );
     dispatch(setRegister(filter));
 

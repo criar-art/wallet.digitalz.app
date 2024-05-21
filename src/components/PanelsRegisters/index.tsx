@@ -5,7 +5,7 @@ import FadeView from "../FadeView";
 import ItemList from "./Item";
 import { Props } from "./types";
 import TotalCategory from "../TotalCategory";
-import { setModalInfo } from "../../store/commonSlice";
+import { setModalInfo } from "../../store/modalsSlice";
 import { useAppDispatch } from "../../store/hooks";
 
 export default function PanelsRegisters(props: Props) {
