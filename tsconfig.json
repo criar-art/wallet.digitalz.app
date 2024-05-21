@@ -1,7 +1,19 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@store": ["store/index"],
+      "@store/*": ["store/*"],
+      "@hooks/*": ["hooks/*"],
+      "@routes": ["routes/index"],
+      "@modals": ["modals/index"],
+      "@pages": ["pages/index"],
+      "@utils": ["utils/index"],
+      "@root/*": ["../*"]
+    }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"
 }
