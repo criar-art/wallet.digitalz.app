@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import Select from "./index";
+import InputSelect from "./index";
 
 const dataType = [
   { label: "Investimento", value: "investiment" },
@@ -8,9 +8,9 @@ const dataType = [
   { label: "Veículo", value: "vehicle" },
 ];
 
-test("should render Select", () => {
+test("should render InputSelect", () => {
   const { getByTestId } = render(
-    <Select
+    <InputSelect
       error={false}
       data={dataType}
       maxHeight={300}

@@ -1,40 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Keyboard,
-  Pressable,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Keyboard, Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
 import uuid from "react-native-uuid";
-import { useColorScheme } from "nativewind";
-import { NumericFormat } from "react-number-format";
-import { formatDate } from "@utils";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
 import { setRegister, setEditRegister } from "@store/commonSlice";
 import { setModalRegister } from "@store/modalsSlice";
-import Select from "@components/Select";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
-import { formatDateString } from "@utils";
 import Modal from "@components/Modal";
 import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
 
+// @todo verificar porque não esta reconhecendo className com alias
+import InputSelect from "../../components/Form/inputSelect";
+import Input from "../../components/Form/InputText";
+import InputMoney from "../../components/Form/InputMoney";
+import InputDate from "../../components/Form/InputDate";
+
 export default function ModalRegister(props: Props) {
   const modalRef = useRef<ModalHandle>(null);
-  const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const modals = useAppSelector((state: RootState) => state.modalsState);
-  const [date, setDate] = useState<Date>(new Date());
-  const [showDate, setShowDate] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);
   const isEditing = (): boolean => modals.modalRegister === "edit";
@@ -46,14 +34,6 @@ export default function ModalRegister(props: Props) {
       setFormError((prevState) => ({ ...prevState, [name]: !value }));
     }
     setFormModal((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const onChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (date) {
-      setShowDate(false);
-      setDate(date);
-      handleChange(formatDateString(date), "date");
-    }
   };
 
   const closeModal = () => {
@@ -84,14 +64,12 @@ export default function ModalRegister(props: Props) {
 
   useEffect(() => {
     if (isEditing()) {
-      setDate(formatDate(common.registerData.date));
       setFormModal({ ...common.registerData });
-      setInputValue(common.registerData.value);
+      setInputMoney(common.registerData.value);
     } else {
       setFormModal(intitialForm);
       setFormError(initialFormError);
-      setDate(new Date());
-      setInputValue("");
+      setInputMoney("");
     }
   }, [modals.modalRegister]);
 
@@ -128,95 +106,43 @@ export default function ModalRegister(props: Props) {
       }}
     >
       <View className="flex flex-row mb-3 mt-3">
-        <View className="flex-1 mr-2">
-          <Text className="text-black dark:text-white mb-1 text-base">
-            Data
-          </Text>
-          <Pressable
-            onPress={() => setShowDate(true)}
-            className="flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500"
-            accessibilityLabel="Data do registro"
-            accessibilityRole="button"
-          >
-            <MaterialIcons
-              name="calendar-month"
-              size={25}
-              color={colorScheme === "dark" ? "white" : "black"}
-            />
-            <Text className="text-base ml-2 text-black dark:text-white">
-              {formModal.date}
-            </Text>
-          </Pressable>
-          {showDate && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode="date"
-              is24Hour={true}
-              onChange={onChange}
-            />
-          )}
-        </View>
-        <View className="flex-1 ml-2">
-          <Text className="text-black dark:text-white mb-1 text-base">
-            Tipo
-          </Text>
-          <Select
-            data={dataType}
-            maxHeight={300}
-            placeholder="Selecionar"
-            value={formModal.type}
-            handleChangeObject="type"
-            onChange={handleChange}
-            error={formError.type}
-          />
-        </View>
+        <InputDate
+          className="flex-1 mr-2"
+          label="Data"
+          value={formModal.date}
+          accessibilityLabel="Data do registro"
+          onChangeDate={handleChange}
+        />
+        <InputSelect
+          className="flex-1 mr-2"
+          label="Tipo"
+          data={dataType}
+          maxHeight={300}
+          placeholder="Selecionar"
+          value={formModal.type}
+          handleChangeObject="type"
+          onChange={handleChange}
+          error={formError.type}
+        />
       </View>
       <View className="flex flex-row mb-6">
-        <View className="flex-1 mr-2">
-          <Text className="text-black dark:text-white mb-1 text-base">
-            Nome
-          </Text>
-          <TextInput
-            accessibilityLabel="Nome do registro"
-            className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
-              !!formError.name && "border-red-500"
-            }`}
-            onChangeText={(value: string) => handleChange(value, "name")}
-            value={formModal.name}
-          />
-        </View>
-        <View className="flex-1 ml-2">
-          <Text className="text-black dark:text-white mb-1 text-base">
-            Valor
-          </Text>
-          <NumericFormat
-            value={inputValue}
-            displayType={"text"}
-            thousandSeparator={"."}
-            decimalSeparator={","}
-            decimalScale={2}
-            prefix={"R$ "}
-            onValueChange={(values) => handleChange(values.value, "value")}
-            renderText={(value) => {
-              return (
-                <TextInput
-                  accessibilityLabel="Valor do registro"
-                  className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
-                    !!formError.value && "border-red-500"
-                  }`}
-                  placeholder="R$"
-                  onChangeText={(value: string) => setInputValue(value)}
-                  value={value}
-                  keyboardType="phone-pad"
-                  placeholderTextColor={
-                    colorScheme === "dark" ? "white" : "black"
-                  }
-                />
-              );
-            }}
-          />
-        </View>
+        <Input
+          className="flex-1 mr-2"
+          label="Nome"
+          accessibilityLabel="Nome do registro"
+          onChangeText={(value: string) => handleChange(value, "name")}
+          value={formModal.name}
+          error={!formError.name}
+        />
+        <InputMoney
+          className="flex-1 ml-2"
+          label="Valor"
+          accessibilityLabel="Valor do registro"
+          value={inputMoney}
+          onValueChange={(values: any) => handleChange(values.value, "value")}
+          onChangeText={(value: string) => setInputMoney(value)}
+          error={!!formError.value}
+        />
       </View>
       {formModal.type === "expense" && (
         <View className="flex flex-row items-center justify-center mb-6">
