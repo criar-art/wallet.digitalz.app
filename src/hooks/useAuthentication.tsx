@@ -8,11 +8,10 @@ import { setEyeStatus } from "@store/commonSlice";
 import { setModalInfo } from "@store/modalsSlice";
 import { RootState } from "@store";
 
-
 const useAuthentication = (navigate?: any) => {
   const dispatch = useAppDispatch();
   const { isLogin, isProtected } = useAppSelector(
-    (state: RootState) => state.userState
+    (state: RootState) => state.userState || { isLogin: false, isProtected: false }
   );
   const [isSupported, setIsSupported] = useState<boolean | null>(null);
   const [isEnrolled, setIsEnrolled] = useState<boolean | null>(null);
