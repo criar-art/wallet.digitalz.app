@@ -11,6 +11,8 @@ const dataType = [
 test("should render InputSelect", () => {
   const { getByTestId } = render(
     <InputSelect
+      testID="select-container"
+      label="Test select"
       error={false}
       data={dataType}
       maxHeight={300}
