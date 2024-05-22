@@ -122,7 +122,7 @@ export default function ModalRegister(props: Props) {
           value={formModal.type}
           handleChangeObject="type"
           onChange={handleChange}
-          error={formError.type}
+          error={!!formError.type}
         />
       </View>
       <View className="flex flex-row mb-6">
@@ -132,7 +132,7 @@ export default function ModalRegister(props: Props) {
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
-          error={!formError.name}
+          error={!!formError.name}
         />
         <InputMoney
           className="flex-1 ml-2"
