@@ -15,7 +15,7 @@ export default function ModalInfo(props: Props) {
   const { isEnrolled, isSupported, protection } = useAuthentication();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
-  const { isProtected } = useAppSelector((state: RootState) => state.userState);
+  const { isProtected } = useAppSelector((state: RootState ) => state.userState || { isProtected: false });
   const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
     [
@@ -25,7 +25,7 @@ export default function ModalInfo(props: Props) {
       "expense",
       "investiment",
       "loginSupported",
-    ].includes(modals.modalInfo);
+    ].includes(modals?.modalInfo);
 
   const handleProtected = (value: any) => {
     dispatch(setIsProtected(value));
@@ -208,16 +208,16 @@ export default function ModalInfo(props: Props) {
       testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalInfo(""))}
       confirmAction={() =>
-        isProtected && modals.modalInfo == "loginSupported"
+        isProtected && modals?.modalInfo == "loginSupported"
           ? activeProtection()
           : modalRef.current?.closeModal()
       }
       header={{
         title:
-          modals.modalInfo == "loginSupported"
+          modals?.modalInfo == "loginSupported"
             ? "Informação de Proteção"
-            : `Valor ${types[modals.modalInfo]}`,
-        icon: renderModalIcon(modals.modalInfo),
+            : `Valor ${types[modals?.modalInfo]}`,
+        icon: renderModalIcon(modals?.modalInfo),
       }}
       cancelButton={{
         hidden: true,
@@ -229,7 +229,7 @@ export default function ModalInfo(props: Props) {
       }}
     >
       <View className="mb-6 px-2 pt-4">
-        {renderModalContent(modals.modalInfo)}
+        {renderModalContent(modals?.modalInfo)}
       </View>
     </Modal>
   );
