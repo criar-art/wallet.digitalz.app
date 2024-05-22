@@ -1,5 +1,6 @@
 import { View, ScrollView } from "react-native";
 import useOrientation from "@hooks/useOrientation";
+import useIsTablet from "@hooks/useIsTablet";
 import { useBalance } from "@hooks/useBalance";
 import FadeView from "@components/FadeView";
 import ItemList from "@components/PanelsRegisters/Item";
@@ -11,6 +12,7 @@ import { Props } from "./types";
 export default function PanelsRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
   const { getTotal, getLiquid } = useBalance();
 
   const listData = [
@@ -24,7 +26,7 @@ export default function PanelsRegisters(props: Props) {
     <FadeView testID={props.testID ? props.testID : "panels-registers"}>
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: landscape ? 80 : 20,
+          paddingBottom: landscape || isTablet ? 80 : 20,
         }}
       >
         <View>
@@ -37,8 +39,8 @@ export default function PanelsRegisters(props: Props) {
           <View
             className="flex flex-row flex-wrap justify-center pt-1"
             style={{
-              paddingLeft: landscape ? 15 : 0,
-              paddingRight: landscape ? 15 : 0,
+              paddingLeft: landscape || isTablet ? 15 : 0,
+              paddingRight: landscape || isTablet ? 15 : 0,
             }}
           >
             {listData.map(
@@ -46,7 +48,9 @@ export default function PanelsRegisters(props: Props) {
                 item.isVisible && (
                   <View
                     key={item.type}
-                    className={`text-center ${landscape ? "w-1/2" : " w-full"}`}
+                    className={`text-center ${
+                      landscape || isTablet ? "w-1/2" : " w-full"
+                    }`}
                   >
                     <ItemList type={item.type} value={item.value} />
                   </View>

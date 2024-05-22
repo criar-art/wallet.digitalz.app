@@ -13,8 +13,10 @@ import { Props, ModalHandle } from "./types";
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
 import Button from "../Button";
+import useIsTablet from "@hooks/useIsTablet";
 
 function Modal(props: Props, ref: React.Ref<ModalHandle>) {
+  const isTablet = useIsTablet();
   const { landscape } = useOrientation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [shakeAnimation] = useState(new Animated.Value(0));
@@ -132,7 +134,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
       >
         <Animated.View
           className={`bg-white dark:bg-zinc-900 p-4 rounded-lg flex flex-col items-center ${
-            landscape ? "w-1/2" : ""
+            landscape || isTablet ? "w-1/2" : ""
           }`}
           style={{ transform: [{ scale: scaleAnim }] }}
           accessibilityViewIsModal
@@ -156,7 +158,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
         <TouchableWithoutFeedback onPress={undefined}>
           <Animated.View
             className={`bg-white dark:bg-zinc-900 p-5 rounded-t-3xl max-h-screen ${
-              landscape ? "w-1/2" : "w-full"
+              landscape || isTablet ? "w-1/2" : "w-full"
             }`}
             accessibilityViewIsModal
             style={{

@@ -15,6 +15,7 @@ import {
   parseMoney,
 } from "@utils";
 import { useBalance } from "@hooks/useBalance";
+import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
@@ -23,6 +24,7 @@ import { Props } from "./types";
 
 export default function ItemList(props: Props) {
   const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -41,7 +43,7 @@ export default function ItemList(props: Props) {
         props.type
       )} ${
         props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
-      } ${landscape ? "mx-3" : "mx-5"}`}
+      } ${landscape || isTablet ? "mx-3" : "mx-5"}`}
     >
       <NumericFormat
         value={props.value}

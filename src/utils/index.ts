@@ -1,13 +1,8 @@
-import {
-  parse,
-  isBefore,
-  format,
-  isToday,
-  isTomorrow,
-} from "date-fns";
+import { parse, isBefore, format, isToday, isTomorrow } from "date-fns";
 
 export const formatDate = (date: string): Date => {
   const parsedDate = parse(date, "dd/MM/yyyy", new Date());
+
   if (isNaN(parsedDate.getTime())) {
     throw new Error("Invalid date format");
   }

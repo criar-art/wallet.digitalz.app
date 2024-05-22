@@ -22,6 +22,7 @@ import useOrientation from "@hooks/useOrientation";
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
 import Button from "../../Button";
+import useIsTablet from "@hooks/useIsTablet";
 
 export const renderBadge = (type: string, date: string, isPaid: boolean) => {
   let badgeText = "";
@@ -57,6 +58,7 @@ export const renderBadge = (type: string, date: string, isPaid: boolean) => {
 export default function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
   const isFocused = useIsFocused();
   const [optionsShow, setOptionsShow] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -87,7 +89,7 @@ export default function ItemList(props: Props) {
         props.item.type,
         props.item.date,
         props.item.pay
-      )} ${landscape ? "mx-3" : "mx-5"}`}
+      )} ${landscape || isTablet ? "mx-3" : "mx-5"}`}
     >
       {renderBadge(props.item.type, props.item.date, props.item.pay)}
       <Text className="text-black dark:text-white text-xl mb-1">
