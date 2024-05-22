@@ -12,8 +12,8 @@ import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
 
 // @todo verificar porque não esta reconhecendo className com alias
-import InputSelect from "../../components/Form/inputSelect";
-import Input from "../../components/Form/InputText";
+import InputSelect from "../../components/Form/InputSelect";
+import InputText from "../../components/Form/InputText";
 import InputMoney from "../../components/Form/InputMoney";
 import InputDate from "../../components/Form/InputDate";
 
@@ -114,7 +114,7 @@ export default function ModalRegister(props: Props) {
           onChangeDate={handleChange}
         />
         <InputSelect
-          className="flex-1 mr-2"
+          className="flex-1 ml-2"
           label="Tipo"
           data={dataType}
           maxHeight={300}
@@ -126,7 +126,7 @@ export default function ModalRegister(props: Props) {
         />
       </View>
       <View className="flex flex-row mb-6">
-        <Input
+        <InputText
           className="flex-1 mr-2"
           label="Nome"
           accessibilityLabel="Nome do registro"
