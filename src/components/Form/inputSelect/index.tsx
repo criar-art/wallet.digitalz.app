@@ -3,7 +3,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useColorScheme } from "nativewind";
 import { Props } from "./types";
 
-export default function Select(props: any) {
+export default function Select(props: Props) {
   const { colorScheme } = useColorScheme();
 
   return (

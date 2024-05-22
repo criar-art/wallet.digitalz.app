@@ -25,9 +25,9 @@ export default function ModalRegister(props: Props) {
   const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);
-  const isEditing = (): boolean => modals.modalRegister === "edit";
+  const isEditing = (): boolean => modals?.modalRegister === "edit";
   const isOpenModal = (): boolean =>
-    ["register", "edit"].includes(modals.modalRegister);
+    ["register", "edit"].includes(modals?.modalRegister);
 
   const handleChange = (value: string | boolean, name: string) => {
     if (name !== "pay") {
@@ -71,7 +71,7 @@ export default function ModalRegister(props: Props) {
       setFormError(initialFormError);
       setInputMoney("");
     }
-  }, [modals.modalRegister]);
+  }, [modals?.modalRegister]);
 
   return (
     <Modal
@@ -90,7 +90,7 @@ export default function ModalRegister(props: Props) {
         icon: (
           <MaterialCommunityIcons
             name={
-              modals.modalRegister === "edit"
+              modals?.modalRegister === "edit"
                 ? "note-edit-outline"
                 : "note-plus-outline"
             }

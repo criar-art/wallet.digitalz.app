@@ -1,6 +1,7 @@
 export type Props = {
   testID?: string;
   className?: string;
+  label: string;
   placeholder: string;
   handleChangeObject?: string;
   maxHeight: number;
