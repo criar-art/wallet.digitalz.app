@@ -8,8 +8,10 @@ import { format } from "date-fns";
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
 import Button from "../../components/Button";
+import useOrientation from "@hooks/useOrientation";
 
 const LoginScreen = ({ navigation }: any) => {
+  const { landscape } = useOrientation();
   const auth = useAuthentication(navigation.navigate);
   const translateX = new Animated.Value(0);
 
@@ -69,17 +71,33 @@ const LoginScreen = ({ navigation }: any) => {
       >
         <View className="flex flex-col">
           {(auth.isLogin || !auth.isProtected) && (
-            <>
-              <Text className="text-white font-black text-2xl text-center mb-10">
+            <View
+              className={`flex " ${
+                landscape ? "flex-row justify-center items-center" : "flex-col"
+              }`}
+            >
+              <Text
+                className={`text-white font-black text-2xl text-center ${
+                  landscape ? "mb-2" : "mb-10"
+                }`}
+              >
                 Wallet Digitalz
               </Text>
-              <Text className="text-green-400 font-black text-3xl text-center mb-2 -mt-8">
+              <Text
+                className={`text-green-400 font-black text-3xl text-center mb-2  ${
+                  landscape ? "ml-4" : "-mt-8"
+                }`}
+              >
                 {format(new Date(), "yyyy")}
               </Text>
-            </>
+            </View>
           )}
 
-          <View className="flex flex-col flex-nowrap justify-center">
+          <View
+            className={`flex flex-nowrap justify-center" ${
+              landscape ? "flex-row" : "flex-col"
+            }`}
+          >
             {(!auth.isProtected || auth.isLogin) && (
               <Button
                 className={`p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2`}
@@ -113,7 +131,9 @@ const LoginScreen = ({ navigation }: any) => {
             {auth.isLogin && (
               <>
                 <Button
-                  className={`p-4 px-6 my-2 rounded-full bg-green-600 border-white/10 border-2`}
+                  className={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2 my-2 ${
+                    landscape ? "mx-2 " : ""
+                  }`}
                   textColor="text-lg text-white"
                   text="Proteção"
                   label="Mostrar informações de proteção"
@@ -128,7 +148,9 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {auth.isProtected && (
                   <Button
-                    className={`p-4 px-6 my-2 rounded-full bg-red-600 border-white/10 border-2`}
+                    className={`p-4 px-6 rounded-full bg-red-600 border-white/10 border-2 my-2 ${
+                      landscape ? "mx-2 my-2" : ""
+                    }`}
                     textColor="text-lg text-white"
                     text="Sair"
                     label="Faça logout"
