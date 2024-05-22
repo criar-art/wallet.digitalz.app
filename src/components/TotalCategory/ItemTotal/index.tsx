@@ -54,7 +54,7 @@ export default function ItemTotal(props: Props) {
       testID={props.testID}
       className={`flex flex-row items-center ${renderBorderType(props.type)} ${
         landscape
-          ? "justify-end mr-20 pr-[75] border-r-2 border-gray-100 dark:border-zinc-700"
+          ? "justify-end pr-[70] border-r-2 border-gray-100 dark:border-zinc-700"
           : "justify-center px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
       }`}
     >

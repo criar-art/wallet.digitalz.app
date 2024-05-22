@@ -32,7 +32,7 @@ export default function AppDrawerHeader(props: Props) {
           <TotalCategory
             onPress={() => dispatch(setModalInfo(props.category))}
             type={String(props.category)}
-            className={"top-[10] absolute"}
+            className={"top-[10] right-[75] absolute"}
           />
         )}
         <TouchableOpacity
