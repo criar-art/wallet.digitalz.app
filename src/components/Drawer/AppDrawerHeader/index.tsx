@@ -7,8 +7,10 @@ import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { setEyeStatus } from "@store/commonSlice";
 import { setModalInfo } from "@store/modalsSlice";
 import { RootState } from "@store";
-import TotalCategory from "@components/TotalCategory";
 import { useNavigation } from "@react-navigation/native";
+
+// @todo analisar porque não esta importando className com alias
+import TotalCategory from "../../TotalCategory";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
@@ -28,9 +30,9 @@ export default function AppDrawerHeader(props: Props) {
       <>
         {landscape && (
           <TotalCategory
-            className="top-[20] absolute"
             onPress={() => dispatch(setModalInfo(props.category))}
             type={String(props.category)}
+            className={"top-[10] absolute"}
           />
         )}
         <TouchableOpacity
@@ -55,12 +57,15 @@ export default function AppDrawerHeader(props: Props) {
       <TouchableOpacity
         testID={props.testID}
         className="p-4 mr-4 rounded-full"
-        onPress={
-          () => store.isLogin ? navigation.goBack() : navigation.navigate("Login")
+        onPress={() =>
+          store.isLogin ? navigation.goBack() : navigation.navigate("Login")
         }
         accessibilityLabel="Voltar página"
       >
-        <MaterialIcons name={store.isLogin ? "close" : "lock"} {...iconConfig} />
+        <MaterialIcons
+          name={store.isLogin ? "close" : "lock"}
+          {...iconConfig}
+        />
       </TouchableOpacity>
     );
   }
