@@ -16,8 +16,12 @@ import InputSelect from "../../components/Form/InputSelect";
 import InputText from "../../components/Form/InputText";
 import InputMoney from "../../components/Form/InputMoney";
 import InputDate from "../../components/Form/InputDate";
+import { useNavigationState } from "@react-navigation/native";
 
 export default function ModalRegister(props: Props) {
+  const indexTab = useNavigationState(
+    (state) => state?.routes[0]?.state?.index
+  );
   const modalRef = useRef<ModalHandle>(null);
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -30,10 +34,9 @@ export default function ModalRegister(props: Props) {
     ["register", "edit"].includes(modals?.modalRegister);
 
   const handleChange = (value: string | boolean, name: string) => {
-    if (name !== "pay") {
-      setFormError((prevState) => ({ ...prevState, [name]: !value }));
-    }
     setFormModal((prevState) => ({ ...prevState, [name]: value }));
+    if (name !== "pay")
+      setFormError((prevState) => ({ ...prevState, [name]: !value }));
   };
 
   const closeModal = () => {
@@ -67,7 +70,11 @@ export default function ModalRegister(props: Props) {
       setFormModal({ ...common.registerData });
       setInputMoney(common.registerData.value);
     } else {
-      setFormModal(intitialForm);
+      if (indexTab) {
+        setFormModal({ ...intitialForm, type: dataType[indexTab - 1].value });
+      } else {
+        setFormModal(intitialForm);
+      }
       setFormError(initialFormError);
       setInputMoney("");
     }

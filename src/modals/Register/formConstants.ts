@@ -15,8 +15,8 @@ export const initialFormError = {
 };
 
 export const dataType = [
-  { label: "Investimento", value: "investiment" },
-  { label: "Entrada", value: "entry" },
   { label: "Despesa", value: "expense" },
+  { label: "Entrada", value: "entry" },
+  { label: "Investimento", value: "investiment" },
   // { label: "Veículo", value: "vehicle" },
 ];
