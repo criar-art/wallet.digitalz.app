@@ -1,4 +1,5 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
+import { compareDesc, parse } from "date-fns";
 import FadeView from "@components/FadeView";
 import ItemList from "@components/ListRegisters/Item";
 import TotalCategory from "@components/TotalCategory";
@@ -6,15 +7,14 @@ import EmptyRegisters from "@components/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { RootState } from "@store";
 import { setEditRegister, setRegisterData } from "@store/commonSlice";
+import { RootState } from "@store";
 import {
   setModalRegister,
   setModalDelete,
   setModalInfo,
 } from "@store/modalsSlice";
 import { Props } from "./types";
-import { compareDesc, parse } from "date-fns";
 
 export default function ListRegisters(props: Props) {
   const { orientation, landscape, portrait } = useOrientation();
@@ -57,8 +57,8 @@ export default function ListRegisters(props: Props) {
   const filteredAndSortedData = common.registers
     .filter((item) => item.type === props.type)
     .sort((a, b) => {
-      const dateA = parse(a.date, 'dd/MM/yyyy', new Date());
-      const dateB = parse(b.date, 'dd/MM/yyyy', new Date());
+      const dateA = parse(a.date, "dd/MM/yyyy", new Date());
+      const dateB = parse(b.date, "dd/MM/yyyy", new Date());
       return compareDesc(dateA, dateB);
     });
 

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Switch, Text, View, Linking } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useColorScheme } from "nativewind";
 import useAuthentication from "@hooks/useAuthentication";
 import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
@@ -16,6 +17,7 @@ import Button from "../../components/Button";
 
 export default function ModalInfo(props: Props) {
   const { protection } = useAuthentication();
+  const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const { isProtected } = useAppSelector((state: RootState) => state.userState);
@@ -154,12 +156,18 @@ export default function ModalInfo(props: Props) {
           </Text>
         </View>
         <Button
-          className="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full"
+          className="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full dark:bg-zinc-700"
           textColor="text-black dark:text-white ml-1"
           text="Abrir configurações"
           label="Abrir configurações de bloqueio"
           onPress={() => Linking.sendIntent("android.settings.SETTINGS")}
-          icon={<MaterialIcons name="settings" size={30} color="#000" />}
+          icon={
+            <MaterialIcons
+              name="settings"
+              size={30}
+              color={colorScheme === "dark" ? "#fff" : "#000"}
+            />
+          }
         />
       </>
     ),
