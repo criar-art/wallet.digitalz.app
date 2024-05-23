@@ -14,6 +14,7 @@ import {
   setModalInfo,
 } from "@store/modalsSlice";
 import { Props } from "./types";
+import { compareDesc, parse } from "date-fns";
 
 export default function ListRegisters(props: Props) {
   const { orientation, landscape, portrait } = useOrientation();
@@ -53,12 +54,20 @@ export default function ListRegisters(props: Props) {
         }
       : null;
 
+  const filteredAndSortedData = common.registers
+    .filter((item) => item.type === props.type)
+    .sort((a, b) => {
+      const dateA = parse(a.date, 'dd/MM/yyyy', new Date());
+      const dateB = parse(b.date, 'dd/MM/yyyy', new Date());
+      return compareDesc(dateA, dateB);
+    });
+
   return (
     <FadeView testID="list-register">
       {common.registers.filter((item: any) => item.type == props.type)
         .length ? (
         <FlatList
-          data={common.registers.filter((item: any) => item.type == props.type)}
+          data={filteredAndSortedData}
           numColumns={numColumns}
           renderItem={({ item, index }: any) => {
             const isLastItem = isOdd && index === filteredData.length - 1;
