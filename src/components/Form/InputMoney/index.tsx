@@ -22,6 +22,7 @@ function InputMoney(props: Props) {
         decimalSeparator={","}
         decimalScale={2}
         prefix={"R$ "}
+        allowNegative={false}
         onValueChange={props.onValueChange}
         renderText={(formattedValue) => (
           <TextInput
