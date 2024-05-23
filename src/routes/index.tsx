@@ -6,7 +6,7 @@ import { useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
 import { RoutesTab } from "./RoutesTab";
 import Page from "@pages";
-import AppDrawer from "@components/Drawer";
+import AppDrawer from "@components/navigation/Drawer";
 
 const Drawer = createDrawerNavigator();
 

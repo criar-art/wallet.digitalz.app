@@ -6,8 +6,8 @@ import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { setRegister } from "@store/commonSlice";
 import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
-import Modal from "@components/Modal";
-import { ModalHandle } from "@components/Modal/types";
+import Modal from "@components/common/Modal";
+import { ModalHandle } from "@components/common/Modal/types";
 import { Props } from "./types";
 
 export default function ModalDelete(props: Props) {

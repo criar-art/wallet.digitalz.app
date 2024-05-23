@@ -1,9 +1,9 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { compareDesc, parse } from "date-fns";
-import FadeView from "@components/FadeView";
-import ItemList from "@components/ListRegisters/Item";
-import TotalCategory from "@components/TotalCategory";
-import EmptyRegisters from "@components/ListRegisters/Empty";
+import FadeView from "@components/animation/FadeView";
+import ItemList from "@components/common/ListRegisters/Item";
+import TotalCategory from "@components/common/TotalCategory";
+import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";

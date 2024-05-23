@@ -10,7 +10,7 @@ import { RootState } from "@store";
 import { useNavigation } from "@react-navigation/native";
 
 // @todo analisar porque não esta importando className com alias
-import TotalCategory from "../../TotalCategory";
+import TotalCategory from "../../../common/TotalCategory";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();

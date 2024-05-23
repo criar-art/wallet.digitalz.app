@@ -7,15 +7,15 @@ import { RootState } from "@store";
 import { setRegister, setEditRegister } from "@store/commonSlice";
 import { setModalRegister } from "@store/modalsSlice";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
-import Modal from "@components/Modal";
-import { ModalHandle } from "@components/Modal/types";
+import Modal from "@components/common/Modal";
+import { ModalHandle } from "@components/common/Modal/types";
 import { Props } from "./types";
 
 // @todo verificar porque não esta reconhecendo className com alias
-import InputSelect from "../../components/Form/InputSelect";
-import InputText from "../../components/Form/InputText";
-import InputMoney from "../../components/Form/InputMoney";
-import InputDate from "../../components/Form/InputDate";
+import InputSelect from "../../components/common/Form/InputSelect";
+import InputText from "../../components/common/Form/InputText";
+import InputMoney from "../../components/common/Form/InputMoney";
+import InputDate from "../../components/common/Form/InputDate";
 import { useNavigationState } from "@react-navigation/native";
 
 export default function ModalRegister(props: Props) {

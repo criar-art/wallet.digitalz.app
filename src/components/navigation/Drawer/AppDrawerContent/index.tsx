@@ -10,7 +10,7 @@ import AppDrawerButton from "../AppDrawerButton";
 
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
-import Button from "../../Button";
+import Button from "../../../common/Button";
 
 export default function AppDrawerContent({
   state,

@@ -4,7 +4,7 @@ import { useColorScheme } from "nativewind";
 import { renderColorType } from "@utils";
 import { useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
-import TabBar from "@components/TabBar";
+import TabBar from "@components/navigation/TabBar";
 import Page from "@pages";
 
 const Tab = createBottomTabNavigator();

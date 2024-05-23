@@ -8,12 +8,12 @@ import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { setIsProtected } from "@store/userSlice";
 import { types } from "@utils";
-import Modal from "@components/Modal";
-import { ModalHandle } from "@components/Modal/types";
+import Modal from "@components/common/Modal";
+import { ModalHandle } from "@components/common/Modal/types";
 import { Props } from "./types";
 
 // @todo verificar porque não esta trazendo style
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 
 export default function ModalInfo(props: Props) {
   const { protection } = useAuthentication();

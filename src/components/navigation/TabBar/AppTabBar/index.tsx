@@ -4,12 +4,12 @@ import useOrientation from "@hooks/useOrientation";
 import { setModalRegister } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
 import { getLabel } from "@utils";
-import AppTabButton from "@components/TabBar/AppTabButton";
 import { Props, Route } from "./types";
 
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
-import Button from "../../Button";
+import Button from "../../../common/Button";
+import AppTabButton from "../AppTabButton";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const { landscape } = useOrientation();

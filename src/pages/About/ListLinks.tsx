@@ -1,7 +1,7 @@
 import { Linking } from "react-native";
 import { Fontisto, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 
 export default function ListLinks() {
   const { colorScheme } = useColorScheme();

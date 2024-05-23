@@ -3,7 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Zocial } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Fontisto } from "@expo/vector-icons";
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 
 export default function ListContact() {
   const { colorScheme } = useColorScheme();
