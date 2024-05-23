@@ -152,21 +152,19 @@ export default function ModalRegister(props: Props) {
         />
       </View>
       {formModal.type === "expense" && (
-        <View className="flex flex-row items-center justify-center mb-6">
-          <View className="flex-1">
-            <Text className="text-black dark:text-white mb-1 text-base text-center">
-              Paga
-            </Text>
-            <View className="flex items-center justify-center pb-2">
-              <Switch
-                accessibilityLabel="Pagamento"
-                value={formModal.pay}
-                onValueChange={(value) => handleChange(value, "pay")}
-                trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
-                thumbColor="#f4f3f4"
-                style={{ transform: [{ scale: 1.5 }] }}
-              />
-            </View>
+        <View className="flex flex-row items-center justify-center mb-4">
+          <Text className="text-black dark:text-white mr-6 text-base text-center">
+            Paga
+          </Text>
+          <View className="flex items-center justify-center pb-2">
+            <Switch
+              accessibilityLabel="Pagamento"
+              value={formModal.pay}
+              onValueChange={(value) => handleChange(value, "pay")}
+              trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
+              thumbColor="#f4f3f4"
+              style={{ transform: [{ scale: 1.5 }] }}
+            />
           </View>
         </View>
       )}
