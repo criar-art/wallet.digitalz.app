@@ -14,7 +14,7 @@ export default function AppDrawerButton({
 }: Props) {
   const { colorScheme } = useColorScheme();
 
-  const buttonClassName = `justify-start mx-4 mb-4 p-4 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
+  const buttonClassName = `justify-start mx-4 mb-1 p-4 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
     drawerOptions?.isFocused
       ? "bg-gray-200 dark:bg-zinc-800 py-3"
       : "bg-transparent py-4"
