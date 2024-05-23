@@ -1,6 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { BackHandler, AppState } from "react-native";
-import { Linking } from 'react-native';
 import * as LocalAuthentication from "expo-local-authentication";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setIsLogin, setIsProtected } from "@store/userSlice";
@@ -11,36 +10,34 @@ import { RootState } from "@store";
 const useAuthentication = (navigate?: any) => {
   const dispatch = useAppDispatch();
   const { isLogin, isProtected } = useAppSelector(
-    (state: RootState) => state.userState || { isLogin: false, isProtected: false }
+    (state: RootState) => state.userState
   );
-  const [isSupported, setIsSupported] = useState<boolean | null>(null);
-  const [isEnrolled, setIsEnrolled] = useState<boolean | null>(null);
 
   const protection = useCallback(async () => {
     dispatch(setIsProtected(true));
     handleLogout();
-    Linking.sendIntent('android.settings.SECURITY_SETTINGS');
-  }, [dispatch]);
+  }, [isProtected, isLogin]);
 
   const protectionInformation = useCallback(
     (shouldShow: boolean = false) => {
       dispatch(setModalInfo(shouldShow ? "loginSupported" : ""));
     },
-    [dispatch]
+    [isProtected, isLogin]
   );
 
   const checkLocalAuth = useCallback(async () => {
     const supported = await LocalAuthentication.hasHardwareAsync();
-    setIsSupported(supported);
-
     const enrolled = await LocalAuthentication.isEnrolledAsync();
-    setIsEnrolled(enrolled);
 
-    protectionInformation(!supported || !enrolled || !isProtected);
-  }, [isProtected, protectionInformation]);
+    if (!isLogin) {
+      protectionInformation(!supported || !enrolled || !isProtected);
+    }
+  }, [isProtected, isLogin, protectionInformation]);
 
   const authenticate = useCallback(async () => {
-    await checkLocalAuth();
+    if (isProtected) {
+      await checkLocalAuth();
+    }
 
     const result = await LocalAuthentication.authenticateAsync({
       promptMessage: "Use seu padrão.",
@@ -57,10 +54,10 @@ const useAuthentication = (navigate?: any) => {
         }, 1000);
       }
     } else {
-      handleLogout();
+      // handleLogout();
       console.log("Padrão incorreto ou autenticação cancelada.");
     }
-  }, [checkLocalAuth, dispatch, navigate, protectionInformation]);
+  }, [isProtected, protectionInformation, checkLocalAuth]);
 
   const cancelAuthentication = useCallback(async () => {
     try {
@@ -75,20 +72,14 @@ const useAuthentication = (navigate?: any) => {
     cancelAuthentication();
     dispatch(setIsLogin(false));
     dispatch(setEyeStatus(false));
-  }, [cancelAuthentication, dispatch]);
+  }, [isLogin, isProtected]);
 
   useEffect(() => {
-    if (isProtected) {
-      authenticate();
-    } else {
-      checkLocalAuth();
-      dispatch(setIsLogin(true));
-      return;
-    }
-
     const handleAppStateChange = (nextAppState: string) => {
       if (nextAppState === "background") {
-        handleLogout();
+        if (isProtected) {
+          handleLogout();
+        }
       }
     };
 
@@ -100,17 +91,18 @@ const useAuthentication = (navigate?: any) => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
-        handleLogout();
+        if (isProtected) {
+          handleLogout();
+        }
         return false;
       }
     );
 
     return () => {
       appStateListener.remove();
-      handleLogout();
       backHandler.remove();
     };
-  }, [isProtected, authenticate, checkLocalAuth, dispatch, handleLogout]);
+  }, [isProtected, isLogin]);
 
   return {
     isLogin,
@@ -118,8 +110,6 @@ const useAuthentication = (navigate?: any) => {
     authenticate,
     protection,
     protectionInformation,
-    isSupported,
-    isEnrolled,
     handleLogout,
   };
 };
