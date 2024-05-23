@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Switch, Text, View } from "react-native";
+import { Switch, Text, View, Linking } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import useAuthentication from "@hooks/useAuthentication";
@@ -11,11 +11,14 @@ import Modal from "@components/Modal";
 import { ModalHandle } from "@components/Modal/types";
 import { Props } from "./types";
 
+// @todo verificar porque não esta trazendo style
+import Button from "../../components/Button";
+
 export default function ModalInfo(props: Props) {
-  const { isEnrolled, isSupported, protection } = useAuthentication();
+  const { protection } = useAuthentication();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
-  const { isProtected } = useAppSelector((state: RootState ) => state.userState || { isProtected: false });
+  const { isProtected } = useAppSelector((state: RootState) => state.userState);
   const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
     [
@@ -135,7 +138,7 @@ export default function ModalInfo(props: Props) {
           privadas. Se você desativar, o acesso se tornará livre, sem nenhuma
           restrição ou segurança.
         </Text>
-        <View className="flex flex-row items-center mb-2 ml-2">
+        <View className="flex flex-row items-center my-2 ml-2">
           <View className="flex items-center justify-center">
             <Switch
               accessibilityLabel="Pagamento"
@@ -150,32 +153,14 @@ export default function ModalInfo(props: Props) {
             Proteção
           </Text>
         </View>
-        <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
-          <Text
-            className={`text-sm dark:text-yellow-100 ${
-              isEnrolled ? "text-green-700 dark:text-green-200" : "dark:text-red-200"
-            }`}
-          >
-            Bloqueio de tela configurado:{" "}
-            {isEnrolled !== null
-              ? isEnrolled
-                ? "Sim"
-                : "Não"
-              : "Carregando..."}
-          </Text>
-          {isEnrolled !== null && (
-            <Text className={`text-sm dark:text-yellow-100 ${
-              isSupported ? "text-green-700 dark:text-green-200" : "dark:text-red-200"
-            }`}>
-              Suporte para autenticação local:{" "}
-              {isSupported !== null
-                ? isSupported
-                  ? "Sim"
-                  : "Não"
-                : "Carregando..."}
-            </Text>
-          )}
-        </View>
+        <Button
+          className="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full"
+          textColor="text-black dark:text-white ml-1"
+          text="Abrir configurações"
+          label="Abrir configurações de bloqueio"
+          onPress={() => Linking.sendIntent("android.settings.SETTINGS")}
+          icon={<MaterialIcons name="settings" size={30} color="#000" />}
+        />
       </>
     ),
   };
@@ -223,7 +208,7 @@ export default function ModalInfo(props: Props) {
         hidden: true,
       }}
       confirmButton={{
-        text: "Entendi",
+        text: modals?.modalInfo == "loginSupported" ? "Salvar" : "Entendi",
         label: "Ok fechar o modal de informações",
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
