@@ -220,6 +220,7 @@ export default function ModalInfo(props: Props) {
         label: "Ok fechar o modal de informações",
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
+      optional={modals?.modalInfo == "loginSupported"}
     >
       <View className="mb-6 px-2 pt-4">
         {renderModalContent(modals?.modalInfo)}

@@ -10,6 +10,7 @@ export type Props = {
   header?: any;
   alertModal?: any;
   type?: string;
+  optional?: boolean;
 }
 
 export type ModalHandle = {

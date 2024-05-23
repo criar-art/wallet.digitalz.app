@@ -148,7 +148,9 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => startShakeAnimation()}>
+    <TouchableWithoutFeedback
+      onPress={props.optional ? closeModal : () => startShakeAnimation()}
+    >
       <Animated.View
         testID={props.testID}
         className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end items-center"
