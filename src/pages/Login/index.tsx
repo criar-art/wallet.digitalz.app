@@ -7,7 +7,7 @@ import { format } from "date-fns";
 
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 import useOrientation from "@hooks/useOrientation";
 
 const LoginScreen = ({ navigation }: any) => {
@@ -100,7 +100,7 @@ const LoginScreen = ({ navigation }: any) => {
           >
             {(!auth.isProtected || auth.isLogin) && (
               <Button
-                className={`p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2`}
+                className="p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2"
                 textColor="text-lg text-white"
                 text="Ínicio"
                 label="Ir para o ínicio"
@@ -110,7 +110,9 @@ const LoginScreen = ({ navigation }: any) => {
             )}
             {!auth.isLogin && (
               <Button
-                className={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2`}
+                className={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2 ${
+                  !auth.isProtected && "m-2"
+                }`}
                 textColor="text-lg text-white"
                 text={auth.isProtected ? "Entrar" : "Proteção"}
                 label={auth.isProtected ? "Faça login" : "Faça proteção"}
@@ -149,7 +151,7 @@ const LoginScreen = ({ navigation }: any) => {
                 {auth.isProtected && (
                   <Button
                     className={`p-4 px-6 rounded-full bg-red-600 border-white/10 border-2 my-2 ${
-                      landscape ? "mx-2 my-2" : ""
+                      landscape ? "my-2" : ""
                     }`}
                     textColor="text-lg text-white"
                     text="Sair"
