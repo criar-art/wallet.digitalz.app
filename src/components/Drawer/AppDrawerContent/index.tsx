@@ -63,8 +63,8 @@ export default function AppDrawerContent({
         <View className={`flex mt-auto ${landscape ? "pb-5 px-10" : "p-10"}`}>
           <Button
             onPress={toggleColorScheme}
-            className="bg-transparent border-2 border-gray-200 dark:border-zinc-700 my-4 rounded-full py-4"
-            text="Darkmode"
+            className="bg-transparent border-0 bg-gray-200 dark:bg-zinc-800 my-4 mx-auto rounded-full p-2 pr-4"
+            text={colorScheme === "dark" ? "Dark" : "Light"}
             textColor="text-black dark:text-white"
             label="Toogle darkmode"
             icon={
