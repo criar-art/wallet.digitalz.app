@@ -1,26 +1,47 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
-import { compareDesc, parse } from "date-fns";
 import FadeView from "@components/animation/FadeView";
 import ItemList from "@components/common/ListRegisters/Item";
-import TotalCategory from "@components/common/TotalCategory";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { setEditRegister, setRegisterData } from "@store/commonSlice";
-import { RootState } from "@store";
 import {
-  setModalRegister,
-  setModalDelete,
-  setModalInfo,
-} from "@store/modalsSlice";
+  setEditRegister,
+  setRegisterData,
+  selectRegistersType,
+  setResetFilter,
+} from "@store/commonSlice";
+import { RootState } from "@store";
+import { setModalRegister, setModalDelete } from "@store/modalsSlice";
+import Header from "./Header";
 import { Props } from "./types";
+import useFilteredData from "@hooks/useFilteredData";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigationState } from "@react-navigation/native";
 
 export default function ListRegisters(props: Props) {
-  const { orientation, landscape, portrait } = useOrientation();
+  const navigationState = useNavigationState((state) => state);
+  const { orientation, landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const getRegisters = useSelector(selectRegistersType(props.type));
+  const { filteredData } = useFilteredData({
+    type: props.type,
+  });
+
+  useEffect(() => {
+    dispatch(
+      setResetFilter({
+        short: "",
+        startDate: "",
+        endDate: "",
+        searchTerm: "",
+        pay: undefined,
+      })
+    );
+  }, [navigationState]);
 
   function edit(target: any) {
     dispatch(setModalRegister("edit"));
@@ -36,10 +57,9 @@ export default function ListRegisters(props: Props) {
     dispatch(setEditRegister(updatedItem)); // Enviando o item modificado para a store
   }
 
-  const filteredData = common.registers.filter(
-    (item: any) => item.type == props.type
-  );
   const isOdd = filteredData.length % 2 !== 0;
+
+  const isNotEmpetyRegisters = () => getRegisters.length;
 
   const numColumns =
     (orientation === 1 || orientation === 2) && !isTablet ? 1 : 2;
@@ -54,20 +74,11 @@ export default function ListRegisters(props: Props) {
         }
       : null;
 
-  const filteredAndSortedData = common.registers
-    .filter((item) => item.type === props.type)
-    .sort((a, b) => {
-      const dateA = parse(a.date, "dd/MM/yyyy", new Date());
-      const dateB = parse(b.date, "dd/MM/yyyy", new Date());
-      return compareDesc(dateA, dateB);
-    });
-
   return (
     <FadeView testID="list-register">
-      {common.registers.filter((item: any) => item.type == props.type)
-        .length ? (
+      {isNotEmpetyRegisters() ? (
         <FlatList
-          data={filteredAndSortedData}
+          data={filteredData}
           numColumns={numColumns}
           renderItem={({ item, index }: any) => {
             const isLastItem = isOdd && index === filteredData.length - 1;
@@ -93,18 +104,17 @@ export default function ListRegisters(props: Props) {
           keyExtractor={(item) => item.id}
           key={orientation}
           contentContainerStyle={{
+            minHeight: 500,
             paddingBottom: landscape || isTablet ? 100 : 40,
           }}
           columnWrapperStyle={columnWrapperStyle}
-          ListHeaderComponent={() =>
-            portrait && (
-              <TotalCategory
-                type={props.type}
-                onPress={() => dispatch(setModalInfo(props.type))}
-              />
-            )
-          }
+          ListHeaderComponent={() => <Header type={props.type} />}
           stickyHeaderIndices={[0]}
+          ListEmptyComponent={
+            isNotEmpetyRegisters() ? (
+              <EmptyRegisters filtered={Boolean(filteredData.length == 0)} />
+            ) : null
+          }
         />
       ) : (
         <EmptyRegisters />
