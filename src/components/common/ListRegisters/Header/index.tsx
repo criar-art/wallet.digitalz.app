@@ -21,12 +21,12 @@ export default function Header(props: Props) {
         className="flex flex-col items-center justify-center"
       >
         <TotalCategory
-          className="w-full"
+          twClass="w-full"
           type={String(props.type)}
           onPress={() => dispatch(setModalInfo(props.type))}
         />
         <Button
-          className="bg-gray-100 dark:bg-zinc-900 p-4 pr-8 mt-4 rounded-l-full absolute right-0"
+          twClass="bg-gray-100 dark:bg-zinc-900 p-4 pr-8 mt-4 rounded-l-full absolute right-0"
           text="Filtro"
           label="Abrir modal de filtros"
           textColor="text-black dark:text-white"

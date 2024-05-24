@@ -23,7 +23,7 @@ export default function FadeView(props: Props) {
       style={{
         opacity: fadeAnim,
       }}
-      className={props.className}
+      className={props.twClass}
     >
       {props.children}
     </Animated.View>

@@ -1,12 +1,9 @@
 import { View } from "react-native";
 import { useColorScheme } from "nativewind";
-import { Props } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
-
-// @todo verificar porque não esta trazendo style
-// import Button from "@components/Button";
-import Button from "../../../common/Button";
+import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
+import { Props } from "./types";
 
 export default function AppDrawerButton({
   testID,
@@ -36,7 +33,7 @@ export default function AppDrawerButton({
       text={drawerOptions?.labelButton}
       label={`Navegar para ${drawerOptions?.labelButton}`}
       onPress={onPress}
-      className={buttonClassName}
+      twClass={buttonClassName}
       textColor="text-black dark:text-white ml-5"
       icon={
         <View className={iconClassName}>

@@ -1,10 +1,9 @@
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-// import { Props } from "./types";
-
 import Button from "@components/common/Button";
+import { Props } from "./types";
 
-export default function Actions(props: any) {
+export default function Actions(props: Props) {
   return (
     <View className="flex flex-row">
       {!props.cancelButton?.hidden && (

@@ -1,7 +1,7 @@
 export type Props = {
   testID?: string;
-  className?: string;
+  twClass?: string;
   type: string;
   time?: boolean;
   onPress?: () => void;
-}
+};

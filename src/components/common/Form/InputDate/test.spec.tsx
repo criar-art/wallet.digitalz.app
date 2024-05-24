@@ -6,7 +6,7 @@ test("should render InputDate", () => {
   const { getByTestId } = render(
     <InputDate
       testID="input-date-container"
-      className="test-class"
+      twClass="test-class"
       label="Select Date"
       value="2023-05-01"
       onChangeDate={() => {}}

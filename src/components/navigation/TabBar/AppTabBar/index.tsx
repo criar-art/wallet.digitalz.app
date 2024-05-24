@@ -4,12 +4,9 @@ import useOrientation from "@hooks/useOrientation";
 import { setModalRegister } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
 import { getLabel } from "@utils";
-import { Props, Route } from "./types";
-
-// @todo verificar porque não esta trazendo style
-// import Button from "@components/Button";
-import Button from "../../../common/Button";
+import Button from "@components/common/Button";
 import AppTabButton from "../AppTabButton";
+import { Props, Route } from "./types";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const { landscape } = useOrientation();
@@ -32,7 +29,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
           pressableButton
           label="Novo registro"
           textColor="text-white"
-          className={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[30] left-1/2 -translate-x-7`}
+          twClass={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[30] left-1/2 -translate-x-7`}
           onPress={handleNewRegister}
           icon={<MaterialIcons name="add" size={35} color="white" />}
         />

@@ -1,6 +1,6 @@
 export type Props = {
   testID?: string;
-  className?: string;
+  twClass?: string;
   label: string;
   value: string;
   accessibilityLabel?: string;

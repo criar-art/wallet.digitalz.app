@@ -16,13 +16,10 @@ import {
   renderBackgroundClass,
   isDateTomorrow,
 } from "@utils";
-import { Props } from "./types";
 import useOrientation from "@hooks/useOrientation";
-
-// @todo verificar porque não esta trazendo style
-// import Button from "@components/Button";
-import Button from "../../Button";
+import Button from "@components/common/Button";
 import useIsTablet from "@hooks/useIsTablet";
+import { Props } from "./types";
 
 export const renderBadge = (type: string, date: string, isPaid: boolean) => {
   let badgeText = "";
@@ -135,7 +132,7 @@ export default function ItemList(props: Props) {
       >
         {!props.item.pay && props.item.type == "expense" && (
           <Button
-            className="z-20 w-14 h-14 m-5 rounded-full border-2 border-green-500 dark:border-green-500 bg-white dark:bg-zinc-800"
+            twClass="z-20 w-14 h-14 m-5 rounded-full border-2 border-green-500 dark:border-green-500 bg-white dark:bg-zinc-800"
             onPress={props.handlePay}
             label={`Pagar ${props.item.name}`}
             icon={
@@ -144,7 +141,7 @@ export default function ItemList(props: Props) {
           />
         )}
         <Button
-          className="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
+          twClass="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
           onPress={props.edit}
           label={`Editar registro ${props.item.name}`}
           icon={
@@ -156,7 +153,7 @@ export default function ItemList(props: Props) {
           }
         />
         <Button
-          className="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
+          twClass="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
           onPress={props.remove}
           label={`Excluir registro ${props.item.name}`}
           icon={

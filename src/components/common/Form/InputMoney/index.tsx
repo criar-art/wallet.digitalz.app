@@ -8,7 +8,7 @@ function InputMoney(props: Props) {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View testID={props.testID} className={`flex ${props.className}`}>
+    <View testID={props.testID} className={`flex ${props.twClass}`}>
       <Text
         testID="input-money-label"
         className="text-black dark:text-white mb-1 text-base"

@@ -1,5 +1,5 @@
 export type Props = {
   testID?: string;
-  className?: string;
+  twClass?: string;
   children?: React.ReactElement | React.ReactElement[] | React.ReactNode;
-}
+};

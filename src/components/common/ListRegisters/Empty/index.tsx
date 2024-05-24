@@ -2,11 +2,9 @@ import { Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { setRegisterFilter } from "@store/commonSlice";
-import { Props } from "./types";
-
-//@todo
-import Button from "../../Button";
+import Button from "@components/common/Button";
 import { useAppDispatch } from "@store/hooks";
+import { Props } from "./types";
 
 export default function Empty(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -42,7 +40,7 @@ export default function Empty(props: Props) {
           <Button
             text="Limpar Filtro"
             label="Resetar o filtro aplicado"
-            className="mx-auto px-2 bg-red-600"
+            twClass="mx-auto px-2 bg-red-600"
             textColor="text-white ml-2"
             onPress={() =>
               dispatch(

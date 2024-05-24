@@ -38,7 +38,7 @@ export default function ListLinks() {
           textColor="text-lg text-black dark:text-white"
           onPress={() => Linking.openURL(button.url)}
           icon={<Fontisto name="world" {...iconConfig} />}
-          className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
+          twClass="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
         >
           <MaterialIcons
             name="navigate-next"

@@ -9,14 +9,12 @@ import { setModalRegister } from "@store/modalsSlice";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
-import { Props } from "./types";
-
-// @todo verificar porque não esta reconhecendo className com alias
-import InputSelect from "../../components/common/Form/InputSelect";
-import InputText from "../../components/common/Form/InputText";
-import InputMoney from "../../components/common/Form/InputMoney";
-import InputDate from "../../components/common/Form/InputDate";
+import InputSelect from "@components/common/Form/InputSelect";
+import InputText from "@components/common/Form/InputText";
+import InputMoney from "@components/common/Form/InputMoney";
+import InputDate from "@components/common/Form/InputDate";
 import { useNavigationState } from "@react-navigation/native";
+import { Props } from "./types";
 
 export default function ModalRegister(props: Props) {
   const indexTab = useNavigationState(
@@ -114,14 +112,14 @@ export default function ModalRegister(props: Props) {
     >
       <View className="flex flex-row mb-3 mt-3">
         <InputDate
-          className="flex-1 mr-2"
+          twClass="flex-1 mr-2"
           label="Data"
           value={formModal.date}
           accessibilityLabel="Data do registro"
           onChangeDate={handleChange}
         />
         <InputSelect
-          className="flex-1 ml-2"
+          twClass="flex-1 ml-2"
           label="Tipo"
           data={dataType}
           maxHeight={300}
@@ -134,7 +132,7 @@ export default function ModalRegister(props: Props) {
       </View>
       <View className="flex flex-row mb-6">
         <InputText
-          className="flex-1 mr-2"
+          twClass="flex-1 mr-2"
           label="Nome"
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
@@ -142,7 +140,7 @@ export default function ModalRegister(props: Props) {
           error={!!formError.name}
         />
         <InputMoney
-          className="flex-1 ml-2"
+          twClass="flex-1 ml-2"
           label="Valor"
           accessibilityLabel="Valor do registro"
           value={inputMoney}

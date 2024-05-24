@@ -6,14 +6,10 @@ import {
   useImperativeHandle,
 } from "react";
 import { Animated, Text, TouchableWithoutFeedback, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import useOrientation from "@hooks/useOrientation";
-import { Props, ModalHandle } from "./types";
-
-// @todo verificar porque não esta trazendo style
-// import Button from "@components/Button";
-import Button from "../Button";
 import useIsTablet from "@hooks/useIsTablet";
+import Actions from "./Actions";
+import { Props, ModalHandle } from "./types";
 
 function Modal(props: Props, ref: React.Ref<ModalHandle>) {
   const isTablet = useIsTablet();
@@ -99,43 +95,6 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
     },
   }));
 
-  const TemplateActions = (
-    <View className="flex flex-row">
-      {!props.cancelButton?.hidden && (
-        <Button
-          text={
-            props.cancelButton?.text ? props.cancelButton?.text : "Cancelar"
-          }
-          label={
-            props.cancelButton?.label
-              ? props.cancelButton?.label
-              : "Cancele essa ação"
-          }
-          className="flex-1 mr-2 p-3 bg-red-600"
-          textColor="text-white"
-          onPress={props.cancelAction ? props.cancelAction : closeModal}
-          icon={
-            props.cancelButton?.icon ? (
-              props.cancelButton?.icon
-            ) : (
-              <MaterialIcons name="close" size={28} color="white" />
-            )
-          }
-        />
-      )}
-      <Button
-        text={props.confirmButton.text}
-        label={props.confirmButton.label}
-        className={`flex-1 p-3 bg-green-600 ${
-          !props.cancelButton?.hidden ? "ml-2" : ""
-        }`}
-        textColor="text-white"
-        onPress={props.confirmAction}
-        icon={props.confirmButton.icon}
-      />
-    </View>
-  );
-
   if (props.type == "window") {
     return (
       <Animated.View
@@ -153,7 +112,13 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
           aria-hidden={!props.isOpen}
         >
           {props.children}
-          {TemplateActions}
+          <Actions
+            cancelButton={{ ...props.cancelButton }}
+            cancelAction={props.cancelAction}
+            confirmButton={{ ...props.confirmButton }}
+            confirmAction={props.confirmAction}
+            closeModal={closeModal}
+          />
         </Animated.View>
       </Animated.View>
     );
@@ -213,7 +178,13 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
               </View>
             )}
             {props.children}
-            {TemplateActions}
+            <Actions
+              cancelButton={{ ...props.cancelButton }}
+              cancelAction={props.cancelAction}
+              confirmButton={{ ...props.confirmButton }}
+              confirmAction={props.confirmAction}
+              closeModal={closeModal}
+            />
           </Animated.View>
         </TouchableWithoutFeedback>
       </Animated.View>

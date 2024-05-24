@@ -7,7 +7,7 @@ export default function Select(props: Props) {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View testID={props.testID} className={`flex ${props.className}`}>
+    <View testID={props.testID} className={`flex ${props.twClass}`}>
       <Text className="text-black dark:text-white mb-1 text-base">
         {props.label}
       </Text>

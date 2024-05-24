@@ -12,7 +12,7 @@ export default function TotalCategory(props: Props) {
   return (
     <TouchableOpacity
       testID="total-category"
-      className={props.className}
+      className={props.twClass}
       onPress={props.onPress}
     >
       <ItemTotal

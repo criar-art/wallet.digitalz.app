@@ -1,13 +1,13 @@
 import { Pressable, Text, TouchableOpacity } from "react-native";
 import { Props } from "./types";
 
-function Button(props: Props) {
+export default function Button(props: Props) {
   const ButtonComponent = props.pressableButton ? Pressable : TouchableOpacity;
 
   return (
     <ButtonComponent
       testID={props.testID ? props.testID : "button-container"}
-      className={`flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.className}`}
+      className={`flex justify-center items-center flex-row rounded-lg p-2 text-center bg-gray-300 ${props.twClass}`}
       onPress={props.onPress}
       accessibilityLabel={props.label}
       accessibilityState={props.accessibilityState}
@@ -30,5 +30,3 @@ function Button(props: Props) {
     </ButtonComponent>
   );
 }
-
-export default Button;

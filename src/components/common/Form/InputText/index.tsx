@@ -7,7 +7,7 @@ function InputText(props: Props) {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View testID={props.testID} className={`flex ${props.className}`}>
+    <View testID={props.testID} className={`flex ${props.twClass}`}>
       {props.label && (
         <Text
           testID="input-text-label"

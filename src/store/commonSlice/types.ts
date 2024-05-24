@@ -4,7 +4,7 @@ interface Register {
   date: string;
   name: string;
   value: number;
-  pay: boolean | undefined;
+  pay: boolean;
   // Outros campos, se houver
 }
 

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { View } from "react-native";
+import { parse } from "date-fns";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { useColorScheme } from "nativewind";
@@ -7,13 +8,10 @@ import { RootState } from "@store";
 import { setModalFilter } from "@store/modalsSlice";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
-import { Props } from "./types";
-
-// @todo verificar porque não esta trazendo style
-import Button from "../../components/common/Button";
+import Button from "@components/common/Button";
 import { setRegisterFilter, setResetFilter } from "@store/commonSlice";
-import InputDate from "../../components/common/Form/InputDate";
-import { parse } from "date-fns";
+import InputDate from "@components/common/Form/InputDate";
+import { Props } from "./types";
 
 export default function ModalFilter(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -122,7 +120,7 @@ export default function ModalFilter(props: Props) {
         {modals?.modalFilter == "expense" && (
           <View className="flex flex-row mb-4">
             <Button
-              className={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mr-1 w-20 ${
+              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mr-1 w-20 ${
                 common.registerFilter?.pay == undefined
                   ? "bg-gray-200 dark:bg-zinc-500"
                   : ""
@@ -137,7 +135,7 @@ export default function ModalFilter(props: Props) {
               }
             />
             <Button
-              className={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-3 flex-1 ${
+              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-3 flex-1 ${
                 common.registerFilter?.pay ? "bg-gray-200 dark:bg-zinc-500" : ""
               }`}
               text="Pagos"
@@ -157,7 +155,7 @@ export default function ModalFilter(props: Props) {
               }
             />
             <Button
-              className={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 ml-1 flex-1 flex-1 ${
+              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 ml-1 flex-1 flex-1 ${
                 common.registerFilter?.pay == false
                   ? "bg-gray-200 dark:bg-zinc-500"
                   : ""
@@ -182,7 +180,7 @@ export default function ModalFilter(props: Props) {
         )}
         <View className="flex flex-row">
           <InputDate
-            className="flex-1 mr-2"
+            twClass="flex-1 mr-2"
             label="Data inicio"
             value={common.registerFilter?.startDate}
             maximumDate={endDate}
@@ -192,7 +190,7 @@ export default function ModalFilter(props: Props) {
             }
           />
           <InputDate
-            className="flex-1 ml-2"
+            twClass="flex-1 ml-2"
             label="Data final"
             value={common.registerFilter?.endDate}
             accessibilityLabel="Data do registro"

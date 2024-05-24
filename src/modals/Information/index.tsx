@@ -10,10 +10,8 @@ import { setIsProtected } from "@store/userSlice";
 import { types } from "@utils";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
+import Button from "@components/common/Button";
 import { Props } from "./types";
-
-// @todo verificar porque não esta trazendo style
-import Button from "../../components/common/Button";
 
 export default function ModalInfo(props: Props) {
   const { protection } = useAuthentication();
@@ -156,7 +154,7 @@ export default function ModalInfo(props: Props) {
           </Text>
         </View>
         <Button
-          className="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full dark:bg-zinc-700"
+          twClass="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full dark:bg-zinc-700"
           textColor="text-black dark:text-white ml-1"
           text="Abrir configurações"
           label="Abrir configurações de bloqueio"

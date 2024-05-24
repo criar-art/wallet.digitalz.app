@@ -61,7 +61,7 @@ export default function ListContact() {
           key={index}
           {...button}
           textColor="text-lg text-black dark:text-white"
-          className="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
+          twClass="justify-start mt-4 p-6 shadow-lg bg-white dark:bg-zinc-800"
         >
           <MaterialIcons
             name="navigate-next"
