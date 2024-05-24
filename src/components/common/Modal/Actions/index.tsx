@@ -5,7 +5,7 @@ import { Props } from "./types";
 
 export default function Actions(props: Props) {
   return (
-    <View className="flex flex-row">
+    <View className="flex flex-row" testID={props.testID}>
       {!props.cancelButton?.hidden && (
         <Button
           twClass="flex-1 mr-2 p-3 bg-red-600"
@@ -29,14 +29,14 @@ export default function Actions(props: Props) {
         />
       )}
       <Button
-        text={props.confirmButton.text}
-        label={props.confirmButton.label}
+        text={props.confirmButton?.text}
+        label={props.confirmButton?.label}
         twClass={`flex-1 p-3 bg-green-600 ${
           !props.cancelButton?.hidden ? "ml-2" : ""
         }`}
         textColor="text-white"
         onPress={props.confirmAction}
-        icon={props.confirmButton.icon}
+        icon={props.confirmButton?.icon}
       />
     </View>
   );
