@@ -15,5 +15,6 @@
       "@root/*": ["../*"]
     }
   },
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "include": ["**/*", "node_modules/nativewind"]
 }
