@@ -5,4 +5,6 @@ export type Props = {
   value: string;
   onChangeDate: (value: string, type: string) => void;
   accessibilityLabel?: string;
+  maximumDate?: any;
+  minimumDate?: any;
 }

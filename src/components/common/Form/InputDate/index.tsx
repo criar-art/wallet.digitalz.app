@@ -55,6 +55,8 @@ function InputDate(props: Props) {
           mode="date"
           is24Hour={true}
           onChange={onChange}
+          maximumDate={props.maximumDate}
+          minimumDate={props.minimumDate}
         />
       )}
     </View>
