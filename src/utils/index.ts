@@ -16,7 +16,6 @@ export const formatDate = (dateStr: string): string => {
     "dd/MM/yyyy",
     "dd-MM-yyyy",
     "MM-dd-yyyy",
-    // Adicione mais formatos conforme necessário
   ];
 
   for (const fmt of possibleFormats) {
@@ -33,8 +32,15 @@ export const formatDate = (dateStr: string): string => {
   return format(parsedDate, "dd/MM/yyyy");
 };
 
-export const isDatePast = (date: string): boolean => {
-  return isBefore(formatDate(date), new Date());
+export const isDatePast = (dateStr: string): boolean => {
+  const formattedDateStr = formatDate(dateStr);
+  const parsedDate = parse(formattedDateStr, "dd/MM/yyyy", new Date());
+
+  // Ignorar horas, minutos e segundos na comparação
+  const today = new Date();
+  const todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  return isBefore(parsedDate, todayWithoutTime);
 };
 
 export const formatDateString = (date: Date): string => {

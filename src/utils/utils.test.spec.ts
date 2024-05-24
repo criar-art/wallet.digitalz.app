@@ -64,16 +64,27 @@ describe("Utility Functions", () => {
 
   describe("Date Utilities", () => {
     describe("formatDate", () => {
-      test("should correctly format a date string into a Date object", () => {
+      test("should correctly format a date string into a 'dd/MM/yyyy' string", () => {
         const dateStr = "15/05/2023";
-        const expectedDate = new Date(2023, 4, 15); // Note que o mês é zero-based, então maio é 4
-        expect(formatDate(dateStr)).toEqual(expectedDate);
+        const expectedDateStr = "15/05/2023";
+        expect(formatDate(dateStr)).toBe(expectedDateStr);
       });
 
       test("should correctly format a date string with leading zeros", () => {
         const dateStr = "01/01/2024";
-        const expectedDate = new Date(2024, 0, 1); // Janeiro é 0
-        expect(formatDate(dateStr)).toEqual(expectedDate);
+        const expectedDateStr = "01/01/2024";
+        expect(formatDate(dateStr)).toBe(expectedDateStr);
+      });
+
+      test("should handle different date formats", () => {
+        const dateStr1 = "2023-05-15";
+        const dateStr2 = "05/15/2023";
+        const dateStr3 = "15-05-2023";
+        const expectedDateStr = "15/05/2023";
+
+        expect(formatDate(dateStr1)).toBe(expectedDateStr);
+        expect(formatDate(dateStr2)).toBe(expectedDateStr);
+        expect(formatDate(dateStr3)).toBe(expectedDateStr);
       });
 
       test("should handle invalid date strings gracefully", () => {
@@ -96,7 +107,7 @@ describe("Utility Functions", () => {
       test("should return false for today's date", () => {
         const today = new Date();
         const day = String(today.getDate()).padStart(2, "0");
-        const month = String(today.getMonth() + 2).padStart(2, "0");
+        const month = String(today.getMonth() + 1).padStart(2, "0");
         const year = today.getFullYear();
         const dateStr = `${day}/${month}/${year}`;
 
