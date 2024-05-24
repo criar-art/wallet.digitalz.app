@@ -103,12 +103,24 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
     <View className="flex flex-row">
       {!props.cancelButton?.hidden && (
         <Button
-          text="Cancelar"
-          label="Cancele essa ação"
+          text={
+            props.cancelButton?.text ? props.cancelButton?.text : "Cancelar"
+          }
+          label={
+            props.cancelButton?.label
+              ? props.cancelButton?.label
+              : "Cancele essa ação"
+          }
           className="flex-1 mr-2 p-3 bg-red-600"
           textColor="text-white"
-          onPress={closeModal}
-          icon={<MaterialIcons name="close" size={28} color="white" />}
+          onPress={props.cancelAction ? props.cancelAction : closeModal}
+          icon={
+            props.cancelButton?.icon ? (
+              props.cancelButton?.icon
+            ) : (
+              <MaterialIcons name="close" size={28} color="white" />
+            )
+          }
         />
       )}
       <Button

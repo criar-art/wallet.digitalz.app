@@ -4,6 +4,7 @@ export type Props = {
   isOpen: boolean;
   children?: React.ReactElement | React.ReactElement[] | React.ReactNode | React.ReactNode[];
   closeAction: () => void;
+  cancelAction?: () => void;
   confirmAction?: () => void;
   confirmButton?: any;
   cancelButton?: any;
