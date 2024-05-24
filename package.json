@@ -1,6 +1,6 @@
 {
   "name": "wallet.digitalz.app",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "lucasferreiralimax (https://github.com/lucasferreiralimax)",
   "repository": "https://github.com/criar-art/wallet.digitalz.app",
   "bugs": {
@@ -23,17 +23,14 @@
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
     "@reduxjs/toolkit": "^2.2.4",
-    "@types/react": "^18.2.79",
     "date-fns": "^3.6.0",
     "expo": "~51.0.8",
-    "expo-auth-session": "~5.5.2",
     "expo-blur": "~13.0.2",
     "expo-local-authentication": "~14.0.1",
     "expo-screen-orientation": "~7.0.5",
     "expo-secure-store": "~13.0.1",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.14",
-    "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.1",
     "react-native-element-dropdown": "^2.12.0",
@@ -44,21 +41,23 @@
     "react-native-uuid": "^2.0.2",
     "react-number-format": "^5.3.4",
     "react-redux": "^9.1.2",
-    "redux-persist": "^6.0.0",
-    "typescript": "^5.3.3"
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
+    "nativewind": "^2.0.11",
     "@babel/core": "^7.24.4",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.5.0",
     "@tsconfig/react-native": "^3.0.5",
     "@types/jest": "^29.5.12",
+    "@types/react": "^18.2.79",
     "babel-plugin-module-resolver": "^5.0.2",
     "babel-preset-expo": "~11.0.0",
     "jest": "^29.7.0",
     "jest-expo": "~51.0.2",
     "tailwindcss": "3.3.2",
-    "ts-jest": "^29.1.2"
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
   },
   "jest": {
     "preset": "jest-expo",
