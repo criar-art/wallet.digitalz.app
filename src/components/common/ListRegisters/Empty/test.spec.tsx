@@ -1,11 +1,18 @@
 import { render } from "@testing-library/react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import store from "@store";
 import Empty from "./index";
 
 describe("Empty Component", () => {
   test("should render Empty", () => {
     const { getByTestId, getByText } = render(
-      <Empty testID="empty-registers" />
+      <Provider store={store}>
+        <NavigationContainer>
+          <Empty testID="empty-registers" />
+        </NavigationContainer>
+      </Provider>
     );
 
     const mainContainer = getByTestId("empty-registers");
