@@ -1,12 +1,36 @@
-import { parse, isBefore, format, isToday, isTomorrow, compareDesc } from "date-fns";
+import {
+  parse,
+  isBefore,
+  format,
+  isToday,
+  isTomorrow,
+  compareDesc,
+  isValid,
+} from "date-fns";
 
-export const formatDate = (date: string): Date => {
-  const parsedDate = parse(date, "dd/MM/yyyy", new Date());
+export const formatDate = (dateStr: string): string => {
+  let parsedDate: Date | null = null;
+  const possibleFormats = [
+    "yyyy-MM-dd",
+    "MM/dd/yyyy",
+    "dd/MM/yyyy",
+    "dd-MM-yyyy",
+    "MM-dd-yyyy",
+    // Adicione mais formatos conforme necessário
+  ];
 
-  if (isNaN(parsedDate.getTime())) {
+  for (const fmt of possibleFormats) {
+    parsedDate = parse(dateStr, fmt, new Date());
+    if (isValid(parsedDate)) {
+      break;
+    }
+  }
+
+  if (!parsedDate || !isValid(parsedDate)) {
     throw new Error("Invalid date format");
   }
-  return parsedDate;
+
+  return format(parsedDate, "dd/MM/yyyy");
 };
 
 export const isDatePast = (date: string): boolean => {
@@ -27,7 +51,10 @@ export const isDateTomorrow = (date: string): boolean => {
   return isTomorrow(parsedDate);
 };
 
-export const sortDataByDateDesc = (data: any[], dateFormat: string = "dd/MM/yyyy") => {
+export const sortDataByDateDesc = (
+  data: any[],
+  dateFormat: string = "dd/MM/yyyy"
+) => {
   return data.sort((a, b) => {
     const dateA = parse(a.date, dateFormat, new Date());
     const dateB = parse(b.date, dateFormat, new Date());
