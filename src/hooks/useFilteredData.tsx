@@ -88,7 +88,7 @@ const useFilteredData = ({ type }: FilterOptions) => {
     };
 
     applyFilters();
-  }, [common.registerFilter]);
+  }, [common.registerFilter, common.registers]);
 
   return {
     filteredData,
