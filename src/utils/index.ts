@@ -1,4 +1,4 @@
-import { parse, isBefore, format, isToday, isTomorrow } from "date-fns";
+import { parse, isBefore, format, isToday, isTomorrow, compareDesc } from "date-fns";
 
 export const formatDate = (date: string): Date => {
   const parsedDate = parse(date, "dd/MM/yyyy", new Date());
@@ -25,6 +25,14 @@ export const isDateToday = (date: string): boolean => {
 export const isDateTomorrow = (date: string): boolean => {
   const parsedDate = formatDate(date);
   return isTomorrow(parsedDate);
+};
+
+export const sortDataByDateDesc = (data: any[], dateFormat: string = "dd/MM/yyyy") => {
+  return data.sort((a, b) => {
+    const dateA = parse(a.date, dateFormat, new Date());
+    const dateB = parse(b.date, dateFormat, new Date());
+    return compareDesc(dateA, dateB);
+  });
 };
 
 export const renderBorderType = (type: string): string => {
