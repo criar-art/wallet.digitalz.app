@@ -6,6 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 // @todo verificar porque não esta trazendo style
 // import Button from "@components/Button";
 import Button from "../../../common/Button";
+import useOrientation from "@hooks/useOrientation";
 
 export default function AppDrawerButton({
   testID,
@@ -13,12 +14,11 @@ export default function AppDrawerButton({
   drawerOptions,
 }: Props) {
   const { colorScheme } = useColorScheme();
+  const { landscape } = useOrientation();
 
-  const buttonClassName = `justify-start mx-4 mb-1 p-4 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
-    drawerOptions?.isFocused
-      ? "bg-gray-200 dark:bg-zinc-800 py-3"
-      : "bg-transparent py-4"
-  }`;
+  const buttonClassName = `justify-start mx-4 mb-1 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
+    drawerOptions?.isFocused ? "bg-gray-200 dark:bg-zinc-800" : "bg-transparent"
+  } ${landscape ? "pl-4 py-3" : "p-5"}`;
 
   const iconClassName = `flex items-center ${
     drawerOptions?.isFocused ? "scale-125" : "scale-100"
