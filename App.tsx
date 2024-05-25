@@ -15,7 +15,6 @@ import { useColorScheme } from "nativewind";
 import store from "@store";
 import Routes from "@routes";
 import ModalGlobal from "@modals";
-
 import useAuthentication from "@hooks/useAuthentication";
 
 function App(props: any) {
@@ -66,10 +65,6 @@ function AppContainer() {
     }
   }
 
-  useLayoutEffect(() => {
-    checkRoute();
-  }, []);
-
   return (
     <SafeAreaProvider testID="app-container">
       <Provider store={store}>
@@ -77,6 +72,7 @@ function AppContainer() {
           <NavigationContainer
             ref={navigationRef}
             onStateChange={() => checkRoute()}
+            onReady={() => checkRoute()}
             theme={walletTheme}
           >
             <App
