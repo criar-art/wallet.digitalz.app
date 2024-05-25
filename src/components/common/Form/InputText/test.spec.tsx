@@ -6,7 +6,7 @@ test("should render InputText", () => {
   const { getByTestId } = render(
     <InputText
       testID="input-text-container"
-      className="test-class"
+      twClass="test-class"
       label="Text Input"
       value="Sample text"
       onChangeText={() => {}}

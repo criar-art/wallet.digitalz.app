@@ -57,7 +57,7 @@ test("applies custom styles correctly", () => {
   const { getByTestId } = render(
     <Button
       testID="myButton"
-      className="bg-red-600"
+      twClass="bg-red-600"
       textColor="text-white"
       label="Label accessiblity"
     />

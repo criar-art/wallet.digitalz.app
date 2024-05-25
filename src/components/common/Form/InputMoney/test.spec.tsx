@@ -6,7 +6,7 @@ test("should render InputMoney", () => {
   const { getByTestId } = render(
     <InputMoney
       testID="input-money-container"
-      className="test-class"
+      twClass="test-class"
       label="Amount"
       value="1000.00"
       onValueChange={() => {}}
