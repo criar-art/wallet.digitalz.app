@@ -66,6 +66,6 @@ test("applies custom styles correctly", () => {
   const buttonContainer = getByTestId("myButton");
 
   expect(buttonContainer).toHaveStyle({
-    backgroundColor: "#d1d5db",
+    backgroundColor: "#dc2626",
   });
 });
