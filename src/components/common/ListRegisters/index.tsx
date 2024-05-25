@@ -17,7 +17,7 @@ import Header from "./Header";
 import { Props } from "./types";
 import useFilteredData from "@hooks/useFilteredData";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigationState } from "@react-navigation/native";
 
 export default function ListRegisters(props: Props) {
@@ -27,6 +27,7 @@ export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const getRegisters = useSelector(selectRegistersType(props.type));
+  const [optionsShow, setOptionsShow] = useState(null);
   const { filteredData } = useFilteredData({
     type: props.type,
   });
@@ -50,6 +51,12 @@ export default function ListRegisters(props: Props) {
 
   function remove(target: string) {
     dispatch(setModalDelete(target));
+  }
+
+  function handlePressOptionsShow(id: any) {
+    setOptionsShow((prevActiveItem: any) =>
+      prevActiveItem === id ? null : id
+    );
   }
 
   function handlePay(item: any) {
@@ -97,6 +104,9 @@ export default function ListRegisters(props: Props) {
                   edit={() => edit(item)}
                   remove={() => remove(item.id)}
                   handlePay={() => handlePay(item)}
+                  optionsShow={optionsShow}
+                  setOptionsShow={setOptionsShow}
+                  handlePressOptionsShow={handlePressOptionsShow}
                 />
               </View>
             );

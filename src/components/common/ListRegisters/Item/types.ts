@@ -7,4 +7,7 @@ export type Props = {
   edit: any;
   remove: any;
   handlePay?: any;
+  setOptionsShow?: any;
+  optionsShow?: any;
+  handlePressOptionsShow?: any;
 }

@@ -57,11 +57,11 @@ export default function ItemList(props: Props) {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const isFocused = useIsFocused();
-  const [optionsShow, setOptionsShow] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const optionsShow = props.optionsShow === props.item.id;
 
   useEffect(() => {
-    if (!isFocused) setOptionsShow(false);
+    if (!isFocused) props.setOptionsShow(null);
   }, [isFocused]);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function ItemList(props: Props) {
   return (
     <TouchableOpacity
       testID={props.testID}
-      onPress={() => setOptionsShow(!optionsShow)}
+      onPress={() => props.handlePressOptionsShow(props.item.id)}
       className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-6 rounded-lg shadow-lg ${renderBorderType(
         props.item.type
       )} ${renderBackgroundClass(
