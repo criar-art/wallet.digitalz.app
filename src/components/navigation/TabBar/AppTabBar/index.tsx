@@ -7,9 +7,11 @@ import { getLabel } from "@utils";
 import Button from "@components/common/Button";
 import AppTabButton from "../AppTabButton";
 import { Props, Route } from "./types";
+import useIsTablet from "@hooks/useIsTablet";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const handleNewRegister = () => dispatch(setModalRegister("register"));
 
@@ -22,7 +24,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
     >
       <View
         className={`flex flex-row ${
-          landscape ? "w-[400] absolute bottom-0" : "w-full"
+          landscape || isTablet ? "w-[400] absolute bottom-0" : "w-full"
         }`}
       >
         <Button
