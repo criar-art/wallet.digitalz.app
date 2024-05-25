@@ -23,40 +23,42 @@ export default function PanelsRegisters(props: Props) {
   ];
 
   return (
-    <FadeView testID={props.testID ? props.testID : "panels-registers"}>
+    <FadeView
+      testID={props.testID ? props.testID : "panels-registers"}
+      twClass="flex flex-col h-full"
+    >
+      {!landscape && (
+        <TotalCategory
+          type="patrimony"
+          onPress={() => dispatch(setModalInfo("patrimony"))}
+        />
+      )}
       <ScrollView
+        className="flex"
         contentContainerStyle={{
-          paddingBottom: landscape || isTablet ? 80 : 20,
+          paddingBottom: landscape || isTablet ? 100 : 40,
         }}
       >
-        <View>
-          {!landscape && (
-            <TotalCategory
-              type="patrimony"
-              onPress={() => dispatch(setModalInfo("patrimony"))}
-            />
+        <View
+          className="flex flex-row flex-wrap justify-center pt-1"
+          style={{
+            paddingLeft: landscape || isTablet ? 15 : 0,
+            paddingRight: landscape || isTablet ? 15 : 0,
+          }}
+        >
+          {listData.map(
+            (item: any) =>
+              item.isVisible && (
+                <View
+                  key={item.type}
+                  className={`text-center ${
+                    landscape || isTablet ? "w-1/2" : " w-full"
+                  }`}
+                >
+                  <ItemList type={item.type} value={item.value} />
+                </View>
+              )
           )}
-          <View
-            className="flex flex-row flex-wrap justify-center pt-1"
-            style={{
-              paddingLeft: landscape || isTablet ? 15 : 0,
-              paddingRight: landscape || isTablet ? 15 : 0,
-            }}
-          >
-            {listData.map(
-              (item: any) =>
-                item.isVisible && (
-                  <View
-                    key={item.type}
-                    className={`text-center ${
-                      landscape || isTablet ? "w-1/2" : " w-full"
-                    }`}
-                  >
-                    <ItemList type={item.type} value={item.value} />
-                  </View>
-                )
-            )}
-          </View>
         </View>
       </ScrollView>
     </FadeView>

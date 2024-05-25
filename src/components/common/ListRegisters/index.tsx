@@ -84,48 +84,48 @@ export default function ListRegisters(props: Props) {
   return (
     <FadeView testID="list-register">
       {isNotEmpetyRegisters() ? (
-        <FlatList
-          data={filteredData}
-          numColumns={numColumns}
-          renderItem={({ item, index }: any) => {
-            const isLastItem = isOdd && index === filteredData.length - 1;
-            return (
-              <View
-                className={[
-                  "flex",
-                  landscape || isTablet ? "w-1/2" : "w-full",
-                  (landscape || isTablet) && isLastItem ? "w-1/2" : "",
-                ].join(" ")}
-              >
-                <ItemList
-                  key={item.id}
-                  item={item}
-                  eyeStatus={common.eyeStatus}
-                  edit={() => edit(item)}
-                  remove={() => remove(item.id)}
-                  handlePay={() => handlePay(item)}
-                  optionsShow={optionsShow}
-                  setOptionsShow={setOptionsShow}
-                  handlePressOptionsShow={handlePressOptionsShow}
-                />
-              </View>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-          key={orientation}
-          contentContainerStyle={{
-            minHeight: 500,
-            paddingBottom: landscape || isTablet ? 100 : 40,
-          }}
-          columnWrapperStyle={columnWrapperStyle}
-          ListHeaderComponent={() => <Header type={props.type} />}
-          stickyHeaderIndices={[0]}
-          ListEmptyComponent={
-            isNotEmpetyRegisters() ? (
-              <EmptyRegisters filtered={Boolean(filteredData.length == 0)} />
-            ) : null
-          }
-        />
+        <>
+          <Header type={props.type} />
+          <FlatList
+            data={filteredData}
+            numColumns={numColumns}
+            renderItem={({ item, index }: any) => {
+              const isLastItem = isOdd && index === filteredData.length - 1;
+              return (
+                <View
+                  className={[
+                    "flex",
+                    landscape || isTablet ? "w-1/2" : "w-full",
+                    (landscape || isTablet) && isLastItem ? "w-1/2" : "",
+                  ].join(" ")}
+                >
+                  <ItemList
+                    key={item.id}
+                    item={item}
+                    eyeStatus={common.eyeStatus}
+                    edit={() => edit(item)}
+                    remove={() => remove(item.id)}
+                    handlePay={() => handlePay(item)}
+                    optionsShow={optionsShow}
+                    setOptionsShow={setOptionsShow}
+                    handlePressOptionsShow={handlePressOptionsShow}
+                  />
+                </View>
+              );
+            }}
+            keyExtractor={(item) => item.id}
+            key={orientation}
+            contentContainerStyle={{
+              paddingBottom: landscape || isTablet ? 100 : 130,
+            }}
+            columnWrapperStyle={columnWrapperStyle}
+            ListEmptyComponent={
+              isNotEmpetyRegisters() ? (
+                <EmptyRegisters filtered={Boolean(filteredData.length == 0)} />
+              ) : null
+            }
+          />
+        </>
       ) : (
         <EmptyRegisters />
       )}
