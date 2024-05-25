@@ -8,7 +8,7 @@ import { Props } from "./types";
 
 export default function ItemTotal(props: Props) {
   const { colorScheme } = useColorScheme();
-  const { landscape } = useOrientation();
+  const { landscape, portrait } = useOrientation();
   const iconConfig = {
     size: 35,
     color: colorScheme === "dark" ? "white" : "black",
@@ -55,9 +55,10 @@ export default function ItemTotal(props: Props) {
       className={`flex flex-row items-center ${renderBorderType(props.type)} ${
         landscape
           ? "justify-end"
-          : "justify-center px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
+          : "justify-start px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
       }`}
     >
+      {portrait && <View className="flex mr-2">{renderModalIcon(props.type)}</View>}
       <NumericFormat
         value={props.value}
         displayType={"text"}
@@ -69,7 +70,7 @@ export default function ItemTotal(props: Props) {
         renderText={(value: string) => (
           <View
             className={`flex flex-col ${
-              landscape ? "items-end justify-end" : "items-center"
+              landscape ? "items-end justify-end" : "items-start"
             }`}
           >
             <Text className="text-sm text-black dark:text-white">

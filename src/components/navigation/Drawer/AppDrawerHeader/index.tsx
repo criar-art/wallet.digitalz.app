@@ -1,9 +1,10 @@
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { useSelector } from "react-redux";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { setEyeStatus } from "@store/commonSlice";
+import { selectRegistersType, setEyeStatus } from "@store/commonSlice";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
 import { RootState } from "@store";
 import { useNavigation } from "@react-navigation/native";
@@ -18,6 +19,7 @@ export default function AppDrawerHeader(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const store = useAppSelector((state: RootState) => state.userState);
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
+  const getRegisters = useSelector(selectRegistersType(String(props.category)));
   const isTypesTab = () =>
     ["expense", "entry", "investiment"].includes(String(props.category));
   const navigation: any = useNavigation();
@@ -35,10 +37,10 @@ export default function AppDrawerHeader(props: Props) {
               onPress={() => dispatch(setModalInfo(props.category))}
               type={String(props.category)}
               twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${
-                isTypesTab() ? "right-[195]" : "right-[75]"
+                getRegisters.length > 1 && isTypesTab() ? "right-[195]" : "right-[75]"
               }`}
             />
-            {isTypesTab() && (
+            {getRegisters.length > 1 && isTypesTab() && (
               <Button
                 twClass="bg-transparent justify-end pr-[25] border-r-2 border-gray-100 dark:border-zinc-700 top-[15] right-[75] absolute h-12"
                 text="Filtro"
