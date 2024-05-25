@@ -33,7 +33,7 @@ export default function AppDrawerContent({
       testID="app-drawer-content"
       className="dark:bg-zinc-900 flex flex-row w-full h-full"
     >
-      <View className="pt-12 w-full">
+      <View className={`w-full ${landscape ? "pt-8" : "pt-12"}`}>
         {state?.routes.map((route: any, index: number) => {
           const { options }: { options: any } = descriptors[route.key];
           const labelButton: string =

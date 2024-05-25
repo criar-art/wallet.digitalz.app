@@ -132,7 +132,7 @@ export default function ItemList(props: Props) {
       >
         {!props.item.pay && props.item.type == "expense" && (
           <Button
-            twClass="z-20 w-14 h-14 m-5 rounded-full border-2 border-green-500 dark:border-green-500 bg-white dark:bg-zinc-800"
+            twClass="z-20 w-14 h-14 m-2 rounded-full border-2 border-green-500 dark:border-green-500 bg-white dark:bg-zinc-800"
             onPress={props.handlePay}
             label={`Pagar ${props.item.name}`}
             icon={
@@ -141,7 +141,7 @@ export default function ItemList(props: Props) {
           />
         )}
         <Button
-          twClass="z-20 w-14 h-14 my-5 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
+          twClass="z-20 w-14 h-14 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
           onPress={props.edit}
           label={`Editar registro ${props.item.name}`}
           icon={
@@ -153,7 +153,7 @@ export default function ItemList(props: Props) {
           }
         />
         <Button
-          twClass="z-20 w-14 h-14 m-5 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
+          twClass="z-20 w-14 h-14 m-2 mr-4 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
           onPress={props.remove}
           label={`Excluir registro ${props.item.name}`}
           icon={
