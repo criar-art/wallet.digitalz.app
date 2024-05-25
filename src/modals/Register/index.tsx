@@ -83,6 +83,7 @@ export default function ModalRegister(props: Props) {
       ref={modalRef}
       isOpen={isOpenModal()}
       testID={props.testID ? props.testID : "teste-modal"}
+      cancelAction={() => closeModal()}
       closeAction={() => dispatch(setModalRegister(""))}
       confirmAction={() => saveStore()}
       alertModal={{
