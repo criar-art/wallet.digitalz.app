@@ -55,7 +55,7 @@ export default function Select(props: Props) {
           marginHorizontal: 5,
           marginVertical: 2.5,
           backgroundColor: `${
-            colorScheme === "dark" ? "rgb(63 63 70)" : "#eee"
+            colorScheme === "dark" ? "rgb(63 63 70)" : "#efefef"
           }`,
           padding: 0,
           height: 45,

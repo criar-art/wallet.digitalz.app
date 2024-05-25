@@ -52,7 +52,7 @@ function AppContainer() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: colorScheme === "dark" ? "rgb(24 24 27)" : "#eee",
+      background: colorScheme === "dark" ? "rgb(24 24 27)" : "#efefef",
     },
   };
 
