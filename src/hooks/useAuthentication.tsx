@@ -4,7 +4,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setIsLogin, setIsProtected } from "@store/userSlice";
 import { setEyeStatus } from "@store/commonSlice";
-import { setModalInfo } from "@store/modalsSlice";
+import { setModalInfo, setCloseAllModals } from "@store/modalsSlice";
 import { RootState } from "@store";
 
 const useAuthentication = (navigate?: any) => {
@@ -72,6 +72,7 @@ const useAuthentication = (navigate?: any) => {
     cancelAuthentication();
     dispatch(setIsLogin(false));
     dispatch(setEyeStatus(false));
+    dispatch(setCloseAllModals());
   }, [isLogin, isProtected]);
 
   useEffect(() => {

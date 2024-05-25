@@ -22,6 +22,12 @@ export const modalsSlice = createSlice({
     setModalFilter(state, payload) {
       state.modalFilter = payload.payload;
     },
+    setCloseAllModals(state) {
+      state.modalRegister = "";
+      state.modalInfo = "";
+      state.modalDelete = "";
+      state.modalFilter = "";
+    },
   },
 });
 
@@ -30,6 +36,7 @@ export const {
   setModalRegister,
   setModalDelete,
   setModalFilter,
+  setCloseAllModals,
 } = modalsSlice.actions;
 
 export default modalsSlice.reducer;
