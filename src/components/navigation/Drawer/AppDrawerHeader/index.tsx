@@ -37,12 +37,14 @@ export default function AppDrawerHeader(props: Props) {
               onPress={() => dispatch(setModalInfo(props.category))}
               type={String(props.category)}
               twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${
-                getRegisters.length > 1 && isTypesTab() ? "right-[195]" : "right-[75]"
+                getRegisters.length > 1 && isTypesTab()
+                  ? "right-[195]"
+                  : "right-[75]"
               }`}
             />
             {getRegisters.length > 1 && isTypesTab() && (
               <Button
-                twClass="bg-transparent justify-end pr-[25] border-r-2 border-gray-100 dark:border-zinc-700 top-[15] right-[75] absolute h-12"
+                twClass="bg-transparent justify-end pr-[25] rounded-none border-r-2 border-gray-100 dark:border-zinc-700 top-[15] right-[75] absolute h-12"
                 text="Filtro"
                 label="Abrir modal de filtros"
                 textColor="text-black dark:text-white"
