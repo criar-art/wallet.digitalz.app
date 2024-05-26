@@ -150,12 +150,12 @@ export default function ModalRegister(props: Props) {
           error={!!formError.value}
         />
       </View>
-      {formModal.type === "expense" && (
-        <View className="flex flex-row items-center justify-center mb-4">
+      {isEditing() && formModal.type === "expense" && (
+        <View className="flex flex-row items-center justify-center absolute right-20 top-3">
           <Text className="text-black dark:text-white mr-6 text-base text-center">
             Paga
           </Text>
-          <View className="flex items-center justify-center pb-2">
+          <View className="flex items-center justify-center">
             <Switch
               accessibilityLabel="Pagamento"
               value={formModal.pay}
