@@ -6,13 +6,16 @@ import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import {
-  setEditRegister,
   setRegisterData,
   selectRegistersType,
   setResetFilter,
 } from "@store/commonSlice";
 import { RootState } from "@store";
-import { setModalRegister, setModalDelete } from "@store/modalsSlice";
+import {
+  setModalRegister,
+  setModalDelete,
+  setModalPay,
+} from "@store/modalsSlice";
 import Header from "./Header";
 import { Props } from "./types";
 import useFilteredData from "@hooks/useFilteredData";
@@ -53,15 +56,14 @@ export default function ListRegisters(props: Props) {
     dispatch(setModalDelete(target));
   }
 
+  function handlePay(target: string) {
+    dispatch(setModalPay(target));
+  }
+
   function handlePressOptionsShow(id: any) {
     setOptionsShow((prevActiveItem: any) =>
       prevActiveItem === id ? null : id
     );
-  }
-
-  function handlePay(item: any) {
-    const updatedItem = { ...item, pay: true }; // Marcando o item como pago
-    dispatch(setEditRegister(updatedItem)); // Enviando o item modificado para a store
   }
 
   const isOdd = filteredData.length % 2 !== 0;
