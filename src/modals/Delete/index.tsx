@@ -88,8 +88,8 @@ export default function ModalDelete(props: Props) {
       closeAction={() => dispatch(setModalDelete(""))}
       confirmAction={confirmModal}
       confirmButton={{
-        text: "Entendi",
-        label: "Ok fechar o modal de informações",
+        text: "Confirmar",
+        label: "Ok fechar o modal de deletar",
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
