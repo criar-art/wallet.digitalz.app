@@ -97,30 +97,36 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
 
   if (props.type == "window") {
     return (
-      <Animated.View
-        testID={props.testID ? props.testID : "fade-view"}
-        className="p-4 bg-red-200 z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-center items-center"
-        style={{ opacity: fadeAnim }}
-        pointerEvents={props.isOpen ? "auto" : "none"}
+      <TouchableWithoutFeedback
+        onPress={props.optional ? closeModal : () => startShakeAnimation()}
       >
         <Animated.View
-          className={`bg-white dark:bg-zinc-900 p-4 rounded-lg flex flex-col items-center ${
-            landscape || isTablet ? "w-1/2" : ""
-          }`}
-          style={{ transform: [{ scale: scaleAnim }] }}
-          accessibilityViewIsModal
-          aria-hidden={!props.isOpen}
+          testID={props.testID ? props.testID : "fade-view"}
+          className="p-4 bg-red-200 z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-center items-center"
+          style={{ opacity: fadeAnim }}
+          pointerEvents={props.isOpen ? "auto" : "none"}
         >
-          {props.children}
-          <Actions
-            cancelButton={{ ...props.cancelButton }}
-            cancelAction={props.cancelAction}
-            confirmButton={{ ...props.confirmButton }}
-            confirmAction={props.confirmAction}
-            closeModal={closeModal}
-          />
+          <Animated.View
+            className={`bg-white dark:bg-zinc-900 p-4 rounded-lg flex flex-col items-center ${
+              landscape || isTablet ? "w-1/2" : ""
+            }`}
+            style={{
+              transform: [{ scale: scaleAnim }, { translateY: shakeAnimation }],
+            }}
+            accessibilityViewIsModal
+            aria-hidden={!props.isOpen}
+          >
+            {props.children}
+            <Actions
+              cancelButton={{ ...props.cancelButton }}
+              cancelAction={props.cancelAction}
+              confirmButton={{ ...props.confirmButton }}
+              confirmAction={props.confirmAction}
+              closeModal={closeModal}
+            />
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
+      </TouchableWithoutFeedback>
     );
   }
 
