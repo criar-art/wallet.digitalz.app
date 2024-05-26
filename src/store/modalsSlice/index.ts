@@ -7,6 +7,7 @@ export const modalsSlice = createSlice({
     modalRegister: "",
     modalInfo: "",
     modalDelete: "",
+    modalPay: "",
     modalFilter: "",
   } as modals,
   reducers: {
@@ -18,6 +19,9 @@ export const modalsSlice = createSlice({
     },
     setModalDelete(state, payload) {
       state.modalDelete = payload.payload;
+    },
+    setModalPay(state, payload) {
+      state.modalPay = payload.payload;
     },
     setModalFilter(state, payload) {
       state.modalFilter = payload.payload;
@@ -35,6 +39,7 @@ export const {
   setModalInfo,
   setModalRegister,
   setModalDelete,
+  setModalPay,
   setModalFilter,
   setCloseAllModals,
 } = modalsSlice.actions;
