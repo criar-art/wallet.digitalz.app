@@ -105,7 +105,7 @@ export default function ModalDelete(props: Props) {
         />
       </Animated.View>
       <Text className="text-black dark:text-white text-center text-xl my-4">
-        Tem certeza que desejar deletar?
+        Tem certeza que deseja deletar?
       </Text>
     </Modal>
   );
