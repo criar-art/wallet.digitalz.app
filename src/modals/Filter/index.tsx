@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { View } from "react-native";
 import { parse } from "date-fns";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -13,29 +13,38 @@ import { setRegisterFilter, setResetFilter } from "@store/commonSlice";
 import InputDate from "@components/common/Form/InputDate";
 import { Props } from "./types";
 
-export default function ModalFilter(props: Props) {
+export default function ModalFilter({ testID }: Props) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const common = useAppSelector((state: RootState) => state.commonState);
   const modalRef = useRef<ModalHandle>(null);
-  const isOpenModal = (): boolean =>
-    ["expense", "entry", "investiment"].includes(modals?.modalFilter);
-  const startDate = common.registerFilter?.startDate
-    ? parse(common.registerFilter.startDate, "dd/MM/yyyy", new Date())
-    : null;
-  const endDate = common.registerFilter?.endDate
-    ? parse(common.registerFilter.endDate, "dd/MM/yyyy", new Date())
-    : null;
+
+  const isOpenModal = useMemo(
+    () => ["expense", "entry", "investment"].includes(modals.modalFilter),
+    [modals.modalFilter]
+  );
+
+  const startDate = useMemo(
+    () =>
+      common.registerFilter?.startDate
+        ? parse(common.registerFilter.startDate, "dd/MM/yyyy", new Date())
+        : null,
+    [common.registerFilter?.startDate]
+  );
+
+  const endDate = useMemo(
+    () =>
+      common.registerFilter?.endDate
+        ? parse(common.registerFilter.endDate, "dd/MM/yyyy", new Date())
+        : null,
+    [common.registerFilter?.endDate]
+  );
 
   const resetFilters = () => {
-    if (
-      common.registerFilter?.short ||
-      common.registerFilter?.endDate ||
-      common.registerFilter?.startDate ||
-      common.registerFilter?.searchTerm ||
-      common.registerFilter?.pay !== undefined
-    ) {
+    const { short, endDate, startDate, searchTerm, pay } =
+      common.registerFilter;
+    if (short || endDate || startDate || searchTerm || pay !== undefined) {
       dispatch(
         setResetFilter({
           short: "",
@@ -50,12 +59,63 @@ export default function ModalFilter(props: Props) {
     }
   };
 
+  const filterButtons = [
+    {
+      text: "Todos",
+      value: undefined,
+      icon: "density-small",
+    },
+    {
+      text: "Pagos",
+      value: true,
+      icon: "attach-money",
+    },
+    {
+      text: "Não Pagos",
+      value: false,
+      icon: "money-off",
+    },
+  ];
+
+  const RenderFilterButton = (props: any) => (
+    <Button
+      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
+        common.registerFilter?.pay === props.value
+          ? "bg-gray-200 dark:bg-zinc-500"
+          : ""
+      } ${props.value == undefined && "ml-0"} ${
+        props.value == false && "mr-0"
+      }`}
+      text={props.text}
+      label="Filtro de registros"
+      textColor="ml-1 text-black dark:text-white text-xs"
+      onPress={() => dispatch(setRegisterFilter({ pay: props.value }))}
+      icon={
+        <MaterialIcons
+          name={props.iconName}
+          size={26}
+          color={colorScheme === "dark" ? "white" : "black"}
+        />
+      }
+    >
+      {common.registerFilter?.pay === props.value && (
+        <View className="absolute -top-3 z-20 bg-green-600 rounded-full">
+          <MaterialIcons
+            name="check-circle"
+            size={22}
+            color={colorScheme === "dark" ? "black" : "white"}
+          />
+        </View>
+      )}
+    </Button>
+  );
+
   return (
     <Modal
       ref={modalRef}
       optional={true}
-      isOpen={isOpenModal()}
-      testID={props.testID ? props.testID : "teste-modal"}
+      isOpen={isOpenModal}
+      testID={testID || "teste-modal"}
       closeAction={() => dispatch(setModalFilter(""))}
       cancelAction={resetFilters}
       confirmAction={() => modalRef.current?.closeModal()}
@@ -87,95 +147,16 @@ export default function ModalFilter(props: Props) {
       }}
     >
       <View className="mb-6 pt-4">
-        {/* <View className="flex flex-row mt-4">
-          <Button
-            className="border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 flex-1 mr-2 py-2"
-            text="Crescente"
-            label="test"
-            textColor="text-black dark:text-white"
-            onPress={() => dispatch(setRegisterFilter({ short: "asc" }))}
-            icon={
-              <FontAwesome6
-                name="arrow-up-wide-short"
-                size={26}
-                color={colorScheme === "dark" ? "white" : "black"}
+        {modals.modalFilter === "expense" && (
+          <View className="flex flex-row mb-4 w-full">
+            {filterButtons.map((item: any) => (
+              <RenderFilterButton
+                key={item.text}
+                text={item.text}
+                iconName={item.icon}
+                value={item.value}
               />
-            }
-          />
-          <Button
-            className="border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 flex-1 ml-2 py-2"
-            text="Decrescente"
-            label="test"
-            textColor="text-black dark:text-white"
-            onPress={() => dispatch(setRegisterFilter({ short: "desc" }))}
-            icon={
-              <FontAwesome6
-                name="arrow-down-wide-short"
-                size={26}
-                color={colorScheme === "dark" ? "white" : "black"}
-              />
-            }
-          />
-        </View> */}
-        {modals?.modalFilter == "expense" && (
-          <View className="flex flex-row mb-4">
-            <Button
-              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mr-1 w-20 ${
-                common.registerFilter?.pay == undefined
-                  ? "bg-gray-200 dark:bg-zinc-500"
-                  : ""
-              }`}
-              text="Todos"
-              label="Filtro de registros"
-              textColor="text-black dark:text-white text-xs"
-              onPress={() =>
-                common.registerFilter?.pay !== undefined
-                  ? dispatch(setRegisterFilter({ pay: undefined }))
-                  : null
-              }
-            />
-            <Button
-              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-3 flex-1 ${
-                common.registerFilter?.pay ? "bg-gray-200 dark:bg-zinc-500" : ""
-              }`}
-              text="Pagos"
-              label="Filtro de registros"
-              textColor="ml-1 text-black dark:text-white text-xs"
-              onPress={() =>
-                common.registerFilter?.pay !== true
-                  ? dispatch(setRegisterFilter({ pay: true }))
-                  : null
-              }
-              icon={
-                <MaterialIcons
-                  name="attach-money"
-                  size={26}
-                  color={colorScheme === "dark" ? "white" : "black"}
-                />
-              }
-            />
-            <Button
-              twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 ml-1 flex-1 flex-1 ${
-                common.registerFilter?.pay == false
-                  ? "bg-gray-200 dark:bg-zinc-500"
-                  : ""
-              }`}
-              text="Não Pagos"
-              label="Filtro de registros"
-              textColor="ml-1 text-black dark:text-white text-xs"
-              onPress={() =>
-                common.registerFilter?.pay !== false
-                  ? dispatch(setRegisterFilter({ pay: false }))
-                  : null
-              }
-              icon={
-                <MaterialIcons
-                  name="money-off"
-                  size={26}
-                  color={colorScheme === "dark" ? "white" : "black"}
-                />
-              }
-            />
+            ))}
           </View>
         )}
         <View className="flex flex-row">
