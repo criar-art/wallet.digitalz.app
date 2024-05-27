@@ -1,7 +1,7 @@
 import { Selector, createSelector, createSlice } from "@reduxjs/toolkit";
 import { common } from "./types";
 import { RootState } from "@store";
-import { sortDataByDateDesc } from "@utils";
+import { applyFilterData, sortDataByDateDesc } from "@utils";
 
 export const commonSlice = createSlice({
   name: "commonState",
@@ -66,8 +66,23 @@ const makeSelectRegistersType: (
     }
   );
 
+const makeSelectRegistersFiltered: (
+  type: string
+) => Selector<RootState, common["registers"]> = (type: string) =>
+  createSelector(
+    (state: RootState) => state.commonState.registers,
+    (state: RootState) => state.commonState.registerFilter,
+    (registers, filter) => {
+      // Filtra os registros pelo tipo
+      const filteredByType = registers.filter((item) => item.type === type);
+      // Aplica os filtros e ordenação
+      return applyFilterData(filteredByType, filter);
+    }
+  );
+
 // Agora você pode criar um seletor passando o tipo específico
 export const selectRegistersType = makeSelectRegistersType;
+export const selectRegistersFiltered = makeSelectRegistersFiltered;
 
 export const {
   setRegister,
