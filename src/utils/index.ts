@@ -38,7 +38,11 @@ export const isDatePast = (dateStr: string): boolean => {
 
   // Ignorar horas, minutos e segundos na comparação
   const today = new Date();
-  const todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const todayWithoutTime = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
 
   return isBefore(parsedDate, todayWithoutTime);
 };
@@ -47,13 +51,14 @@ export const formatDateString = (date: Date): string => {
   return format(date, "dd/MM/yyyy");
 };
 
-export const isDateToday = (date: string): boolean => {
-  return isToday(formatDate(date));
+export const isDateToday = (dateStr: string): boolean => {
+  const parsedDate = parse(dateStr, "dd/MM/yyyy", new Date());
+  return isToday(parsedDate);
 };
 
 // Função para verificar se uma data fornecida é o dia de amanhã
-export const isDateTomorrow = (date: string): boolean => {
-  const parsedDate = formatDate(date);
+export const isDateTomorrow = (dateStr: string): boolean => {
+  const parsedDate = parse(dateStr, "dd/MM/yyyy", new Date());
   return isTomorrow(parsedDate);
 };
 
