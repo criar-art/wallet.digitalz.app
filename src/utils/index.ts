@@ -37,7 +37,7 @@ export const formatDate = (dateStr: string): string => {
 
 export const isDatePast = (dateStr: string): boolean => {
   const formattedDateStr = formatDate(dateStr);
-  const parsedDate = parse(formattedDateStr, "dd/MM/yyyy", new Date());
+  const parsedDate = parse(formattedDateStr, "MM/dd/yyyy", new Date());
 
   // Ignorar horas, minutos e segundos na comparação
   const today = new Date();
