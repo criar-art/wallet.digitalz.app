@@ -3,5 +3,6 @@ export type Props = {
   twClass?: string;
   type: string;
   time?: boolean;
+  filter?: any;
   onPress?: () => void;
 };

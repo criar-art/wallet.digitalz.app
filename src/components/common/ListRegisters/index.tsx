@@ -9,6 +9,7 @@ import {
   setRegisterData,
   selectRegistersType,
   setResetFilter,
+  selectRegistersFiltered,
 } from "@store/commonSlice";
 import { RootState } from "@store";
 import {
@@ -18,7 +19,6 @@ import {
 } from "@store/modalsSlice";
 import Header from "./Header";
 import { Props } from "./types";
-import useFilteredData from "@hooks/useFilteredData";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigationState } from "@react-navigation/native";
@@ -30,10 +30,8 @@ export default function ListRegisters(props: Props) {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const getRegisters = useSelector(selectRegistersType(props.type));
+  const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const [optionsShow, setOptionsShow] = useState(null);
-  const { filteredData } = useFilteredData({
-    type: props.type,
-  });
 
   useEffect(() => {
     dispatch(
@@ -66,10 +64,8 @@ export default function ListRegisters(props: Props) {
     );
   }
 
-  const isOdd = filteredData.length % 2 !== 0;
-
+  const isOdd = getRegistersFiltered?.length % 2 !== 0;
   const isNotEmpetyRegisters = () => getRegisters.length;
-
   const numColumns =
     (orientation === 1 || orientation === 2) && !isTablet ? 1 : 2;
 
@@ -89,10 +85,11 @@ export default function ListRegisters(props: Props) {
         <>
           <Header type={props.type} />
           <FlatList
-            data={filteredData}
+            data={getRegistersFiltered}
             numColumns={numColumns}
             renderItem={({ item, index }: any) => {
-              const isLastItem = isOdd && index === filteredData.length - 1;
+              const isLastItem =
+                isOdd && index === getRegistersFiltered?.length - 1;
               return (
                 <View
                   className={[
@@ -123,7 +120,9 @@ export default function ListRegisters(props: Props) {
             columnWrapperStyle={columnWrapperStyle}
             ListEmptyComponent={
               isNotEmpetyRegisters() ? (
-                <EmptyRegisters filtered={Boolean(filteredData.length == 0)} />
+                <EmptyRegisters
+                  filtered={Boolean(getRegistersFiltered.length == 0)}
+                />
               ) : null
             }
           />
