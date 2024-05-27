@@ -58,7 +58,9 @@ export default function ItemTotal(props: Props) {
           : "justify-start px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
       }`}
     >
-      {portrait && <View className="flex mr-2">{renderModalIcon(props.type)}</View>}
+      {portrait && (
+        <View className="flex mr-2">{renderModalIcon(props.type)}</View>
+      )}
       <NumericFormat
         value={props.value}
         displayType={"text"}
@@ -74,9 +76,13 @@ export default function ItemTotal(props: Props) {
             }`}
           >
             <Text className="text-sm text-black dark:text-white">
-              Total {types[props.type]}
+              Total {types[props.type]} {!props.isFilterEmpty ? "filtrada" : ""}
             </Text>
-            <Text className={`text-black dark:text-white font-bold text-2xl ${props.value < 0 && "text-red-700"}`}>
+            <Text
+              className={`text-black dark:text-white font-bold text-2xl ${
+                props.value < 0 && "text-red-700"
+              }`}
+            >
               {parseMoney(value, props.eyeStatus)}
             </Text>
             {landscape && (

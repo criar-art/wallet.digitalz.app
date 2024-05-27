@@ -4,4 +4,5 @@ export type Props = {
   type: string;
   value: number;
   eyeStatus: boolean;
+  isFilterEmpty?: any;
 }
