@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Text, View, Animated, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { NumericFormat } from "react-number-format";
@@ -8,51 +8,14 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import {
-  renderBorderType,
-  parseMoney,
-  isDatePast,
-  isDateToday,
-  renderBackgroundClass,
-  isDateTomorrow,
-} from "@utils";
+import { renderBorderType, parseMoney, renderBackgroundClass } from "@utils";
 import useOrientation from "@hooks/useOrientation";
 import Button from "@components/common/Button";
+import RenderBadge from "../RenderBadge";
 import useIsTablet from "@hooks/useIsTablet";
 import { Props } from "./types";
 
-export const renderBadge = (type: string, date: string, isPaid: boolean) => {
-  let badgeText = "";
-  let badgeColor = "";
-
-  if (isPaid) {
-    badgeText = "PAGO";
-    badgeColor = "bg-green-500";
-  } else if (isDateToday(date)) {
-    badgeText = type === "expense" ? "VENCE HOJE" : "DISPONÍVEL HOJE";
-    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-  } else if (isDateTomorrow(date)) {
-    badgeText = type === "expense" ? "VENCE AMANHÃ" : "DISPONÍVEL AMANHÃ";
-    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-  } else if (isDatePast(date)) {
-    badgeText = type === "expense" ? "VENCIDO" : "DISPONÍVEL";
-    badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-  } else {
-    return null;
-  }
-
-  return (
-    <View
-      className={`${badgeColor} p-1 px-2 rounded-full absolute z-10 left-2 -top-3`}
-    >
-      <Text className="text-white text-center font-black text-xs">
-        {badgeText}
-      </Text>
-    </View>
-  );
-};
-
-export default function ItemList(props: Props) {
+function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
@@ -88,7 +51,11 @@ export default function ItemList(props: Props) {
         props.item.pay
       )} ${landscape || isTablet ? "mx-3" : "mx-5"}`}
     >
-      {renderBadge(props.item.type, props.item.date, props.item.pay)}
+      <RenderBadge
+        type={props.item.type}
+        date={props.item.date}
+        isPaid={props.item.pay}
+      />
       <Text className="text-black dark:text-white text-xl mb-1">
         {props.item.name}
       </Text>
@@ -168,3 +135,5 @@ export default function ItemList(props: Props) {
     </TouchableOpacity>
   );
 }
+
+export default memo(ItemList);
