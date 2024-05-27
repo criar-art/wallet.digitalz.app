@@ -18,6 +18,13 @@ export function useBalance() {
     return common.registers.filter((item: any) => item.type == type).length;
   };
 
+  const getFilteredTotal = (filteredData: any[]): number => {
+    return filteredData.reduce(
+      (acc: number, { value }: any) => acc + Number(value),
+      0
+    );
+  };
+
   const getTotal = (type: string): number =>
     common.registers
       .filter((item: any) => item.type === type && !item.pay)
@@ -64,5 +71,6 @@ export function useBalance() {
     getPatrimonyTotal,
     getLiquid,
     getPaidExpensesTotal,
+    getFilteredTotal,
   };
 }
