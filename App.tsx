@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   DrawerActions,
