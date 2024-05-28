@@ -21,7 +21,7 @@ export default function ModalFilter({ testID }: Props) {
   const modalRef = useRef<ModalHandle>(null);
 
   const isOpenModal = useMemo(
-    () => ["expense", "entry", "investment"].includes(modals.modalFilter),
+    () => ["expense", "entry", "investiment"].includes(modals.modalFilter),
     [modals.modalFilter]
   );
 
