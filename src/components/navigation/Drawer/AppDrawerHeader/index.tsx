@@ -10,8 +10,8 @@ import { RootState } from "@store";
 import { useNavigation } from "@react-navigation/native";
 import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
+import utils from "@utils";
 import { Props } from "./types";
-import { getFilledItemsCount, isObjectEmpty } from "@utils";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
@@ -54,7 +54,7 @@ export default function AppDrawerHeader(props: Props) {
                 onPress={() => dispatch(setModalFilter(props.category))}
                 icon={
                   <>
-                    {isObjectEmpty(common.registerFilter) ? (
+                    {utils.isObjectEmpty(common.registerFilter) ? (
                       <MaterialIcons
                         name="filter-list"
                         size={30}
@@ -62,7 +62,7 @@ export default function AppDrawerHeader(props: Props) {
                       />
                     ) : (
                       <Text className="scale-[1.2] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 rounded-full">
-                        {getFilledItemsCount(common.registerFilter)}
+                        {utils.getFilledItemsCount(common.registerFilter)}
                       </Text>
                     )}
                   </>

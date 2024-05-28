@@ -1,17 +1,16 @@
 import { Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { Props } from "./types";
+import { useSelector } from "react-redux";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-
-import TotalCategory from "../../TotalCategory";
-import Button from "../../Button";
-import useOrientation from "@hooks/useOrientation";
-import { useSelector } from "react-redux";
 import { selectRegistersType } from "@store/commonSlice";
 import { RootState } from "@store";
-import { getFilledItemsCount, isObjectEmpty } from "@utils";
+import TotalCategory from "@components/common/TotalCategory";
+import Button from "@components/common/Button";
+import useOrientation from "@hooks/useOrientation";
+import utils from "@utils";
+import { Props } from "./types";
 
 export default function Header(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -25,7 +24,7 @@ export default function Header(props: Props) {
       <View
         testID={props.testID}
         className={`flex items-center justify-center ${
-          isObjectEmpty(common.registerFilter) ? "flex-col" : "flex-row"
+          utils.isObjectEmpty(common.registerFilter) ? "flex-col" : "flex-row"
         }`}
       >
         {
@@ -44,7 +43,7 @@ export default function Header(props: Props) {
             onPress={() => dispatch(setModalFilter(props.type))}
             icon={
               <>
-                {isObjectEmpty(common.registerFilter) ? (
+                {utils.isObjectEmpty(common.registerFilter) ? (
                   <MaterialIcons
                     name="filter-list"
                     size={30}
@@ -52,7 +51,7 @@ export default function Header(props: Props) {
                   />
                 ) : (
                   <Text className="scale-[1] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 rounded-full">
-                    {getFilledItemsCount(common.registerFilter)}
+                    {utils.getFilledItemsCount(common.registerFilter)}
                   </Text>
                 )}
               </>

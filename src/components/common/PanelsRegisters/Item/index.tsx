@@ -7,13 +7,7 @@ import {
   NavigationProp,
 } from "@react-navigation/native";
 import { useColorScheme } from "nativewind";
-import {
-  renderBorderType,
-  types,
-  capitalize,
-  checkTypeTouchable,
-  parseMoney,
-} from "@utils";
+import utils from "@utils";
 import { useBalance } from "@hooks/useBalance";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
@@ -35,11 +29,11 @@ export default function ItemList(props: Props) {
     <TouchableOpacity
       testID={props.testID}
       onPress={() =>
-        checkTypeTouchable(props.type)
-          ? navigation.navigate(capitalize(props.type))
+        utils.checkTypeTouchable(props.type)
+          ? navigation.navigate(utils.capitalize(props.type))
           : dispatch(setModalInfo(props.type))
       }
-      className={`flex flex-row justify-between items-center border-l-4 bg-white dark:bg-zinc-800 p-6 mt-6 rounded-lg shadow-lg ${renderBorderType(
+      className={`flex flex-row justify-between items-center border-l-4 bg-white dark:bg-zinc-800 p-6 mt-6 rounded-lg shadow-lg ${utils.renderBorderType(
         props.type
       )} ${
         props.value < 0 ? "bg-red-100 dark:bg-red-900 border-red-600" : ""
@@ -56,10 +50,10 @@ export default function ItemList(props: Props) {
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black dark:text-white">
-              Total {types[props.type]}
+              Total {utils.types[props.type]}
             </Text>
             <Text className="text-black dark:text-white font-bold text-xl">
-              {parseMoney(value, common.eyeStatus)}
+              {utils.parseMoney(value, common.eyeStatus)}
             </Text>
           </View>
         )}
@@ -91,7 +85,7 @@ export default function ItemList(props: Props) {
       {props.type == "patrimony" && (
         <MaterialCommunityIcons name="gold" size={30} color="#aaa" />
       )}
-      {checkTypeTouchable(props.type) && (
+      {utils.checkTypeTouchable(props.type) && (
         <MaterialIcons
           name="navigate-next"
           size={30}

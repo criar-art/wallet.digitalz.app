@@ -3,7 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useOrientation from "@hooks/useOrientation";
 import { setModalRegister } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
-import { getLabel } from "@utils";
+import utils from "@utils";
 import Button from "@components/common/Button";
 import AppTabButton from "../AppTabButton";
 import { Props, Route } from "./types";
@@ -37,7 +37,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
         />
         {state?.routes.map((route: Route, index: number) => {
           const { options } = descriptors[route.key];
-          const labelButton: string = getLabel(options, route);
+          const labelButton: string = utils.getLabel(options, route);
           const isFocused = state.index === index;
 
           const onPress = () => {

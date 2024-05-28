@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 import { Text, View, Animated, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { NumericFormat } from "react-number-format";
@@ -8,7 +8,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { renderBorderType, parseMoney, renderBackgroundClass } from "@utils";
+import utils from "@utils";
 import useOrientation from "@hooks/useOrientation";
 import Button from "@components/common/Button";
 import RenderBadge from "../RenderBadge";
@@ -43,9 +43,9 @@ function ItemList(props: Props) {
     <TouchableOpacity
       testID={props.testID}
       onPress={() => props.handlePressOptionsShow(props.item.id)}
-      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-6 rounded-lg shadow-lg ${renderBorderType(
+      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-6 rounded-lg shadow-lg ${utils.renderBorderType(
         props.item.type
-      )} ${renderBackgroundClass(
+      )} ${utils.renderBackgroundClass(
         props.item.type,
         props.item.date,
         props.item.pay
@@ -76,7 +76,7 @@ function ItemList(props: Props) {
             prefix={"R$ "}
             renderText={(value: string) => (
               <Text className="text-xl">
-                {parseMoney(value, props.eyeStatus)}
+                {utils.parseMoney(value, props.eyeStatus)}
               </Text>
             )}
           />

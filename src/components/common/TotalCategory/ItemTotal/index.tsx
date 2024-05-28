@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import { NumericFormat } from "react-number-format";
 import { useColorScheme } from "nativewind";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { renderBorderType, types, parseMoney } from "@utils";
+import utils from "@utils";
 import useOrientation from "@hooks/useOrientation";
 import { Props } from "./types";
 
@@ -52,7 +52,9 @@ export default function ItemTotal(props: Props) {
   return (
     <View
       testID={props.testID}
-      className={`flex flex-row items-center ${renderBorderType(props.type)} ${
+      className={`flex flex-row items-center ${utils.renderBorderType(
+        props.type
+      )} ${
         landscape
           ? "justify-end"
           : "justify-start px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
@@ -76,14 +78,15 @@ export default function ItemTotal(props: Props) {
             }`}
           >
             <Text className="text-sm text-black dark:text-white">
-              Total {types[props.type]} {!props.isFilterEmpty ? "filtrada" : ""}
+              Total {utils.types[props.type]}{" "}
+              {!props.isFilterEmpty ? "filtrada" : ""}
             </Text>
             <Text
               className={`text-black dark:text-white font-bold text-2xl ${
                 props.value < 0 && "text-red-700"
               }`}
             >
-              {parseMoney(value, props.eyeStatus)}
+              {utils.parseMoney(value, props.eyeStatus)}
             </Text>
             {landscape && (
               <View className="flex justify-center items-center absolute -right-[50] bottom-[8]">

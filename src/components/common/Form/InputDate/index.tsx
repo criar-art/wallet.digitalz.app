@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { formatDateString } from "@utils";
+import utils from "@utils";
 import { Props } from "./types";
 
 function InputDate(props: Props) {
@@ -17,7 +17,7 @@ function InputDate(props: Props) {
     if (selectedDate) {
       setShowDate(false);
       setDate(selectedDate);
-      props.onChangeDate(formatDateString(selectedDate), "date");
+      props.onChangeDate(utils.formatDateString(selectedDate), "date");
     }
   };
 

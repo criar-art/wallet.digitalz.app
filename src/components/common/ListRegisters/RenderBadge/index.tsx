@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Text, View } from "react-native";
-import { isDateToday, isDateTomorrow, isDatePast } from "@utils";
+import utils from "@utils";
 import { Props } from "./types";
 
 const RenderBadge = ({ type, date, isPaid, testID }: Props) => {
@@ -10,13 +10,13 @@ const RenderBadge = ({ type, date, isPaid, testID }: Props) => {
   if (isPaid) {
     badgeText = "PAGO";
     badgeColor = "bg-green-500";
-  } else if (isDateToday(date)) {
+  } else if (utils.isDateToday(date)) {
     badgeText = type === "expense" ? "VENCE HOJE" : "DISPONÍVEL HOJE";
     badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-  } else if (isDateTomorrow(date)) {
+  } else if (utils.isDateTomorrow(date)) {
     badgeText = type === "expense" ? "VENCE AMANHÃ" : "DISPONÍVEL AMANHÃ";
     badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
-  } else if (isDatePast(date)) {
+  } else if (utils.isDatePast(date)) {
     badgeText = type === "expense" ? "VENCIDO" : "DISPONÍVEL";
     badgeColor = type === "expense" ? "bg-red-500" : "bg-green-500";
   }

@@ -7,11 +7,10 @@ import useAuthentication from "@hooks/useAuthentication";
 import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { setIsProtected } from "@store/userSlice";
-import { types } from "@utils";
+import utils from "@utils";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
-import { Props } from "./types";
 
 export default function ModalInfo(props: { testID?: string }) {
   const { protection } = useAuthentication();
@@ -207,7 +206,7 @@ export default function ModalInfo(props: { testID?: string }) {
         title:
           modals?.modalInfo == "loginSupported"
             ? "Informação de Proteção"
-            : `Valor ${types[modals?.modalInfo]}`,
+            : `Valor ${utils.types[modals?.modalInfo]}`,
         icon: renderModalIcon(modals?.modalInfo),
       }}
       cancelButton={{

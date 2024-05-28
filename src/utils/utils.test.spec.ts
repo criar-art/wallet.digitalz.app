@@ -1,22 +1,16 @@
-import {
-  renderBorderType,
-  types,
-  capitalize,
-  checkTypeTouchable,
-  parseMoney,
-  formatDate,
-  isDatePast,
-} from "./index";
+import utils from "./index";
 
 describe("Utility Functions", () => {
-  describe("renderBorderType", () => {
+  describe("utils.renderBorderType", () => {
     test("returns the correct border type for each input", () => {
-      expect(renderBorderType("liquid")).toBe("border-yellow-400");
-      expect(renderBorderType("patrimony")).toBe("border-black dark:border-white");
-      expect(renderBorderType("investiment")).toBe("border-sky-400");
-      expect(renderBorderType("entry")).toBe("border-green-400");
-      expect(renderBorderType("expense")).toBe("border-red-400");
-      expect(renderBorderType("vehicle")).toBe("border-gray-400");
+      expect(utils.renderBorderType("liquid")).toBe("border-yellow-400");
+      expect(utils.renderBorderType("patrimony")).toBe(
+        "border-black dark:border-white"
+      );
+      expect(utils.renderBorderType("investiment")).toBe("border-sky-400");
+      expect(utils.renderBorderType("entry")).toBe("border-green-400");
+      expect(utils.renderBorderType("expense")).toBe("border-red-400");
+      expect(utils.renderBorderType("vehicle")).toBe("border-gray-400");
     });
   });
 
@@ -31,34 +25,34 @@ describe("Utility Functions", () => {
         vehicle: "Veículo",
       };
 
-      expect(types).toEqual(expectedTypes);
+      expect(utils.types).toEqual(expectedTypes);
     });
   });
 
   describe("capitalize", () => {
     test("capitalizes the first letter and lowercases the rest", () => {
-      expect(capitalize("test")).toBe("Test");
-      expect(capitalize("HELLO")).toBe("Hello");
+      expect(utils.capitalize("test")).toBe("Test");
+      expect(utils.capitalize("HELLO")).toBe("Hello");
     });
   });
 
   describe("checkTypeTouchable", () => {
     test('returns false for "liquid" and "patrimony", true otherwise', () => {
-      expect(checkTypeTouchable("liquid")).toBe(false);
-      expect(checkTypeTouchable("patrimony")).toBe(false);
-      expect(checkTypeTouchable("investiment")).toBe(true);
-      expect(checkTypeTouchable("entry")).toBe(true);
-      expect(checkTypeTouchable("expense")).toBe(true);
-      expect(checkTypeTouchable("vehicle")).toBe(true);
+      expect(utils.checkTypeTouchable("liquid")).toBe(false);
+      expect(utils.checkTypeTouchable("patrimony")).toBe(false);
+      expect(utils.checkTypeTouchable("investiment")).toBe(true);
+      expect(utils.checkTypeTouchable("entry")).toBe(true);
+      expect(utils.checkTypeTouchable("expense")).toBe(true);
+      expect(utils.checkTypeTouchable("vehicle")).toBe(true);
     });
   });
 
   describe("Basic render parseMoney function", () => {
     it("is parseMoney BRL show value", () => {
-      expect(parseMoney("R$ 1.000,00", true)).toBe("R$ 1.000,00");
+      expect(utils.parseMoney("R$ 1.000,00", true)).toBe("R$ 1.000,00");
     });
     it("is parseMoney BRL with hidden value", () => {
-      expect(parseMoney("R$ 1.000,00", false)).toBe("R$ ********");
+      expect(utils.parseMoney("R$ 1.000,00", false)).toBe("R$ ********");
     });
   });
 
@@ -67,13 +61,13 @@ describe("Utility Functions", () => {
       test("should correctly format a date string into a 'dd/MM/yyyy' string", () => {
         const dateStr = "15/05/2023";
         const expectedDateStr = "15/05/2023";
-        expect(formatDate(dateStr)).toBe(expectedDateStr);
+        expect(utils.formatDate(dateStr)).toBe(expectedDateStr);
       });
 
       test("should correctly format a date string with leading zeros", () => {
         const dateStr = "01/01/2024";
         const expectedDateStr = "01/01/2024";
-        expect(formatDate(dateStr)).toBe(expectedDateStr);
+        expect(utils.formatDate(dateStr)).toBe(expectedDateStr);
       });
 
       test("should handle different date formats", () => {
@@ -82,26 +76,26 @@ describe("Utility Functions", () => {
         const dateStr3 = "15-05-2023";
         const expectedDateStr = "15/05/2023";
 
-        expect(formatDate(dateStr1)).toBe(expectedDateStr);
-        expect(formatDate(dateStr2)).toBe(expectedDateStr);
-        expect(formatDate(dateStr3)).toBe(expectedDateStr);
+        expect(utils.formatDate(dateStr1)).toBe(expectedDateStr);
+        expect(utils.formatDate(dateStr2)).toBe(expectedDateStr);
+        expect(utils.formatDate(dateStr3)).toBe(expectedDateStr);
       });
 
       test("should handle invalid date strings gracefully", () => {
         const dateStr = "invalid-date";
-        expect(() => formatDate(dateStr)).toThrow("Invalid date format");
+        expect(() => utils.formatDate(dateStr)).toThrow("Invalid date format");
       });
     });
 
     describe("isDatePast", () => {
       test("should return true for a date in the past", () => {
         const dateStr = "05/12/2020";
-        expect(isDatePast(dateStr)).toBe(true);
+        expect(utils.isDatePast(dateStr)).toBe(true);
       });
 
       test("should return false for a date in the future", () => {
         const dateStr = "05/15/2025";
-        expect(isDatePast(dateStr)).toBe(false);
+        expect(utils.isDatePast(dateStr)).toBe(false);
       });
 
       test("should return false for today's date", () => {
@@ -111,7 +105,7 @@ describe("Utility Functions", () => {
         const year = today.getFullYear();
         const dateStr = `${day}/${month}/${year}`;
 
-        expect(isDatePast(dateStr)).toBe(false);
+        expect(utils.isDatePast(dateStr)).toBe(false);
       });
     });
   });

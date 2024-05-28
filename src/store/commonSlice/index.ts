@@ -1,7 +1,7 @@
 import { Selector, createSelector, createSlice } from "@reduxjs/toolkit";
-import { common } from "./types";
 import { RootState } from "@store";
-import { applyFilterData, sortDataByDateDesc } from "@utils";
+import utils from "@utils";
+import { common } from "./types";
 
 export const commonSlice = createSlice({
   name: "commonState",
@@ -19,7 +19,7 @@ export const commonSlice = createSlice({
   } as common,
   reducers: {
     setRegister(state, payload) {
-      state.registers = sortDataByDateDesc(payload.payload);
+      state.registers = utils.sortDataByDateDesc(payload.payload);
     },
     setEditRegister(state, payload) {
       const itemIndex = state.registers.findIndex(
@@ -51,7 +51,7 @@ export const selectRegisters = (type: string) => (state: RootState) => {
 
   // Filtrar os registros pelo tipo especificado
   const filteredData = registers.filter((item) => item.type === type);
-  return sortDataByDateDesc(filteredData);
+  return utils.sortDataByDateDesc(filteredData);
 };
 
 // Defina uma função de fábrica que aceita o tipo como parâmetro
@@ -76,7 +76,7 @@ const makeSelectRegistersFiltered: (
       // Filtra os registros pelo tipo
       const filteredByType = registers.filter((item) => item.type === type);
       // Aplica os filtros e ordenação
-      return applyFilterData(filteredByType, filter);
+      return utils.applyFilterData(filteredByType, filter);
     }
   );
 

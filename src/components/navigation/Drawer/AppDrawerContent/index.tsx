@@ -3,11 +3,11 @@ import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
 import pkg from "@root/package.json";
 import app from "@root/app.json";
-import { getLabel } from "@utils";
-import { Props } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import AppDrawerButton from "../AppDrawerButton";
 import Button from "@components/common/Button";
+import utils from "@utils";
+import { Props } from "./types";
 
 export default function AppDrawerContent({
   state,
@@ -37,9 +37,9 @@ export default function AppDrawerContent({
         {state?.routes.map((route: any, index: number) => {
           const { options }: { options: any } = descriptors[route.key];
           const labelButton: string =
-            getLabel(options, route) == "Wallet Digitalz"
+            utils.getLabel(options, route) == "Wallet Digitalz"
               ? "Ínicio"
-              : getLabel(options, route);
+              : utils.getLabel(options, route);
           const isFocused: boolean = state.index === index;
 
           return (
