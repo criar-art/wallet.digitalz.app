@@ -95,12 +95,12 @@ describe("Utility Functions", () => {
 
     describe("isDatePast", () => {
       test("should return true for a date in the past", () => {
-        const dateStr = "15/05/2020";
+        const dateStr = "05/12/2020";
         expect(isDatePast(dateStr)).toBe(true);
       });
 
       test("should return false for a date in the future", () => {
-        const dateStr = "15/05/2025";
+        const dateStr = "05/15/2025";
         expect(isDatePast(dateStr)).toBe(false);
       });
 
