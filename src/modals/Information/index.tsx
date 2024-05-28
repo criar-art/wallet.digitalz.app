@@ -13,7 +13,7 @@ import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import { Props } from "./types";
 
-export default function ModalInfo(props: Props) {
+export default function ModalInfo(props: { testID?: string }) {
   const { protection } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();

@@ -11,9 +11,8 @@ import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import { setRegisterFilter, setResetFilter } from "@store/commonSlice";
 import InputDate from "@components/common/Form/InputDate";
-import { Props } from "./types";
 
-export default function ModalFilter({ testID }: Props) {
+export default function ModalFilter(props: { testID?: string }) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
@@ -21,8 +20,8 @@ export default function ModalFilter({ testID }: Props) {
   const modalRef = useRef<ModalHandle>(null);
 
   const isOpenModal = useMemo(
-    () => ["expense", "entry", "investiment"].includes(modals.modalFilter),
-    [modals.modalFilter]
+    () => ["expense", "entry", "investiment"].includes(modals?.modalFilter),
+    [modals?.modalFilter]
   );
 
   const startDate = useMemo(
@@ -77,7 +76,11 @@ export default function ModalFilter({ testID }: Props) {
     },
   ];
 
-  const RenderFilterButton = (props: any) => (
+  const RenderFilterButton = (props: {
+    value: boolean | undefined;
+    text: string;
+    iconName: "density-small" | "attach-money" | "money-off";
+  }) => (
     <Button
       twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
         common.registerFilter?.pay === props.value
@@ -115,7 +118,7 @@ export default function ModalFilter({ testID }: Props) {
       ref={modalRef}
       optional={true}
       isOpen={isOpenModal}
-      testID={testID || "teste-modal"}
+      testID={props.testID || "test-modal"}
       closeAction={() => dispatch(setModalFilter(""))}
       cancelAction={resetFilters}
       confirmAction={() => modalRef.current?.closeModal()}
@@ -147,7 +150,7 @@ export default function ModalFilter({ testID }: Props) {
       }}
     >
       <View className="mb-6 pt-4">
-        {modals.modalFilter === "expense" && (
+        {modals?.modalFilter === "expense" && (
           <View className="flex flex-row mb-4 w-full">
             {filterButtons.map((item: any) => (
               <RenderFilterButton

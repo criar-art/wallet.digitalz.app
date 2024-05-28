@@ -14,9 +14,8 @@ import InputText from "@components/common/Form/InputText";
 import InputMoney from "@components/common/Form/InputMoney";
 import InputDate from "@components/common/Form/InputDate";
 import { useNavigationState } from "@react-navigation/native";
-import { Props } from "./types";
 
-export default function ModalRegister(props: Props) {
+export default function ModalRegister(props: { testID?: string }) {
   const indexTab = useNavigationState(
     (state) => state?.routes[0]?.state?.index
   );

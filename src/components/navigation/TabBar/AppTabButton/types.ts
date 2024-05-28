@@ -1,11 +1,11 @@
 export type Props = {
-  className?: string;
+  twClass?: string;
   labelButton: string;
   isFocused: boolean;
   onPress: () => void;
   onLongPress: () => void;
   options: Options;
-}
+};
 
 export type Options = {
   tabBarLabel?: string;

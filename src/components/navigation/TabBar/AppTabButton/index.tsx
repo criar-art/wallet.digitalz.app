@@ -4,7 +4,7 @@ import useOrientation from "@hooks/useOrientation";
 import { Props } from "./types";
 
 export default function NavigationButton({
-  className,
+  twClass,
   labelButton,
   isFocused,
   onPress,
@@ -26,7 +26,7 @@ export default function NavigationButton({
         !isFocused
           ? "bg-white dark:bg-zinc-800"
           : "bg-gray-100 dark:bg-zinc-700"
-      } ${landscape ? "border-t-2" : "border-y-2"} ${className}`}
+      } ${landscape ? "border-t-2" : "border-y-2"} ${twClass}`}
       disabled={isFocused}
     >
       <View

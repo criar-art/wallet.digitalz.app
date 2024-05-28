@@ -1,5 +1,6 @@
 export type Props = {
   testID?: string;
   type: string;
-  value: number;
-}
+  date: string;
+  isPaid?: boolean;
+};

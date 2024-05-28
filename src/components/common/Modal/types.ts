@@ -1,8 +1,11 @@
 export type Props = {
   testID?: string;
-  className?: string;
   isOpen: boolean;
-  children?: React.ReactElement | React.ReactElement[] | React.ReactNode | React.ReactNode[];
+  children?:
+    | React.ReactElement
+    | React.ReactElement[]
+    | React.ReactNode
+    | React.ReactNode[];
   closeAction: () => void;
   cancelAction?: () => void;
   confirmAction?: () => void;
@@ -12,7 +15,7 @@ export type Props = {
   alertModal?: any;
   type?: string;
   optional?: boolean;
-}
+};
 
 export type ModalHandle = {
   startShake: () => void;

@@ -1,8 +1,9 @@
 import { memo } from "react";
 import { Text, View } from "react-native";
 import { isDateToday, isDateTomorrow, isDatePast } from "@utils";
+import { Props } from "./types";
 
-const RenderBadge = ({ type, date, isPaid }: any) => {
+const RenderBadge = ({ type, date, isPaid, testID }: Props) => {
   let badgeText = "";
   let badgeColor = "";
 
@@ -22,6 +23,7 @@ const RenderBadge = ({ type, date, isPaid }: any) => {
 
   return badgeText ? (
     <View
+      testID={testID}
       className={`p-1 px-2 rounded-full absolute z-10 left-2 -top-3 ${badgeColor}`}
     >
       <Text className="text-white text-center font-black text-xs">

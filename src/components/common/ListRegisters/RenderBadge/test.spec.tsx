@@ -8,10 +8,15 @@ test("should render RenderBadge", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <RenderBadge type="test" date="21/09/1994" isPaid={true} />
+        <RenderBadge
+          testID="badge-test"
+          type="test"
+          date="21/09/1994"
+          isPaid={true}
+        />
       </NavigationContainer>
     </Provider>
   );
 
-  expect(getByTestId("list-register")).toBeTruthy();
+  expect(getByTestId("badge-test")).toBeTruthy();
 });
