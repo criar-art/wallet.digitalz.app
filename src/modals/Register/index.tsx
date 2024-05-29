@@ -47,8 +47,11 @@ export default function ModalRegister(props: { testID?: string }) {
     setFormError(errors);
 
     const data = isEditing()
-      ? { id: common.registerData.id, ...formModal }
-      : { id: uuid.v4(), ...formModal };
+      ? {
+          id: common.registerData.id,
+          ...formModal,
+        }
+      : { id: uuid.v4(), ...formModal, name: formModal.name.trim() };
 
     if (!Object.values(errors).some((error) => error)) {
       dispatch(
