@@ -1,3 +1,4 @@
+import { memo, useMemo, useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 import ItemTotal from "./ItemTotal";
 import { useAppSelector } from "@store/hooks";
@@ -8,15 +9,23 @@ import utils from "@utils";
 import { useSelector } from "react-redux";
 import { selectRegistersFiltered } from "@store/commonSlice";
 
-export default function TotalCategory(props: Props) {
+function TotalCategory(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
-  const isFilterEmpty = utils.isObjectEmpty(common.registerFilter);
-  const getTotalValue = (): number =>
-    props.type === "patrimony" ? getPatrimonyTotal() : getTotal(props.type);
 
-  const returnTotalValue = (): number => {
+  const isFilterEmpty = useMemo(
+    () => utils.isObjectEmpty(common.registerFilter),
+    [common.registerFilter]
+  );
+
+  const getTotalValue = useCallback((): number => {
+    return props.type === "patrimony"
+      ? getPatrimonyTotal()
+      : getTotal(props.type);
+  }, [getPatrimonyTotal, getTotal, props.type]);
+
+  const returnTotalValue = useMemo((): number => {
     if (isFilterEmpty) {
       return getTotalValue();
     }
@@ -24,7 +33,7 @@ export default function TotalCategory(props: Props) {
       return getFilteredTotal(getRegistersFiltered);
     }
     return getTotalValue();
-  };
+  }, [isFilterEmpty, getTotalValue, getRegistersFiltered, getFilteredTotal]);
 
   return (
     <TouchableOpacity
@@ -35,9 +44,11 @@ export default function TotalCategory(props: Props) {
       <ItemTotal
         type={props.type}
         isFilterEmpty={isFilterEmpty}
-        value={returnTotalValue()}
+        value={returnTotalValue}
         eyeStatus={common.eyeStatus}
       />
     </TouchableOpacity>
   );
 }
+
+export default memo(TotalCategory);

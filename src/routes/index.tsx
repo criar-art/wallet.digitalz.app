@@ -55,10 +55,6 @@ export default function Routes(props: any) {
   const { isLogin, isProtected } = useAppSelector(
     (state: RootState) => state.userState
   );
-  const nameOfRoute = props.name?.toLowerCase();
-  const typeCategory = ["entry", "expense", "investiment"].includes(nameOfRoute)
-    ? nameOfRoute
-    : "patrimony";
 
   return (
     <Drawer.Navigator
@@ -101,13 +97,7 @@ export default function Routes(props: any) {
               headerLeft: () => (
                 <AppDrawer.Header onPress={props.toggleDrawer} />
               ),
-              headerRight: () =>
-                (nameOfRoute !== "login" || nameOfRoute == undefined) && (
-                  <AppDrawer.Header
-                    type={!props.dashboard ? "header" : "back"}
-                    category={typeCategory}
-                  />
-                ),
+              headerRight: () => <AppDrawer.Header type="right" />,
             }}
             component={component}
           />

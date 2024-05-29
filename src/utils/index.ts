@@ -53,6 +53,10 @@ const isObjectEmpty = (obj: any): boolean => {
     : false;
 };
 
+const typeCategory = ["patrimony", "expense", "entry", "investiment"];
+const TypeCategory = (index: number | undefined) =>
+  index === undefined ? "patrimony" : typeCategory[index];
+
 export default {
   formatDate,
   isDatePast,
@@ -71,4 +75,5 @@ export default {
   getLabel,
   isObjectEmpty,
   checkTypeTouchable,
+  TypeCategory,
 };

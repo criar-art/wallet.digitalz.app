@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   DrawerActions,
@@ -30,12 +29,8 @@ function App(props: any) {
   return (
     <>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <Routes
-        toggleDrawer={toggleDrawer}
-        dashboard={props.dashboard}
-        name={props.name}
-      />
-      {!props.dashboard && <ModalGlobal />}
+      <Routes toggleDrawer={toggleDrawer} />
+      <ModalGlobal />
     </>
   );
 }
@@ -44,8 +39,6 @@ function AppContainer() {
   const persistor = persistStore(store);
   const navigationRef = useNavigationContainerRef();
   const { colorScheme } = useColorScheme();
-  const [dashboard, setDashboard] = useState<boolean>(false);
-  const [currentRouteName, setCurrentRouteName] = useState<string>();
 
   const walletTheme = {
     ...DefaultTheme,
@@ -55,32 +48,12 @@ function AppContainer() {
     },
   };
 
-  function checkRoute() {
-    if (navigationRef.isReady()) {
-      const currentRoute = navigationRef.getCurrentRoute();
-      setDashboard(
-        currentRoute?.name == "About" || currentRoute?.name == "Contact"
-      );
-      setCurrentRouteName(currentRoute?.name);
-    }
-  }
-
   return (
     <SafeAreaProvider testID="app-container">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <NavigationContainer
-            ref={navigationRef}
-            onStateChange={() => checkRoute()}
-            onReady={() => checkRoute()}
-            theme={walletTheme}
-          >
-            <App
-              navigation={navigationRef}
-              dashboard={dashboard}
-              navigationRef={navigationRef}
-              name={currentRouteName}
-            />
+          <NavigationContainer ref={navigationRef} theme={walletTheme}>
+            <App navigationRef={navigationRef} />
           </NavigationContainer>
         </PersistGate>
       </Provider>

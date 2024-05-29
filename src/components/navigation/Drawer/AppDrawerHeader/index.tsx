@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { selectRegistersType, setEyeStatus } from "@store/commonSlice";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
 import { RootState } from "@store";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useNavigationState } from "@react-navigation/native";
 import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import utils from "@utils";
@@ -20,24 +20,45 @@ export default function AppDrawerHeader(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const store = useAppSelector((state: RootState) => state.userState);
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
-  const getRegisters = useSelector(selectRegistersType(String(props.category)));
+  const indexRoute = useNavigationState((state) => state.index);
+  const stateRoute = useNavigationState((state) => state);
+  const indexTab = useNavigationState((state) => state.routes[0].state?.index);
+  const getRegisters = useSelector(
+    selectRegistersType(String(utils.TypeCategory(indexTab)))
+  );
   const isTypesTab = () =>
-    ["expense", "entry", "investiment"].includes(String(props.category));
+    ["expense", "entry", "investiment"].includes(
+      String(utils.TypeCategory(indexTab))
+    );
   const navigation: any = useNavigation();
   const iconConfig = {
     size: 25,
     color: colorScheme === "dark" ? "white" : "black",
   };
 
-  if (props.type === "header") {
+  if (
+    !stateRoute.routeNames.includes("Root") &&
+    indexRoute === 0 &&
+    props.type == "right"
+  ) {
+    return;
+  }
+
+  if (
+    stateRoute.routeNames.includes("Root") &&
+    indexRoute === 0 &&
+    props.type == "right"
+  ) {
     return (
       <>
         {landscape && (
           <>
             {
               <TotalCategory
-                onPress={() => dispatch(setModalInfo(props.category))}
-                type={String(props.category)}
+                onPress={() =>
+                  dispatch(setModalInfo(utils.TypeCategory(indexTab)))
+                }
+                type={String(utils.TypeCategory(indexTab))}
                 twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${
                   getRegisters.length > 1 && isTypesTab()
                     ? "right-[195]"
@@ -51,7 +72,9 @@ export default function AppDrawerHeader(props: Props) {
                 text="Filtro"
                 label="Abrir modal de filtros"
                 textColor="text-black dark:text-white"
-                onPress={() => dispatch(setModalFilter(props.category))}
+                onPress={() =>
+                  dispatch(setModalFilter(utils.TypeCategory(indexTab)))
+                }
                 icon={
                   <>
                     {utils.isObjectEmpty(common.registerFilter) ? (
@@ -88,7 +111,7 @@ export default function AppDrawerHeader(props: Props) {
     );
   }
 
-  if (props.type === "back") {
+  if (props.type == "right") {
     return (
       <TouchableOpacity
         testID={props.testID}
