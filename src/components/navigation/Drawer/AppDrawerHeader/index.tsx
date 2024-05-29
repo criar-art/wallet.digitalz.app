@@ -20,9 +20,11 @@ export default function AppDrawerHeader(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
   const store = useAppSelector((state: RootState) => state.userState);
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
-  const indexRoute = useNavigationState((state) => state.index);
+  const indexRoute = useNavigationState((state) => state?.index);
   const stateRoute = useNavigationState((state) => state);
-  const indexTab = useNavigationState((state) => state.routes[0].state?.index);
+  const indexTab = useNavigationState(
+    (state) => state?.routes[0]?.state?.index
+  );
   const getRegisters = useSelector(
     selectRegistersType(String(utils.TypeCategory(indexTab)))
   );
@@ -37,7 +39,7 @@ export default function AppDrawerHeader(props: Props) {
   };
 
   if (
-    !stateRoute.routeNames.includes("Root") &&
+    !stateRoute?.routeNames.includes("Root") &&
     indexRoute === 0 &&
     props.type == "right"
   ) {
@@ -45,7 +47,7 @@ export default function AppDrawerHeader(props: Props) {
   }
 
   if (
-    stateRoute.routeNames.includes("Root") &&
+    stateRoute?.routeNames.includes("Root") &&
     indexRoute === 0 &&
     props.type == "right"
   ) {
