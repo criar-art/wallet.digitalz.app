@@ -4,7 +4,7 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
-import { setRegister, setEditRegister } from "@store/commonSlice";
+import { setRegister, setEditRegister } from "@store/expenseSlice";
 import { setModalRegister } from "@store/modalsSlice";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
 import Modal from "@components/common/Modal";
@@ -22,6 +22,7 @@ export default function ModalRegister(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
+  const expense = useAppSelector((state: RootState) => state.expenseState);
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
@@ -46,7 +47,7 @@ export default function ModalRegister(props: { testID?: string }) {
     const errors = { name: !name, value: !value, type: !type };
     setFormError(errors);
 
-    const data = isEditing()
+    const data: any = isEditing()
       ? {
           id: common.registerData.id,
           ...formModal,
@@ -57,7 +58,7 @@ export default function ModalRegister(props: { testID?: string }) {
       dispatch(
         isEditing()
           ? setEditRegister(data)
-          : setRegister([data, ...common.registers])
+          : setRegister([data, ...expense.registers] as any)
       );
       closeModal();
     } else {

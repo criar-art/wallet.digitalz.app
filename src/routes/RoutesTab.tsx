@@ -6,14 +6,16 @@ import { RootState } from "@store";
 import TabBar from "@components/navigation/TabBar";
 import utils from "@utils";
 import Page from "@pages";
+import { useBalance } from "@hooks/useBalance"
 
 const Tab = createBottomTabNavigator();
 
 export function RoutesTab() {
   const { colorScheme } = useColorScheme();
+  const { getQuantity } = useBalance();
   const common = useAppSelector((state: RootState) => state.commonState);
   const getCountRegisters = (type: string) => {
-    return common.registers.filter((item: any) => item.type == type).length;
+    return getQuantity(type);
   };
 
   function configRegisterScreen(name: string, title: string, icon: any) {
@@ -51,7 +53,7 @@ export function RoutesTab() {
         color={props.color}
       />
     )),
-    configRegisterScreen("Investiment", "Investimento", (props: any) => (
+    configRegisterScreen("Investment", "Investimento", (props: any) => (
       <MaterialIcons name="trending-up" size={props.size} color={props.color} />
     )),
   ];

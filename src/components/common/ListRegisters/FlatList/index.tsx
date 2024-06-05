@@ -1,17 +1,14 @@
 import { FlatList, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigationState } from "@react-navigation/native";
+// import { useNavigationState } from "@react-navigation/native";
 import ItemList from "@components/common/ListRegisters/Item";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import {
-  setRegisterData,
-  setResetFilter,
-  selectRegistersFiltered,
-} from "@store/commonSlice";
+import { setRegisterData } from "@store/commonSlice";
+import { selectRegistersFiltered } from "@store/commonSelects";
 import { RootState } from "@store";
 import {
   setModalRegister,
@@ -21,7 +18,7 @@ import {
 import { Props } from "./types";
 
 const FlatListRegisters = (props: Props) => {
-  const navigationState = useNavigationState((state) => state);
+  // const navigationState = useNavigationState((state) => state);
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
@@ -29,25 +26,25 @@ const FlatListRegisters = (props: Props) => {
   const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const [optionsShow, setOptionsShow] = useState(null);
 
-  useEffect(() => {
-    dispatch(
-      setResetFilter({
-        short: "",
-        startDate: "",
-        endDate: "",
-        searchTerm: "",
-        pay: undefined,
-      })
-    );
-  }, [navigationState]);
+  // useEffect(() => {
+  //   dispatch(
+  //     setResetFilter({
+  //       short: "",
+  //       startDate: "",
+  //       endDate: "",
+  //       searchTerm: "",
+  //       pay: undefined,
+  //     })
+  //   );
+  // }, [navigationState]);
 
   function edit(target: any) {
     dispatch(setModalRegister("edit"));
     dispatch(setRegisterData({ ...target }));
   }
 
-  function remove(target: string) {
-    dispatch(setModalDelete(target));
+  function remove(target: any) {
+    dispatch(setModalDelete({ id: target.id, type: target.type }));
   }
 
   function handlePay(target: any) {
@@ -82,7 +79,7 @@ const FlatListRegisters = (props: Props) => {
               item={item}
               eyeStatus={common.eyeStatus}
               edit={() => edit(item)}
-              remove={() => remove(item.id)}
+              remove={() => remove(item)}
               handlePay={() => handlePay(item)}
               optionsShow={optionsShow}
               setOptionsShow={setOptionsShow}

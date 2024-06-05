@@ -1,43 +1,49 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { persistReducer } from "redux-persist";
-import * as SecureStore from "expo-secure-store";
+import { PersistConfig, persistReducer } from "redux-persist";
 import commonSlice from "./commonSlice";
+import expenseSlice from "./expenseSlice";
+import entrySlice from "./entrySlice";
+import investmentSlice from "./investmentSlice";
 import userSlice from "./userSlice";
 import modalsSlice from "./modalsSlice";
+import utils from "@utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function createSecureStorage(options: any = {}) {
-  const replaceCharacter = options.replaceCharacter || "_";
-  const replacer = options.replacer || defaultReplacer;
-
-  return {
-    getItem: (key: string) =>
-      SecureStore.getItemAsync(replacer(key, replaceCharacter), options),
-    setItem: (key: string, value: string) =>
-      SecureStore.setItemAsync(replacer(key, replaceCharacter), value, options),
-    removeItem: (key: string) =>
-      SecureStore.deleteItemAsync(replacer(key, replaceCharacter), options),
-  };
-}
-
-const defaultReplacer = (key: string, replaceCharacter: any) =>
-  key.replace(/[^a-z0-9.\-_]/gi, replaceCharacter);
-
-const persistConfig = {
-  key: "root",
-  storage: createSecureStorage(),
-};
-
-export const rootReducers = combineReducers({
-  commonState: commonSlice,
-  userState: userSlice,
-  modalsState: modalsSlice,
+const createPersistConfig = (
+  key: string,
+  crypto: string = ""
+): PersistConfig<any> => ({
+  key,
+  storage: AsyncStorage,
+  transforms: [
+    {
+      in: (state: any) =>
+        crypto ? utils.encryptData(state) : JSON.stringify(state),
+      out: (state: any) =>
+        crypto ? utils.decryptData(state) : JSON.parse(state),
+    },
+  ],
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducers);
+const commonPersistConfig = createPersistConfig("commonState");
+const expensePersistConfig = createPersistConfig("expenseState", "secure");
+const entryPersistConfig = createPersistConfig("entryState", "secure");
+const investmentPersistConfig = createPersistConfig("investmentState", "secure");
+const userPersistConfig = createPersistConfig("userState");
+const modalsPersistConfig = createPersistConfig("modalsState");
+
+const rootReducer = combineReducers({
+  commonState: persistReducer(commonPersistConfig, commonSlice),
+  expenseState: persistReducer(expensePersistConfig, expenseSlice),
+  entryState: persistReducer(entryPersistConfig, entrySlice),
+  investmentState: persistReducer(investmentPersistConfig, investmentSlice),
+  userState: persistReducer(userPersistConfig, userSlice),
+  modalsState: persistReducer(modalsPersistConfig, modalsSlice),
+});
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       immutableCheck: false,

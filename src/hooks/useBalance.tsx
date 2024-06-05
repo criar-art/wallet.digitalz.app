@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "@store/hooks";
-import { RootState } from "@store";
+import { selectRegistersType } from "@store/commonSelects";
+import { useSelector } from "react-redux";
 
 interface Totals {
   liquid: number;
   patrimony: number;
   entry: number;
   expenses: number;
-  investiment: number;
+  investment: number;
   paidExpenses: number;
 }
 
 export function useBalance() {
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const getRegistersExpenses = useSelector(selectRegistersType("expense"));
+  const getRegistersEntrys = useSelector(selectRegistersType("entry"));
+  const getRegistersInvestments = useSelector(
+    selectRegistersType("investment")
+  );
 
   const getQuantity = (type: string) => {
-    return common.registers.filter((item: any) => item.type == type).length;
+    switch (type) {
+      case "expense":
+        return getRegistersExpenses.length;
+      case "entry":
+        return getRegistersEntrys.length;
+      case "investment":
+        return getRegistersInvestments.length;
+      default:
+        return 0;
+    }
   };
 
   const getFilteredTotal = (filteredData: any[]): number => {
@@ -25,13 +38,27 @@ export function useBalance() {
     );
   };
 
-  const getTotal = (type: string): number =>
-    common.registers
-      .filter((item: any) => item.type === type && !item.pay)
-      .reduce((acc: number, { value }: any) => acc + Number(value), 0);
+  const getTotal = (type: string): number => {
+    let registers: any = [];
+
+    switch (type) {
+      case "expense":
+        registers = [...getRegistersExpenses];
+      case "entry":
+        registers = [...getRegistersEntrys];
+      case "investment":
+        registers = [...getRegistersInvestments];
+    }
+
+    return registers.length
+      ? registers
+          .filter((item: any) => item.type === type && !item.pay)
+          .reduce((acc: number, { value }: any) => acc + Number(value), 0)
+      : 0;
+  };
 
   const getPaidExpensesTotal = (): number =>
-    common.registers
+    [...getRegistersExpenses]
       .filter((item: any) => item.type === "expense" && item.pay)
       .reduce((acc: number, { value }: any) => acc + Number(value), 0);
 
@@ -40,7 +67,7 @@ export function useBalance() {
     patrimony: getPatrimonyTotal(),
     entry: getTotal("entry"),
     expenses: getTotal("expense"),
-    investiment: getTotal("investiment"),
+    investment: getTotal("investment"),
     paidExpenses: getPaidExpensesTotal(),
   });
 
@@ -50,10 +77,10 @@ export function useBalance() {
       patrimony: getPatrimonyTotal(),
       entry: getTotal("entry"),
       expenses: getTotal("expense"),
-      investiment: getTotal("investiment"),
+      investment: getTotal("investment"),
       paidExpenses: getPaidExpensesTotal(),
     });
-  }, [common.registers]);
+  }, [getRegistersExpenses, getRegistersEntrys, getRegistersInvestments]);
 
   function getLiquid(): number {
     return totals?.entry - totals?.expenses;
@@ -61,7 +88,7 @@ export function useBalance() {
 
   function getPatrimonyTotal(): number {
     const liquidTotal = totals?.entry - totals?.expenses;
-    return totals?.investiment + liquidTotal;
+    return totals?.investment + liquidTotal;
   }
 
   return {

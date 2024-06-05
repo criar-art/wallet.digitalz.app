@@ -7,7 +7,7 @@ import { RootState } from "@store";
 import { Props } from "./types";
 import utils from "@utils";
 import { useSelector } from "react-redux";
-import { selectRegistersFiltered } from "@store/commonSlice";
+import { selectRegistersFiltered } from "@store/commonSelects";
 
 function TotalCategory(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -15,8 +15,8 @@ function TotalCategory(props: Props) {
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
 
   const isFilterEmpty = useMemo(
-    () => utils.isObjectEmpty(common.registerFilter),
-    [common.registerFilter]
+    () => utils.isObjectEmpty(getRegistersFiltered),
+    [getRegistersFiltered]
   );
 
   const getTotalValue = useCallback((): number => {

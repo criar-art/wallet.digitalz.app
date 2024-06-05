@@ -4,7 +4,8 @@ import { useColorScheme } from "nativewind";
 import { useSelector } from "react-redux";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { selectRegistersType, setEyeStatus } from "@store/commonSlice";
+import { setEyeStatus } from "@store/commonSlice";
+import { selectRegistersFiltered, selectRegistersType } from "@store/commonSelects";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
 import { RootState } from "@store";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
@@ -28,8 +29,9 @@ export default function AppDrawerHeader(props: Props) {
   const getRegisters = useSelector(
     selectRegistersType(String(utils.TypeCategory(indexTab)))
   );
+  const getRegistersFiltered = useSelector(selectRegistersFiltered(String(props.type)));
   const isTypesTab = () =>
-    ["expense", "entry", "investiment"].includes(
+    ["expense", "entry", "investment"].includes(
       String(utils.TypeCategory(indexTab))
     );
   const navigation: any = useNavigation();
@@ -79,7 +81,7 @@ export default function AppDrawerHeader(props: Props) {
                 }
                 icon={
                   <>
-                    {utils.isObjectEmpty(common.registerFilter) ? (
+                    {utils.isObjectEmpty(getRegistersFiltered) ? (
                       <MaterialIcons
                         name="filter-list"
                         size={30}
@@ -87,7 +89,7 @@ export default function AppDrawerHeader(props: Props) {
                       />
                     ) : (
                       <Text className="scale-[1.2] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 rounded-full">
-                        {utils.getFilledItemsCount(common.registerFilter)}
+                        {utils.getFilledItemsCount(getRegistersFiltered)}
                       </Text>
                     )}
                   </>

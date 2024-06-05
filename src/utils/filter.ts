@@ -31,14 +31,14 @@ export const getFilledItemsCount = (filter: RegisterFilter): number => {
 };
 
 export const applyFilterData = (registers: any, filter: any) => {
-  let result = [...registers];
+  let result = registers ? [...registers] : [];
 
   const parsedStartDate = filter?.startDate
-    ? parse(filter.startDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.startDate, "dd/MM/yyyy", new Date())
     : null;
 
   const parsedEndDate = filter?.endDate
-    ? parse(filter.endDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.endDate, "dd/MM/yyyy", new Date())
     : null;
 
   if (parsedStartDate && parsedEndDate) {

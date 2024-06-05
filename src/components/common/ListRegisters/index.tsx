@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
-import { selectRegistersType } from "@store/commonSlice";
+import { selectRegistersType } from "@store/commonSelects";
 import FadeView from "@components/animation/FadeView";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import FlatListRegisters from "./FlatList";

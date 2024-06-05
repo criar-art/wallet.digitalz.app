@@ -3,17 +3,29 @@ import { Animated, Easing, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { setRegister } from "@store/commonSlice";
+// import { setRegister } from "@store/commonSlice";
 import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 
+import { setRegister as setRegisterExpense } from "@store/expenseSlice";
+import { setRegister as setRegisterEntry } from "@store/entrySlice";
+import { setRegister as setRegisterInvestment } from "@store/investmentSlice";
+import { selectRegistersType } from "@store/commonSelects";
+import { useSelector } from "react-redux";
+
 export default function ModalDelete(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const expenseRegisters = useAppSelector(
+    (state: RootState) => state.expenseState
+  );
+  const entryRegisters = useAppSelector((state: RootState) => state.entryState);
+  const investmentRegisters = useAppSelector(
+    (state: RootState) => state.investmentState
+  );
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(0)).current;
@@ -38,10 +50,37 @@ export default function ModalDelete(props: { testID?: string }) {
   }, [modals.modalDelete, scaleAnimation]);
 
   const confirmModal = () => {
-    const filter = common.registers.filter(
-      ({ id }) => id !== modals.modalDelete
-    );
-    dispatch(setRegister(filter));
+    console.log("modals.modalDelete?.type: ", modals.modalDelete?.type);
+
+    switch (modals.modalDelete?.type) {
+      case "expense":
+        dispatch(
+          setRegisterExpense(
+            expenseRegisters.registers.filter(
+              ({ id }) => id !== modals.modalDelete?.id
+            ) as any
+          )
+        );
+        break;
+      case "entry":
+        dispatch(
+          setRegisterEntry(
+            entryRegisters.registers.filter(
+              ({ id }) => id !== modals.modalDelete?.id
+            ) as any
+          )
+        );
+        break;
+      case "investment":
+        dispatch(
+          setRegisterInvestment(
+            investmentRegisters.registers.filter(
+              ({ id }) => id !== modals.modalDelete?.id
+            ) as any
+          )
+        );
+        break;
+    }
 
     Animated.sequence([
       Animated.spring(scaleAnimation, {

@@ -6,7 +6,7 @@ export const renderBorderType = (type: string): string => {
       return "border-yellow-400";
     case "patrimony":
       return "border-black dark:border-white";
-    case "investiment":
+    case "investment":
       return "border-sky-400";
     case "entry":
       return "border-green-400";
@@ -27,7 +27,7 @@ export const renderColorType = (type: string, colorScheme: string): string => {
       return "rgb(250 204 21)";
     case "patrimony":
       return "rgb(0 0 0)";
-    case "investiment":
+    case "investment":
       return colorScheme === "dark" ? "rgb(30 58 138)" : "rgb(191 219 254)";
     case "entry":
       return colorScheme === "dark" ? "rgb(20 83 45)" : "rgb(187 247 208)";
@@ -50,19 +50,19 @@ export const renderBackgroundClass = (
   const todayColors: any = {
     expense: "bg-red-100 dark:bg-red-600",
     entry: "bg-green-100 dark:bg-green-600",
-    investiment: "bg-blue-100 dark:bg-blue-600",
+    investment: "bg-blue-100 dark:bg-blue-600",
   };
 
   const tomorrowColors: any = {
     expense: "bg-red-200 dark:bg-red-800",
     entry: "bg-green-200 dark:bg-green-800",
-    investiment: "bg-blue-200 dark:bg-blue-800",
+    investment: "bg-blue-200 dark:bg-blue-800",
   };
 
   const pastColors: any = {
     expense: "bg-red-300 dark:bg-red-900",
     entry: "bg-green-300 dark:bg-green-900",
-    investiment: "bg-blue-300 dark:bg-blue-900",
+    investment: "bg-blue-300 dark:bg-blue-900",
   };
   if (isPay) {
     colorClass = "";

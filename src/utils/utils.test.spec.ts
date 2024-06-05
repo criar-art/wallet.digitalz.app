@@ -7,7 +7,7 @@ describe("Utility Functions", () => {
       expect(utils.renderBorderType("patrimony")).toBe(
         "border-black dark:border-white"
       );
-      expect(utils.renderBorderType("investiment")).toBe("border-sky-400");
+      expect(utils.renderBorderType("investment")).toBe("border-sky-400");
       expect(utils.renderBorderType("entry")).toBe("border-green-400");
       expect(utils.renderBorderType("expense")).toBe("border-red-400");
       expect(utils.renderBorderType("vehicle")).toBe("border-gray-400");
@@ -19,7 +19,7 @@ describe("Utility Functions", () => {
       const expectedTypes = {
         liquid: "Líquido",
         patrimony: "Patrimônio",
-        investiment: "Investimento",
+        investment: "Investimento",
         entry: "Entrada",
         expense: "Despesa",
         vehicle: "Veículo",
@@ -40,7 +40,7 @@ describe("Utility Functions", () => {
     test('returns false for "liquid" and "patrimony", true otherwise', () => {
       expect(utils.checkTypeTouchable("liquid")).toBe(false);
       expect(utils.checkTypeTouchable("patrimony")).toBe(false);
-      expect(utils.checkTypeTouchable("investiment")).toBe(true);
+      expect(utils.checkTypeTouchable("investment")).toBe(true);
       expect(utils.checkTypeTouchable("entry")).toBe(true);
       expect(utils.checkTypeTouchable("expense")).toBe(true);
       expect(utils.checkTypeTouchable("vehicle")).toBe(true);
