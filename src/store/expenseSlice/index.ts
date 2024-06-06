@@ -1,6 +1,4 @@
-import { Selector, createSelector, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "@store";
-import utils from "@utils";
+import { createSlice } from "@reduxjs/toolkit";
 import { CommonState } from "./types";
 import reducers from "@store/commonReducers";
 
@@ -18,7 +16,7 @@ export const expenseSlice = createSlice({
     pagination: {
       startIndex: 0,
       endIndex: 5,
-    }
+    },
   } as CommonState,
   reducers,
 });
