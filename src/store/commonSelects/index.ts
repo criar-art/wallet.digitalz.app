@@ -27,6 +27,12 @@ export const selectRegisters = (type: string) => (state: RootState) => {
   return utils.sortDataByDateDesc(filteredData);
 };
 
+// Selector básico para filtrar e classificar os registros com base no tipo
+export const selectFilters = (type: string) => (state: RootState) => {
+  const data = utils.getStateRegisters(state, type);
+  return data?.registerFilter;
+};
+
 // Defina uma função de fábrica que aceita o tipo como parâmetro
 const makeSelectRegistersType: (
   type: string
