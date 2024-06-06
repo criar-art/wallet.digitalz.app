@@ -29,7 +29,10 @@ const createPersistConfig = (
 const commonPersistConfig = createPersistConfig("commonState");
 const expensePersistConfig = createPersistConfig("expenseState", "secure");
 const entryPersistConfig = createPersistConfig("entryState", "secure");
-const investmentPersistConfig = createPersistConfig("investmentState", "secure");
+const investmentPersistConfig = createPersistConfig(
+  "investmentState",
+  "secure"
+);
 const userPersistConfig = createPersistConfig("userState");
 const modalsPersistConfig = createPersistConfig("modalsState");
 
