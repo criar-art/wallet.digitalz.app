@@ -1,3 +1,4 @@
+import { RootState } from "@store";
 import {
   compareAsc,
   compareDesc,
@@ -14,6 +15,17 @@ interface RegisterFilter {
   searchTerm: string;
   pay: boolean | undefined;
 }
+
+// Função auxiliar para obter registros com base no tipo
+export const getStateRegisters: any = (state: RootState, type: string) => {
+  const dataMapping: any = {
+    expense: state.expenseState,
+    entry: state.entryState,
+    investment: state.investmentState,
+  };
+
+  return dataMapping[type] || {};
+};
 
 export const getFilledItemsCount = (filter: RegisterFilter): number => {
   let count = 0;

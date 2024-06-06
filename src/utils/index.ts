@@ -1,4 +1,8 @@
-import { getFilledItemsCount, applyFilterData } from "./filter";
+import {
+  getFilledItemsCount,
+  applyFilterData,
+  getStateRegisters,
+} from "./filter";
 import {
   formatDate,
   isDatePast,
@@ -66,6 +70,7 @@ export default {
   isDateToday,
   isDateTomorrow,
   sortDataByDateDesc,
+  getStateRegisters,
   getFilledItemsCount,
   applyFilterData,
   renderBorderType,
