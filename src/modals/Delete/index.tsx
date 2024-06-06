@@ -3,17 +3,13 @@ import { Animated, Easing, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-// import { setRegister } from "@store/commonSlice";
 import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
-
 import { setRegister as setRegisterExpense } from "@store/expenseSlice";
 import { setRegister as setRegisterEntry } from "@store/entrySlice";
 import { setRegister as setRegisterInvestment } from "@store/investmentSlice";
-import { selectRegistersType } from "@store/commonSelects";
-import { useSelector } from "react-redux";
 
 export default function ModalDelete(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
@@ -50,8 +46,6 @@ export default function ModalDelete(props: { testID?: string }) {
   }, [modals.modalDelete, scaleAnimation]);
 
   const confirmModal = () => {
-    console.log("modals.modalDelete?.type: ", modals.modalDelete?.type);
-
     switch (modals.modalDelete?.type) {
       case "expense":
         dispatch(

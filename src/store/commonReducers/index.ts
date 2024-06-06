@@ -3,10 +3,6 @@ import utils from "@utils";
 
 const reducers = {
   setRegister(state: CommonState, action: any) {
-    console.log(
-      "utils.sortDataByDateDesc(action.payload)",
-      utils.sortDataByDateDesc(action.payload)
-    );
     return {
       ...state,
       registers: utils.sortDataByDateDesc(action.payload),
