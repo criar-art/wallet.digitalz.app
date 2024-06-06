@@ -5,24 +5,22 @@ import utils from "@utils";
 
 // Selector para filtrar e classificar os registros com base no tipo.
 export const selectRegisters = (type: string) => (state: RootState) => {
-  let registers;
+  let data;
 
   switch (type) {
     case "expense":
-      registers = state.expenseState.registers;
+      data = state.expenseState.registers;
       break;
     case "entry":
-      registers = state.entryState.registers;
+      data = state.entryState.registers;
       break;
     case "investment":
-      registers = state.investmentState.registers;
-      break;
-    default:
+      data = state.investmentState.registers;
       break;
   }
 
   // Filtrar os registros pelo tipo especificado
-  const filteredData = registers?.filter((item) => item.type === type);
+  const filteredData = data?.filter((item) => item.type === type);
   return filteredData ? utils.sortDataByDateDesc(filteredData) : [];
 };
 
@@ -49,23 +47,21 @@ const makeSelectRegistersType: (
 ) => Selector<RootState, CommonState["registers"]> = memoize((type: string) =>
   createSelector(
     (state: RootState) => {
-      let registers;
+      let data;
 
       switch (type) {
         case "expense":
-          registers = state.expenseState.registers;
+          data = state.expenseState.registers;
           break;
         case "entry":
-          registers = state.entryState.registers;
+          data = state.entryState.registers;
           break;
         case "investment":
-          registers = state.investmentState.registers;
-          break;
-        default:
+          data = state.investmentState.registers;
           break;
       }
 
-      return registers;
+      return data;
     },
     (registers) => (registers ? registers : [])
   )
@@ -87,8 +83,6 @@ const makeSelectRegistersFiltered: (
           break;
         case "investment":
           data = state.investmentState;
-          break;
-        default:
           break;
       }
 
