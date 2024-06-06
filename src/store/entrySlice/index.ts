@@ -28,6 +28,11 @@ export const entrySlice = createSlice({
       );
       state.registers[itemIndex] = action.payload;
     },
+    setDeleteRegisterEntry(state: CommonState, action: any) {
+      state.registers = state.registers.filter(
+        ({ id }) => id !== action.payload
+      );
+    },
     setRegisterFilterEntry(state: CommonState, action: any) {
       return {
         ...state,
@@ -57,6 +62,7 @@ export const {
   setEditRegisterEntry,
   setRegisterFilterEntry,
   setResetFilterEntry,
+  setDeleteRegisterEntry
 } = entrySlice.actions;
 
 export default entrySlice.reducer;

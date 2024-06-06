@@ -28,6 +28,11 @@ export const expenseSlice = createSlice({
       );
       state.registers[itemIndex] = action.payload;
     },
+    setDeleteRegisterExpense(state: CommonState, action: any) {
+      state.registers = state.registers.filter(
+        ({ id }) => id !== action.payload
+      );
+    },
     setRegisterFilterExpense(state: CommonState, action: any) {
       return {
         ...state,
@@ -57,6 +62,7 @@ export const {
   setEditRegisterExpense,
   setRegisterFilterExpense,
   setResetFilterExpense,
+  setDeleteRegisterExpense
 } = expenseSlice.actions;
 
 export default expenseSlice.reducer;

@@ -7,21 +7,14 @@ import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
-import { setRegister as setRegisterExpense } from "@store/expenseSlice";
-import { setRegister as setRegisterEntry } from "@store/entrySlice";
-import { setRegister as setRegisterInvestment } from "@store/investmentSlice";
+import { setDeleteRegisterExpense } from "@store/expenseSlice";
+import { setDeleteRegisterEntry } from "@store/entrySlice";
+import { setDeleteRegisterInvestment } from "@store/investmentSlice";
 
 export default function ModalDelete(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const expenseRegisters = useAppSelector(
-    (state: RootState) => state.expenseState
-  );
-  const entryRegisters = useAppSelector((state: RootState) => state.entryState);
-  const investmentRegisters = useAppSelector(
-    (state: RootState) => state.investmentState
-  );
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(0)).current;
@@ -45,36 +38,21 @@ export default function ModalDelete(props: { testID?: string }) {
     };
   }, [modals.modalDelete, scaleAnimation]);
 
+  const registerFunctions: any = {
+    expense: {
+      setDeleteRegister: setDeleteRegisterExpense,
+    },
+    entry: {
+      setDeleteRegister: setDeleteRegisterEntry,
+    },
+    investment: {
+      setDeleteRegister: setDeleteRegisterInvestment,
+    },
+  };
+
   const confirmModal = () => {
-    switch (modals.modalDelete?.type) {
-      case "expense":
-        dispatch(
-          setRegisterExpense(
-            expenseRegisters.registers.filter(
-              ({ id }) => id !== modals.modalDelete?.id
-            ) as any
-          )
-        );
-        break;
-      case "entry":
-        dispatch(
-          setRegisterEntry(
-            entryRegisters.registers.filter(
-              ({ id }) => id !== modals.modalDelete?.id
-            ) as any
-          )
-        );
-        break;
-      case "investment":
-        dispatch(
-          setRegisterInvestment(
-            investmentRegisters.registers.filter(
-              ({ id }) => id !== modals.modalDelete?.id
-            ) as any
-          )
-        );
-        break;
-    }
+    const { setDeleteRegister } = registerFunctions[modals.modalDelete?.type];
+    dispatch(setDeleteRegister(modals.modalDelete?.id));
 
     Animated.sequence([
       Animated.spring(scaleAnimation, {

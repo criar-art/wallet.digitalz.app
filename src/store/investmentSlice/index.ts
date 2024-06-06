@@ -28,6 +28,11 @@ export const investmentSlice = createSlice({
       );
       state.registers[itemIndex] = action.payload;
     },
+    setDeleteRegisterInvestment(state: CommonState, action: any) {
+      state.registers = state.registers.filter(
+        ({ id }) => id !== action.payload
+      );
+    },
     setRegisterFilterInvestment(state: CommonState, action: any) {
       return {
         ...state,
@@ -57,6 +62,7 @@ export const {
   setEditRegisterInvestment,
   setRegisterFilterInvestment,
   setResetFilterInvestment,
+  setDeleteRegisterInvestment
 } = investmentSlice.actions;
 
 export default investmentSlice.reducer;
