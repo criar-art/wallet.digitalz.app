@@ -38,20 +38,24 @@ export function useBalance() {
     );
   };
 
-  const getTotal = (type: string): number => {
-    function calcTotal(registers: any) {
-      return registers
-        .filter((item: any) => item.type === type && !item.pay)
-        .reduce((acc: number, { value }: any) => acc + Number(value), 0);
-    }
+  function calcTotal(registers: any, type: string) {
+    return registers
+      ? registers
+          .filter((item: any) => item.type === type && !item.pay)
+          .reduce((acc: number, { value }: any) => acc + Number(value), 0)
+      : 0;
+  }
 
+  const getTotal = (type: string): number => {
     switch (type) {
       case "expense":
-        return calcTotal(getRegistersExpenses);
+        return getRegistersExpenses && calcTotal(getRegistersExpenses, type);
       case "entry":
-        return calcTotal(getRegistersEntrys);
+        return getRegistersEntrys && calcTotal(getRegistersEntrys, type);
       case "investment":
-        return calcTotal(getRegistersInvestments);
+        return (
+          getRegistersInvestments && calcTotal(getRegistersInvestments, type)
+        );
       default:
         return 0;
     }
@@ -63,32 +67,38 @@ export function useBalance() {
       .reduce((acc: number, { value }: any) => acc + Number(value), 0);
 
   const [totals, setTotals] = useState<Totals>({
-    liquid: getLiquid(),
-    patrimony: getPatrimonyTotal(),
-    entry: getTotal("entry"),
-    expenses: getTotal("expense"),
-    investment: getTotal("investment"),
-    paidExpenses: getPaidExpensesTotal(),
+    liquid: 0,
+    patrimony: 0,
+    entry: 0,
+    expenses: 0,
+    investment: 0,
+    paidExpenses: 0,
   });
 
   useEffect(() => {
+    const entryTotal = getTotal("entry");
+    const expenseTotal = getTotal("expense");
+    const investmentTotal = getTotal("investment");
+    const paidExpensesTotal = getPaidExpensesTotal();
+    const liquid = entryTotal - expenseTotal;
+    const patrimony = investmentTotal + liquid;
+
     setTotals({
-      liquid: getLiquid(),
-      patrimony: getPatrimonyTotal(),
-      entry: getTotal("entry"),
-      expenses: getTotal("expense"),
-      investment: getTotal("investment"),
-      paidExpenses: getPaidExpensesTotal(),
+      liquid,
+      patrimony,
+      entry: entryTotal,
+      expenses: expenseTotal,
+      investment: investmentTotal,
+      paidExpenses: paidExpensesTotal,
     });
   }, [getRegistersExpenses, getRegistersEntrys, getRegistersInvestments]);
 
   function getLiquid(): number {
-    return totals?.entry - totals?.expenses;
+    return totals.entry - totals.expenses;
   }
 
   function getPatrimonyTotal(): number {
-    const liquidTotal = totals?.entry - totals?.expenses;
-    return totals?.investment + liquidTotal;
+    return totals.patrimony;
   }
 
   return {
@@ -97,7 +107,6 @@ export function useBalance() {
     getQuantity,
     getPatrimonyTotal,
     getLiquid,
-    getPaidExpensesTotal,
     getFilteredTotal,
   };
 }

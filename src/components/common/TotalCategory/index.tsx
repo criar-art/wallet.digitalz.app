@@ -16,7 +16,10 @@ function TotalCategory(props: Props) {
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
 
   const isFilterEmpty = useMemo(
-    () => utils.isObjectEmpty(getRegistersFilter),
+    () =>
+      props.type !== "patrimony"
+        ? utils.isObjectEmpty(getRegistersFilter)
+        : true,
     [getRegistersFilter]
   );
 
@@ -27,10 +30,7 @@ function TotalCategory(props: Props) {
   }, [getPatrimonyTotal, getTotal, props.type]);
 
   const returnTotalValue = useMemo((): number => {
-    if (isFilterEmpty) {
-      return getTotalValue();
-    }
-    if (getRegistersFiltered) {
+    if (getRegistersFiltered && props.type !== "patrimony") {
       return getFilteredTotal(getRegistersFiltered);
     }
     return getTotalValue();
