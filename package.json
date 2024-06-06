@@ -25,7 +25,7 @@
     "@react-navigation/native-stack": "^6.9.18",
     "@reduxjs/toolkit": "^2.2.4",
     "date-fns": "^3.6.0",
-    "expo": "~51.0.9",
+    "expo": "~51.0.10",
     "expo-blur": "~13.0.2",
     "expo-local-authentication": "~14.0.1",
     "expo-screen-orientation": "~7.0.5",
