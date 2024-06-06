@@ -98,6 +98,7 @@ const FlatListRegisters = (props: Props) => {
         props.isNotEmpetyRegisters() ? (
           <EmptyRegisters
             filtered={Boolean(getRegistersFiltered.length == 0)}
+            type={props.type}
           />
         ) : null
       }
