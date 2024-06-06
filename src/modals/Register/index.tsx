@@ -4,7 +4,18 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
-import { setRegister, setEditRegister } from "@store/expenseSlice";
+import {
+  setRegister as setRegisterExpense,
+  setEditRegister as setEditRegisterExpense,
+} from "@store/expenseSlice";
+import {
+  setRegister as setRegisterEntry,
+  setEditRegister as setEditRegisterEntry,
+} from "@store/entrySlice";
+import {
+  setRegister as setRegisterInvestment,
+  setEditRegister as setEditRegisterInvestment,
+} from "@store/investmentSlice";
 import { setModalRegister } from "@store/modalsSlice";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
 import Modal from "@components/common/Modal";
@@ -22,7 +33,15 @@ export default function ModalRegister(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const expense = useAppSelector((state: RootState) => state.expenseState);
+  const expenseRegisters = useAppSelector(
+    (state: RootState) => state.expenseState.registers
+  );
+  const entryRegisters = useAppSelector(
+    (state: RootState) => state.entryState.registers
+  );
+  const investmentRegisters = useAppSelector(
+    (state: RootState) => state.investmentState.registers
+  );
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
@@ -54,11 +73,29 @@ export default function ModalRegister(props: { testID?: string }) {
         }
       : { id: uuid.v4(), ...formModal, name: formModal.name.trim() };
 
+    const registersMapping: any = {
+      expense: expenseRegisters,
+      entry: entryRegisters,
+      investment: investmentRegisters,
+    };
+
+    const setStoreMapping: any = {
+      expense: setRegisterExpense,
+      entry: setRegisterEntry,
+      investment: setRegisterInvestment,
+    };
+
+    const setEditStoreMapping: any = {
+      expense: setEditRegisterExpense,
+      entry: setEditRegisterEntry,
+      investment: setEditRegisterInvestment,
+    };
+
     if (!Object.values(errors).some((error) => error)) {
       dispatch(
         isEditing()
-          ? setEditRegister(data)
-          : setRegister([data, ...expense.registers] as any)
+          ? setEditStoreMapping[type](data)
+          : setStoreMapping[type]([data, ...registersMapping[type]] as any)
       );
       closeModal();
     } else {
@@ -115,33 +152,35 @@ export default function ModalRegister(props: { testID?: string }) {
       }}
     >
       <View className="flex flex-row mb-3 mt-3">
+        {!isEditing() && (
+          <InputSelect
+            twClass="flex-1 mr-2"
+            label="Tipo"
+            data={dataType}
+            maxHeight={300}
+            placeholder="Selecionar"
+            value={formModal.type}
+            handleChangeObject="type"
+            onChange={handleChange}
+            error={!!formError.type}
+          />
+        )}
+        <InputText
+          twClass="flex-1 ml-2"
+          label="Nome"
+          accessibilityLabel="Nome do registro"
+          onChangeText={(value: string) => handleChange(value, "name")}
+          value={formModal.name}
+          error={!!formError.name}
+        />
+      </View>
+      <View className="flex flex-row mb-6">
         <InputDate
           twClass="flex-1 mr-2"
           label="Data"
           value={formModal.date}
           accessibilityLabel="Data do registro"
           onChangeDate={handleChange}
-        />
-        <InputSelect
-          twClass="flex-1 ml-2"
-          label="Tipo"
-          data={dataType}
-          maxHeight={300}
-          placeholder="Selecionar"
-          value={formModal.type}
-          handleChangeObject="type"
-          onChange={handleChange}
-          error={!!formError.type}
-        />
-      </View>
-      <View className="flex flex-row mb-6">
-        <InputText
-          twClass="flex-1 mr-2"
-          label="Nome"
-          accessibilityLabel="Nome do registro"
-          onChangeText={(value: string) => handleChange(value, "name")}
-          value={formModal.name}
-          error={!!formError.name}
         />
         <InputMoney
           twClass="flex-1 ml-2"
