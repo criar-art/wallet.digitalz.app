@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import Button from "@components/common/Button";
-import { setRegister as setRegisterExpense } from "@store/expenseSlice";
-import { setRegister as setRegisterEntry } from "@store/entrySlice";
-import { setRegister as setRegisterInvestment } from "@store/investmentSlice";
+import { setRegisterExpense } from "@store/expenseSlice";
+import { setRegisterEntry } from "@store/entrySlice";
+import { setRegisterInvestment } from "@store/investmentSlice";
 import { setRegisterData } from "@store/commonSlice";
 import { useAppDispatch } from "@store/hooks";
 import { generateData } from "./test";
