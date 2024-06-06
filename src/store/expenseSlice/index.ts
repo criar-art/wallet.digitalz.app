@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CommonState } from "./types";
-import reducers from "@store/commonReducers";
+import utils from "@utils";
 
 export const expenseSlice = createSlice({
   name: "expenseState",
@@ -18,14 +18,53 @@ export const expenseSlice = createSlice({
       endIndex: 5,
     },
   } as CommonState,
-  reducers,
+  reducers: {
+    setRegisterExpense(state: CommonState, action: any) {
+      return {
+        ...state,
+        registers: utils.sortDataByDateDesc(action.payload),
+      };
+    },
+    setEditRegisterExpense(state: CommonState, action: any) {
+      const itemIndex = state.registers.findIndex(
+        ({ id }) => id === action.payload.id
+      );
+      const newRegisters = [...state.registers];
+      newRegisters[itemIndex] = action.payload;
+      return {
+        ...state,
+        registers: newRegisters,
+      };
+    },
+    setRegisterFilterExpense(state: CommonState, action: any) {
+      return {
+        ...state,
+        registerFilter: {
+          ...state.registerFilter,
+          ...action.payload,
+        },
+      };
+    },
+    setResetFilterExpense(state: CommonState) {
+      return {
+        ...state,
+        registerFilter: {
+          short: "",
+          startDate: "",
+          endDate: "",
+          searchTerm: "",
+          pay: undefined,
+        },
+      };
+    },
+  },
 });
 
 export const {
-  setRegister,
-  setEditRegister,
-  setRegisterFilter,
-  setResetFilter,
+  setRegisterExpense,
+  setEditRegisterExpense,
+  setRegisterFilterExpense,
+  setResetFilterExpense,
 } = expenseSlice.actions;
 
 export default expenseSlice.reducer;
