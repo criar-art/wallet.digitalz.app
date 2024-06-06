@@ -30,7 +30,7 @@ function TotalCategory(props: Props) {
   }, [getPatrimonyTotal, getTotal, props.type]);
 
   const returnTotalValue = useMemo((): number => {
-    if (getRegistersFiltered && props.type !== "patrimony") {
+    if (getRegistersFiltered && props.type !== "patrimony" && !isFilterEmpty) {
       return getFilteredTotal(getRegistersFiltered);
     }
     return getTotalValue();
