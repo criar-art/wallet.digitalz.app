@@ -26,14 +26,14 @@ const createPersistConfig = (
   ],
 });
 
-const commonPersistConfig = createPersistConfig("commonState");
+const commonPersistConfig = createPersistConfig("commonState", "secure");
 const expensePersistConfig = createPersistConfig("expenseState", "secure");
 const entryPersistConfig = createPersistConfig("entryState", "secure");
 const investmentPersistConfig = createPersistConfig(
   "investmentState",
   "secure"
 );
-const userPersistConfig = createPersistConfig("userState");
+const userPersistConfig = createPersistConfig("userState", "secure");
 const modalsPersistConfig = createPersistConfig("modalsState");
 
 const rootReducer = combineReducers({
