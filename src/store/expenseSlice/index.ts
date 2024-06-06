@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CommonState } from "./types";
-import utils from "@utils";
+import { CommonState } from "@store/types";
+import { sortDataByDateDesc } from "@utils/date";
 
 export const expenseSlice = createSlice({
   name: "expenseState",
@@ -20,7 +20,7 @@ export const expenseSlice = createSlice({
   } as CommonState,
   reducers: {
     setRegisterExpense(state: CommonState, action: any) {
-      state.registers = utils.sortDataByDateDesc(action.payload);
+      state.registers = sortDataByDateDesc(action.payload);
     },
     setEditRegisterExpense(state: CommonState, action: any) {
       const itemIndex = state.registers.findIndex(
@@ -62,7 +62,7 @@ export const {
   setEditRegisterExpense,
   setRegisterFilterExpense,
   setResetFilterExpense,
-  setDeleteRegisterExpense
+  setDeleteRegisterExpense,
 } = expenseSlice.actions;
 
 export default expenseSlice.reducer;
