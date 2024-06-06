@@ -67,10 +67,7 @@ const makeSelectRegistersType: (
 
       return registers;
     },
-    (registers) => {
-      // Retorna os registros filtrados com base no tipo
-      return registers ? registers : [];
-    }
+    (registers) => (registers ? registers : [])
   )
 );
 
@@ -79,32 +76,25 @@ const makeSelectRegistersFiltered: (
 ) => Selector<RootState, CommonState["registers"]> = memoize((type: string) =>
   createSelector(
     (state: RootState) => {
-      let test;
+      let data;
 
       switch (type) {
         case "expense":
-          test = state.expenseState;
+          data = state.expenseState;
           break;
         case "entry":
-          test = state.entryState;
+          data = state.entryState;
           break;
         case "investment":
-          test = state.investmentState;
+          data = state.investmentState;
           break;
         default:
           break;
       }
 
-      return test;
+      return data;
     },
-    (test) => {
-      // Filtra os registros pelo tipo
-      console.log("startIndex", test?.pagination.startIndex);
-
-      // Aplica os filtros e ordenação
-      return utils
-        .applyFilterData(test?.registers, test?.registerFilter).slice(0,5)
-    }
+    (data) => utils.applyFilterData(data?.registers, data?.registerFilter)
   )
 );
 
