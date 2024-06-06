@@ -39,22 +39,22 @@ export function useBalance() {
   };
 
   const getTotal = (type: string): number => {
-    let registers: any = [];
+    function calcTotal(registers: any) {
+      return registers
+        .filter((item: any) => item.type === type && !item.pay)
+        .reduce((acc: number, { value }: any) => acc + Number(value), 0);
+    }
 
     switch (type) {
       case "expense":
-        registers = [...getRegistersExpenses];
+        return calcTotal(getRegistersExpenses);
       case "entry":
-        registers = [...getRegistersEntrys];
+        return calcTotal(getRegistersEntrys);
       case "investment":
-        registers = [...getRegistersInvestments];
+        return calcTotal(getRegistersInvestments);
+      default:
+        return 0;
     }
-
-    return registers.length
-      ? registers
-          .filter((item: any) => item.type === type && !item.pay)
-          .reduce((acc: number, { value }: any) => acc + Number(value), 0)
-      : 0;
   };
 
   const getPaidExpensesTotal = (): number =>
