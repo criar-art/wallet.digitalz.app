@@ -5,16 +5,13 @@ import uuid from "react-native-uuid";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
 import {
-  setRegister as setRegisterExpense,
-  setEditRegister as setEditRegisterExpense,
+  setRegisterExpense,
+  setEditRegisterExpense,
 } from "@store/expenseSlice";
+import { setRegisterEntry, setEditRegisterEntry } from "@store/entrySlice";
 import {
-  setRegister as setRegisterEntry,
-  setEditRegister as setEditRegisterEntry,
-} from "@store/entrySlice";
-import {
-  setRegister as setRegisterInvestment,
-  setEditRegister as setEditRegisterInvestment,
+  setRegisterInvestment,
+  setEditRegisterInvestment,
 } from "@store/investmentSlice";
 import { setModalRegister } from "@store/modalsSlice";
 import { intitialForm, initialFormError, dataType } from "./formConstants";
@@ -73,29 +70,33 @@ export default function ModalRegister(props: { testID?: string }) {
         }
       : { id: uuid.v4(), ...formModal, name: formModal.name.trim() };
 
+    const registerFunctions: any = {
+      expense: {
+        setRegister: setRegisterExpense,
+        setEditRegister: setEditRegisterExpense,
+      },
+      entry: {
+        setRegister: setRegisterEntry,
+        setEditRegister: setEditRegisterEntry,
+      },
+      investment: {
+        setRegister: setRegisterInvestment,
+        setEditRegister: setEditRegisterInvestment,
+      },
+    };
+
     const registersMapping: any = {
       expense: expenseRegisters,
       entry: entryRegisters,
       investment: investmentRegisters,
     };
 
-    const setStoreMapping: any = {
-      expense: setRegisterExpense,
-      entry: setRegisterEntry,
-      investment: setRegisterInvestment,
-    };
-
-    const setEditStoreMapping: any = {
-      expense: setEditRegisterExpense,
-      entry: setEditRegisterEntry,
-      investment: setEditRegisterInvestment,
-    };
-
     if (!Object.values(errors).some((error) => error)) {
+      const { setRegister, setEditRegister } = registerFunctions[data.type];
       dispatch(
         isEditing()
-          ? setEditStoreMapping[type](data)
-          : setStoreMapping[type]([data, ...registersMapping[type]] as any)
+          ? setEditRegister(data)
+          : setRegister([data, ...registersMapping[data.type]])
       );
       closeModal();
     } else {
@@ -166,7 +167,7 @@ export default function ModalRegister(props: { testID?: string }) {
           />
         )}
         <InputText
-          twClass="flex-1 ml-2"
+          twClass={`flex-1 ${!isEditing() ? "ml-2" : ""}`}
           label="Nome"
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
