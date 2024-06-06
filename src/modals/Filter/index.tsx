@@ -9,15 +9,17 @@ import { setModalFilter } from "@store/modalsSlice";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
-import { setRegisterFilter, setResetFilter } from "@store/commonSlice";
 import InputDate from "@components/common/Form/InputDate";
+import utils from "@utils";
 
 export default function ModalFilter(props: { testID?: string }) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
-  const common = useAppSelector((state: RootState) => state.commonState);
   const modalRef = useRef<ModalHandle>(null);
+  const { stateSelector, setRegisterFilter, setResetFilter } =
+    utils.getStateAndActions(modals?.modalFilter);
+  const stateData = useAppSelector(stateSelector || (() => null));
 
   const isOpenModal = useMemo(
     () => ["expense", "entry", "investment"].includes(modals?.modalFilter),
@@ -26,33 +28,25 @@ export default function ModalFilter(props: { testID?: string }) {
 
   const startDate = useMemo(
     () =>
-      common.registerFilter?.startDate
-        ? parse(common.registerFilter.startDate, "dd/MM/yyyy", new Date())
+      stateData?.registerFilter?.startDate
+        ? parse(stateData.registerFilter.startDate, "dd/MM/yyyy", new Date())
         : null,
-    [common.registerFilter?.startDate]
+    [stateData?.registerFilter?.startDate]
   );
 
   const endDate = useMemo(
     () =>
-      common.registerFilter?.endDate
-        ? parse(common.registerFilter.endDate, "dd/MM/yyyy", new Date())
+      stateData?.registerFilter?.endDate
+        ? parse(stateData.registerFilter.endDate, "dd/MM/yyyy", new Date())
         : null,
-    [common.registerFilter?.endDate]
+    [stateData?.registerFilter?.endDate]
   );
 
   const resetFilters = () => {
     const { short, endDate, startDate, searchTerm, pay } =
-      common.registerFilter;
+      stateData?.registerFilter;
     if (short || endDate || startDate || searchTerm || pay !== undefined) {
-      dispatch(
-        setResetFilter({
-          short: "",
-          startDate: "",
-          endDate: "",
-          searchTerm: "",
-          pay: undefined,
-        })
-      );
+      setResetFilter && dispatch(setResetFilter());
     } else {
       modalRef.current?.closeModal();
     }
@@ -83,7 +77,7 @@ export default function ModalFilter(props: { testID?: string }) {
   }) => (
     <Button
       twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
-        common.registerFilter?.pay === props.value
+        stateData?.registerFilter?.pay === props.value
           ? "bg-gray-200 dark:bg-zinc-500"
           : ""
       } ${props.value == undefined && "ml-0"} ${
@@ -92,7 +86,10 @@ export default function ModalFilter(props: { testID?: string }) {
       text={props.text}
       label="Filtro de registros"
       textColor="ml-1 text-black dark:text-white text-xs"
-      onPress={() => dispatch(setRegisterFilter({ pay: props.value }))}
+      onPress={() =>
+        setRegisterFilter &&
+        dispatch(setRegisterFilter({ pay: props.value } as any))
+      }
       icon={
         <MaterialIcons
           name={props.iconName}
@@ -101,7 +98,7 @@ export default function ModalFilter(props: { testID?: string }) {
         />
       }
     >
-      {common.registerFilter?.pay === props.value && (
+      {stateData?.registerFilter?.pay === props.value && (
         <View className="absolute -top-3 z-20 bg-green-600 rounded-full">
           <MaterialIcons
             name="check-circle"
@@ -166,21 +163,23 @@ export default function ModalFilter(props: { testID?: string }) {
           <InputDate
             twClass="flex-1 mr-2"
             label="Data inicio"
-            value={common.registerFilter?.startDate}
+            value={stateData?.registerFilter?.startDate}
             maximumDate={endDate}
             accessibilityLabel="Data do registro"
             onChangeDate={(date: string) =>
-              dispatch(setRegisterFilter({ startDate: date }))
+              setRegisterFilter &&
+              dispatch(setRegisterFilter({ startDate: date } as any))
             }
           />
           <InputDate
             twClass="flex-1 ml-2"
             label="Data final"
-            value={common.registerFilter?.endDate}
+            value={stateData?.registerFilter?.endDate}
             accessibilityLabel="Data do registro"
             minimumDate={startDate}
             onChangeDate={(date: string) =>
-              dispatch(setRegisterFilter({ endDate: date }))
+              setRegisterFilter &&
+              dispatch(setRegisterFilter({ endDate: date } as any))
             }
           />
         </View>
