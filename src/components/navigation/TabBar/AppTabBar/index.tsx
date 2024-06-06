@@ -61,7 +61,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
 
           return (
             <AppTabButton
-              className={`${
+              twClass={`${
                 index == 0
                   ? "rounded-tl-3xl"
                   : state?.routes.length - 1 == index
