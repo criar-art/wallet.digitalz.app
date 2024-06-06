@@ -4,6 +4,13 @@ module.exports = function (api) {
     presets: ["babel-preset-expo"],
     plugins: [
       [
+        "module:react-native-dotenv",
+        {
+          moduleName: "@env",
+          path: ".env",
+        },
+      ],
+      [
         "nativewind/babel",
         {
           config: "./tailwind.config.js",
@@ -21,7 +28,7 @@ module.exports = function (api) {
             "@pages": "./src/pages",
             "@utils": "./src/utils",
             "@store/*": "./src/store",
-            "@root": "./"
+            "@root": "./",
             // Adicione outros alias conforme necessário
           },
         },
