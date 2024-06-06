@@ -20,21 +20,13 @@ export const entrySlice = createSlice({
   } as CommonState,
   reducers: {
     setRegisterEntry(state: CommonState, action: any) {
-      return {
-        ...state,
-        registers: utils.sortDataByDateDesc(action.payload),
-      };
+      state.registers = utils.sortDataByDateDesc(action.payload);
     },
     setEditRegisterEntry(state: CommonState, action: any) {
       const itemIndex = state.registers.findIndex(
         ({ id }) => id === action.payload.id
       );
-      const newRegisters = [...state.registers];
-      newRegisters[itemIndex] = action.payload;
-      return {
-        ...state,
-        registers: newRegisters,
-      };
+      state.registers[itemIndex] = action.payload;
     },
     setRegisterFilterEntry(state: CommonState, action: any) {
       return {
