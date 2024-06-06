@@ -2,7 +2,7 @@
   "expo": {
     "name": "Wallet Digitalz",
     "slug": "wallet-digitalz",
-    "version": "0.0.7",
+    "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -24,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.criar.art.walletdigitalzapp",
-      "versionCode": 47
+      "versionCode": 49
     },
     "web": {
       "favicon": "./assets/favicon.png"
