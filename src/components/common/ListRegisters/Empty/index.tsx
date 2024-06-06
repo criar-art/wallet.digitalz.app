@@ -1,14 +1,15 @@
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { setRegisterFilter } from "@store/commonSlice";
 import Button from "@components/common/Button";
 import { useAppDispatch } from "@store/hooks";
+import utils from "@utils";
 import { Props } from "./types";
 
 export default function Empty(props: Props) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
+  const { setResetFilter } = utils.getStateAndActions(props.type);
 
   return (
     <View
@@ -42,17 +43,7 @@ export default function Empty(props: Props) {
             label="Resetar o filtro aplicado"
             twClass="mx-auto px-2 bg-red-600"
             textColor="text-white ml-2"
-            onPress={() =>
-              dispatch(
-                setRegisterFilter({
-                  short: "",
-                  startDate: "",
-                  endDate: "",
-                  searchTerm: "",
-                  pay: undefined,
-                })
-              )
-            }
+            onPress={() => setResetFilter && dispatch(setResetFilter())}
             icon={
               <MaterialCommunityIcons
                 name="trash-can-outline"
