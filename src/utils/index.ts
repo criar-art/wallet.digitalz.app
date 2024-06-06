@@ -2,6 +2,7 @@ import {
   getFilledItemsCount,
   applyFilterData,
   getStateRegisters,
+  getStateAndActions,
 } from "./filter";
 import {
   formatDate,
@@ -71,6 +72,7 @@ export default {
   isDateTomorrow,
   sortDataByDateDesc,
   getStateRegisters,
+  getStateAndActions,
   getFilledItemsCount,
   applyFilterData,
   renderBorderType,
