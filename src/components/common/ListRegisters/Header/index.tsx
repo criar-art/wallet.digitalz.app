@@ -4,7 +4,11 @@ import { useColorScheme } from "nativewind";
 import { useSelector } from "react-redux";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
-import { selectRegistersFiltered, selectRegistersType } from "@store/commonSelects";
+import {
+  selectRegistersFiltered,
+  selectRegistersType,
+  selectFilters,
+} from "@store/commonSelects";
 import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
@@ -16,7 +20,10 @@ export default function Header(props: Props) {
   const dispatch = useAppDispatch();
   const { portrait } = useOrientation();
   const getRegisters = useSelector(selectRegistersType(String(props.type)));
-  const getRegistersFiltered = useSelector(selectRegistersFiltered(String(props.type)));
+  const getRegistersFilter = useSelector(selectFilters(String(props.type)));
+  const getRegistersFiltered = useSelector(
+    selectRegistersFiltered(String(props.type))
+  );
 
   return (
     !!portrait && (
@@ -42,7 +49,7 @@ export default function Header(props: Props) {
             onPress={() => dispatch(setModalFilter(props.type))}
             icon={
               <>
-                {utils.isObjectEmpty(getRegistersFiltered) ? (
+                {utils.isObjectEmpty(getRegistersFilter) ? (
                   <MaterialIcons
                     name="filter-list"
                     size={30}
@@ -50,7 +57,7 @@ export default function Header(props: Props) {
                   />
                 ) : (
                   <Text className="scale-[1] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 rounded-full">
-                    {/* {utils.getFilledItemsCount(getRegistersFiltered)} */}
+                    {utils.getFilledItemsCount(getRegistersFilter)}
                   </Text>
                 )}
               </>
