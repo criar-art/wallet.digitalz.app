@@ -1,29 +1,78 @@
 import { Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { useSelector } from "react-redux";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
-import { useAppDispatch } from "@store/hooks";
-import {
-  selectRegistersFiltered,
-  selectRegistersType,
-  selectFilters,
-} from "@store/commonSelects";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
 import utils from "@utils";
 import { Props } from "./types";
+import {
+  selectRegistersEntry,
+  selectRegistersExpense,
+  selectRegistersFilterEntry,
+  selectRegistersFilterExpense,
+  selectRegistersFilterInvestment,
+  selectRegistersFilteredEntry,
+  selectRegistersFilteredExpense,
+  selectRegistersFilteredInvestment,
+  selectRegistersInvestment,
+} from "@store/commonSelects";
 
 export default function Header(props: Props) {
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const { portrait } = useOrientation();
-  const getRegisters = useSelector(selectRegistersType(String(props.type)));
-  const getRegistersFilter = useSelector(selectFilters(String(props.type)));
-  const getRegistersFiltered = useSelector(
-    selectRegistersFiltered(String(props.type))
+
+  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
+  const getRegistersEntry = useAppSelector(selectRegistersEntry);
+  const getRegistersFilteredEntry = useAppSelector(
+    selectRegistersFilteredEntry
   );
+
+  const getRegistersFilterExpense = useAppSelector(
+    selectRegistersFilterExpense
+  );
+  const getRegistersExpense = useAppSelector(selectRegistersExpense);
+  const getRegistersFilteredExpense = useAppSelector(
+    selectRegistersFilteredExpense
+  );
+
+  const getRegistersFilterInvestment = useAppSelector(
+    selectRegistersFilterInvestment
+  );
+  const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
+  const getRegistersFilteredInvestment = useAppSelector(
+    selectRegistersFilteredInvestment
+  );
+
+  // Define a mapping of props.type to selectors
+  const selectorMapping: any = {
+    entry: {
+      filter: getRegistersFilterEntry,
+      registers: getRegistersEntry,
+      filtered: getRegistersFilteredEntry,
+    },
+    expense: {
+      filter: getRegistersFilterExpense,
+      registers: getRegistersExpense,
+      filtered: getRegistersFilteredExpense,
+    },
+    investment: {
+      filter: getRegistersFilterInvestment,
+      registers: getRegistersInvestment,
+      filtered: getRegistersFilteredInvestment,
+    },
+  };
+
+  // Select the appropriate selectors based on props.type
+  const selectedSelectors = selectorMapping[props.type];
+
+  // Use the selected selectors with useAppSelector
+  const getRegistersFilter = selectedSelectors.filter;
+  const getRegisters = selectedSelectors.registers;
+  const getRegistersFiltered = selectedSelectors.filtered;
 
   return (
     !!portrait && (

@@ -6,14 +6,65 @@ import { useBalance } from "@hooks/useBalance";
 import { RootState } from "@store";
 import { Props } from "./types";
 import utils from "@utils";
-import { useSelector } from "react-redux";
-import { selectRegistersFiltered, selectFilters } from "@store/commonSelects";
+
+import {
+  selectRegistersFilterEntry,
+  selectRegistersFilterExpense,
+  selectRegistersFilterInvestment,
+  selectRegistersFilteredEntry,
+  selectRegistersFilteredExpense,
+  selectRegistersFilteredInvestment,
+} from "@store/commonSelects";
 
 function TotalCategory(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
-  const getRegistersFilter = useSelector(selectFilters(String(props.type)));
-  const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
+
+  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
+  const getRegistersFilteredEntry = useAppSelector(
+    selectRegistersFilteredEntry
+  );
+
+  const getRegistersFilterExpense = useAppSelector(
+    selectRegistersFilterExpense
+  );
+  const getRegistersFilteredExpense = useAppSelector(
+    selectRegistersFilteredExpense
+  );
+
+  const getRegistersFilterInvestment = useAppSelector(
+    selectRegistersFilterInvestment
+  );
+  const getRegistersFilteredInvestment = useAppSelector(
+    selectRegistersFilteredInvestment
+  );
+
+  // Define a mapping of props.type to selectors
+  const selectorMapping: any = {
+    entry: {
+      filter: getRegistersFilterEntry,
+      filtered: getRegistersFilteredEntry,
+    },
+    expense: {
+      filter: getRegistersFilterExpense,
+      filtered: getRegistersFilteredExpense,
+    },
+    investment: {
+      filter: getRegistersFilterInvestment,
+      filtered: getRegistersFilteredInvestment,
+    },
+    patrimony: {
+      filter: getRegistersFilterInvestment,
+      filtered: getRegistersFilteredInvestment,
+    },
+  };
+
+  // Select the appropriate selectors based on props.type
+  const selectedSelectors = selectorMapping[props.type];
+
+  // Use the selected selectors with useAppSelector
+  const getRegistersFilter = selectedSelectors.filter;
+  const getRegistersFiltered = selectedSelectors.filtered;
 
   const isFilterEmpty = useMemo(
     () =>
