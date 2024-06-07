@@ -11,7 +11,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.criar.art.walletdigitalzapp"
@@ -23,7 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.criar.art.walletdigitalzapp",
-      "versionCode": 50
+      "versionCode": 51
     },
     "web": {
       "favicon": "./assets/favicon.png"

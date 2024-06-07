@@ -7,7 +7,6 @@ import {
 } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
-import analytics from "@react-native-firebase/analytics";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
@@ -17,12 +16,9 @@ import Routes from "@routes";
 import ModalGlobal from "@modals";
 import useAuthentication from "@hooks/useAuthentication";
 
-async function App(props: any) {
+function App(props: any) {
   const { colorScheme } = useColorScheme();
   useAuthentication(props.navigationRef.navigate);
-
-  const appInstanceId = await analytics().getAppInstanceId();
-  console.info("appInstanceId: ", appInstanceId);
 
   function toggleDrawer() {
     if (props.navigationRef.isReady()) {
