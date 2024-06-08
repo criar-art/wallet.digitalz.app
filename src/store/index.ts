@@ -10,30 +10,22 @@ import modalsSlice from "./modalsSlice";
 import utils from "@utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const createPersistConfig = (
-  key: string,
-  crypto: string = ""
-): PersistConfig<any> => ({
+const createPersistConfig = (key: string): PersistConfig<any> => ({
   key,
   storage: AsyncStorage,
   transforms: [
     {
-      in: (state: any) =>
-        crypto ? utils.encryptData(state) : JSON.stringify(state),
-      out: (state: any) =>
-        crypto ? utils.decryptData(state) : JSON.parse(state),
+      in: (state: any) => utils.encryptData(state),
+      out: (state: any) => utils.decryptData(state),
     },
   ],
 });
 
-const commonPersistConfig = createPersistConfig("commonState", "secure");
-const expensePersistConfig = createPersistConfig("expenseState", "secure");
-const entryPersistConfig = createPersistConfig("entryState", "secure");
-const investmentPersistConfig = createPersistConfig(
-  "investmentState",
-  "secure"
-);
-const userPersistConfig = createPersistConfig("userState", "secure");
+const commonPersistConfig = createPersistConfig("commonState");
+const expensePersistConfig = createPersistConfig("expenseState");
+const entryPersistConfig = createPersistConfig("entryState");
+const investmentPersistConfig = createPersistConfig("investmentState");
+const userPersistConfig = createPersistConfig("userState");
 const modalsPersistConfig = createPersistConfig("modalsState");
 
 const rootReducer = combineReducers({
