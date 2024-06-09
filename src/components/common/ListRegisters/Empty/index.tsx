@@ -35,7 +35,7 @@ export default function Empty(props: Props) {
       )}
       <View>
         <Text className="text-black dark:text-white text-center text-xl p-5">
-          {props.filtered ? t("common.empty_filter") : t("common.empty_list")}
+          {props.filtered ? t("common.empty_filter") : t("common.empty_register")}
         </Text>
         {props.filtered && (
           <Button
