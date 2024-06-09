@@ -5,6 +5,7 @@ import {
   addOrientationChangeListener,
   removeOrientationChangeListener,
 } from "expo-screen-orientation";
+import { act } from "@testing-library/react-native";
 
 export default function useOrientation() {
   const [orientation, setOrientation] = useState<Orientation | null>(null);
@@ -35,9 +36,11 @@ export default function useOrientation() {
 
     getOrientationAsync().then((value) => {
       if (isMounted) {
-        setOrientation(value);
-        setLandscape(value === 4 || value === 3);
-        setPortrait(value === 1 || value === 2 || value === 0);
+        act(() => {
+          setOrientation(value);
+          setLandscape(value === 4 || value === 3);
+          setPortrait(value === 1 || value === 2 || value === 0);
+        });
       }
     });
 
