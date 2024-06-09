@@ -3,8 +3,12 @@ import { Text, TextInput, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { NumericFormat } from "react-number-format";
 import { Props } from "./types";
+import { useTranslation } from "react-i18next";
 
 function InputMoney(props: Props) {
+  const {
+    i18n: { language },
+  } = useTranslation();
   const { colorScheme } = useColorScheme();
 
   return (
@@ -21,7 +25,7 @@ function InputMoney(props: Props) {
         thousandSeparator={"."}
         decimalSeparator={","}
         decimalScale={2}
-        prefix={"R$ "}
+        prefix={language == "pt-BR" ? "R$ " : "$ "}
         allowNegative={false}
         onValueChange={props.onValueChange}
         renderText={(formattedValue) => (
@@ -31,7 +35,7 @@ function InputMoney(props: Props) {
             className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
               props.error ? "border-red-500" : ""
             }`}
-            placeholder="R$"
+            placeholder={language == "pt-BR" ? "R$" : "$"}
             onChangeText={props.onChangeText}
             value={formattedValue}
             keyboardType="phone-pad"
