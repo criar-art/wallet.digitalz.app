@@ -1,10 +1,9 @@
 import { Text, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { useSelector } from "react-redux";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { selectRegistersType, setEyeStatus } from "@store/commonSlice";
+import { setEyeStatus } from "@store/commonSlice";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
 import { RootState } from "@store";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
@@ -12,6 +11,15 @@ import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import utils from "@utils";
 import { Props } from "./types";
+
+import {
+  selectRegistersEntry,
+  selectRegistersExpense,
+  selectRegistersFilterEntry,
+  selectRegistersFilterExpense,
+  selectRegistersFilterInvestment,
+  selectRegistersInvestment,
+} from "@store/commonSelects";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
@@ -25,11 +33,49 @@ export default function AppDrawerHeader(props: Props) {
   const indexTab = useNavigationState(
     (state) => state?.routes[0]?.state?.index
   );
-  const getRegisters = useSelector(
-    selectRegistersType(String(utils.TypeCategory(indexTab)))
+  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
+  const getRegistersEntry = useAppSelector(selectRegistersEntry);
+
+  const getRegistersFilterExpense = useAppSelector(
+    selectRegistersFilterExpense
   );
+  const getRegistersExpense = useAppSelector(selectRegistersExpense);
+
+  const getRegistersFilterInvestment = useAppSelector(
+    selectRegistersFilterInvestment
+  );
+  const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
+
+  // Define a mapping of props.type to selectors
+  const selectorMapping: any = {
+    entry: {
+      filter: getRegistersFilterEntry,
+      registers: getRegistersEntry,
+    },
+    expense: {
+      filter: getRegistersFilterExpense,
+      registers: getRegistersExpense,
+    },
+    investment: {
+      filter: getRegistersFilterInvestment,
+      registers: getRegistersInvestment,
+    },
+    patrimony: {
+      filter: getRegistersFilterInvestment,
+      registers: getRegistersInvestment,
+    }
+  };
+
+  // Select the appropriate selectors based on props.type
+  const selectedSelectors =
+    selectorMapping[String(utils.TypeCategory(indexTab))];
+
+  // Use the selected selectors with useAppSelector
+  const getRegistersFilter = selectedSelectors.filter;
+  const getRegisters = selectedSelectors.registers;
+
   const isTypesTab = () =>
-    ["expense", "entry", "investiment"].includes(
+    ["expense", "entry", "investment"].includes(
       String(utils.TypeCategory(indexTab))
     );
   const navigation: any = useNavigation();
@@ -79,7 +125,7 @@ export default function AppDrawerHeader(props: Props) {
                 }
                 icon={
                   <>
-                    {utils.isObjectEmpty(common.registerFilter) ? (
+                    {utils.isObjectEmpty(getRegistersFilter) ? (
                       <MaterialIcons
                         name="filter-list"
                         size={30}
@@ -87,7 +133,7 @@ export default function AppDrawerHeader(props: Props) {
                       />
                     ) : (
                       <Text className="scale-[1.2] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 rounded-full">
-                        {utils.getFilledItemsCount(common.registerFilter)}
+                        {utils.getFilledItemsCount(getRegistersFilter)}
                       </Text>
                     )}
                   </>

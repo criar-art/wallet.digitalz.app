@@ -3,7 +3,9 @@ import { Animated, Easing, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { setEditRegister } from "@store/commonSlice";
+import { setEditRegisterExpense } from "@store/expenseSlice";
+import { setEditRegisterEntry } from "@store/entrySlice";
+import { setEditRegisterInvestment } from "@store/investmentSlice";
 import { setModalPay } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
@@ -36,8 +38,21 @@ export default function ModalDelete(props: { testID?: string }) {
     };
   }, [modals.modalPay, scaleAnimation]);
 
+  const registerFunctions: any = {
+    expense: {
+      setDeleteRegister: setEditRegisterExpense,
+    },
+    entry: {
+      setDeleteRegister: setEditRegisterEntry,
+    },
+    investment: {
+      setDeleteRegister: setEditRegisterInvestment,
+    },
+  };
+
   const confirmModal = () => {
-    dispatch(setEditRegister({ ...modals.modalPay, pay: true }));
+    const { setDeleteRegister } = registerFunctions[modals.modalPay?.type];
+    dispatch(setDeleteRegister({ ...modals.modalPay, pay: true }));
 
     Animated.sequence([
       Animated.spring(scaleAnimation, {

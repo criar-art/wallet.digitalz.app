@@ -4,6 +4,7 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
   DefaultTheme,
+  DarkTheme,
 } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
@@ -16,45 +17,53 @@ import Routes from "@routes";
 import ModalGlobal from "@modals";
 import useAuthentication from "@hooks/useAuthentication";
 
-function App(props: any) {
+const walletTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#efefef",
+  },
+};
+
+const walletThemeDark = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    background: "rgb(24 24 27)",
+  },
+};
+
+function App() {
   const { colorScheme } = useColorScheme();
-  useAuthentication(props.navigationRef.navigate);
+  const navigationRef = useNavigationContainerRef();
+  useAuthentication(navigationRef.navigate);
 
   function toggleDrawer() {
-    if (props.navigationRef.isReady()) {
-      props.navigationRef.dispatch(DrawerActions.toggleDrawer());
+    if (navigationRef.isReady()) {
+      navigationRef.dispatch(DrawerActions.toggleDrawer());
     }
   }
 
   return (
-    <>
+    <NavigationContainer
+      ref={navigationRef}
+      theme={colorScheme === "dark" ? walletThemeDark : walletTheme}
+    >
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       <Routes toggleDrawer={toggleDrawer} />
       <ModalGlobal />
-    </>
+    </NavigationContainer>
   );
 }
 
 function AppContainer() {
   const persistor = persistStore(store);
-  const navigationRef = useNavigationContainerRef();
-  const { colorScheme } = useColorScheme();
-
-  const walletTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: colorScheme === "dark" ? "rgb(24 24 27)" : "#efefef",
-    },
-  };
 
   return (
     <SafeAreaProvider testID="app-container">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <NavigationContainer ref={navigationRef} theme={walletTheme}>
-            <App navigationRef={navigationRef} />
-          </NavigationContainer>
+          <App />
         </PersistGate>
       </Provider>
     </SafeAreaProvider>

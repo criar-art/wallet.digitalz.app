@@ -12,6 +12,7 @@
       "@modals": ["modals/index"],
       "@pages": ["pages/index"],
       "@utils": ["utils/index"],
+      "@utils/*": ["utils/*"],
       "@root/*": ["../*"]
     }
   },

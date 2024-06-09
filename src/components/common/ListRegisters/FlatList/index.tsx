@@ -1,53 +1,71 @@
 import { FlatList, View } from "react-native";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useNavigationState } from "@react-navigation/native";
+import { useState } from "react";
 import ItemList from "@components/common/ListRegisters/Item";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import {
-  setRegisterData,
-  setResetFilter,
-  selectRegistersFiltered,
-} from "@store/commonSlice";
+import { setRegisterData } from "@store/commonSlice";
 import { RootState } from "@store";
 import {
   setModalRegister,
   setModalDelete,
   setModalPay,
 } from "@store/modalsSlice";
-import { Props } from "./types";
+import { Props, SelectorMapping } from "./types";
+
+import {
+  selectRegistersFilteredEntry,
+  selectRegistersFilteredExpense,
+  selectRegistersFilteredInvestment,
+} from "@store/commonSelects";
 
 const FlatListRegisters = (props: Props) => {
-  const navigationState = useNavigationState((state) => state);
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const [optionsShow, setOptionsShow] = useState(null);
 
-  useEffect(() => {
-    dispatch(
-      setResetFilter({
-        short: "",
-        startDate: "",
-        endDate: "",
-        searchTerm: "",
-        pay: undefined,
-      })
-    );
-  }, [navigationState]);
+  const getRegistersFilteredEntry = useAppSelector(
+    selectRegistersFilteredEntry
+  );
+  const getRegistersFilteredExpense = useAppSelector(
+    selectRegistersFilteredExpense
+  );
+
+  const getRegistersFilteredInvestment = useAppSelector(
+    selectRegistersFilteredInvestment
+  );
+
+  // Define a mapping of props.type to selectors
+  const selectorMapping: SelectorMapping = {
+    entry: {
+      filtered: getRegistersFilteredEntry,
+    },
+    expense: {
+      filtered: getRegistersFilteredExpense,
+    },
+    investment: {
+      filtered: getRegistersFilteredInvestment,
+    },
+  };
+
+  // Select the appropriate selectors based on props.type
+  const selectedSelectors = selectorMapping[props.type];
+
+  // Use the selected selectors with useAppSelector
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
 
   function edit(target: any) {
     dispatch(setModalRegister("edit"));
     dispatch(setRegisterData({ ...target }));
   }
 
-  function remove(target: string) {
-    dispatch(setModalDelete(target));
+  function remove(target: any) {
+    dispatch(setModalDelete({ id: target.id, type: target.type }));
   }
 
   function handlePay(target: any) {
@@ -82,7 +100,7 @@ const FlatListRegisters = (props: Props) => {
               item={item}
               eyeStatus={common.eyeStatus}
               edit={() => edit(item)}
-              remove={() => remove(item.id)}
+              remove={() => remove(item)}
               handlePay={() => handlePay(item)}
               optionsShow={optionsShow}
               setOptionsShow={setOptionsShow}
@@ -101,6 +119,7 @@ const FlatListRegisters = (props: Props) => {
         props.isNotEmpetyRegisters() ? (
           <EmptyRegisters
             filtered={Boolean(getRegistersFiltered.length == 0)}
+            type={props.type}
           />
         ) : null
       }

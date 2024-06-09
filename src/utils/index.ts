@@ -1,4 +1,9 @@
-import { getFilledItemsCount, applyFilterData } from "./filter";
+import {
+  getFilledItemsCount,
+  applyFilterData,
+  getStateRegisters,
+  getStateAndActions,
+} from "./filter";
 import {
   formatDate,
   isDatePast,
@@ -13,10 +18,12 @@ import {
   renderBackgroundClass,
 } from "./render";
 
+import { encryptData, decryptData } from "./crypto";
+
 const types: { [key: string]: string } = {
   liquid: "Líquido",
   patrimony: "Patrimônio",
-  investiment: "Investimento",
+  investment: "Investimento",
   entry: "Entrada",
   expense: "Despesa",
   vehicle: "Veículo",
@@ -53,7 +60,7 @@ const isObjectEmpty = (obj: any): boolean => {
     : false;
 };
 
-const typeCategory = ["patrimony", "expense", "entry", "investiment"];
+const typeCategory = ["patrimony", "expense", "entry", "investment"];
 const TypeCategory = (index: number | undefined) =>
   index === undefined ? "patrimony" : typeCategory[index];
 
@@ -64,6 +71,8 @@ export default {
   isDateToday,
   isDateTomorrow,
   sortDataByDateDesc,
+  getStateRegisters,
+  getStateAndActions,
   getFilledItemsCount,
   applyFilterData,
   renderBorderType,
@@ -76,4 +85,6 @@ export default {
   isObjectEmpty,
   checkTypeTouchable,
   TypeCategory,
+  encryptData,
+  decryptData,
 };

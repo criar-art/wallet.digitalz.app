@@ -66,7 +66,7 @@ export const sortDataByDateDesc = (
   data: any[],
   dateFormat: string = "dd/MM/yyyy"
 ) => {
-  return data.sort((a, b) => {
+  return [...data].sort((a, b) => {
     const dateA = parse(a.date, dateFormat, new Date());
     const dateB = parse(b.date, dateFormat, new Date());
     return compareDesc(dateA, dateB);

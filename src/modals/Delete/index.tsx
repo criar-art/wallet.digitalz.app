@@ -3,17 +3,18 @@ import { Animated, Easing, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { setRegister } from "@store/commonSlice";
 import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
+import { setDeleteRegisterExpense } from "@store/expenseSlice";
+import { setDeleteRegisterEntry } from "@store/entrySlice";
+import { setDeleteRegisterInvestment } from "@store/investmentSlice";
 
 export default function ModalDelete(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(0)).current;
@@ -37,11 +38,21 @@ export default function ModalDelete(props: { testID?: string }) {
     };
   }, [modals.modalDelete, scaleAnimation]);
 
+  const registerFunctions: any = {
+    expense: {
+      setDeleteRegister: setDeleteRegisterExpense,
+    },
+    entry: {
+      setDeleteRegister: setDeleteRegisterEntry,
+    },
+    investment: {
+      setDeleteRegister: setDeleteRegisterInvestment,
+    },
+  };
+
   const confirmModal = () => {
-    const filter = common.registers.filter(
-      ({ id }) => id !== modals.modalDelete
-    );
-    dispatch(setRegister(filter));
+    const { setDeleteRegister } = registerFunctions[modals.modalDelete?.type];
+    dispatch(setDeleteRegister(modals.modalDelete?.id));
 
     Animated.sequence([
       Animated.spring(scaleAnimation, {

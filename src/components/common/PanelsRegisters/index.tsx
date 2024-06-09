@@ -19,7 +19,7 @@ export default function PanelsRegisters(props: Props) {
     { type: "liquid", value: getLiquid(), isVisible: true },
     { type: "expense", value: getTotal("expense"), isVisible: true },
     { type: "entry", value: getTotal("entry"), isVisible: true },
-    { type: "investiment", value: getTotal("investiment"), isVisible: true },
+    { type: "investment", value: getTotal("investment"), isVisible: true },
   ];
 
   return (

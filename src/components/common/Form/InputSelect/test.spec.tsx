@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import InputSelect from "./index";
 
 const dataType = [
-  { label: "Investimento", value: "investiment" },
+  { label: "Investimento", value: "investment" },
   { label: "Entrada", value: "entry" },
   { label: "Despesa", value: "expense" },
   { label: "Veículo", value: "vehicle" },

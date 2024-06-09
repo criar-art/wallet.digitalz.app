@@ -25,7 +25,7 @@ export default function ModalInfo(props: { testID?: string }) {
       "patrimony",
       "entry",
       "expense",
-      "investiment",
+      "investment",
       "loginSupported",
     ].includes(modals?.modalInfo);
 
@@ -71,7 +71,7 @@ export default function ModalInfo(props: { testID?: string }) {
         </View>
       </>
     ),
-    investiment: (
+    investment: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
           Investimentos são alocações de recursos com o objetivo de obter
@@ -173,7 +173,7 @@ export default function ModalInfo(props: { testID?: string }) {
   const modalIcons: any = {
     liquid: <MaterialIcons name="attach-money" size={30} color="#aaa" />,
     patrimony: <MaterialCommunityIcons name="gold" size={30} color="#aaa" />,
-    investiment: <MaterialIcons name="trending-up" size={30} color="#aaa" />,
+    investment: <MaterialIcons name="trending-up" size={30} color="#aaa" />,
     entry: <MaterialCommunityIcons name="cash-plus" size={30} color="#aaa" />,
     expense: (
       <MaterialCommunityIcons name="cash-remove" size={30} color="#aaa" />

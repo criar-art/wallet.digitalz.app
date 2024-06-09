@@ -1,3 +1,4 @@
+import { RootState } from "@store";
 import {
   compareAsc,
   compareDesc,
@@ -15,6 +16,72 @@ interface RegisterFilter {
   pay: boolean | undefined;
 }
 
+import {
+  setRegisterFilterExpense,
+  setRegisterExpense,
+  setEditRegisterExpense,
+  setResetFilterExpense,
+} from "@store/expenseSlice";
+import {
+  setRegisterFilterEntry,
+  setRegisterEntry,
+  setEditRegisterEntry,
+  setResetFilterEntry,
+} from "@store/entrySlice";
+import {
+  setRegisterFilterInvestment,
+  setRegisterInvestment,
+  setEditRegisterInvestment,
+  setResetFilterInvestment,
+} from "@store/investmentSlice";
+
+// Função auxiliar para obter o estado e as ações corretas com base no modalFilter
+export const getStateAndActions = (modalFilter: string | undefined) => {
+  switch (modalFilter) {
+    case "expense":
+      return {
+        stateSelector: (state: RootState) => state.expenseState,
+        setRegisterFilter: setRegisterFilterExpense,
+        setRegister: setRegisterExpense,
+        setEditRegister: setEditRegisterExpense,
+        setResetFilter: setResetFilterExpense,
+      };
+    case "entry":
+      return {
+        stateSelector: (state: RootState) => state.entryState,
+        setRegisterFilter: setRegisterFilterEntry,
+        setRegister: setRegisterEntry,
+        setEditRegister: setEditRegisterEntry,
+        setResetFilter: setResetFilterEntry,
+      };
+    case "investment":
+      return {
+        stateSelector: (state: RootState) => state.investmentState,
+        setRegisterFilter: setRegisterFilterInvestment,
+        setRegister: setRegisterInvestment,
+        setEditRegister: setEditRegisterInvestment,
+        setResetFilter: setResetFilterInvestment,
+      };
+    default:
+      return {
+        stateSelector: undefined,
+        setRegisterFilter: undefined,
+        setResetFilter: undefined,
+      };
+  }
+};
+
+// Função auxiliar para obter registros com base no tipo
+export const getStateRegisters: any = (state: RootState, type: string) => {
+  const dataMapping: any = {
+    expense: state.expenseState,
+    entry: state.entryState,
+    investment: state.investmentState,
+  };
+
+  return dataMapping[type] || {};
+};
+
 export const getFilledItemsCount = (filter: RegisterFilter): number => {
   let count = 0;
 
@@ -31,14 +98,14 @@ export const getFilledItemsCount = (filter: RegisterFilter): number => {
 };
 
 export const applyFilterData = (registers: any, filter: any) => {
-  let result = [...registers];
+  let result = registers ? [...registers] : [];
 
   const parsedStartDate = filter?.startDate
-    ? parse(filter.startDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.startDate, "dd/MM/yyyy", new Date())
     : null;
 
   const parsedEndDate = filter?.endDate
-    ? parse(filter.endDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.endDate, "dd/MM/yyyy", new Date())
     : null;
 
   if (parsedStartDate && parsedEndDate) {

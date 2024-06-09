@@ -6,17 +6,74 @@ import { useBalance } from "@hooks/useBalance";
 import { RootState } from "@store";
 import { Props } from "./types";
 import utils from "@utils";
-import { useSelector } from "react-redux";
-import { selectRegistersFiltered } from "@store/commonSlice";
+
+import {
+  selectRegistersFilterEntry,
+  selectRegistersFilterExpense,
+  selectRegistersFilterInvestment,
+  selectRegistersFilteredEntry,
+  selectRegistersFilteredExpense,
+  selectRegistersFilteredInvestment,
+} from "@store/commonSelects";
 
 function TotalCategory(props: Props) {
   const common = useAppSelector((state: RootState) => state.commonState);
-  const getRegistersFiltered = useSelector(selectRegistersFiltered(props.type));
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
 
+  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
+  const getRegistersFilteredEntry = useAppSelector(
+    selectRegistersFilteredEntry
+  );
+
+  const getRegistersFilterExpense = useAppSelector(
+    selectRegistersFilterExpense
+  );
+  const getRegistersFilteredExpense = useAppSelector(
+    selectRegistersFilteredExpense
+  );
+
+  const getRegistersFilterInvestment = useAppSelector(
+    selectRegistersFilterInvestment
+  );
+  const getRegistersFilteredInvestment = useAppSelector(
+    selectRegistersFilteredInvestment
+  );
+
+  // Define a mapping of props.type to selectors
+  const selectorMapping: any = {
+    entry: {
+      filter: getRegistersFilterEntry,
+      filtered: getRegistersFilteredEntry,
+    },
+    expense: {
+      filter: getRegistersFilterExpense,
+      filtered: getRegistersFilteredExpense,
+    },
+    investment: {
+      filter: getRegistersFilterInvestment,
+      filtered: getRegistersFilteredInvestment,
+    },
+    patrimony: {
+      filter: getRegistersFilterInvestment,
+      filtered: getRegistersFilteredInvestment,
+    },
+  };
+
+  // Select the appropriate selectors based on props.type
+  const selectedSelectors = selectorMapping[props.type];
+
+  // Use the selected selectors with useAppSelector
+  const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
+
   const isFilterEmpty = useMemo(
-    () => utils.isObjectEmpty(common.registerFilter),
-    [common.registerFilter]
+    () =>
+      props.type !== "patrimony"
+        ? utils.isObjectEmpty(getRegistersFilter)
+        : true,
+    [getRegistersFilter]
   );
 
   const getTotalValue = useCallback((): number => {
@@ -26,10 +83,7 @@ function TotalCategory(props: Props) {
   }, [getPatrimonyTotal, getTotal, props.type]);
 
   const returnTotalValue = useMemo((): number => {
-    if (isFilterEmpty) {
-      return getTotalValue();
-    }
-    if (getRegistersFiltered) {
+    if (getRegistersFiltered && props.type !== "patrimony" && !isFilterEmpty) {
       return getFilteredTotal(getRegistersFiltered);
     }
     return getTotalValue();

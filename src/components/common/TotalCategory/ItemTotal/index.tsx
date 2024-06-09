@@ -17,7 +17,7 @@ export default function ItemTotal(props: Props) {
   const modalIcons: any = {
     liquid: <MaterialIcons name="attach-money" {...iconConfig} />,
     patrimony: <MaterialCommunityIcons name="gold" {...iconConfig} />,
-    investiment: (
+    investment: (
       <MaterialIcons
         name="trending-up"
         size={38}
