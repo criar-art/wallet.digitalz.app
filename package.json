@@ -33,7 +33,6 @@
     "expo-blur": "~13.0.2",
     "expo-local-authentication": "~14.0.1",
     "expo-screen-orientation": "~7.0.5",
-    "expo-secure-store": "~13.0.1",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.16",
     "firebase": "^10.12.2",
