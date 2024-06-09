@@ -8,12 +8,14 @@ import AppDrawerButton from "../AppDrawerButton";
 import Button from "@components/common/Button";
 import utils from "@utils";
 import { Props } from "./types";
+import { useTranslation } from "react-i18next";
 
 export default function AppDrawerContent({
   state,
   descriptors,
   navigation,
 }: Props) {
+  const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const { landscape } = useOrientation();
   const appVersion = pkg.version;
@@ -38,7 +40,7 @@ export default function AppDrawerContent({
           const { options }: { options: any } = descriptors[route.key];
           const labelButton: string =
             utils.getLabel(options, route) == "Wallet Digitalz"
-              ? "Ínicio"
+              ? t("routes.home")
               : utils.getLabel(options, route);
           const isFocused: boolean = state.index === index;
 
@@ -73,7 +75,7 @@ export default function AppDrawerContent({
             }
           />
           <Text className="text-center dark:text-white">
-            Versão {appVersion}
+            {t("common.version")} {appVersion}
             {versionCode && ` - Build ${versionCode}`}
           </Text>
         </View>

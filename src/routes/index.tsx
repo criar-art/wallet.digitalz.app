@@ -7,54 +7,56 @@ import { RootState } from "@store";
 import { RoutesTab } from "./RoutesTab";
 import Page from "@pages";
 import AppDrawer from "@components/navigation/Drawer";
+import { useTranslation } from "react-i18next";
 
 const Drawer = createDrawerNavigator();
 
-export const pages = [
-  {
-    name: "Root",
-    title: "Wallet Digitalz",
-    drawerLabel: "Início",
-    drawerIcon: (props: any) => (
-      <MaterialIcons name="home" size={props.size} color={props.color} />
-    ),
-    component: RoutesTab,
-  },
-  {
-    name: "Login",
-    title: "Login",
-    drawerLabel: "Login",
-    drawerIcon: (props: any) => (
-      <MaterialIcons name="lock" size={props.size} color={props.color} />
-    ),
-    component: Page.Login,
-  },
-  {
-    name: "About",
-    title: "Sobre",
-    drawerLabel: "Sobre",
-    drawerIcon: (props: any) => (
-      <Entypo name="info" size={props.size} color={props.color} />
-    ),
-    component: Page.About,
-  },
-  {
-    name: "Contact",
-    title: "Contato",
-    drawerLabel: "Contato",
-    drawerIcon: (props: any) => (
-      <MaterialIcons name="call" size={props.size} color={props.color} />
-    ),
-    component: Page.Contact,
-  },
-];
-
 export default function Routes(props: any) {
+  const { t } = useTranslation();
   const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
   const { isLogin, isProtected } = useAppSelector(
     (state: RootState) => state.userState
   );
+
+  const pages = [
+    {
+      name: "Root",
+      title: "Wallet Digitalz",
+      drawerLabel: t("routes.home"),
+      drawerIcon: (props: any) => (
+        <MaterialIcons name="home" size={props.size} color={props.color} />
+      ),
+      component: RoutesTab,
+    },
+    {
+      name: "Login",
+      title: t("routes.login"),
+      drawerLabel: "Login",
+      drawerIcon: (props: any) => (
+        <MaterialIcons name="lock" size={props.size} color={props.color} />
+      ),
+      component: Page.Login,
+    },
+    {
+      name: "About",
+      title: t("routes.about"),
+      drawerLabel: "Sobre",
+      drawerIcon: (props: any) => (
+        <Entypo name="info" size={props.size} color={props.color} />
+      ),
+      component: Page.About,
+    },
+    {
+      name: "Contact",
+      title: t("routes.contact"),
+      drawerLabel: "Contato",
+      drawerIcon: (props: any) => (
+        <MaterialIcons name="call" size={props.size} color={props.color} />
+      ),
+      component: Page.Contact,
+    },
+  ];
 
   return (
     <Drawer.Navigator

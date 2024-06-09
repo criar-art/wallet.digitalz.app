@@ -1,9 +1,11 @@
 import { Image, Text, View, ScrollView } from "react-native";
 import useOrientation from "@hooks/useOrientation";
+import { useTranslation } from "react-i18next";
 import FadeView from "@components/animation/FadeView";
 import ListLinks from "./ListLinks";
 
 export default function AboutScreen() {
+  const { t } = useTranslation();
   const { landscape } = useOrientation();
 
   return (
@@ -28,16 +30,13 @@ export default function AboutScreen() {
           }}
         >
           <Text className="my-2 text-black dark:text-white text-base">
-            Wallet Digitalz foi desenvolvido com o objetivo de auxiliá-lo na
-            organização das suas finanças.
+            {t("about.intro1")}
           </Text>
           <Text className="my-2 text-black dark:text-white text-base">
-            Proporcionamos uma maneira simplificada para que você registre suas
-            despesas e valores.
+            {t("about.intro2")}
           </Text>
           <Text className="my-2 text-black dark:text-white text-base">
-            Tenha a liberdade de criar seus registros de forma intuitiva, com a
-            flexibilidade de deletá-los e atualizá-los conforme necessário.
+            {t("about.intro3")}
           </Text>
           <ListLinks />
         </ScrollView>

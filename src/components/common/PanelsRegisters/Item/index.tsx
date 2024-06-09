@@ -14,9 +14,14 @@ import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
+import { useTranslation } from "react-i18next";
 import { Props } from "./types";
 
 export default function ItemList(props: Props) {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
@@ -46,11 +51,11 @@ export default function ItemList(props: Props) {
         decimalSeparator={","}
         decimalScale={2}
         fixedDecimalScale
-        prefix={"R$ "}
+        prefix={language == "pt-BR" ? "R$ " : "$ "}
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black dark:text-white">
-              Total {utils.types[props.type]}
+              {t("common.total")} {t(`common.${props.type}`)}
             </Text>
             <Text className="text-black dark:text-white font-bold text-xl">
               {utils.parseMoney(value, common.eyeStatus)}
@@ -62,7 +67,9 @@ export default function ItemList(props: Props) {
         <View
           className={`bg-red-600 p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
-          <Text className="text-white text-xs">Carteira Negativa</Text>
+          <Text className="text-white text-xs">
+            {t("common.wallet_negative")}
+          </Text>
         </View>
       )}
       {!!getQuantity(props.type) && (
@@ -70,7 +77,7 @@ export default function ItemList(props: Props) {
           className={`bg-black dark:bg-white p-2 py-1 absolute -top-3 left-2 rounded-full flex flex-nowrap`}
         >
           <Text className="text-white dark:text-black text-xs">
-            {getQuantity(props.type)} Registro
+            {getQuantity(props.type)} {t("common.register")}
             {`${getQuantity(props.type) > 1 ? "s" : ""}`}
           </Text>
         </View>

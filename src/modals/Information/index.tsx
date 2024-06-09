@@ -11,8 +11,10 @@ import utils from "@utils";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
+import { useTranslation } from "react-i18next";
 
 export default function ModalInfo(props: { testID?: string }) {
+  const { t } = useTranslation();
   const { protection } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
@@ -42,16 +44,14 @@ export default function ModalInfo(props: { testID?: string }) {
     liquid: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          O cálculo do valor líquido é feito subtraindo o total das despesas do
-          total das entradas de registros.
+          {t("modalContent.liquid.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            Investimentos não são diretamente considerados nesse cálculo.
+            {t("modalContent.liquid.note1")}
           </Text>
           <Text className="text-sm dark:text-yellow-100">
-            São reservas de capital para futuros retornos, gerenciados
-            separadamente.
+            {t("modalContent.liquid.note2")}
           </Text>
         </View>
       </>
@@ -59,14 +59,11 @@ export default function ModalInfo(props: { testID?: string }) {
     patrimony: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          O valor do patrimônio é a soma do valor líquido com o valor dos
-          investimentos. Essencialmente, é a combinação do valor líquido e dos
-          investimentos.
+          {t("modalContent.patrimony.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            Esta medida proporciona uma visão abrangente do valor total dos
-            ativos e passivos da sua carteira.
+            {t("modalContent.patrimony.note")}
           </Text>
         </View>
       </>
@@ -74,14 +71,11 @@ export default function ModalInfo(props: { testID?: string }) {
     investment: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          Investimentos são alocações de recursos com o objetivo de obter
-          retornos futuros. Eles são parte importante do planejamento
-          financeiro.
+          {t("modalContent.investment.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            Avaliar corretamente os investimentos é crucial para garantir a
-            saúde financeira a longo prazo.
+            {t("modalContent.investment.note")}
           </Text>
         </View>
       </>
@@ -89,13 +83,11 @@ export default function ModalInfo(props: { testID?: string }) {
     entry: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          Entradas representam o total de receitas recebidas em determinado
-          período, como vendas, juros recebidos e outros ganhos.
+          {t("modalContent.entry.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            Monitorar as entradas ajuda a entender a capacidade de geração de
-            receita de suas finanças.
+            {t("modalContent.entry.note")}
           </Text>
         </View>
       </>
@@ -103,14 +95,11 @@ export default function ModalInfo(props: { testID?: string }) {
     expense: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          Despesas são os custos incorridos para operar e manter as atividades
-          na sua carteira. Elas podem incluir salários, aluguel, e outras
-          obrigações.
+          {t("modalContent.expense.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            Controlar as despesas é essencial para manter a saúde financeira e
-            evitar déficits.
+            {t("modalContent.expense.note")}
           </Text>
         </View>
       </>
@@ -118,14 +107,11 @@ export default function ModalInfo(props: { testID?: string }) {
     vehicle: (
       <>
         <Text className="text-black dark:text-white text-base mb-4">
-          Veículos são ativos tangíveis que podem ser usados para operações ou
-          como parte dos ativos da sua carteira. Eles podem incluir carros,
-          caminhões e outros meios de transporte.
+          {t("modalContent.vehicle.text")}
         </Text>
         <View className="bg-yellow-100 dark:bg-zinc-800 p-4 rounded-xl">
           <Text className="text-sm dark:text-yellow-100">
-            A depreciação dos veículos deve ser considerada para refletir seu
-            valor atual corretamente.
+            {t("modalContent.vehicle.note")}
           </Text>
         </View>
       </>
@@ -133,14 +119,12 @@ export default function ModalInfo(props: { testID?: string }) {
     loginSupported: (
       <>
         <Text className="text-black dark:text-white text-base">
-          Para melhor proteção, ative o bloqueio para manter suas informações
-          privadas. Se você desativar, o acesso se tornará livre, sem nenhuma
-          restrição ou segurança.
+          {t("modalContent.protection.text")}
         </Text>
         <View className="flex flex-row items-center my-2 ml-2">
           <View className="flex items-center justify-center">
             <Switch
-              accessibilityLabel="Pagamento"
+              accessibilityLabel="Payment"
               value={isProtected}
               onValueChange={handleProtected}
               trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
@@ -149,14 +133,14 @@ export default function ModalInfo(props: { testID?: string }) {
             />
           </View>
           <Text className="ml-5 text-black dark:text-white text-base text-center">
-            Proteção
+            {t("modalContent.protection.switchLabel")}
           </Text>
         </View>
         <Button
           twClass="my-2 py-2 pr-4 mx-auto absolute right-2 bottom-0 rounded-full dark:bg-zinc-700"
           textColor="text-black dark:text-white ml-1"
-          text="Abrir configurações"
-          label="Abrir configurações de bloqueio"
+          text={t("modalContent.protection.buttonText")}
+          label={t("modalContent.protection.buttonLabel")}
           onPress={() => Linking.sendIntent("android.settings.SETTINGS")}
           icon={
             <MaterialIcons
@@ -198,26 +182,31 @@ export default function ModalInfo(props: { testID?: string }) {
       testID={props.testID ? props.testID : "teste-modal"}
       closeAction={() => dispatch(setModalInfo(""))}
       confirmAction={() =>
-        isProtected && modals?.modalInfo == "loginSupported"
+        isProtected && modals?.modalInfo === "loginSupported"
           ? activeProtection()
           : modalRef.current?.closeModal()
       }
       header={{
         title:
-          modals?.modalInfo == "loginSupported"
-            ? "Informação de Proteção"
-            : `Valor ${utils.types[modals?.modalInfo]}`,
+          modals?.modalInfo === "loginSupported"
+            ? t("modalInfo.header.protectionInformation")
+            : t("modalInfo.header.value", {
+                value: t(`common.${modals?.modalInfo}`),
+              }),
         icon: renderModalIcon(modals?.modalInfo),
       }}
       cancelButton={{
         hidden: true,
       }}
       confirmButton={{
-        text: modals?.modalInfo == "loginSupported" ? "Salvar" : "Entendi",
-        label: "Ok fechar o modal de informações",
+        text:
+          modals?.modalInfo === "loginSupported"
+            ? t("common.btn_save")
+            : t("common.btn_understand"),
+        label: t("modalInfo.confirmButton.label"),
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
-      optional={modals?.modalInfo == "loginSupported"}
+      optional={modals?.modalInfo === "loginSupported"}
     >
       <View className="mb-6 px-2 pt-4">
         {renderModalContent(modals?.modalInfo)}

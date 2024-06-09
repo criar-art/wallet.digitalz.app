@@ -1,19 +1,18 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { useAppSelector } from "@store/hooks";
-import { RootState } from "@store";
 import TabBar from "@components/navigation/TabBar";
 import utils from "@utils";
 import Page from "@pages";
-import { useBalance } from "@hooks/useBalance"
+import { useBalance } from "@hooks/useBalance";
+import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator();
 
 export function RoutesTab() {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { getQuantity } = useBalance();
-  const common = useAppSelector((state: RootState) => state.commonState);
   const getCountRegisters = (type: string) => {
     return getQuantity(type);
   };
@@ -33,27 +32,27 @@ export function RoutesTab() {
     {
       name: "Home",
       title: "Geral",
-      tabBarLabel: "Início",
+      tabBarLabel: t("routes.home"),
       tabBarIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
       ),
       children: <Page.Home />,
     },
-    configRegisterScreen("Expense", "Despesa", (props: any) => (
+    configRegisterScreen("Expense", t("routes.expense"), (props: any) => (
       <MaterialCommunityIcons
         name="cash-remove"
         size={props.size}
         color={props.color}
       />
     )),
-    configRegisterScreen("Entry", "Entrada", (props: any) => (
+    configRegisterScreen("Entry", t("routes.entry"), (props: any) => (
       <MaterialCommunityIcons
         name="cash-plus"
         size={props.size}
         color={props.color}
       />
     )),
-    configRegisterScreen("Investment", "Investimento", (props: any) => (
+    configRegisterScreen("Investment", t("routes.investment"), (props: any) => (
       <MaterialIcons name="trending-up" size={props.size} color={props.color} />
     )),
   ];

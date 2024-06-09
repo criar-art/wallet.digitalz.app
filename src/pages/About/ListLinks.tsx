@@ -2,8 +2,10 @@ import { Linking } from "react-native";
 import { Fontisto, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import Button from "../../components/common/Button";
+import { useTranslation } from "react-i18next";
 
 export default function ListLinks() {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const iconConfig = {
     size: 28,
@@ -12,7 +14,7 @@ export default function ListLinks() {
 
   const buttonData = [
     {
-      text: "Política de Privacidade",
+      text: t("common.privacy"),
       label: "Acessar a Política de Privacidade",
       url: "https://walletdigitalz.web.app/privacy",
     },
