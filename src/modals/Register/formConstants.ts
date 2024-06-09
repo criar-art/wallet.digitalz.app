@@ -13,10 +13,3 @@ export const initialFormError = {
   name: false,
   value: false,
 };
-
-export const dataType = [
-  { label: "Despesa", value: "expense" },
-  { label: "Entrada", value: "entry" },
-  { label: "Investimento", value: "investment" },
-  // { label: "Veículo", value: "vehicle" },
-];
