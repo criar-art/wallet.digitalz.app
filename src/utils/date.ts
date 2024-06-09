@@ -7,6 +7,10 @@ import {
   compareDesc,
   isValid,
 } from "date-fns";
+import * as Localization from "expo-localization";
+
+export const templateDate =
+  Localization.locale == "pt-BR" ? "dd/MM/yyyy" : "MM/dd/yyyy";
 
 export const formatDate = (dateStr: string): string => {
   let parsedDate: Date | null = null;
@@ -29,12 +33,12 @@ export const formatDate = (dateStr: string): string => {
     throw new Error("Invalid date format");
   }
 
-  return format(parsedDate, "dd/MM/yyyy");
+  return format(parsedDate, templateDate);
 };
 
 export const isDatePast = (dateStr: string): boolean => {
   const formattedDateStr = formatDate(dateStr);
-  const parsedDate = parse(formattedDateStr, "dd/MM/yyyy", new Date());
+  const parsedDate = parse(formattedDateStr, templateDate, new Date());
 
   // Ignorar horas, minutos e segundos na comparação
   const today = new Date();
@@ -48,23 +52,23 @@ export const isDatePast = (dateStr: string): boolean => {
 };
 
 export const formatDateString = (date: Date): string => {
-  return format(date, "dd/MM/yyyy");
+  return format(date, templateDate);
 };
 
 export const isDateToday = (dateStr: string): boolean => {
-  const parsedDate = parse(dateStr, "dd/MM/yyyy", new Date());
+  const parsedDate = parse(dateStr, templateDate, new Date());
   return isToday(parsedDate);
 };
 
 // Função para verificar se uma data fornecida é o dia de amanhã
 export const isDateTomorrow = (dateStr: string): boolean => {
-  const parsedDate = parse(dateStr, "dd/MM/yyyy", new Date());
+  const parsedDate = parse(dateStr, templateDate, new Date());
   return isTomorrow(parsedDate);
 };
 
 export const sortDataByDateDesc = (
   data: any[],
-  dateFormat: string = "dd/MM/yyyy"
+  dateFormat: string = templateDate
 ) => {
   return [...data].sort((a, b) => {
     const dateA = parse(a.date, dateFormat, new Date());

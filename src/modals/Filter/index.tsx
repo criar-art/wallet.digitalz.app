@@ -11,6 +11,7 @@ import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import InputDate from "@components/common/Form/InputDate";
 import utils from "@utils";
+import { templateDate } from "@utils/date";
 import { useTranslation } from "react-i18next";
 
 export default function ModalFilter(props: { testID?: string }) {
@@ -31,7 +32,7 @@ export default function ModalFilter(props: { testID?: string }) {
   const startDate = useMemo(
     () =>
       stateData?.registerFilter?.startDate
-        ? parse(stateData.registerFilter.startDate, "dd/MM/yyyy", new Date())
+        ? parse(stateData.registerFilter.startDate, templateDate, new Date())
         : null,
     [stateData?.registerFilter?.startDate]
   );
@@ -39,7 +40,7 @@ export default function ModalFilter(props: { testID?: string }) {
   const endDate = useMemo(
     () =>
       stateData?.registerFilter?.endDate
-        ? parse(stateData.registerFilter.endDate, "dd/MM/yyyy", new Date())
+        ? parse(stateData.registerFilter.endDate, templateDate, new Date())
         : null,
     [stateData?.registerFilter?.endDate]
   );

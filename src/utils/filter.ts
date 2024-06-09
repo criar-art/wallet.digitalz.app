@@ -7,6 +7,7 @@ import {
   isWithinInterval,
   parse,
 } from "date-fns";
+import { templateDate } from "@utils/date";
 
 interface RegisterFilter {
   short: string;
@@ -101,11 +102,11 @@ export const applyFilterData = (registers: any, filter: any) => {
   let result = registers ? [...registers] : [];
 
   const parsedStartDate = filter?.startDate
-    ? parse(filter?.startDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.startDate, templateDate, new Date())
     : null;
 
   const parsedEndDate = filter?.endDate
-    ? parse(filter?.endDate, "dd/MM/yyyy", new Date())
+    ? parse(filter?.endDate, templateDate, new Date())
     : null;
 
   if (parsedStartDate && parsedEndDate) {
@@ -115,7 +116,7 @@ export const applyFilterData = (registers: any, filter: any) => {
     }
 
     result = result.filter((item) => {
-      const itemDate = parse(item.date, "dd/MM/yyyy", new Date());
+      const itemDate = parse(item.date, templateDate, new Date());
       return isWithinInterval(itemDate, {
         start: parsedStartDate,
         end: parsedEndDate,
@@ -123,7 +124,7 @@ export const applyFilterData = (registers: any, filter: any) => {
     });
   } else if (parsedStartDate) {
     result = result.filter((item) => {
-      const itemDate = parse(item.date, "dd/MM/yyyy", new Date());
+      const itemDate = parse(item.date, templateDate, new Date());
       return (
         isAfter(itemDate, parsedStartDate) ||
         itemDate.getTime() === parsedStartDate.getTime()
@@ -131,7 +132,7 @@ export const applyFilterData = (registers: any, filter: any) => {
     });
   } else if (parsedEndDate) {
     result = result.filter((item) => {
-      const itemDate = parse(item.date, "dd/MM/yyyy", new Date());
+      const itemDate = parse(item.date, templateDate, new Date());
       return (
         isBefore(itemDate, parsedEndDate) ||
         itemDate.getTime() === parsedEndDate.getTime()
