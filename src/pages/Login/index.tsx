@@ -6,8 +6,12 @@ import { useEffect } from "react";
 import { format } from "date-fns";
 import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
+import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 
 const LoginScreen = ({ navigation }: any) => {
+  const { t } = useTranslation();
+  const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
   const auth = useAuthentication(navigation.navigate);
   const translateX = new Animated.Value(0);
@@ -48,7 +52,11 @@ const LoginScreen = ({ navigation }: any) => {
           width: "200%",
           transform: [{ translateX: translateX }],
         }}
-        source={require("../../images/world-login.webp")}
+        source={
+          colorScheme == "dark"
+            ? require("../../images/world-login.webp")
+            : require("../../images/world-light.jpg")
+        }
       />
       <BlurView
         intensity={100}
@@ -99,7 +107,7 @@ const LoginScreen = ({ navigation }: any) => {
               <Button
                 twClass="p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2"
                 textColor="text-lg text-white"
-                text="Ínicio"
+                text={t("routes.home")}
                 label="Ir para o ínicio"
                 onPress={() => navigation.navigate("Root")}
                 icon={<MaterialIcons name="home" size={25} color="#fff" />}
@@ -111,7 +119,11 @@ const LoginScreen = ({ navigation }: any) => {
                   !auth.isProtected && "m-2"
                 }`}
                 textColor="text-lg text-white"
-                text={auth.isProtected ? "Entrar" : "Proteção"}
+                text={
+                  auth.isProtected
+                    ? t("common.enter")
+                    : t("modalContent.protection.switchLabel")
+                }
                 label={auth.isProtected ? "Faça login" : "Faça proteção"}
                 onPress={() =>
                   auth.isProtected
@@ -134,7 +146,7 @@ const LoginScreen = ({ navigation }: any) => {
                     landscape ? "mx-2 " : ""
                   }`}
                   textColor="text-lg text-white"
-                  text="Proteção"
+                  text={t("modalContent.protection.switchLabel")}
                   label="Mostrar informações de proteção"
                   onPress={() => auth.protectionInformation(true)}
                   icon={
@@ -151,7 +163,7 @@ const LoginScreen = ({ navigation }: any) => {
                       landscape ? "my-2" : ""
                     }`}
                     textColor="text-lg text-white"
-                    text="Sair"
+                    text={t("common.logout")}
                     label="Faça logout"
                     onPress={auth.handleLogout}
                     icon={
