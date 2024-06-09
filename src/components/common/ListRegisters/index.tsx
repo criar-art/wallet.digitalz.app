@@ -24,13 +24,13 @@ export default function ListRegisters(props: Props) {
   // Define a mapping of props.type to selectors
   const selectorMapping: any = {
     entry: {
-      registers: getRegistersEntry,
+      registers: getRegistersEntry || [],
     },
     expense: {
-      registers: getRegistersExpense,
+      registers: getRegistersExpense || [],
     },
     investment: {
-      registers: getRegistersInvestment,
+      registers: getRegistersInvestment || [],
     },
   };
 
@@ -38,7 +38,7 @@ export default function ListRegisters(props: Props) {
   const selectedSelectors = selectorMapping[props.type];
 
   // Use the selected selectors with useAppSelector
-  const getRegisters = selectedSelectors.registers;
+  const getRegisters = selectedSelectors ? selectedSelectors.registers : [];
 
   const isNotEmpetyRegisters = (): boolean => Boolean(getRegisters.length);
 

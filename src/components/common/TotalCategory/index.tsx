@@ -63,8 +63,10 @@ function TotalCategory(props: Props) {
   const selectedSelectors = selectorMapping[props.type];
 
   // Use the selected selectors with useAppSelector
-  const getRegistersFilter = selectedSelectors.filter;
-  const getRegistersFiltered = selectedSelectors.filtered;
+  const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
 
   const isFilterEmpty = useMemo(
     () =>

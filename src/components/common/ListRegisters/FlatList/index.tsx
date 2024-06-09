@@ -12,7 +12,7 @@ import {
   setModalDelete,
   setModalPay,
 } from "@store/modalsSlice";
-import { Props } from "./types";
+import { Props, SelectorMapping } from "./types";
 
 import {
   selectRegistersFilteredEntry,
@@ -39,7 +39,7 @@ const FlatListRegisters = (props: Props) => {
   );
 
   // Define a mapping of props.type to selectors
-  const selectorMapping: any = {
+  const selectorMapping: SelectorMapping = {
     entry: {
       filtered: getRegistersFilteredEntry,
     },
@@ -55,7 +55,9 @@ const FlatListRegisters = (props: Props) => {
   const selectedSelectors = selectorMapping[props.type];
 
   // Use the selected selectors with useAppSelector
-  const getRegistersFiltered = selectedSelectors.filtered;
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
 
   function edit(target: any) {
     dispatch(setModalRegister("edit"));

@@ -70,9 +70,11 @@ export default function Header(props: Props) {
   const selectedSelectors = selectorMapping[props.type];
 
   // Use the selected selectors with useAppSelector
-  const getRegistersFilter = selectedSelectors.filter;
-  const getRegisters = selectedSelectors.registers;
-  const getRegistersFiltered = selectedSelectors.filtered;
+  const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
+  const getRegisters = selectedSelectors ? selectedSelectors.registers : [];
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
 
   return (
     !!portrait && (
