@@ -1,0 +1,117 @@
+{
+  "routes": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "expense": "Expense",
+    "entry": "Entry",
+    "investment": "Investment"
+  },
+  "common": {
+    "version": "Version",
+    "enter": "Enter",
+    "logout": "Logout",
+    "register": "Register",
+    "wallet_negative": "Negative Wallet",
+    "total": "Total",
+    "filtered": "filtered",
+    "liquid": "Liquid",
+    "patrimony": "Patrimony",
+    "investment": "Investment",
+    "entry": "Entry",
+    "expense": "Expense",
+    "vehicle": "Vehicle",
+    "empty_filter": "No filtered results",
+    "empty_register": "No records registered",
+    "new_register": "New Register",
+    "edit_register": "Edit Register",
+    "btn_create": "Create",
+    "btn_save": "Save",
+    "btn_confirm": "Confirm",
+    "btn_understand": "I understood",
+    "btn_cancel": "Cancel",
+    "btn_cancel_label": "Cancel this action",
+    "validation": "You need to fill in all the fields",
+    "alert_delete": "Are you sure you want to delete?",
+    "alert_paid": "Are you sure you want to mark as paid?",
+    "privacy": "Privacy Policy"
+  },
+  "filter": {
+    "btn": "Filter",
+    "btn_label": "Open filter modal",
+    "btn_apply": "Apply",
+    "btn_apply_label": "Ok, close the filter modal",
+    "btn_reset": "Clear",
+    "btn_reset_label": "Clear all filters"
+  },
+  "inputs": {
+    "all": "All",
+    "paid": "Paid",
+    "no_paid": "Unpaid",
+    "date_start": "Start Date",
+    "date_end": "End Date",
+    "date": "Date",
+    "name": "Name",
+    "value": "Value",
+    "type": "Type",
+    "select": "Select",
+    "pay": "Pay"
+  },
+  "badge": {
+    "due_today": "DUE TODAY",
+    "due_tomorrow": "DUE TOMORROW",
+    "available_today": "AVAILABLE TODAY",
+    "available_tomorrow": "AVAILABLE TOMORROW",
+    "overdue": "OVERDUE",
+    "available": "AVAILABLE",
+    "paid": "PAID"
+  },
+  "modalContent": {
+    "liquid": {
+      "text": "The calculation of net value is done by subtracting the total expenses from the total of register entries.",
+      "note1": "Investments are not directly considered in this calculation.",
+      "note2": "They are capital reserves for future returns, managed separately."
+    },
+    "patrimony": {
+      "text": "The value of patrimony is the sum of the net value and the value of investments. Essentially, it is the combination of net value and investments.",
+      "note": "This measure provides a comprehensive view of the total value of the assets and liabilities of your portfolio."
+    },
+    "investment": {
+      "text": "Investments are allocations of resources with the aim of obtaining future returns. They are an important part of financial planning.",
+      "note": "Correctly assessing investments is crucial to ensure long-term financial health."
+    },
+    "entry": {
+      "text": "Entries represent the total revenues received in a certain period, such as sales, received interest, and other gains.",
+      "note": "Monitoring entries helps to understand the revenue-generating capacity of your finances."
+    },
+    "expense": {
+      "text": "Expenses are the costs incurred to operate and maintain activities in your portfolio. They may include salaries, rent, and other obligations.",
+      "note": "Controlling expenses is essential to maintain financial health and avoid deficits."
+    },
+    "vehicle": {
+      "text": "Vehicles are tangible assets that can be used for operations or as part of your portfolio assets. They may include cars, trucks, and other means of transportation.",
+      "note": "Vehicle depreciation should be considered to accurately reflect its current value."
+    },
+    "protection": {
+      "text": "For better protection, enable the lock to keep your information private. If you disable it, access will become unrestricted, without any security or restrictions.",
+      "switchLabel": "Protection",
+      "buttonText": "Open settings",
+      "buttonLabel": "Open lock settings"
+    }
+  },
+  "modalInfo": {
+    "header": {
+      "protectionInformation": "Protection Information",
+      "value": "Value {{value}}"
+    },
+    "confirmButton": {
+      "label": "Ok, close the information modal"
+    }
+  },
+  "about": {
+    "intro1": "Wallet Digitalz was developed to help you organize your finances.",
+    "intro2": "We provide a simplified way for you to record your expenses and values.",
+    "intro3": "Have the freedom to create your records intuitively, with the flexibility to delete and update them as needed."
+  }
+}
