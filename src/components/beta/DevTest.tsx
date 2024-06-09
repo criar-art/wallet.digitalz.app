@@ -5,7 +5,7 @@ import { setRegisterEntry } from "@store/entrySlice";
 import { setRegisterInvestment } from "@store/investmentSlice";
 import { setRegisterData } from "@store/commonSlice";
 import { useAppDispatch } from "@store/hooks";
-import { generateData } from "./test";
+import { generateData } from "./testData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Função para exibir todos os dados armazenados no AsyncStorage
