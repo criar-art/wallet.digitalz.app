@@ -10,8 +10,10 @@ import { ModalHandle } from "@components/common/Modal/types";
 import { setDeleteRegisterExpense } from "@store/expenseSlice";
 import { setDeleteRegisterEntry } from "@store/entrySlice";
 import { setDeleteRegisterInvestment } from "@store/investmentSlice";
+import { useTranslation } from "react-i18next";
 
 export default function ModalDelete(props: { testID?: string }) {
+  const { t } = useTranslation();
   const modalRef = useRef<ModalHandle>(null);
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
@@ -98,7 +100,7 @@ export default function ModalDelete(props: { testID?: string }) {
       closeAction={() => dispatch(setModalDelete(""))}
       confirmAction={confirmModal}
       confirmButton={{
-        text: "Confirmar",
+        text: t("common.btn_confirm"),
         label: "Ok fechar o modal de deletar",
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
@@ -115,7 +117,7 @@ export default function ModalDelete(props: { testID?: string }) {
         />
       </Animated.View>
       <Text className="text-black dark:text-white text-center text-xl my-4">
-        Tem certeza que deseja deletar?
+        {t("common.alert_delete")}
       </Text>
     </Modal>
   );

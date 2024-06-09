@@ -1,10 +1,11 @@
-import { format } from 'date-fns';
+import { templateDate } from "@utils/date";
+import { format } from "date-fns";
 
 export const intitialForm = {
   name: "",
   type: "",
   value: "",
-  date: format(new Date(), 'dd/MM/yyyy'),
+  date: format(new Date(), templateDate),
   pay: false,
 };
 
@@ -13,10 +14,3 @@ export const initialFormError = {
   name: false,
   value: false,
 };
-
-export const dataType = [
-  { label: "Despesa", value: "expense" },
-  { label: "Entrada", value: "entry" },
-  { label: "Investimento", value: "investment" },
-  // { label: "Veículo", value: "vehicle" },
-];

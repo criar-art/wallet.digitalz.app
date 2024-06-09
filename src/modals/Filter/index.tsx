@@ -11,8 +11,11 @@ import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import InputDate from "@components/common/Form/InputDate";
 import utils from "@utils";
+import { templateDate } from "@utils/date";
+import { useTranslation } from "react-i18next";
 
 export default function ModalFilter(props: { testID?: string }) {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
@@ -29,7 +32,7 @@ export default function ModalFilter(props: { testID?: string }) {
   const startDate = useMemo(
     () =>
       stateData?.registerFilter?.startDate
-        ? parse(stateData.registerFilter.startDate, "dd/MM/yyyy", new Date())
+        ? parse(stateData.registerFilter.startDate, templateDate, new Date())
         : null,
     [stateData?.registerFilter?.startDate]
   );
@@ -37,7 +40,7 @@ export default function ModalFilter(props: { testID?: string }) {
   const endDate = useMemo(
     () =>
       stateData?.registerFilter?.endDate
-        ? parse(stateData.registerFilter.endDate, "dd/MM/yyyy", new Date())
+        ? parse(stateData.registerFilter.endDate, templateDate, new Date())
         : null,
     [stateData?.registerFilter?.endDate]
   );
@@ -54,17 +57,17 @@ export default function ModalFilter(props: { testID?: string }) {
 
   const filterButtons = [
     {
-      text: "Todos",
+      text: t("inputs.all"),
       value: undefined,
       icon: "density-small",
     },
     {
-      text: "Pagos",
+      text: t("inputs.paid"),
       value: true,
       icon: "attach-money",
     },
     {
-      text: "Não Pagos",
+      text: t("inputs.no_paid"),
       value: false,
       icon: "money-off",
     },
@@ -120,7 +123,7 @@ export default function ModalFilter(props: { testID?: string }) {
       cancelAction={resetFilters}
       confirmAction={() => modalRef.current?.closeModal()}
       header={{
-        title: "Filtro",
+        title: t("filter.btn"),
         icon: (
           <MaterialIcons
             name="filter-list"
@@ -130,8 +133,8 @@ export default function ModalFilter(props: { testID?: string }) {
         ),
       }}
       cancelButton={{
-        text: "Limpar",
-        label: "Limpar todos os filtros",
+        text: t("filter.btn_reset"),
+        label: t("filter.btn_reset_label"),
         icon: (
           <MaterialCommunityIcons
             name="trash-can-outline"
@@ -141,8 +144,8 @@ export default function ModalFilter(props: { testID?: string }) {
         ),
       }}
       confirmButton={{
-        text: "Aplicar",
-        label: "Ok fechar o modal de filtro",
+        text: t("filter.btn_apply"),
+        label: t("filter.btn_apply_label"),
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
@@ -162,10 +165,10 @@ export default function ModalFilter(props: { testID?: string }) {
         <View className="flex flex-row">
           <InputDate
             twClass="flex-1 mr-2"
-            label="Data inicio"
+            label={t("inputs.date_start")}
             value={stateData?.registerFilter?.startDate}
             maximumDate={endDate}
-            accessibilityLabel="Data do registro"
+            accessibilityLabel={`${t("inputs.date_start")} ${t("filter.btn")}`}
             onChangeDate={(date: string) =>
               setRegisterFilter &&
               dispatch(setRegisterFilter({ startDate: date } as any))
@@ -173,9 +176,9 @@ export default function ModalFilter(props: { testID?: string }) {
           />
           <InputDate
             twClass="flex-1 ml-2"
-            label="Data final"
+            label={t("inputs.date_end")}
             value={stateData?.registerFilter?.endDate}
-            accessibilityLabel="Data do registro"
+            accessibilityLabel={`${t("inputs.date_end")} ${t("filter.btn")}`}
             minimumDate={startDate}
             onChangeDate={(date: string) =>
               setRegisterFilter &&

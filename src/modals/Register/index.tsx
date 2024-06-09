@@ -14,7 +14,7 @@ import {
   setEditRegisterInvestment,
 } from "@store/investmentSlice";
 import { setModalRegister } from "@store/modalsSlice";
-import { intitialForm, initialFormError, dataType } from "./formConstants";
+import { intitialForm, initialFormError } from "./formConstants";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import InputSelect from "@components/common/Form/InputSelect";
@@ -22,8 +22,10 @@ import InputText from "@components/common/Form/InputText";
 import InputMoney from "@components/common/Form/InputMoney";
 import InputDate from "@components/common/Form/InputDate";
 import { useNavigationState } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export default function ModalRegister(props: { testID?: string }) {
+  const { t } = useTranslation();
   const indexTab = useNavigationState(
     (state) => state?.routes[0]?.state?.index
   );
@@ -104,6 +106,12 @@ export default function ModalRegister(props: { testID?: string }) {
     }
   };
 
+  const dataType = [
+    { label: t("common.expense"), value: "expense" },
+    { label: t("common.entry"), value: "entry" },
+    { label: t("common.investment"), value: "investment" },
+  ];
+
   useEffect(() => {
     if (isEditing()) {
       setFormModal({ ...common.registerData });
@@ -129,11 +137,13 @@ export default function ModalRegister(props: { testID?: string }) {
       confirmAction={() => saveStore()}
       alertModal={{
         show: Object.values(formError).includes(true),
-        text: "Você precisa preencher todos os campos",
+        text: t("common.validation"),
         icon: <MaterialCommunityIcons name="alert" size={25} color="black" />,
       }}
       header={{
-        title: isEditing() ? "Editar Registro" : "Novo Registro",
+        title: isEditing()
+          ? t("common.edit_register")
+          : t("common.new_register"),
         icon: (
           <MaterialCommunityIcons
             name={
@@ -147,7 +157,7 @@ export default function ModalRegister(props: { testID?: string }) {
         ),
       }}
       confirmButton={{
-        text: isEditing() ? "Salvar" : "Criar",
+        text: isEditing() ? t("common.btn_save") : t("common.btn_create"),
         label: "Ok fechar o modal de informações",
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
@@ -156,10 +166,10 @@ export default function ModalRegister(props: { testID?: string }) {
         {!isEditing() && (
           <InputSelect
             twClass="flex-1 mr-2"
-            label="Tipo"
+            label={t("inputs.type")}
             data={dataType}
             maxHeight={300}
-            placeholder="Selecionar"
+            placeholder={t("inputs.select") as string}
             value={formModal.type}
             handleChangeObject="type"
             onChange={handleChange}
@@ -168,7 +178,7 @@ export default function ModalRegister(props: { testID?: string }) {
         )}
         <InputText
           twClass={`flex-1 ${!isEditing() ? "ml-2" : ""}`}
-          label="Nome"
+          label={t("inputs.name")}
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
@@ -178,14 +188,14 @@ export default function ModalRegister(props: { testID?: string }) {
       <View className="flex flex-row mb-6">
         <InputDate
           twClass="flex-1 mr-2"
-          label="Data"
+          label={t("inputs.date")}
           value={formModal.date}
           accessibilityLabel="Data do registro"
           onChangeDate={handleChange}
         />
         <InputMoney
           twClass="flex-1 ml-2"
-          label="Valor"
+          label={t("inputs.value")}
           accessibilityLabel="Valor do registro"
           value={inputMoney}
           onValueChange={(values: any) => handleChange(values.value, "value")}
@@ -196,7 +206,7 @@ export default function ModalRegister(props: { testID?: string }) {
       {isEditing() && formModal.type === "expense" && (
         <View className="flex flex-row items-center justify-center absolute right-20 top-3">
           <Text className="text-black dark:text-white mr-6 text-base text-center">
-            Paga
+            {t("inputs.pay")}
           </Text>
           <View className="flex items-center justify-center">
             <Switch

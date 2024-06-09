@@ -19,8 +19,10 @@ import {
   selectRegistersFilteredInvestment,
   selectRegistersInvestment,
 } from "@store/commonSelects";
+import { useTranslation } from "react-i18next";
 
 export default function Header(props: Props) {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
   const { portrait } = useOrientation();
@@ -94,8 +96,8 @@ export default function Header(props: Props) {
         {getRegisters.length > 1 && (
           <Button
             twClass="bg-gray-100 dark:bg-zinc-900 p-3 pr-4 mx-4 rounded-full absolute right-0"
-            text="Filtro"
-            label="Abrir modal de filtros"
+            text={t("filter.btn")}
+            label={t("filter.btn_label")}
             textColor="text-black dark:text-white ml-2"
             onPress={() => dispatch(setModalFilter(props.type))}
             icon={

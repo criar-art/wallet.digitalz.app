@@ -16,6 +16,7 @@ import store from "@store";
 import Routes from "@routes";
 import ModalGlobal from "@modals";
 import useAuthentication from "@hooks/useAuthentication";
+import "./src/i18n";
 
 const walletTheme = {
   ...DefaultTheme,

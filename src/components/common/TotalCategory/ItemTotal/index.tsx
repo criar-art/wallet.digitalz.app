@@ -5,8 +5,13 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import utils from "@utils";
 import useOrientation from "@hooks/useOrientation";
 import { Props } from "./types";
+import { useTranslation } from "react-i18next";
 
 export default function ItemTotal(props: Props) {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { landscape, portrait } = useOrientation();
   const iconConfig = {
@@ -70,7 +75,7 @@ export default function ItemTotal(props: Props) {
         decimalSeparator={","}
         decimalScale={2}
         fixedDecimalScale
-        prefix={"R$ "}
+        prefix={language == "pt-BR" ? "R$ " : "$ "}
         renderText={(value: string) => (
           <View
             className={`flex flex-col ${
@@ -78,8 +83,8 @@ export default function ItemTotal(props: Props) {
             }`}
           >
             <Text className="text-sm text-black dark:text-white">
-              Total {utils.types[props.type]}{" "}
-              {!props.isFilterEmpty ? "filtrada" : ""}
+              {t("common.total")} {t(`common.${props.type}`)}{" "}
+              {!props.isFilterEmpty ? t("common.filtered") : ""}
             </Text>
             <Text
               className={`text-black dark:text-white font-bold text-2xl ${
