@@ -15,13 +15,11 @@ import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { useTranslation } from "react-i18next";
+import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
 
 export default function ItemList(props: Props) {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation();
+  const { t } = useTranslation();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
@@ -51,7 +49,7 @@ export default function ItemList(props: Props) {
         decimalSeparator={","}
         decimalScale={2}
         fixedDecimalScale
-        prefix={language == "pt-BR" ? "R$ " : "$ "}
+        prefix={`${currencySymbol} `}
         renderText={(value: string) => (
           <View className="flex">
             <Text className="text-black dark:text-white">

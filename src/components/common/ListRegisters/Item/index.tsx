@@ -13,13 +13,10 @@ import useOrientation from "@hooks/useOrientation";
 import Button from "@components/common/Button";
 import RenderBadge from "../RenderBadge";
 import useIsTablet from "@hooks/useIsTablet";
+import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
-import { useTranslation } from "react-i18next";
 
 function ItemList(props: Props) {
-  const {
-    i18n: { language },
-  } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
@@ -77,7 +74,7 @@ function ItemList(props: Props) {
             decimalSeparator={","}
             decimalScale={2}
             fixedDecimalScale
-            prefix={language == "pt-BR" ? "R$ " : "$ "}
+            prefix={`${currencySymbol} `}
             renderText={(value: string) => (
               <Text className="text-xl">
                 {utils.parseMoney(value, props.eyeStatus)}

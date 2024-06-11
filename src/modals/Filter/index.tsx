@@ -11,7 +11,7 @@ import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import InputDate from "@components/common/Form/InputDate";
 import utils from "@utils";
-import { templateDate } from "@utils/date";
+import { templateDate } from "@utils/locale";
 import { useTranslation } from "react-i18next";
 
 export default function ModalFilter(props: { testID?: string }) {

@@ -1,4 +1,4 @@
-import { templateDate } from "@utils/date";
+import { templateDate } from "@utils/locale";
 import { format } from "date-fns";
 
 export const intitialForm = {

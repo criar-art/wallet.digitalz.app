@@ -4,14 +4,12 @@ import { useColorScheme } from "nativewind";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import utils from "@utils";
 import useOrientation from "@hooks/useOrientation";
-import { Props } from "./types";
 import { useTranslation } from "react-i18next";
+import { currencySymbol } from "@utils/locale";
+import { Props } from "./types";
 
 export default function ItemTotal(props: Props) {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation();
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { landscape, portrait } = useOrientation();
   const iconConfig = {
@@ -75,7 +73,7 @@ export default function ItemTotal(props: Props) {
         decimalSeparator={","}
         decimalScale={2}
         fixedDecimalScale
-        prefix={language == "pt-BR" ? "R$ " : "$ "}
+        prefix={`${currencySymbol} `}
         renderText={(value: string) => (
           <View
             className={`flex flex-col ${
