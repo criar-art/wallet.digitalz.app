@@ -1,0 +1,117 @@
+{
+  "routes": {
+    "home": "首页",
+    "about": "关于",
+    "contact": "联系",
+    "login": "登录",
+    "expense": "支出",
+    "entry": "收入",
+    "investment": "投资"
+  },
+  "common": {
+    "version": "版本",
+    "enter": "进入",
+    "logout": "退出",
+    "register": "注册",
+    "wallet_negative": "负面钱包",
+    "total": "总计",
+    "filtered": "已过滤",
+    "liquid": "流动资产",
+    "patrimony": "资产负债",
+    "investment": "投资",
+    "entry": "收入",
+    "expense": "支出",
+    "vehicle": "车辆",
+    "empty_filter": "无过滤结果",
+    "empty_register": "无记录注册",
+    "new_register": "新注册",
+    "edit_register": "编辑注册",
+    "btn_create": "创建",
+    "btn_save": "保存",
+    "btn_confirm": "确认",
+    "btn_understand": "我了解",
+    "btn_cancel": "取消",
+    "btn_cancel_label": "取消此操作",
+    "validation": "您需要填写所有字段",
+    "alert_delete": "您确定要删除吗？",
+    "alert_paid": "您确定要标记为已支付吗？",
+    "privacy": "隐私政策"
+  },
+  "filter": {
+    "btn": "筛选",
+    "btn_label": "打开筛选模态框",
+    "btn_apply": "应用",
+    "btn_apply_label": "确定，关闭筛选模态框",
+    "btn_reset": "清除",
+    "btn_reset_label": "清除所有筛选"
+  },
+  "inputs": {
+    "all": "全部",
+    "paid": "已支付",
+    "no_paid": "未支付",
+    "date_start": "开始日期",
+    "date_end": "结束日期",
+    "date": "日期",
+    "name": "姓名",
+    "value": "价值",
+    "type": "类型",
+    "select": "选择",
+    "pay": "支付"
+  },
+  "badge": {
+    "due_today": "今日到期",
+    "due_tomorrow": "明日到期",
+    "available_today": "今日可用",
+    "available_tomorrow": "明日可用",
+    "overdue": "逾期",
+    "available": "可用",
+    "paid": "已支付"
+  },
+  "modalContent": {
+    "liquid": {
+      "text": "净值的计算是通过从注册条目的总额中减去总支出来完成的。",
+      "note1": "投资在此计算中并不直接考虑在内。",
+      "note2": "它们是未来回报的资本储备，单独管理。"
+    },
+    "patrimony": {
+      "text": "财产的价值是净值和投资价值的总和。本质上，它是净值和投资的结合。",
+      "note": "此措施提供了您的投资组合资产和负债的总价值的综合视图。"
+    },
+    "investment": {
+      "text": "投资是为了获得未来回报而进行的资源分配。它们是财务规划的重要组成部分。",
+      "note": "正确评估投资对于确保长期财务健康至关重要。"
+    },
+    "entry": {
+      "text": "收入代表在一定期间内收到的总收入，如销售额、收到的利息和其他收益。",
+      "note": "监控收入有助于了解您的财务的收入产生能力。"
+    },
+    "expense": {
+      "text": "费用是用于运营和维护您的投资组合活动的成本。它们可能包括工资、租金和其他义务。",
+      "note": "控制费用对于维持财务健康和避免赤字至关重要。"
+    },
+    "vehicle": {
+      "text": "车辆是可用于运营或作为您投资组合资产的有形资产。它们可能包括汽车、卡车和其他交通工具。",
+      "note": "应考虑车辆折旧以准确反映其当前价值。"
+    },
+    "protection": {
+      "text": "为了更好的保护，请启用锁定以保持您的信息私密。如果您禁用它，访问将变得不受限制，没有任何安全性或限制。",
+      "switchLabel": "保护",
+      "buttonText": "打开设置",
+      "buttonLabel": "打开锁定设置"
+    }
+  },
+  "modalInfo": {
+    "header": {
+      "protectionInformation": "保护信息",
+      "value": "价值 {{value}}"
+    },
+    "confirmButton": {
+      "label": "确定，关闭信息模态框"
+    }
+  },
+  "about": {
+    "intro1": "Wallet Digitalz旨在帮助您组织您的财务。",
+    "intro2": "我们提供了一种简化的方式让您记录您的支出和价值。",
+    "intro3": "您有自由地直观地创建您的记录，并灵活地根据需要删除和更新它们。"
+  }
+}
