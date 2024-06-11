@@ -1,0 +1,117 @@
+{
+  "routes": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "expense": "Gasto",
+    "entry": "Entrada",
+    "investment": "Inversión"
+  },
+  "common": {
+    "version": "Versión",
+    "enter": "Entrar",
+    "logout": "Cerrar sesión",
+    "register": "Registro",
+    "wallet_negative": "Billetera Negativa",
+    "total": "Total",
+    "filtered": "filtrada",
+    "liquid": "Líquido",
+    "patrimony": "Patrimonio",
+    "investment": "Inversión",
+    "entry": "Entrada",
+    "expense": "Gasto",
+    "vehicle": "Vehículo",
+    "empty_filter": "Ningún registro filtrado",
+    "empty_register": "Ningún registro registrado",
+    "new_register": "Nuevo Registro",
+    "edit_register": "Editar Registro",
+    "btn_create": "Crear",
+    "btn_save": "Guardar",
+    "btn_confirm": "Confirmar",
+    "btn_understand": "Entendido",
+    "btn_cancel": "Cancelar",
+    "btn_cancel_label": "Cancelar esta acción",
+    "validation": "Debe completar todos los campos",
+    "alert_delete": "¿Estás seguro de que deseas eliminar?",
+    "alert_paid": "¿Estás seguro de que deseas marcar como pagado?",
+    "privacy": "Política de Privacidad"
+  },
+  "filter": {
+    "btn": "Filtro",
+    "btn_label": "Abrir modal de filtro",
+    "btn_apply": "Aplicar",
+    "btn_apply_label": "Ok, cerrar modal de filtro",
+    "btn_reset": "Limpiar",
+    "btn_reset_label": "Limpiar todos los filtros"
+  },
+  "inputs": {
+    "all": "Todos",
+    "paid": "Pagado",
+    "no_paid": "No pagado",
+    "date_start": "Fecha de inicio",
+    "date_end": "Fecha final",
+    "date": "Fecha",
+    "name": "Nombre",
+    "value": "Valor",
+    "type": "Tipo",
+    "select": "Seleccionar",
+    "pay": "Pagar"
+  },
+  "badge": {
+    "due_today": "VENCE HOY",
+    "due_tomorrow": "VENCE MAÑANA",
+    "available_today": "DISPONIBLE HOY",
+    "available_tomorrou": "DISPONIBLE MAÑANA",
+    "overdue": "VENCIDO",
+    "available": "DISPONIBLE",
+    "paid": "PAGADO"
+  },
+  "modalContent": {
+    "liquid": {
+      "text": "El cálculo del valor líquido se realiza restando el total de gastos del total de entradas de registros.",
+      "note1": "Las inversiones no se consideran directamente en este cálculo.",
+      "note2": "Son reservas de capital para futuros rendimientos, gestionadas por separado."
+    },
+    "patrimony": {
+      "text": "El valor del patrimonio es la suma del valor líquido y el valor de las inversiones. Esencialmente, es la combinación del valor líquido y las inversiones.",
+      "note": "Esta medida proporciona una visión completa del valor total de los activos y pasivos de su cartera."
+    },
+    "investment": {
+      "text": "Las inversiones son asignaciones de recursos con el objetivo de obtener rendimientos futuros. Son una parte importante de la planificación financiera.",
+      "note": "Evaluar correctamente las inversiones es crucial para garantizar la salud financiera a largo plazo."
+    },
+    "entry": {
+      "text": "Las entradas representan el total de ingresos recibidos en un período determinado, como ventas, intereses recibidos y otros ingresos.",
+      "note": "Monitorizar las entradas ayuda a entender la capacidad de generación de ingresos de sus finanzas."
+    },
+    "expense": {
+      "text": "Los gastos son los costos incurridos para operar y mantener las actividades en su cartera. Pueden incluir salarios, alquiler y otras obligaciones.",
+      "note": "Controlar los gastos es esencial para mantener la salud financiera y evitar déficits."
+    },
+    "vehicle": {
+      "text": "Los vehículos son activos tangibles que pueden utilizarse para operaciones o como parte de los activos de su cartera. Pueden incluir automóviles, camiones y otros medios de transporte.",
+      "note": "La depreciación de los vehículos debe considerarse para reflejar correctamente su valor actual."
+    },
+    "protection": {
+      "text": "Para una mejor protección, active el bloqueo para mantener sus información privada. Si lo desactiva, el acceso se volverá libre, sin ninguna restricción o seguridad.",
+      "switchLabel": "Protección",
+      "buttonText": "Abrir ajustes",
+      "buttonLabel": "Abrir ajustes de bloqueo"
+    }
+  },
+  "modalInfo": {
+    "header": {
+      "protectionInformation": "Información de Protección",
+      "value": "Valor {{value}}"
+    },
+    "confirmButton": {
+      "label": "Ok, cerrar modal de información"
+    }
+  },
+  "about": {
+    "intro1": "Wallet Digitalz fue desarrollado con el objetivo de ayudarlo a organizar sus finanzas.",
+    "intro2": "Proporcionamos una forma simplificada para que registre sus gastos y valores.",
+    "intro3": "Tiene la libertad de crear sus registros de forma intuitiva, con la flexibilidad de eliminarlos y actualizarlos según sea necesario."
+  }
+}

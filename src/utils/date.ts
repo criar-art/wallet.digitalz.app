@@ -7,14 +7,12 @@ import {
   compareDesc,
   isValid,
 } from "date-fns";
-import * as Localization from "expo-localization";
-
-export const templateDate =
-  Localization.locale == "pt-BR" ? "dd/MM/yyyy" : "MM/dd/yyyy";
+import { templateDate } from "./locale";
 
 export const formatDate = (dateStr: string): string => {
   let parsedDate: Date | null = null;
   const possibleFormats = [
+    "dd.MM.yyyy",
     "yyyy-MM-dd",
     "MM/dd/yyyy",
     "dd/MM/yyyy",

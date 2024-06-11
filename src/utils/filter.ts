@@ -7,7 +7,7 @@ import {
   isWithinInterval,
   parse,
 } from "date-fns";
-import { templateDate } from "@utils/date";
+import { templateDate } from "@utils/locale";
 
 interface RegisterFilter {
   short: string;
