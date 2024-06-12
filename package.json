@@ -29,7 +29,7 @@
     "@reduxjs/toolkit": "^2.2.4",
     "crypto-es": "^2.1.0",
     "date-fns": "^3.6.0",
-    "expo": "~51.0.12",
+    "expo": "~51.0.13",
     "expo-blur": "~13.0.2",
     "expo-local-authentication": "~14.0.1",
     "expo-localization": "~15.0.3",
