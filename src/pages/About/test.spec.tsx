@@ -13,13 +13,13 @@ test("should render AboutScreen", () => {
 
   // Check if the expected text content is present
   const text1 = getByText(
-    "Wallet Digitalz foi desenvolvido com o objetivo de auxiliá-lo na organização das suas finanças."
+    "about.intro1"
   );
   const text2 = getByText(
-    "Proporcionamos uma maneira simplificada para que você registre suas despesas e valores."
+    "about.intro2"
   );
   const text3 = getByText(
-    "Tenha a liberdade de criar seus registros de forma intuitiva, com a flexibilidade de deletá-los e atualizá-los conforme necessário."
+    "about.intro3"
   );
 
   expect(text1).toBeTruthy();
@@ -27,7 +27,7 @@ test("should render AboutScreen", () => {
   expect(text3).toBeTruthy();
 
   // Check if the expected text content is present
-  const privacy = getByText("Política de Privacidade");
+  const privacy = getByText("common.privacy");
   const wallet = getByText("walletdigitalz.web.app");
   const criar = getByText("Criar.Art");
 

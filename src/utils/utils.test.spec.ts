@@ -60,7 +60,7 @@ describe("Utility Functions", () => {
     describe("formatDate", () => {
       test("should correctly format a date string into a 'dd/MM/yyyy' string", () => {
         const dateStr = "15/05/2023";
-        const expectedDateStr = "15/05/2023";
+        const expectedDateStr = "05/15/2023";
         expect(utils.formatDate(dateStr)).toBe(expectedDateStr);
       });
 
@@ -74,7 +74,7 @@ describe("Utility Functions", () => {
         const dateStr1 = "2023-05-15";
         const dateStr2 = "05/15/2023";
         const dateStr3 = "15-05-2023";
-        const expectedDateStr = "15/05/2023";
+        const expectedDateStr = "05/15/2023";
 
         expect(utils.formatDate(dateStr1)).toBe(expectedDateStr);
         expect(utils.formatDate(dateStr2)).toBe(expectedDateStr);

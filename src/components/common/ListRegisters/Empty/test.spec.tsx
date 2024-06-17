@@ -24,8 +24,7 @@ describe("Empty Component", () => {
     expect(icon.props.size).toBe(60);
     expect(icon.props.color).toBe("black");
 
-    const text = getByText("Nenhum registro cadastrado.");
+    const text = getByText("common.empty_register");
     expect(text).toBeTruthy();
-    expect(text.props.children).toBe("Nenhum registro cadastrado.");
   });
 });
