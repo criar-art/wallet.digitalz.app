@@ -56,39 +56,42 @@ export default function ModalDelete(props: { testID?: string }) {
     const { setDeleteRegister } = registerFunctions[modals.modalDelete?.type];
     dispatch(setDeleteRegister(modals.modalDelete?.id));
 
-    Animated.sequence([
-      Animated.spring(scaleAnimation, {
-        toValue: 1.3,
-        friction: 5,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: -1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 0,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
+    Animated.parallel([
+      Animated.sequence([
+        Animated.spring(scaleAnimation, {
+          toValue: 1.3,
+          friction: 10,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleAnimation, {
+          toValue: 1,
+          friction: 10,
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.sequence([
+        Animated.timing(shakeAnimation, {
+          toValue: 1,
+          duration: 50,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: -1,
+          duration: 50,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: 0,
+          duration: 50,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+      ])
     ]).start(() => {
       modalRef.current?.closeModal();
-    });
+    })
   };
 
   return (
