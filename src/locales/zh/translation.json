@@ -46,6 +46,7 @@
     "btn_reset_label": "清除所有筛选"
   },
   "inputs": {
+    "search": "搜索",
     "all": "全部",
     "paid": "已支付",
     "no_paid": "未支付",

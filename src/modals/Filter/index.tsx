@@ -1,5 +1,5 @@
-import { useRef, useMemo } from "react";
-import { View } from "react-native";
+import { useRef, useMemo, useEffect } from "react";
+import { Keyboard, View } from "react-native";
 import { parse } from "date-fns";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
@@ -10,6 +10,7 @@ import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
 import InputDate from "@components/common/Form/InputDate";
+import InputText from "@components/common/Form/InputText";
 import utils from "@utils";
 import { templateDate } from "@utils/locale";
 import { useTranslation } from "react-i18next";
@@ -28,6 +29,10 @@ export default function ModalFilter(props: { testID?: string }) {
     () => ["expense", "entry", "investment"].includes(modals?.modalFilter),
     [modals?.modalFilter]
   );
+
+  useEffect(() => {
+    Keyboard.dismiss();
+  }, [isOpenModal]);
 
   const startDate = useMemo(
     () =>
@@ -79,13 +84,11 @@ export default function ModalFilter(props: { testID?: string }) {
     iconName: "density-small" | "attach-money" | "money-off";
   }) => (
     <Button
-      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
-        stateData?.registerFilter?.pay === props.value
-          ? "bg-gray-200 dark:bg-zinc-500"
-          : ""
-      } ${props.value == undefined && "ml-0"} ${
-        props.value == false && "mr-0"
-      }`}
+      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${stateData?.registerFilter?.pay === props.value
+        ? "bg-gray-200 dark:bg-zinc-500"
+        : ""
+        } ${props.value == undefined && "ml-0"} ${props.value == false && "mr-0"
+        }`}
       text={props.text}
       label="Filtro de registros"
       textColor="ml-1 text-black dark:text-white text-xs"
@@ -184,6 +187,16 @@ export default function ModalFilter(props: { testID?: string }) {
               setRegisterFilter &&
               dispatch(setRegisterFilter({ endDate: date } as any))
             }
+          />
+        </View>
+        <View className="flex flex-row mt-4 w-full">
+          <InputText
+            twClass={`flex-1`}
+            label={t("inputs.search")}
+            accessibilityLabel="Buscar registro"
+            onChangeText={(value: string) => setRegisterFilter &&
+              dispatch(setRegisterFilter({ searchTerm: value } as any))}
+            value={stateData?.registerFilter?.searchTerm}
           />
         </View>
       </View>
