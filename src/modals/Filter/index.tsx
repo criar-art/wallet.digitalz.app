@@ -128,7 +128,7 @@ export default function ModalFilter(props: { testID?: string }) {
           <MaterialIcons
             name="filter-list"
             size={28}
-            color={colorScheme === "dark" ? "white" : "#aaa"}
+            color={colorScheme === "dark" ? "white" : "#d4d4d8"}
           />
         ),
       }}

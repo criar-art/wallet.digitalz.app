@@ -155,19 +155,19 @@ export default function ModalInfo(props: { testID?: string }) {
   };
 
   const modalIcons: any = {
-    liquid: <MaterialIcons name="attach-money" size={30} color="#aaa" />,
-    patrimony: <MaterialCommunityIcons name="gold" size={30} color="#aaa" />,
-    investment: <MaterialIcons name="trending-up" size={30} color="#aaa" />,
-    entry: <MaterialCommunityIcons name="cash-plus" size={30} color="#aaa" />,
+    liquid: <MaterialIcons name="attach-money" size={30} color="#d4d4d8" />,
+    patrimony: <MaterialCommunityIcons name="gold" size={30} color="#d4d4d8" />,
+    investment: <MaterialIcons name="trending-up" size={30} color="#d4d4d8" />,
+    entry: <MaterialCommunityIcons name="cash-plus" size={30} color="#d4d4d8" />,
     expense: (
-      <MaterialCommunityIcons name="cash-remove" size={30} color="#aaa" />
+      <MaterialCommunityIcons name="cash-remove" size={30} color="#d4d4d8" />
     ),
-    vehicle: <MaterialCommunityIcons name="car" size={30} color="#aaa" />,
+    vehicle: <MaterialCommunityIcons name="car" size={30} color="#d4d4d8" />,
     loginSupported: (
       <MaterialCommunityIcons
         name={isProtected ? "lock" : "lock-open"}
         size={30}
-        color="#aaa"
+        color="#d4d4d8"
       />
     ),
   };
@@ -191,8 +191,8 @@ export default function ModalInfo(props: { testID?: string }) {
           modals?.modalInfo === "loginSupported"
             ? t("modalInfo.header.protectionInformation")
             : t("modalInfo.header.value", {
-                value: t(`common.${modals?.modalInfo}`),
-              }),
+              value: t(`common.${modals?.modalInfo}`),
+            }),
         icon: renderModalIcon(modals?.modalInfo),
       }}
       cancelButton={{

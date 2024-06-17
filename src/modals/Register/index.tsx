@@ -152,7 +152,7 @@ export default function ModalRegister(props: { testID?: string }) {
                 : "note-plus-outline"
             }
             size={30}
-            color="#aaa"
+            color="#d4d4d8"
           />
         ),
       }}
