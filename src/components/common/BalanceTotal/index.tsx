@@ -98,7 +98,7 @@ function TotalCategory(props: Props) {
               <View
                 className={`flex flex-col`}
               >
-                <Text className={`text-xs text-black dark:text-white ${props.drawer && "text-right"}`}>
+                <Text className={`text-black dark:text-white ${props.drawer && "text-xs text-right"}`}>
                   {t("common.total")} {t(`common.${props.type}`)}{" "}
                   {!isFilterEmpty ? t("common.filtered") : ""}
                 </Text>
