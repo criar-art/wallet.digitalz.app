@@ -4,5 +4,6 @@ export type Props = {
   type: string;
   filter?: any;
   filtered?: any;
+  drawer?: boolean;
   onPress?: () => void;
 };

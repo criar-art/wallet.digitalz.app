@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
@@ -111,26 +111,23 @@ export default function AppDrawerHeader(props: Props) {
     props.type == "right"
   ) {
     return (
-      <>
+      <View className="flex flex-row">
         {landscape && (
-          <>
+          <View className="mt-1 flex flex-row">
             {
               <BalanceTotal
+                drawer
                 filter={getRegistersFilter}
                 filtered={getRegistersFiltered}
                 onPress={() =>
                   dispatch(setModalInfo(utils.TypeCategory(indexTab)))
                 }
                 type={String(utils.TypeCategory(indexTab))}
-                twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${getRegisters.length > 1 && isTypesTab()
-                    ? "right-[195]"
-                    : "right-[75]"
-                  }`}
               />
             }
             {getRegisters.length > 1 && isTypesTab() && (
               <Button
-                twClass="bg-transparent justify-end pr-[25] rounded-none border-r-2 border-gray-100 dark:border-zinc-700 top-[15] right-[75] absolute h-12"
+                twClass="bg-transparent justify-end pr-4 rounded-none border-r-2 border-gray-100 dark:border-zinc-700 h-12"
                 text="Filtro"
                 label="Abrir modal de filtros"
                 textColor="text-black dark:text-white"
@@ -154,7 +151,7 @@ export default function AppDrawerHeader(props: Props) {
                 }
               ></Button>
             )}
-          </>
+          </View>
         )}
         <TouchableOpacity
           testID={props.testID}
@@ -169,7 +166,7 @@ export default function AppDrawerHeader(props: Props) {
             {...iconConfig}
           />
         </TouchableOpacity>
-      </>
+      </View>
     );
   }
 

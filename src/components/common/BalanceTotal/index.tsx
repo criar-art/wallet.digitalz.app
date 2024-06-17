@@ -81,22 +81,15 @@ function TotalCategory(props: Props) {
 
   return (
     <TouchableOpacity
-      testID="balance-total"
-      className={props.twClass}
+      testID={props.testID ? props.testID : "balance-total"}
+      className={props.drawer ? "w-auto" : "w-full"}
       onPress={props.onPress}
     >
       <View
-        testID={props.testID}
-        className={`flex flex-row items-center ${utils.renderBorderType(
+        className={`flex flex-row items-center justify-start bg-white dark:bg-zinc-800 shadow-lg ${utils.renderBorderType(
           props.type
-        )} ${landscape
-          ? "justify-end"
-          : "justify-start px-8 pt-5 pb-6 bg-white dark:bg-zinc-800 shadow-lg"
-          }`}
+        )} ${props.drawer ? "border-r-2 border-gray-100 pr-4 h-12" : "px-8 pt-4 pb-6"} ${props.twClass}`}
       >
-        {portrait && (
-          <View className="flex mr-2">{renderModalIcon(props.type)}</View>
-        )}
         <NumericFormat
           value={totalValue}
           displayType={"text"}
@@ -107,24 +100,25 @@ function TotalCategory(props: Props) {
           prefix={`${currencySymbol} `}
           renderText={(value: string) => (
             <View
-              className={`flex flex-col ${landscape ? "items-end justify-end" : "items-start"
-                }`}
+              className={`flex ${props.drawer ? "flex-row-reverse" : "flex-row"}`}
             >
-              <Text className="text-sm text-black dark:text-white">
-                {t("common.total")} {t(`common.${props.type}`)}{" "}
-                {!isFilterEmpty ? t("common.filtered") : ""}
-              </Text>
-              <Text
-                className={`text-black dark:text-white font-bold text-2xl ${totalValue < 0 && "text-red-700"
-                  }`}
+              <View className={`flex justify-center items-center ${props.drawer ? "ml-2" : "mr-2"}`}>
+                <View className="flex">{renderModalIcon(props.type)}</View>
+              </View>
+              <View
+                className={`flex flex-col`}
               >
-                {utils.parseMoney(value, common.eyeStatus)}
-              </Text>
-              {landscape && (
-                <View className="flex justify-center items-center absolute -right-[50] bottom-[8]">
-                  <View className="flex">{renderModalIcon(props.type)}</View>
-                </View>
-              )}
+                <Text className={`text-sm text-black dark:text-white ${props.drawer && "text-right"}`}>
+                  {t("common.total")} {t(`common.${props.type}`)}{" "}
+                  {!isFilterEmpty ? t("common.filtered") : ""}
+                </Text>
+                <Text
+                  className={`text-black dark:text-white font-bold text-2xl ${totalValue < 0 && "text-red-700"
+                    }`}
+                >
+                  {utils.parseMoney(value, common.eyeStatus)}
+                </Text>
+              </View>
             </View>
           )}
         />
