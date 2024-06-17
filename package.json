@@ -84,6 +84,9 @@
       "jsx",
       "json"
     ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.ts"
+    ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
