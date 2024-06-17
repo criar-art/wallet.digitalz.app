@@ -9,17 +9,13 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import utils from "@utils";
-import useOrientation from "@hooks/useOrientation";
 import Button from "@components/common/Button";
 import RenderBadge from "../RenderBadge";
-import useIsTablet from "@hooks/useIsTablet";
 import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
 
 function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
-  const { landscape } = useOrientation();
-  const isTablet = useIsTablet();
   const isFocused = useIsFocused();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const optionsShow = props.optionsShow === props.item.id;
@@ -44,13 +40,13 @@ function ItemList(props: Props) {
     <TouchableOpacity
       testID={props.testID}
       onPress={() => props.handlePressOptionsShow(props.item.id)}
-      className={`border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-6 rounded-lg shadow-lg ${utils.renderBorderType(
+      className={`w-full border-l-4 bg-white dark:bg-zinc-800 p-6 pt-3 pb-4 mt-2 rounded-lg shadow-lg ${utils.renderBorderType(
         props.item.type
       )} ${utils.renderBackgroundClass(
         props.item.type,
         props.item.date,
         props.item.pay
-      )} ${landscape || isTablet ? "mx-3" : "mx-5"}`}
+      )}`}
     >
       <RenderBadge
         type={props.item.type}

@@ -43,7 +43,7 @@ export default function ListRegisters(props: Props) {
   const isNotEmpetyRegisters = (): boolean => Boolean(getRegisters.length);
 
   return (
-    <FadeView testID="list-register">
+    <FadeView testID="list-register" twClass="h-full">
       {isNotEmpetyRegisters() ? ((orientation === 1 || orientation === 2) && !isTablet ? (
         <>
           <Header type={props.type} />
@@ -61,12 +61,6 @@ export default function ListRegisters(props: Props) {
           keyExtractor={(item: any) => "#" + item.id}
           type={props.type}
           numColumns={2}
-          columnWrapperStyle={{
-            flex: 1,
-            flexWrap: "wrap",
-            paddingLeft: 15,
-            paddingRight: 15,
-          }}
           isNotEmpetyRegisters={isNotEmpetyRegisters}
         />
       )) : (

@@ -1,5 +1,6 @@
-import { FlatList, View } from "react-native";
 import { useState } from "react";
+import { View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import ItemList from "@components/common/ListRegisters/Item";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
@@ -78,23 +79,15 @@ const FlatListRegisters = (props: Props) => {
     );
   }
 
-  const isOdd = getRegistersFiltered?.length % 2 !== 0;
-
   return (
-    <FlatList
+    <FlashList
       testID={props.testID}
       data={getRegistersFiltered}
+      extraData={[common.eyeStatus, optionsShow]}
       numColumns={props.numColumns}
-      renderItem={({ item, index }) => {
-        const isLastItem = isOdd && index === getRegistersFiltered?.length - 1;
+      renderItem={({ item }) => {
         return (
-          <View
-            className={[
-              "flex",
-              landscape || isTablet ? "w-1/2" : "w-full",
-              (landscape || isTablet) && isLastItem ? "w-1/2" : "",
-            ].join(" ")}
-          >
+          <View className="flex flex-1 p-2">
             <ItemList
               key={item.id}
               item={item}
@@ -106,15 +99,18 @@ const FlatListRegisters = (props: Props) => {
               setOptionsShow={setOptionsShow}
               handlePressOptionsShow={handlePressOptionsShow}
             />
-          </View>
+          </View >
         );
       }}
+      estimatedItemSize={100}
       keyExtractor={props.keyExtractor}
       key={props.keyProp}
       contentContainerStyle={{
-        paddingBottom: landscape || isTablet ? 100 : 130,
+        paddingHorizontal: 10,
+        paddingTop: 10,
+        paddingBottom: landscape || isTablet ? 100 : 40,
       }}
-      columnWrapperStyle={props.columnWrapperStyle}
+      scrollEnabled={!!getRegistersFiltered?.length}
       ListEmptyComponent={
         props.isNotEmpetyRegisters() ? (
           <EmptyRegisters

@@ -1,24 +1,25 @@
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { useColorScheme } from "nativewind";
 import Button from "@components/common/Button";
 import { useAppDispatch } from "@store/hooks";
+import useOrientation from "@hooks/useOrientation";
 import utils from "@utils";
 import { Props } from "./types";
-import { useTranslation } from "react-i18next";
 
 export default function Empty(props: Props) {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
+  const { landscape } = useOrientation();
   const dispatch = useAppDispatch();
   const { setResetFilter } = utils.getStateAndActions(props.type);
 
   return (
     <View
       testID={props.testID}
-      className={`flex flex-col items-center min-h-full ${
-        props.filtered ? "justify-center pt-10" : "justify-center"
-      }`}
+      style={{ height: landscape ? Dimensions.get('window').height - 180 : Dimensions.get('window').height - 270 }}
+      className="flex-1 flex flex-col items-center justify-center"
     >
       {props.filtered ? (
         <MaterialIcons
