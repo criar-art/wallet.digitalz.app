@@ -7,7 +7,6 @@ import { setEyeStatus } from "@store/commonSlice";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
 import { RootState } from "@store";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
-import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import utils from "@utils";
 import { Props } from "./types";

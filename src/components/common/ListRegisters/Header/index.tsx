@@ -3,7 +3,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import TotalCategory from "@components/common/TotalCategory";
 import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
 import utils from "@utils";

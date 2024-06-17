@@ -4,7 +4,6 @@ import useIsTablet from "@hooks/useIsTablet";
 import { useBalance } from "@hooks/useBalance";
 import FadeView from "@components/animation/FadeView";
 import ItemList from "@components/common/PanelsRegisters/Item";
-import TotalCategory from "@components/common/TotalCategory";
 import { setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
 import { Props } from "./types";
