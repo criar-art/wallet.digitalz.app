@@ -27,7 +27,7 @@ export default function PanelsRegisters(props: Props) {
       testID={props.testID ? props.testID : "panels-registers"}
       twClass="flex flex-col h-full"
     >
-      {!landscape && (
+      {!landscape && !isTablet && (
         <BalanceTotal
           type="patrimony"
           onPress={() => dispatch(setModalInfo("patrimony"))}

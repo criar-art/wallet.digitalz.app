@@ -23,10 +23,12 @@ import {
   selectRegistersInvestment,
 } from "@store/commonSelects";
 import BalanceTotal from "@components/common/BalanceTotal";
+import useIsTablet from "@hooks/useIsTablet";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
+  const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const store = useAppSelector((state: RootState) => state.userState);
@@ -112,7 +114,7 @@ export default function AppDrawerHeader(props: Props) {
   ) {
     return (
       <View className="flex flex-row">
-        {landscape && (
+        {(landscape || isTablet) && (
           <View className="mt-1 flex flex-row">
             {
               <BalanceTotal

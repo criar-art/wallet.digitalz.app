@@ -8,12 +8,14 @@ import { RoutesTab } from "./RoutesTab";
 import Page from "@pages";
 import AppDrawer from "@components/navigation/Drawer";
 import { useTranslation } from "react-i18next";
+import useIsTablet from "@hooks/useIsTablet";
 
 const Drawer = createDrawerNavigator();
 
 export default function Routes(props: any) {
   const { t } = useTranslation();
   const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
   const { colorScheme } = useColorScheme();
   const { isLogin, isProtected } = useAppSelector(
     (state: RootState) => state.userState
@@ -83,7 +85,7 @@ export default function Routes(props: any) {
               drawerIcon,
               drawerPosition: "left",
               overlayColor: "rgba(0,0,0,0.8)",
-              headerTitleAlign: landscape ? "left" : "center",
+              headerTitleAlign: (landscape || isTablet) ? "left" : "center",
               headerTitleStyle: {
                 fontWeight: "bold",
                 color: colorScheme === "dark" ? "white" : "black",
