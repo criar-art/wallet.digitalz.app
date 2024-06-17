@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TextInput, View } from "react-native";
-import { Props } from "./types";
 import { useColorScheme } from "nativewind";
+import { Props } from "./types";
 
 function InputText(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -16,12 +16,16 @@ function InputText(props: Props) {
           {props.label}
         </Text>
       )}
+      {props.icon && (
+        <View className="absolute z-10 top-2 left-2" pointerEvents="none">
+          {props.icon}
+        </View>
+      )}
       <TextInput
         testID="input-text-textinput"
         accessibilityLabel={props.accessibilityLabel}
-        className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
-          props.inputClassName
-        } ${props.error ? "border-red-500" : ""}`}
+        className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${props.inputClassName
+          } ${props.error ? "border-red-500" : ""} ${props.icon && "pl-12"}`}
         onChangeText={props.onChangeText}
         value={props.value}
         placeholder={props.placeholder}

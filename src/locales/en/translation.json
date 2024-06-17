@@ -46,7 +46,7 @@
     "btn_reset_label": "Clear all filters"
   },
   "inputs": {
-    "search": "Search",
+    "search": "Filter by name",
     "all": "All",
     "paid": "Paid",
     "no_paid": "Unpaid",

@@ -46,7 +46,7 @@
     "btn_reset_label": "Limpar todos os filtros"
   },
   "inputs": {
-    "search": "Buscar",
+    "search": "Filtrar por nome",
     "all": "Todos",
     "paid": "Pagos",
     "no_paid": "Não pagos",

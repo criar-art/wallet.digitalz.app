@@ -192,11 +192,19 @@ export default function ModalFilter(props: { testID?: string }) {
         <View className="flex flex-row mt-4 w-full">
           <InputText
             twClass={`flex-1`}
-            label={t("inputs.search")}
+            placeholder={t("inputs.search")}
             accessibilityLabel="Buscar registro"
             onChangeText={(value: string) => setRegisterFilter &&
               dispatch(setRegisterFilter({ searchTerm: value } as any))}
             value={stateData?.registerFilter?.searchTerm}
+            icon={<MaterialIcons
+              name="search"
+              size={35}
+              color={colorScheme === "dark" ? "white" : "black"}
+              style={{
+                transform: [{ rotate: '90deg' }]
+              }}
+            />}
           />
         </View>
       </View>
