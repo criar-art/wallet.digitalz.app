@@ -18,8 +18,12 @@ import {
   selectRegistersFilterEntry,
   selectRegistersFilterExpense,
   selectRegistersFilterInvestment,
+  selectRegistersFilteredEntry,
+  selectRegistersFilteredExpense,
+  selectRegistersFilteredInvestment,
   selectRegistersInvestment,
 } from "@store/commonSelects";
+import BalanceTotal from "@components/common/BalanceTotal";
 
 export default function AppDrawerHeader(props: Props) {
   const { landscape } = useOrientation();
@@ -35,44 +39,54 @@ export default function AppDrawerHeader(props: Props) {
   );
   const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
   const getRegistersEntry = useAppSelector(selectRegistersEntry);
+  const getRegistersFilteredEntry = useAppSelector(
+    selectRegistersFilteredEntry
+  );
 
   const getRegistersFilterExpense = useAppSelector(
     selectRegistersFilterExpense
   );
   const getRegistersExpense = useAppSelector(selectRegistersExpense);
+  const getRegistersFilteredExpense = useAppSelector(
+    selectRegistersFilteredExpense
+  );
 
   const getRegistersFilterInvestment = useAppSelector(
     selectRegistersFilterInvestment
   );
   const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
+  const getRegistersFilteredInvestment = useAppSelector(
+    selectRegistersFilteredInvestment
+  );
 
   // Define a mapping of props.type to selectors
   const selectorMapping: any = {
     entry: {
       filter: getRegistersFilterEntry,
       registers: getRegistersEntry,
+      filtered: getRegistersFilteredEntry,
     },
     expense: {
       filter: getRegistersFilterExpense,
       registers: getRegistersExpense,
+      filtered: getRegistersFilteredExpense,
     },
     investment: {
       filter: getRegistersFilterInvestment,
       registers: getRegistersInvestment,
+      filtered: getRegistersFilteredInvestment,
     },
-    patrimony: {
-      filter: getRegistersFilterInvestment,
-      registers: getRegistersInvestment,
-    }
   };
 
   // Select the appropriate selectors based on props.type
-  const selectedSelectors =
-    selectorMapping[String(utils.TypeCategory(indexTab))];
+  const selectedSelectors = selectorMapping[String(utils.TypeCategory(indexTab))];
 
   // Use the selected selectors with useAppSelector
-  const getRegistersFilter = selectedSelectors.filter;
-  const getRegisters = selectedSelectors.registers;
+  const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
+  const getRegisters = selectedSelectors ? selectedSelectors.registers : [];
+  const getRegistersFiltered = selectedSelectors
+    ? selectedSelectors.filtered
+    : [];
 
   const isTypesTab = () =>
     ["expense", "entry", "investment"].includes(
@@ -102,16 +116,17 @@ export default function AppDrawerHeader(props: Props) {
         {landscape && (
           <>
             {
-              <TotalCategory
+              <BalanceTotal
+                filter={getRegistersFilter}
+                filtered={getRegistersFiltered}
                 onPress={() =>
                   dispatch(setModalInfo(utils.TypeCategory(indexTab)))
                 }
                 type={String(utils.TypeCategory(indexTab))}
-                twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${
-                  getRegisters.length > 1 && isTypesTab()
+                twClass={`top-[15] right-[195] absolute bg-transparent h-12 pr-[70] border-r-2 border-gray-100 dark:border-zinc-700 ${getRegisters.length > 1 && isTypesTab()
                     ? "right-[195]"
                     : "right-[75]"
-                }`}
+                  }`}
               />
             }
             {getRegisters.length > 1 && isTypesTab() && (

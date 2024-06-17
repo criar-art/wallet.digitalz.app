@@ -8,6 +8,7 @@ import TotalCategory from "@components/common/TotalCategory";
 import { setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
 import { Props } from "./types";
+import BalanceTotal from "../BalanceTotal";
 
 export default function PanelsRegisters(props: Props) {
   const dispatch = useAppDispatch();
@@ -28,7 +29,7 @@ export default function PanelsRegisters(props: Props) {
       twClass="flex flex-col h-full"
     >
       {!landscape && (
-        <TotalCategory
+        <BalanceTotal
           type="patrimony"
           onPress={() => dispatch(setModalInfo("patrimony"))}
         />

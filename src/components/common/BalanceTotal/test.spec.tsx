@@ -2,16 +2,16 @@ import { render } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "@store";
-import TotalCategory from "./index";
+import BalanceTotal from "./index";
 
-test("should render TotalCategory", () => {
+test("should render BalanceTotal", () => {
   const { getByTestId } = render(
     <Provider store={store}>
       <NavigationContainer>
-        <TotalCategory type="test" />
+        <BalanceTotal type="test" />
       </NavigationContainer>
     </Provider>
   );
 
-  expect(getByTestId("total-category")).toBeTruthy();
+  expect(getByTestId("balance-total")).toBeTruthy();
 });

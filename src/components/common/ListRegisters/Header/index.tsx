@@ -20,6 +20,7 @@ import {
   selectRegistersInvestment,
 } from "@store/commonSelects";
 import { useTranslation } from "react-i18next";
+import BalanceTotal from "@components/common/BalanceTotal";
 
 export default function Header(props: Props) {
   const { t } = useTranslation();
@@ -82,14 +83,15 @@ export default function Header(props: Props) {
     !!portrait && (
       <View
         testID={props.testID}
-        className={`flex items-center justify-center ${
-          utils.isObjectEmpty(getRegistersFiltered) ? "flex-col" : "flex-row"
-        }`}
+        className={`flex items-center justify-center ${utils.isObjectEmpty(getRegistersFiltered) ? "flex-col" : "flex-row"
+          }`}
       >
         {
-          <TotalCategory
+          <BalanceTotal
             twClass="w-full"
             type={String(props.type)}
+            filter={getRegistersFilter}
+            filtered={getRegistersFiltered}
             onPress={() => dispatch(setModalInfo(props.type))}
           />
         }
