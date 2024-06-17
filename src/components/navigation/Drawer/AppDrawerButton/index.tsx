@@ -15,7 +15,7 @@ export default function AppDrawerButton({
 
   const buttonClassName = `justify-start mx-4 mb-1 border-2 border-gray-200 dark:border-zinc-800 rounded-full ${
     drawerOptions?.isFocused ? "bg-gray-200 dark:bg-zinc-800" : "bg-transparent"
-  } ${landscape ? "pl-4 py-3" : "p-5"}`;
+  } ${landscape ? "pl-4 py-2" : "p-5"}`;
 
   const iconClassName = `flex items-center ${
     drawerOptions?.isFocused ? "scale-125" : "scale-100"
