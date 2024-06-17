@@ -14,7 +14,7 @@ import {
 } from "@store/commonSelects";
 
 export default function ListRegisters(props: Props) {
-  const { orientation, portrait } = useOrientation();
+  const { orientation } = useOrientation();
   const isTablet = useIsTablet();
 
   const getRegistersEntry = useAppSelector(selectRegistersEntry);
