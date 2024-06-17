@@ -88,7 +88,7 @@ function TotalCategory(props: Props) {
       <View
         className={`flex flex-row items-center justify-start bg-white dark:bg-zinc-800 shadow-lg ${utils.renderBorderType(
           props.type
-        )} ${props.drawer ? "border-r-2 border-gray-100 pr-4 h-12" : "px-8 pt-4 pb-6"} ${props.twClass}`}
+        )} ${props.drawer ? "border-r-2 border-gray-100 dark:border-zinc-700 pr-4 h-12" : "px-8 pt-4 pb-6"} ${props.twClass}`}
       >
         <NumericFormat
           value={totalValue}
