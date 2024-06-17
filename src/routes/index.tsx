@@ -62,7 +62,7 @@ export default function Routes(props: any) {
 
   return (
     <Drawer.Navigator
-      initialRouteName={isLogin ? "Root" : "Login"}
+      initialRouteName={(!isProtected || isLogin) ? "Root" : "Login"}
       drawerContent={(props: any) => <AppDrawer.Content {...props} />}
     >
       {pages.map(({ name, title, drawerIcon, drawerLabel, component }) => {

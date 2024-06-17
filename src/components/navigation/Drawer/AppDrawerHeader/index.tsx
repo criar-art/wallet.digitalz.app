@@ -31,7 +31,7 @@ export default function AppDrawerHeader(props: Props) {
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const store = useAppSelector((state: RootState) => state.userState);
+  const { isLogin, isProtected } = useAppSelector((state: RootState) => state.userState);
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
   const indexRoute = useNavigationState((state) => state?.index);
   const stateRoute = useNavigationState((state) => state);
@@ -178,12 +178,12 @@ export default function AppDrawerHeader(props: Props) {
         testID={props.testID}
         className="p-4 mr-4 rounded-full"
         onPress={() =>
-          store.isLogin ? navigation.goBack() : navigation.navigate("Login")
+          (!isProtected || isLogin) ? navigation.goBack() : navigation.navigate("Login")
         }
         accessibilityLabel="Voltar página"
       >
         <MaterialIcons
-          name={store.isLogin ? "close" : "lock"}
+          name={(!isProtected || isLogin) ? "close" : "lock"}
           {...iconConfig}
         />
       </TouchableOpacity>
