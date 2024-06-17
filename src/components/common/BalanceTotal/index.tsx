@@ -15,7 +15,6 @@ import { currencySymbol } from "@utils/locale";
 function TotalCategory(props: Props) {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
-  const { landscape, portrait } = useOrientation();
   const common = useAppSelector((state: RootState) => state.commonState);
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
   const iconConfig = {
@@ -31,27 +30,18 @@ function TotalCategory(props: Props) {
         name="trending-up"
         size={38}
         color={iconConfig.color}
-        style={{
-          transform: [{ translateY: 6 }],
-        }}
       />
     ),
     entry: (
       <MaterialCommunityIcons
         name="cash-plus"
         {...iconConfig}
-        style={{
-          transform: [{ translateY: 3 }],
-        }}
       />
     ),
     expense: (
       <MaterialCommunityIcons
         name="cash-remove"
         {...iconConfig}
-        style={{
-          transform: [{ translateY: 3 }],
-        }}
       />
     ),
   };
@@ -108,13 +98,13 @@ function TotalCategory(props: Props) {
               <View
                 className={`flex flex-col`}
               >
-                <Text className={`text-sm text-black dark:text-white ${props.drawer && "text-right"}`}>
+                <Text className={`text-xs text-black dark:text-white ${props.drawer && "text-right"}`}>
                   {t("common.total")} {t(`common.${props.type}`)}{" "}
                   {!isFilterEmpty ? t("common.filtered") : ""}
                 </Text>
                 <Text
-                  className={`text-black dark:text-white font-bold text-2xl ${totalValue < 0 && "text-red-700"
-                    }`}
+                  className={`text-black dark:text-white font-bold text-lg ${totalValue < 0 && "text-red-700"
+                    } ${props.drawer && "text-right"}`}
                 >
                   {utils.parseMoney(value, common.eyeStatus)}
                 </Text>
