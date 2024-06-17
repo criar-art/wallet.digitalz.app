@@ -44,36 +44,32 @@ export default function ListRegisters(props: Props) {
 
   return (
     <FadeView testID="list-register">
-      {isNotEmpetyRegisters() ? (
+      {isNotEmpetyRegisters() ? ((orientation === 1 || orientation === 2) && !isTablet ? (
         <>
-          {portrait && (
-            <Header type={props.type} />
-          )}
-          {(orientation === 1 || orientation === 2) && !isTablet ? (
-            <FlatListRegisters
-              keyProp="flatlist-registers-1"
-              keyExtractor={(item: any) => "_" + item.id}
-              type={props.type}
-              numColumns={1}
-              isNotEmpetyRegisters={isNotEmpetyRegisters}
-            />
-          ) : (
-            <FlatListRegisters
-              keyProp="flatlist-registers-2"
-              keyExtractor={(item: any) => "#" + item.id}
-              type={props.type}
-              numColumns={2}
-              columnWrapperStyle={{
-                flex: 1,
-                flexWrap: "wrap",
-                paddingLeft: 15,
-                paddingRight: 15,
-              }}
-              isNotEmpetyRegisters={isNotEmpetyRegisters}
-            />
-          )}
+          <Header type={props.type} />
+          <FlatListRegisters
+            keyProp="flatlist-registers-1"
+            keyExtractor={(item: any) => "_" + item.id}
+            type={props.type}
+            numColumns={1}
+            isNotEmpetyRegisters={isNotEmpetyRegisters}
+          />
         </>
       ) : (
+        <FlatListRegisters
+          keyProp="flatlist-registers-2"
+          keyExtractor={(item: any) => "#" + item.id}
+          type={props.type}
+          numColumns={2}
+          columnWrapperStyle={{
+            flex: 1,
+            flexWrap: "wrap",
+            paddingLeft: 15,
+            paddingRight: 15,
+          }}
+          isNotEmpetyRegisters={isNotEmpetyRegisters}
+        />
+      )) : (
         <EmptyRegisters />
       )}
     </FadeView>
