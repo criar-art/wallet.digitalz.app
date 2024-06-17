@@ -8,28 +8,54 @@ export default function ContactScreen() {
 
   return (
     <FadeView>
-      <View
-        testID="contact-screen"
-        className={`flex flex-col h-full ${landscape ? "flex-row" : ""}`}
-      >
-        <Image
-          style={{
-            resizeMode: "cover",
-            height: landscape ? "100%" : 250,
-            width: landscape ? "50%" : "100%",
-          }}
-          source={require("../../images/world.png")}
-        />
-        <ScrollView
-          className={`px-5 ${landscape ? "" : ""}`}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: 20,
-          }}
+      {landscape ? (
+        <View
+          testID="contact-screen"
+          className="flex flex-col h-full flex-row"
         >
-          <ListContact />
-        </ScrollView>
-      </View>
+          <Image
+            style={{
+              resizeMode: "cover",
+              height: "100%",
+              width: "50%",
+            }}
+            source={require("../../images/world.png")}
+          />
+          <ScrollView
+            className="px-5"
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: 20,
+            }}
+          >
+            <ListContact />
+          </ScrollView>
+        </View>
+      ) : (
+        <View
+          testID="contact-screen"
+          className="flex flex-col h-full"
+        >
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: 20,
+            }}
+          >
+            <Image
+              style={{
+                resizeMode: "cover",
+                height: 250,
+                width: "100%",
+              }}
+              source={require("../../images/world.png")}
+            />
+            <View className="px-5">
+              <ListContact />
+            </View>
+          </ScrollView>
+        </View>
+      )}
     </FadeView>
   );
 }

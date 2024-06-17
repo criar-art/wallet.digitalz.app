@@ -10,37 +10,71 @@ export default function AboutScreen() {
 
   return (
     <FadeView>
-      <View
-        testID="about-screen"
-        className={`flex flex-col h-full ${landscape ? "flex-row" : ""}`}
-      >
-        <Image
-          style={{
-            resizeMode: "cover",
-            height: landscape ? "100%" : 250,
-            width: landscape ? "50%" : "100%",
-          }}
-          source={require("../../images/finance.jpg")}
-        />
+      {landscape ? (
+        <View
+          testID="about-screen"
+          className="flex flex-col h-full flex-row"
+        >
+          <Image
+            style={{
+              resizeMode: "cover",
+              height: "100%",
+              width: "50%",
+            }}
+            source={require("../../images/finance.jpg")}
+          />
+          <ScrollView
+            className="p-5"
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: 40,
+            }}
+          >
+            <Text className="my-2 text-black dark:text-white text-base">
+              {t("about.intro1")}
+            </Text>
+            <Text className="my-2 text-black dark:text-white text-base">
+              {t("about.intro2")}
+            </Text>
+            <Text className="my-2 text-black dark:text-white text-base">
+              {t("about.intro3")}
+            </Text>
+            <ListLinks />
+          </ScrollView>
+        </View>
+      ) : (
         <ScrollView
-          className="p-5"
           contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: 40,
+            flexGrow: 1
           }}
         >
-          <Text className="my-2 text-black dark:text-white text-base">
-            {t("about.intro1")}
-          </Text>
-          <Text className="my-2 text-black dark:text-white text-base">
-            {t("about.intro2")}
-          </Text>
-          <Text className="my-2 text-black dark:text-white text-base">
-            {t("about.intro3")}
-          </Text>
-          <ListLinks />
+          <View
+            testID="about-screen"
+            className="flex flex-col h-full"
+          >
+            <Image
+              style={{
+                resizeMode: "cover",
+                height: 250,
+                width: "100%",
+              }}
+              source={require("../../images/finance.jpg")}
+            />
+            <View className="p-5">
+              <Text className="my-2 text-black dark:text-white text-base">
+                {t("about.intro1")}
+              </Text>
+              <Text className="my-2 text-black dark:text-white text-base">
+                {t("about.intro2")}
+              </Text>
+              <Text className="my-2 text-black dark:text-white text-base">
+                {t("about.intro3")}
+              </Text>
+              <ListLinks />
+            </View>
+          </View>
         </ScrollView>
-      </View>
+      )}
     </FadeView>
   );
 }
