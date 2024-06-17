@@ -14,7 +14,7 @@ import {
 } from "@store/commonSelects";
 
 export default function ListRegisters(props: Props) {
-  const { orientation } = useOrientation();
+  const { landscape } = useOrientation();
   const isTablet = useIsTablet();
 
   const getRegistersEntry = useAppSelector(selectRegistersEntry);
@@ -44,7 +44,7 @@ export default function ListRegisters(props: Props) {
 
   return (
     <FadeView testID="list-register" twClass="h-full">
-      {isNotEmpetyRegisters() ? ((orientation === 1 || orientation === 2) && !isTablet ? (
+      {isNotEmpetyRegisters() ? (!landscape && !isTablet ? (
         <>
           <Header type={props.type} />
           <FlatListRegisters
