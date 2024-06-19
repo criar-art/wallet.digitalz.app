@@ -8,6 +8,7 @@ import { setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch } from "@store/hooks";
 import { Props } from "./types";
 import BalanceTotal from "../BalanceTotal";
+import Summary from "./Summary";
 
 export default function PanelsRegisters(props: Props) {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export default function PanelsRegisters(props: Props) {
 
   return (
     <FadeView
-      testID={props.testID ? props.testID : "panels-registers"}
+      testID={props.testID || "panels-registers"}
       twClass="flex flex-col h-full"
     >
       {!landscape && !isTablet && (
@@ -47,19 +48,19 @@ export default function PanelsRegisters(props: Props) {
           }}
         >
           {listData.map(
-            (item: any) =>
-              item.isVisible && (
-                <View
-                  key={item.type}
-                  className={`text-center ${
-                    landscape || isTablet ? "w-1/2" : " w-full"
-                  }`}
-                >
-                  <ItemList type={item.type} value={item.value} />
-                </View>
-              )
+            item => item.isVisible && (
+              <View
+                key={item.type}
+                className={`text-center ${landscape || isTablet ? "w-1/2" : "w-full"}`}
+              >
+                <ItemList type={item.type} value={item.value} />
+              </View>
+            )
           )}
         </View>
+        {(getTotal("expense") || getTotal("entry") || getTotal("investment")) && (
+          <Summary />
+        )}
       </ScrollView>
     </FadeView>
   );
