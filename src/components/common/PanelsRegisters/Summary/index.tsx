@@ -51,15 +51,15 @@ export default function Summary({ testID }: any) {
   const renderLegendComponent = () => (
     <View className={`flex ${landscape ? "flex-col h-28" : "flex-row"}`}>
       {landscape && renderTitle()}
-      {renderLegendItem('#f87171', t('common.expense'), utils.parseMoney(getPercentage(pieData[0].value), common.eyeStatus))}
-      {renderLegendItem('#4ade80', t('common.entry'), utils.parseMoney(getPercentage(pieData[1].value), common.eyeStatus))}
-      {renderLegendItem('#38bdf8', t('common.investment'), utils.parseMoney(getPercentage(pieData[2].value), common.eyeStatus))}
+      {getPercentage(pieData[0].value) !== '0.00' && renderLegendItem('#f87171', t('common.expense'), utils.parseMoney(getPercentage(pieData[0].value), common.eyeStatus))}
+      {getPercentage(pieData[1].value) !== '0.00' && renderLegendItem('#4ade80', t('common.entry'), utils.parseMoney(getPercentage(pieData[1].value), common.eyeStatus))}
+      {getPercentage(pieData[2].value) !== '0.00' && renderLegendItem('#38bdf8', t('common.investment'), utils.parseMoney(getPercentage(pieData[2].value), common.eyeStatus))}
     </View>
   );
 
   return (
-    <View className="flex-1" testID={testID}>
-      <View className={`flex m-5 rounded-lg ${landscape ? "flex-row justify-center items-center" : "flex-col p-5 bg-white dark:bg-zinc-800 shadow-lg"}`}>
+    <View className="flex-1 m-5" testID={testID}>
+      <View className={`flex rounded-lg ${landscape ? "flex-row justify-center items-center mt-5" : "flex-col p-5 bg-white dark:bg-zinc-800 shadow-lg"}`}>
         <View className="flex">
           {!landscape && renderTitle()}
           <View className={`items-center ${landscape ? "mr-10" : "p-4"}`}>
@@ -75,7 +75,7 @@ export default function Summary({ testID }: any) {
                   <MaterialCommunityIcons
                     name="fire"
                     size={90}
-                    color={colorScheme === "dark" ? "#fff" : "#eee"}
+                    color={colorScheme === "dark" ? "#555" : "#eee"}
                   />
                 </View>
               )}
@@ -83,6 +83,13 @@ export default function Summary({ testID }: any) {
           </View>
         </View>
         {renderLegendComponent()}
+        {!landscape && (
+          <View className="flex flex-row w-full mt-4 rounded-lg overflow-hidden">
+            <View className="h-2 bg-red-400" style={{ width: `${getPercentage(pieData[0].value)}%` } as any} />
+            <View className="h-2 bg-green-300" style={{ width: `${getPercentage(pieData[1].value)}%` } as any} />
+            <View className="h-2 bg-blue-300" style={{ width: `${getPercentage(pieData[2].value)}%` } as any} />
+          </View>
+        )}
       </View>
     </View>
   );

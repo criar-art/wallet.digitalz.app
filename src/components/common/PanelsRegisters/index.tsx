@@ -58,7 +58,7 @@ export default function PanelsRegisters(props: Props) {
             )
           )}
         </View>
-        {(getTotal("expense") || getTotal("entry") || getTotal("investment")) && (
+        {!!(getTotal("expense") || getTotal("entry") || getTotal("investment")) && (
           <Summary />
         )}
       </ScrollView>
