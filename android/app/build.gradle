@@ -90,7 +90,7 @@ android {
         applicationId 'com.criar.art.walletdigitalzapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 66
+        versionCode 70
         versionName "1.0.0"
     }
     signingConfigs {
