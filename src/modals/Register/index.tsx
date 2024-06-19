@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Keyboard, Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { RootState } from "@store";
+import { useAppSelector, useAppDispatch } from "@store";
 import {
   setRegisterExpense,
   setEditRegisterExpense,
@@ -31,17 +30,11 @@ export default function ModalRegister(props: { testID?: string }) {
   );
   const modalRef = useRef<ModalHandle>(null);
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
-  const expenseRegisters = useAppSelector(
-    (state: RootState) => state.expenseState.registers
-  );
-  const entryRegisters = useAppSelector(
-    (state: RootState) => state.entryState.registers
-  );
-  const investmentRegisters = useAppSelector(
-    (state: RootState) => state.investmentState.registers
-  );
-  const modals = useAppSelector((state: RootState) => state.modalsState);
+  const common = useAppSelector().commonState;
+  const expenseRegisters = useAppSelector().expenseState.registers;
+  const entryRegisters = useAppSelector().entryState.registers;
+  const investmentRegisters = useAppSelector().investmentState.registers;
+  const modals = useAppSelector().modalsState;
   const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(intitialForm);
   const [formError, setFormError] = useState(initialFormError);

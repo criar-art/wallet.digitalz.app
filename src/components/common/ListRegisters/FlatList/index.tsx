@@ -5,9 +5,8 @@ import ItemList from "@components/common/ListRegisters/Item";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useAppSelector, useAppDispatch, useCreateSelector } from "@store";
 import { setRegisterData } from "@store/commonSlice";
-import { RootState } from "@store";
 import {
   setModalRegister,
   setModalDelete,
@@ -25,17 +24,17 @@ const FlatListRegisters = (props: Props) => {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const common = useAppSelector().commonState;
   const [optionsShow, setOptionsShow] = useState(null);
 
-  const getRegistersFilteredEntry = useAppSelector(
+  const getRegistersFilteredEntry = useCreateSelector(
     selectRegistersFilteredEntry
   );
-  const getRegistersFilteredExpense = useAppSelector(
+  const getRegistersFilteredExpense = useCreateSelector(
     selectRegistersFilteredExpense
   );
 
-  const getRegistersFilteredInvestment = useAppSelector(
+  const getRegistersFilteredInvestment = useCreateSelector(
     selectRegistersFilteredInvestment
   );
 
@@ -99,7 +98,7 @@ const FlatListRegisters = (props: Props) => {
               setOptionsShow={setOptionsShow}
               handlePressOptionsShow={handlePressOptionsShow}
             />
-          </View >
+          </View>
         );
       }}
       estimatedItemSize={100}

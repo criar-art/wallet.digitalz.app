@@ -2,8 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
-import { useAppSelector } from "@store/hooks";
-import { RootState } from "@store";
+import { useAppSelector } from "@store";
 import { RoutesTab } from "./RoutesTab";
 import Page from "@pages";
 import AppDrawer from "@components/navigation/Drawer";
@@ -17,9 +16,7 @@ export default function Routes(props: any) {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const { colorScheme } = useColorScheme();
-  const { isLogin, isProtected } = useAppSelector(
-    (state: RootState) => state.userState
-  );
+  const { isLogin, isProtected } = useAppSelector().userState;
 
   const pages = [
     {
@@ -62,7 +59,7 @@ export default function Routes(props: any) {
 
   return (
     <Drawer.Navigator
-      initialRouteName={(!isProtected || isLogin) ? "Root" : "Login"}
+      initialRouteName={!isProtected || isLogin ? "Root" : "Login"}
       drawerContent={(props: any) => <AppDrawer.Content {...props} />}
     >
       {pages.map(({ name, title, drawerIcon, drawerLabel, component }) => {
@@ -85,7 +82,7 @@ export default function Routes(props: any) {
               drawerIcon,
               drawerPosition: "left",
               overlayColor: "rgba(0,0,0,0.8)",
-              headerTitleAlign: (landscape || isTablet) ? "left" : "center",
+              headerTitleAlign: landscape || isTablet ? "left" : "center",
               headerTitleStyle: {
                 fontWeight: "bold",
                 color: colorScheme === "dark" ? "white" : "black",

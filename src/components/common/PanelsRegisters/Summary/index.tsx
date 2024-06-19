@@ -5,7 +5,7 @@ import { useColorScheme } from "nativewind";
 import { useBalance } from "@hooks/useBalance";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import utils from "@utils";
-import { useAppSelector } from "@store/hooks";
+import { useAppSelector } from "@store";
 import { RootState } from "@store";
 import useOrientation from "@hooks/useOrientation";
 
@@ -14,7 +14,7 @@ export default function Summary({ testID }: any) {
   const { getTotal } = useBalance();
   const { colorScheme } = useColorScheme();
   const { landscape } = useOrientation();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const common = useAppSelector().commonState;
 
   const pieData = [
     { value: getTotal("expense"), color: "#f87171" },

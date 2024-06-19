@@ -1,13 +1,11 @@
 import { memo, useMemo, useCallback } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useAppSelector } from "@store/hooks";
+import { useAppSelector } from "@store";
 import { useBalance } from "@hooks/useBalance";
-import { RootState } from "@store";
 import { Props } from "./types";
 import utils from "@utils";
 import { useTranslation } from "react-i18next";
 import { useColorScheme } from "nativewind";
-import useOrientation from "@hooks/useOrientation";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { NumericFormat } from "react-number-format";
 import { currencySymbol } from "@utils/locale";
@@ -15,7 +13,7 @@ import { currencySymbol } from "@utils/locale";
 function TotalCategory(props: Props) {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const common = useAppSelector().commonState;
   const { getTotal, getPatrimonyTotal, getFilteredTotal } = useBalance();
   const iconConfig = {
     size: 35,

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "@store/hooks";
-import utils from "@utils";
-import { RootState } from "@store";
+import { useAppSelector } from "@store";
 
 interface Totals {
   liquid: number;
@@ -13,20 +11,9 @@ interface Totals {
 }
 
 export function useBalance() {
-  const getRegistersExpenses = useAppSelector((state: RootState) => {
-    const data = utils.getStateRegisters(state, "expense");
-    return data?.registers;
-  });
-
-  const getRegistersEntrys = useAppSelector((state: RootState) => {
-    const data = utils.getStateRegisters(state, "entry");
-    return data?.registers;
-  });
-
-  const getRegistersInvestments = useAppSelector((state: RootState) => {
-    const data = utils.getStateRegisters(state, "investment");
-    return data?.registers;
-  });
+  const getRegistersExpenses = useAppSelector().expenseState.registers;
+  const getRegistersEntrys = useAppSelector().entryState.registers;
+  const getRegistersInvestments = useAppSelector().investmentState.registers;
 
   const getQuantity = (type: string) => {
     switch (type) {

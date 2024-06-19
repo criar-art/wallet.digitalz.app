@@ -2,10 +2,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useAppSelector, useAppDispatch, useCreateSelector } from "@store";
 import { setEyeStatus } from "@store/commonSlice";
 import { setModalInfo, setModalFilter } from "@store/modalsSlice";
-import { RootState } from "@store";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
 import Button from "@components/common/Button";
 import utils from "@utils";
@@ -30,33 +29,33 @@ export default function AppDrawerHeader(props: Props) {
   const { colorScheme } = useColorScheme();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
-  const common = useAppSelector((state: RootState) => state.commonState);
-  const { isLogin, isProtected } = useAppSelector((state: RootState) => state.userState);
+  const common = useAppSelector().commonState;
+  const { isLogin, isProtected } = useAppSelector().userState;
   const toggleEye = () => dispatch(setEyeStatus(!common.eyeStatus));
   const indexRoute = useNavigationState((state) => state?.index);
   const stateRoute = useNavigationState((state) => state);
   const indexTab = useNavigationState(
     (state) => state?.routes[0]?.state?.index
   );
-  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
-  const getRegistersEntry = useAppSelector(selectRegistersEntry);
-  const getRegistersFilteredEntry = useAppSelector(
+  const getRegistersFilterEntry = useCreateSelector(selectRegistersFilterEntry);
+  const getRegistersEntry = useCreateSelector(selectRegistersEntry);
+  const getRegistersFilteredEntry = useCreateSelector(
     selectRegistersFilteredEntry
   );
 
-  const getRegistersFilterExpense = useAppSelector(
+  const getRegistersFilterExpense = useCreateSelector(
     selectRegistersFilterExpense
   );
-  const getRegistersExpense = useAppSelector(selectRegistersExpense);
-  const getRegistersFilteredExpense = useAppSelector(
+  const getRegistersExpense = useCreateSelector(selectRegistersExpense);
+  const getRegistersFilteredExpense = useCreateSelector(
     selectRegistersFilteredExpense
   );
 
-  const getRegistersFilterInvestment = useAppSelector(
+  const getRegistersFilterInvestment = useCreateSelector(
     selectRegistersFilterInvestment
   );
-  const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
-  const getRegistersFilteredInvestment = useAppSelector(
+  const getRegistersInvestment = useCreateSelector(selectRegistersInvestment);
+  const getRegistersFilteredInvestment = useCreateSelector(
     selectRegistersFilteredInvestment
   );
 
@@ -80,7 +79,8 @@ export default function AppDrawerHeader(props: Props) {
   };
 
   // Select the appropriate selectors based on props.type
-  const selectedSelectors = selectorMapping[String(utils.TypeCategory(indexTab))];
+  const selectedSelectors =
+    selectorMapping[String(utils.TypeCategory(indexTab))];
 
   // Use the selected selectors with useAppSelector
   const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
@@ -178,12 +178,14 @@ export default function AppDrawerHeader(props: Props) {
         testID={props.testID}
         className="p-4 mr-4 rounded-full"
         onPress={() =>
-          (!isProtected || isLogin) ? navigation.goBack() : navigation.navigate("Login")
+          !isProtected || isLogin
+            ? navigation.goBack()
+            : navigation.navigate("Login")
         }
         accessibilityLabel="Voltar página"
       >
         <MaterialIcons
-          name={(!isProtected || isLogin) ? "close" : "lock"}
+          name={!isProtected || isLogin ? "close" : "lock"}
           {...iconConfig}
         />
       </TouchableOpacity>

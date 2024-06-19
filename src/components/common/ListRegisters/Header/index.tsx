@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useAppDispatch, useCreateSelector } from "@store";
 import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
 import utils from "@utils";
@@ -27,25 +27,25 @@ export default function Header(props: Props) {
   const dispatch = useAppDispatch();
   const { portrait } = useOrientation();
 
-  const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
-  const getRegistersEntry = useAppSelector(selectRegistersEntry);
-  const getRegistersFilteredEntry = useAppSelector(
+  const getRegistersFilterEntry = useCreateSelector(selectRegistersFilterEntry);
+  const getRegistersEntry = useCreateSelector(selectRegistersEntry);
+  const getRegistersFilteredEntry = useCreateSelector(
     selectRegistersFilteredEntry
   );
 
-  const getRegistersFilterExpense = useAppSelector(
+  const getRegistersFilterExpense = useCreateSelector(
     selectRegistersFilterExpense
   );
-  const getRegistersExpense = useAppSelector(selectRegistersExpense);
-  const getRegistersFilteredExpense = useAppSelector(
+  const getRegistersExpense = useCreateSelector(selectRegistersExpense);
+  const getRegistersFilteredExpense = useCreateSelector(
     selectRegistersFilteredExpense
   );
 
-  const getRegistersFilterInvestment = useAppSelector(
+  const getRegistersFilterInvestment = useCreateSelector(
     selectRegistersFilterInvestment
   );
-  const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
-  const getRegistersFilteredInvestment = useAppSelector(
+  const getRegistersInvestment = useCreateSelector(selectRegistersInvestment);
+  const getRegistersFilteredInvestment = useCreateSelector(
     selectRegistersFilteredInvestment
   );
 
@@ -71,7 +71,7 @@ export default function Header(props: Props) {
   // Select the appropriate selectors based on props.type
   const selectedSelectors = selectorMapping[props.type];
 
-  // Use the selected selectors with useAppSelector
+  // Use the selected selectors with useCreateSelector
   const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
   const getRegisters = selectedSelectors ? selectedSelectors.registers : [];
   const getRegistersFiltered = selectedSelectors
@@ -81,8 +81,9 @@ export default function Header(props: Props) {
   return (
     <View
       testID={props.testID}
-      className={`flex items-center justify-center ${utils.isObjectEmpty(getRegistersFiltered) ? "flex-col" : "flex-row"
-        }`}
+      className={`flex items-center justify-center ${
+        utils.isObjectEmpty(getRegistersFiltered) ? "flex-col" : "flex-row"
+      }`}
     >
       {
         <BalanceTotal

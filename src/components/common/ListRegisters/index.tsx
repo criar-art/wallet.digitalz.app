@@ -5,7 +5,7 @@ import EmptyRegisters from "@components/common/ListRegisters/Empty";
 import FlatListRegisters from "./FlatList";
 import Header from "./Header";
 import { Props } from "./types";
-import { useAppSelector } from "@store/hooks";
+import { useCreateSelector } from "@store";
 
 import {
   selectRegistersEntry,
@@ -17,9 +17,9 @@ export default function ListRegisters(props: Props) {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
 
-  const getRegistersEntry = useAppSelector(selectRegistersEntry);
-  const getRegistersExpense = useAppSelector(selectRegistersExpense);
-  const getRegistersInvestment = useAppSelector(selectRegistersInvestment);
+  const getRegistersEntry = useCreateSelector(selectRegistersEntry);
+  const getRegistersExpense = useCreateSelector(selectRegistersExpense);
+  const getRegistersInvestment = useCreateSelector(selectRegistersInvestment);
 
   // Define a mapping of props.type to selectors
   const selectorMapping: any = {
@@ -44,26 +44,28 @@ export default function ListRegisters(props: Props) {
 
   return (
     <FadeView testID="list-register" twClass="h-full">
-      {isNotEmpetyRegisters() ? (!landscape && !isTablet ? (
-        <>
-          <Header type={props.type} />
+      {isNotEmpetyRegisters() ? (
+        !landscape && !isTablet ? (
+          <>
+            <Header type={props.type} />
+            <FlatListRegisters
+              keyProp="flatlist-registers-1"
+              keyExtractor={(item: any) => "_" + item.id}
+              type={props.type}
+              numColumns={1}
+              isNotEmpetyRegisters={isNotEmpetyRegisters}
+            />
+          </>
+        ) : (
           <FlatListRegisters
-            keyProp="flatlist-registers-1"
-            keyExtractor={(item: any) => "_" + item.id}
+            keyProp="flatlist-registers-2"
+            keyExtractor={(item: any) => "#" + item.id}
             type={props.type}
-            numColumns={1}
+            numColumns={2}
             isNotEmpetyRegisters={isNotEmpetyRegisters}
           />
-        </>
+        )
       ) : (
-        <FlatListRegisters
-          keyProp="flatlist-registers-2"
-          keyExtractor={(item: any) => "#" + item.id}
-          type={props.type}
-          numColumns={2}
-          isNotEmpetyRegisters={isNotEmpetyRegisters}
-        />
-      )) : (
         <EmptyRegisters />
       )}
     </FadeView>

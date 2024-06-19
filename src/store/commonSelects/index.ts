@@ -8,7 +8,7 @@ export const selectRegistersFilteredEntry = createSelector(
 );
 
 export const selectRegistersFilteredExpense = createSelector(
-  [(state: RootState) => state.expenseState],
+  [(state) => state.expenseState],
   (data) => utils.applyFilterData(data.registers, data.registerFilter)
 );
 

@@ -11,8 +11,7 @@ import utils from "@utils";
 import { useBalance } from "@hooks/useBalance";
 import useIsTablet from "@hooks/useIsTablet";
 import useOrientation from "@hooks/useOrientation";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { RootState } from "@store";
+import { useAppSelector, useAppDispatch } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { useTranslation } from "react-i18next";
 import { currencySymbol } from "@utils/locale";
@@ -24,7 +23,7 @@ export default function ItemList(props: Props) {
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
-  const common = useAppSelector((state: RootState) => state.commonState);
+  const common = useAppSelector().commonState;
   const { colorScheme } = useColorScheme();
   const { getQuantity } = useBalance();
 

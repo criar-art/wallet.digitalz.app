@@ -1,13 +1,11 @@
 import { useRef } from "react";
 import { Switch, Text, View, Linking } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useAppSelector, useAppDispatch } from "@store";
 import { useColorScheme } from "nativewind";
 import useAuthentication from "@hooks/useAuthentication";
-import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { setIsProtected } from "@store/userSlice";
-import utils from "@utils";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";
@@ -18,8 +16,8 @@ export default function ModalInfo(props: { testID?: string }) {
   const { protection } = useAuthentication();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const modals = useAppSelector((state: RootState) => state.modalsState);
-  const { isProtected } = useAppSelector((state: RootState) => state.userState);
+  const modals = useAppSelector().modalsState;
+  const { isProtected } = useAppSelector().userState;
   const modalRef = useRef<ModalHandle>(null);
   const isOpenModal = (): boolean =>
     [
@@ -158,7 +156,9 @@ export default function ModalInfo(props: { testID?: string }) {
     liquid: <MaterialIcons name="attach-money" size={30} color="#d4d4d8" />,
     patrimony: <MaterialCommunityIcons name="gold" size={30} color="#d4d4d8" />,
     investment: <MaterialIcons name="trending-up" size={30} color="#d4d4d8" />,
-    entry: <MaterialCommunityIcons name="cash-plus" size={30} color="#d4d4d8" />,
+    entry: (
+      <MaterialCommunityIcons name="cash-plus" size={30} color="#d4d4d8" />
+    ),
     expense: (
       <MaterialCommunityIcons name="cash-remove" size={30} color="#d4d4d8" />
     ),
@@ -191,8 +191,8 @@ export default function ModalInfo(props: { testID?: string }) {
           modals?.modalInfo === "loginSupported"
             ? t("modalInfo.header.protectionInformation")
             : t("modalInfo.header.value", {
-              value: t(`common.${modals?.modalInfo}`),
-            }),
+                value: t(`common.${modals?.modalInfo}`),
+              }),
         icon: renderModalIcon(modals?.modalInfo),
       }}
       cancelButton={{

@@ -2,12 +2,11 @@ import { useEffect, useRef } from "react";
 import { Animated, Easing, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useAppSelector, useAppDispatch } from "@store";
 import { setEditRegisterExpense } from "@store/expenseSlice";
 import { setEditRegisterEntry } from "@store/entrySlice";
 import { setEditRegisterInvestment } from "@store/investmentSlice";
 import { setModalPay } from "@store/modalsSlice";
-import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import { useTranslation } from "react-i18next";
@@ -17,7 +16,7 @@ export default function ModalDelete(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const modals = useAppSelector((state: RootState) => state.modalsState);
+  const modals = useAppSelector().modalsState;
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(0)).current;
   const isOpenModal = (): boolean => Boolean(modals.modalPay);
@@ -88,7 +87,7 @@ export default function ModalDelete(props: { testID?: string }) {
           easing: Easing.linear,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ]).start(() => {
       modalRef.current?.closeModal();
     });

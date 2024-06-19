@@ -2,9 +2,8 @@ import { useRef, useMemo, useEffect } from "react";
 import { Keyboard, View } from "react-native";
 import { parse } from "date-fns";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { useAppSelector, useAppDispatch, useCreateSelector } from "@store";
 import { useColorScheme } from "nativewind";
-import { RootState } from "@store";
 import { setModalFilter } from "@store/modalsSlice";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
@@ -19,11 +18,11 @@ export default function ModalFilter(props: { testID?: string }) {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const modals = useAppSelector((state: RootState) => state.modalsState);
+  const modals = useAppSelector().modalsState;
   const modalRef = useRef<ModalHandle>(null);
   const { stateSelector, setRegisterFilter, setResetFilter } =
     utils.getStateAndActions(modals?.modalFilter);
-  const stateData = useAppSelector(stateSelector || (() => null));
+  const stateData = useCreateSelector(stateSelector || (() => null));
 
   const isOpenModal = useMemo(
     () => ["expense", "entry", "investment"].includes(modals?.modalFilter),
@@ -84,11 +83,13 @@ export default function ModalFilter(props: { testID?: string }) {
     iconName: "density-small" | "attach-money" | "money-off";
   }) => (
     <Button
-      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${stateData?.registerFilter?.pay === props.value
-        ? "bg-gray-200 dark:bg-zinc-500"
-        : ""
-        } ${props.value == undefined && "ml-0"} ${props.value == false && "mr-0"
-        }`}
+      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
+        stateData?.registerFilter?.pay === props.value
+          ? "bg-gray-200 dark:bg-zinc-500"
+          : ""
+      } ${props.value == undefined && "ml-0"} ${
+        props.value == false && "mr-0"
+      }`}
       text={props.text}
       label="Filtro de registros"
       textColor="ml-1 text-black dark:text-white text-xs"
@@ -194,17 +195,21 @@ export default function ModalFilter(props: { testID?: string }) {
             twClass={`flex-1`}
             placeholder={t("inputs.search")}
             accessibilityLabel="Buscar registro"
-            onChangeText={(value: string) => setRegisterFilter &&
-              dispatch(setRegisterFilter({ searchTerm: value } as any))}
+            onChangeText={(value: string) =>
+              setRegisterFilter &&
+              dispatch(setRegisterFilter({ searchTerm: value } as any))
+            }
             value={stateData?.registerFilter?.searchTerm}
-            icon={<MaterialIcons
-              name="search"
-              size={35}
-              color={colorScheme === "dark" ? "white" : "black"}
-              style={{
-                transform: [{ rotate: '90deg' }]
-              }}
-            />}
+            icon={
+              <MaterialIcons
+                name="search"
+                size={35}
+                color={colorScheme === "dark" ? "white" : "black"}
+                style={{
+                  transform: [{ rotate: "90deg" }],
+                }}
+              />
+            }
           />
         </View>
       </View>
