@@ -36,7 +36,7 @@
     "alert_delete": "您确定要删除吗？",
     "alert_paid": "您确定要标记为已支付吗？",
     "privacy": "隐私政策",
-    "summary": "概括"
+    "summary": "百分比摘要"
   },
   "filter": {
     "btn": "筛选",

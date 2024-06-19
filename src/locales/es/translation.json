@@ -36,7 +36,7 @@
     "alert_delete": "¿Estás seguro de que deseas eliminar?",
     "alert_paid": "¿Estás seguro de que deseas marcar como pagado?",
     "privacy": "Política de Privacidad",
-    "summary": "Resumen"
+    "summary": "Resumen porcentual"
   },
   "filter": {
     "btn": "Filtro",
