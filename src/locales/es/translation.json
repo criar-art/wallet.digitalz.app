@@ -35,7 +35,8 @@
     "validation": "Debe completar todos los campos",
     "alert_delete": "¿Estás seguro de que deseas eliminar?",
     "alert_paid": "¿Estás seguro de que deseas marcar como pagado?",
-    "privacy": "Política de Privacidad"
+    "privacy": "Política de Privacidad",
+    "summary": "Resumen"
   },
   "filter": {
     "btn": "Filtro",

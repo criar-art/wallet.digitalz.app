@@ -35,7 +35,8 @@
     "validation": "您需要填写所有字段",
     "alert_delete": "您确定要删除吗？",
     "alert_paid": "您确定要标记为已支付吗？",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "summary": "概括"
   },
   "filter": {
     "btn": "筛选",

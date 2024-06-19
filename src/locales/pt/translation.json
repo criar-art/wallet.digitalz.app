@@ -35,7 +35,8 @@
     "validation": "Você precisa preencher todos os campos",
     "alert_delete": "Tem certeza que deseja deletar?",
     "alert_paid": "Tem certeza que deseja marcar como paga?",
-    "privacy": "Política de Privacidade"
+    "privacy": "Política de Privacidade",
+    "summary": "Resumo"
   },
   "filter": {
     "btn": "Filtro",
