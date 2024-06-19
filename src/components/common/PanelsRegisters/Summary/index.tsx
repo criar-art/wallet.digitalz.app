@@ -3,8 +3,13 @@ import { useTranslation } from "react-i18next";
 import { PieChart } from "react-native-gifted-charts";
 import { useColorScheme } from "nativewind";
 import { useBalance } from "@hooks/useBalance";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import utils from "@utils";
+import { useAppSelector } from "@store/hooks";
+import { RootState } from "@store";
 
-export default function Summary({ testID } : any) {
+export default function Summary({ testID }: any) {
+  const common = useAppSelector((state: RootState) => state.commonState);
   const { getTotal } = useBalance();
   const { colorScheme } = useColorScheme();
   const { t } = useTranslation();
@@ -37,9 +42,9 @@ export default function Summary({ testID } : any) {
 
   const renderLegendComponent = () => (
     <View className="flex flex-row">
-      {renderLegendItem('#f87171', t('common.expense'), getPercentage(pieData[0].value))}
-      {renderLegendItem('#4ade80', t('common.entry'), getPercentage(pieData[1].value))}
-      {renderLegendItem('#38bdf8', t('common.investment'), getPercentage(pieData[2].value))}
+      {renderLegendItem('#f87171', t('common.expense'), utils.parseMoney(getPercentage(pieData[0].value), common.eyeStatus))}
+      {renderLegendItem('#4ade80', t('common.entry'), utils.parseMoney(getPercentage(pieData[1].value), common.eyeStatus))}
+      {renderLegendItem('#38bdf8', t('common.investment'), utils.parseMoney(getPercentage(pieData[2].value), common.eyeStatus))}
     </View>
   );
 
@@ -59,7 +64,11 @@ export default function Summary({ testID } : any) {
             innerCircleColor={colorScheme === "dark" ? "#27272a" : '#fff'}
             centerLabelComponent={() => (
               <View className="flex justify-center items-center">
-                <Text className={`text-black dark:text-white font-bold text-[50px]`}>$</Text>
+                <MaterialCommunityIcons
+                  name="fire"
+                  size={90}
+                  color={colorScheme === "dark" ? "#fff" : "#eee"}
+                />
               </View>
             )}
           />
