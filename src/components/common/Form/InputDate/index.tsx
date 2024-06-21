@@ -42,7 +42,7 @@ function InputDate(props: Props) {
       </Text>
       <Pressable
         onPress={() => setShowDate(true)}
-        className={`flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
+        className={`flex flex-row bg-white dark:bg-zinc-800 items-center p-4 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
           props.error ? "border-red-500" : ""
         }`}
         accessibilityLabel={props.accessibilityLabel}
