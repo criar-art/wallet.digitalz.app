@@ -7,11 +7,11 @@ export const entrySlice = createSlice({
   initialState: {
     registers: [],
     registerFilter: {
-      short: "",
-      startDate: "",
-      endDate: "",
+      short: null,
+      startDate: null,
+      endDate: null,
       searchTerm: "",
-      pay: undefined,
+      pay: null,
     },
     pagination: {
       startIndex: 0,
@@ -34,24 +34,15 @@ export const entrySlice = createSlice({
       );
     },
     setRegisterFilterEntry(state: CommonState, action: any) {
-      return {
-        ...state,
-        registerFilter: {
-          ...state.registerFilter,
-          ...action.payload,
-        },
-      };
+      state.registerFilter = action.payload;
     },
     setResetFilterEntry(state: CommonState) {
-      return {
-        ...state,
-        registerFilter: {
-          short: "",
-          startDate: "",
-          endDate: "",
-          searchTerm: "",
-          pay: undefined,
-        },
+      state.registerFilter = {
+        short: null,
+        startDate: null,
+        endDate: null,
+        searchTerm: "",
+        pay: null,
       };
     },
   },
