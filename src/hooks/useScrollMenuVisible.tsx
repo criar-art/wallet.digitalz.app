@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Animated } from "react-native";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
@@ -17,10 +17,15 @@ const useScrollMenuVisible = () => {
 
   useEffect(() => {
     const listener = scrollY.addListener(({ value }) => {
-      if (value > lastScrollY.current) {
+      const clampedValue = Math.max(0, value);
+      const clampedLastScrollY = Math.max(0, lastScrollY.current);
+      const roundedValue = Math.round(clampedValue);
+      const roundedLastScrollY = Math.round(clampedLastScrollY);
+
+      if (roundedValue > roundedLastScrollY) {
         // Scrolling down
         dispatch(setStoreMenuVisible(false));
-      } else if (value < lastScrollY.current) {
+      } else if (roundedValue < roundedLastScrollY) {
         // Scrolling up
         dispatch(setStoreMenuVisible(true));
       }
