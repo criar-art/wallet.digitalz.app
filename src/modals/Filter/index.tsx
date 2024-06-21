@@ -164,6 +164,7 @@ export default function ModalFilter(props: { testID?: string }) {
   return (
     <Modal
       ref={modalRef}
+      optional
       isOpen={isOpenModal}
       testID={props.testID || "test-modal"}
       closeAction={() => dispatch(setModalFilter(""))}
