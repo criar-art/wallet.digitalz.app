@@ -58,7 +58,9 @@
     "value": "Valor",
     "type": "Tipo",
     "select": "Seleccionar",
-    "pay": "Pagar"
+    "situation": "Situación",
+    "paid_out": "Pagado",
+    "pending": "Pendiente"
   },
   "badge": {
     "due_today": "VENCE HOY",
