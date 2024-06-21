@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }: any) => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(translateX, {
-          toValue: -200,
+          toValue: -100,
           duration: 5000,
           useNativeDriver: true,
         }),
@@ -30,7 +30,7 @@ const LoginScreen = ({ navigation }: any) => {
           useNativeDriver: true,
         }),
         Animated.timing(translateX, {
-          toValue: 200,
+          toValue: 100,
           duration: 5000,
           useNativeDriver: true,
         }),
@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }: any) => {
         }),
       ])
     ).start();
-  }, [auth.isLogin]);
+  }, []);
 
   return (
     <View className="flex flex-1 flex-col justify-center items-center">
