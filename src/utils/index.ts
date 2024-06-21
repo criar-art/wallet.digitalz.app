@@ -7,7 +7,6 @@ import {
 import {
   formatDate,
   isDatePast,
-  formatDateString,
   isDateToday,
   isDateTomorrow,
   sortDataByDateDesc,
@@ -16,6 +15,8 @@ import {
   renderBorderType,
   renderColorType,
   renderBackgroundClass,
+  renderIconCalendar,
+  renderIconMoney,
 } from "./render";
 
 import { encryptData, decryptData } from "./crypto";
@@ -56,7 +57,7 @@ const getLabel = (options: any, route: any): string =>
 const isObjectEmpty = (obj: any): boolean => {
   // Verifica se todos os valores das chaves do objeto são vazios
   return obj
-    ? Object.values(obj).every((value) => value === "" || value === undefined)
+    ? Object.values(obj).every((value) => value === "" || value === null)
     : false;
 };
 
@@ -67,7 +68,6 @@ const TypeCategory = (index: number | undefined) =>
 export default {
   formatDate,
   isDatePast,
-  formatDateString,
   isDateToday,
   isDateTomorrow,
   sortDataByDateDesc,
@@ -78,6 +78,8 @@ export default {
   renderBorderType,
   renderColorType,
   renderBackgroundClass,
+  renderIconCalendar,
+  renderIconMoney,
   types,
   capitalize,
   parseMoney,

@@ -6,13 +6,14 @@ import { useColorScheme } from "nativewind";
 import {
   MaterialIcons,
   MaterialCommunityIcons,
-  FontAwesome5,
+  FontAwesome,
 } from "@expo/vector-icons";
 import utils from "@utils";
 import Button from "@components/common/Button";
 import RenderBadge from "../RenderBadge";
 import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
+import { formatDate } from "@utils/date";
 
 function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -57,10 +58,13 @@ function ItemList(props: Props) {
         {props.item.name}
       </Text>
       <View className="flex flex-row items-center mb-1">
-        <FontAwesome5
-          name="money-bill-wave"
-          size={16}
+        <MaterialCommunityIcons
+          name={utils.renderIconMoney(props.item)}
+          size={25}
           color={colorScheme === "dark" ? "white" : "black"}
+          style={{
+            marginLeft: -3,
+          }}
         />
         <Text className="ml-2 text-black dark:text-white">
           <NumericFormat
@@ -72,7 +76,7 @@ function ItemList(props: Props) {
             fixedDecimalScale
             prefix={`${currencySymbol} `}
             renderText={(value: string) => (
-              <Text className="text-xl">
+              <Text className="text-lg font-bold">
                 {utils.parseMoney(value, props.eyeStatus)}
               </Text>
             )}
@@ -80,13 +84,13 @@ function ItemList(props: Props) {
         </Text>
       </View>
       <View className="flex flex-row items-center">
-        <MaterialIcons
-          name="calendar-month"
-          size={22}
+        <FontAwesome
+          name={utils.renderIconCalendar(props.item)}
+          size={20}
           color={colorScheme === "dark" ? "white" : "black"}
         />
         <Text className="ml-2 text-black dark:text-white text-base">
-          {props.item.date}
+          {props.item.date && formatDate(props.item.date)}
         </Text>
       </View>
       <Animated.View

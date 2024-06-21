@@ -42,7 +42,7 @@ export const renderColorType = (type: string, colorScheme: string): string => {
 
 export const renderBackgroundClass = (
   type: string,
-  date: string,
+  date: Date,
   isPay: boolean
 ): string => {
   let colorClass = "";
@@ -64,6 +64,7 @@ export const renderBackgroundClass = (
     entry: "bg-green-300 dark:bg-green-900",
     investment: "bg-blue-300 dark:bg-blue-900",
   };
+
   if (isPay) {
     colorClass = "";
   } else if (isDateToday(date)) {
@@ -76,3 +77,38 @@ export const renderBackgroundClass = (
 
   return colorClass;
 };
+
+export const renderIconMoney = (item: any) => {
+  switch (item.type) {
+    case "entry":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "cash-check"
+        : "cash-plus";
+    case "expense":
+      return item.pay ? "cash-check" : "cash-remove";
+    case "investment":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "cash-check"
+        : "cash-lock";
+    default:
+      return "cash";
+  }
+};
+
+export const renderIconCalendar = (item: any) => {
+  switch (item.type) {
+    case "entry":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "calendar-check-o"
+        : "calendar";
+    case "expense":
+      return item.pay ? "calendar-check-o" : "calendar-times-o";
+    case "investment":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "calendar-check-o"
+        : "calendar";
+    default:
+      return "calendar";
+  }
+};
+

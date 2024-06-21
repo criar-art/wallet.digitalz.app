@@ -2,9 +2,10 @@ export type Props = {
   testID?: string;
   twClass?: string;
   label: string;
-  value: string;
-  onChangeDate: (value: string, type: string) => void;
+  value: Date | null;
+  onChangeDate: (value: Date | null) => void;
   accessibilityLabel?: string;
   maximumDate?: any;
   minimumDate?: any;
+  error?: boolean;
 }

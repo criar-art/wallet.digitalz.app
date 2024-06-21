@@ -1,10 +1,18 @@
 export interface Register {
   id: string;
   type: string;
-  date: string;
+  date: Date;
   name: string;
   value: number;
   pay: boolean;
+}
+
+export interface RegisterFilter {
+  short: 'asc' | 'desc' | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  searchTerm: string;
+  pay: boolean | null;
 }
 
 export interface PaginationTest {
@@ -14,6 +22,6 @@ export interface PaginationTest {
 
 export interface CommonState {
   registers: Array<Register>;
-  registerFilter: any;
+  registerFilter: RegisterFilter;
   pagination: PaginationTest;
 }

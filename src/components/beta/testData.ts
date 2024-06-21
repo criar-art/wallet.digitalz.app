@@ -3,7 +3,7 @@ import uuid from "react-native-uuid";
 type Register = {
   id: string;
   type: string;
-  date: string;
+  date: Date;
   name: string;
   value: number;
   pay: boolean;
@@ -20,7 +20,7 @@ const generateRecords = (
     const id = uuid.v4(); // Adiciona um sufixo único ao ID
     generatedRecords.push({ ...model, id, type, name: `Test ${type}` });
   }
-  console.log("generatedRecords: ", generatedRecords)
+  console.log("generatedRecords: ", generatedRecords);
   return generatedRecords;
 };
 
@@ -28,9 +28,9 @@ const generateRecords = (
 const model = {
   id: "1",
   type: "expense",
-  date: "02/06/2024",
+  date: new Date(),
   name: "teste",
-  value: 100,
+  value: 200,
   pay: false,
 };
 
