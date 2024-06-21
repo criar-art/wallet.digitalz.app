@@ -1,26 +1,47 @@
-import { View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import useOrientation from "@hooks/useOrientation";
 import { setModalRegister } from "@store/modalsSlice";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import utils from "@utils";
 import Button from "@components/common/Button";
 import AppTabButton from "../AppTabButton";
-import { Props, Route } from "./types";
 import useIsTablet from "@hooks/useIsTablet";
+import { RootState } from "@store";
+import { Props, Route } from "./types";
 
 export default function AppTabBar({ state, descriptors, navigation }: Props) {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
+  const common = useAppSelector((state: RootState) => state.commonState);
   const handleNewRegister = () => dispatch(setModalRegister("register"));
+  const menuTranslateY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (common.menuVisible) {
+      Animated.timing(menuTranslateY, {
+        toValue: 0, // Slide up out of view
+        duration: 800,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(menuTranslateY, {
+        toValue: 100, // Slide down into view
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [common.menuVisible]);
 
   return (
-    <View
+    <Animated.View
       testID="app-tab-bar"
-      className={`flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
-        landscape ? "h-0" : ""
+      className={`absolute bottom-0 flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
+        landscape ? "h-0 left-[50%]" : ""
       }`}
+      style={[{ transform: [{ translateY: menuTranslateY }] }]}
     >
       <View
         className={`flex flex-row ${
@@ -31,7 +52,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
           pressableButton
           label="Novo registro"
           textColor="text-white"
-          twClass={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[44] left-1/2 -translate-x-7`}
+          twClass={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[44] left-1/2 -translate-x-7 translate-y-2`}
           onPress={handleNewRegister}
           icon={<MaterialIcons name="add" size={35} color="white" />}
         />
@@ -79,6 +100,6 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 }

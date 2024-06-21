@@ -7,6 +7,7 @@ import { useAppDispatch } from "@store/hooks";
 import { setModalInfo } from "@store/modalsSlice";
 import { useBalance } from "@hooks/useBalance";
 import Summary from "@components/common/Summary";
+import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
 // import DevTest from "@components/beta/DevTest";
 
 export default function HomeScreen() {
@@ -14,6 +15,7 @@ export default function HomeScreen() {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const { getTotal, getLiquid } = useBalance();
+  const { handleScroll } = useScrollMenuVisible();
 
   const panelsData = [
     { type: "liquid", value: getLiquid() },
@@ -37,9 +39,11 @@ export default function HomeScreen() {
         />
       )}
       <ScrollView
-        className="flex"
+        className="flex flex-1"
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
         contentContainerStyle={{
-          paddingBottom: landscape || isTablet ? 60 : 40,
+          paddingBottom: 10,
         }}
       >
         {/* <DevTest /> */}
