@@ -107,7 +107,7 @@ export default function ModalFilter(props: { testID?: string }) {
       {
         text: t("inputs.all"),
         value: null,
-        icon: "density-small",
+        icon: "join-full",
       },
       {
         text: t("inputs.paid"),
@@ -127,14 +127,12 @@ export default function ModalFilter(props: { testID?: string }) {
     (props: {
       value: boolean | null;
       text: string;
-      iconName: "density-small" | "attach-money" | "money-off";
+      iconName: "join-full" | "attach-money" | "money-off";
     }) => (
       <Button
-        twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
-          getRegistersFilter.pay === props.value
-            ? "bg-gray-200 dark:bg-zinc-500"
-            : ""
-        } ${props.value == null && "ml-0"} ${props.value == false && "mr-0"}`}
+        twClass={`h-[54px] border-2 border-slate-600 dark:border-zinc-500 p-3 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
+          props.value == null && "ml-0"
+        } ${props.value == false && "mr-0"}`}
         text={props.text}
         label="Filtro de registros"
         textColor="ml-1 text-black dark:text-white text-xs"
@@ -142,7 +140,7 @@ export default function ModalFilter(props: { testID?: string }) {
         icon={
           <MaterialIcons
             name={props.iconName}
-            size={26}
+            size={23}
             color={colorScheme === "dark" ? "white" : "black"}
           />
         }
@@ -152,7 +150,7 @@ export default function ModalFilter(props: { testID?: string }) {
             <MaterialIcons
               name="check-circle"
               size={22}
-              color={colorScheme === "dark" ? "black" : "white"}
+              color={colorScheme === "dark" ? "#222" : "white"}
             />
           </View>
         )}
@@ -244,11 +242,8 @@ export default function ModalFilter(props: { testID?: string }) {
             icon={
               <MaterialIcons
                 name="search"
-                size={35}
+                size={28}
                 color={colorScheme === "dark" ? "white" : "black"}
-                style={{
-                  transform: [{ rotate: "90deg" }],
-                }}
               />
             }
           />
