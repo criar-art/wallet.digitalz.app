@@ -29,7 +29,7 @@ function InputMoney(props: Props) {
           <TextInput
             testID="input-money-textinput"
             accessibilityLabel="Valor do registro"
-            className={`text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
+            className={`h-[54px] text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
               props.error ? "border-red-500" : ""
             }`}
             placeholder={currencySymbol}

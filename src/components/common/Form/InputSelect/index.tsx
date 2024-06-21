@@ -14,7 +14,8 @@ export default function Select(props: Props) {
       <Dropdown
         style={{
           paddingHorizontal: 12,
-          paddingVertical: 8.4,
+          paddingVertical: 8,
+          height: 54,
           borderRadius: 8,
           backgroundColor: `${
             colorScheme === "dark" ? "rgb(39 39 42)" : "white"
