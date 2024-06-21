@@ -1,15 +1,14 @@
-import { RootState } from "@store";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useRef, useEffect, useState } from "react";
 import { Animated } from "react-native";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { RootState } from "@store";
 import { setMenuVisible as setStoreMenuVisible } from "@store/commonSlice";
 
 const useScrollMenuVisible = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const lastScrollY = useRef(0);
-  const common = useAppSelector((state: RootState) => state.commonState);
-  const [menuVisible, setMenuVisible] = useState(common.menuVisible);
   const dispatch = useAppDispatch();
+  const commonState = useAppSelector((state: RootState) => state.commonState);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -20,25 +19,20 @@ const useScrollMenuVisible = () => {
     const listener = scrollY.addListener(({ value }) => {
       if (value > lastScrollY.current) {
         // Scrolling down
-        setMenuVisible(false);
+        dispatch(setStoreMenuVisible(false));
       } else if (value < lastScrollY.current) {
         // Scrolling up
-        setMenuVisible(true);
+        dispatch(setStoreMenuVisible(true));
       }
-
       lastScrollY.current = value;
     });
 
     return () => {
       scrollY.removeListener(listener);
     };
-  }, [scrollY]);
+  }, [commonState.menuVisible, scrollY]);
 
-  useEffect(() => {
-    dispatch(setStoreMenuVisible(menuVisible));
-  }, [menuVisible]);
-
-  return { menuVisible, handleScroll };
+  return { handleScroll };
 };
 
 export default useScrollMenuVisible;

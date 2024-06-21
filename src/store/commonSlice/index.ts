@@ -6,7 +6,7 @@ export const commonSlice = createSlice({
   initialState: {
     registerData: "",
     eyeStatus: false,
-    menuVisible: false,
+    menuVisible: true,
   } as CommonState,
   reducers: {
     setRegisterData(state, action: PayloadAction<string>) {
