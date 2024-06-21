@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect, useCallback } from "react";
 import { Keyboard, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
@@ -27,7 +27,6 @@ import {
   setResetFilterInvestment,
 } from "@store/investmentSlice";
 import utils from "@utils";
-import { initialForm } from "./formConstants";
 
 export default function ModalFilter(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -35,15 +34,6 @@ export default function ModalFilter(props: { testID?: string }) {
   const dispatch = useAppDispatch();
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const modalRef = useRef<ModalHandle>(null);
-  const [formModal, setFormModal] = useState(initialForm);
-
-  const handleChange = (
-    value: string | boolean | Date | null,
-    name: string
-  ) => {
-    setFormModal((prevState) => ({ ...prevState, [name]: value }));
-  };
-
   const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
   const getRegistersFilterExpense = useAppSelector(
     selectRegistersFilterExpense
@@ -74,6 +64,7 @@ export default function ModalFilter(props: { testID?: string }) {
   // Select the appropriate selectors based on props.type
   const selectedSelectors = selectorMapping[modals?.modalFilter];
 
+  const getRegistersFilter = selectedSelectors ? selectedSelectors.filter : {};
   const setRegisterFilter = selectedSelectors
     ? selectedSelectors.setRegisterFilter
     : {};
@@ -81,7 +72,17 @@ export default function ModalFilter(props: { testID?: string }) {
     ? selectedSelectors.setResetFilter
     : {};
 
-  const emptyFilter = utils.isObjectEmpty(formModal);
+  const handleChange = (
+    value: string | boolean | Date | null,
+    name: string
+  ) => {
+    dispatch(setRegisterFilter({ ...getRegistersFilter, [name]: value }));
+  };
+
+  const emptyFilter = useMemo(
+    () => utils.isObjectEmpty(getRegistersFilter),
+    [getRegistersFilter]
+  );
   const isOpenModal = useMemo(
     () => ["expense", "entry", "investment"].includes(modals?.modalFilter),
     [modals?.modalFilter]
@@ -91,73 +92,73 @@ export default function ModalFilter(props: { testID?: string }) {
     Keyboard.dismiss();
   }, [isOpenModal]);
 
-  useEffect(() => {
-    if (typeof setRegisterFilter == "function") {
-      setRegisterFilter && dispatch(setRegisterFilter({ ...formModal }));
-    }
-  }, [formModal]);
-
-  const resetFilters = () => {
-    if (!utils.isObjectEmpty(formModal)) {
-      setFormModal(initialForm);
-
+  const resetFilters = useCallback(() => {
+    if (!emptyFilter) {
       if (typeof setResetFilter == "function") {
         dispatch(setResetFilter());
       }
     } else {
       modalRef.current?.closeModal();
     }
-  };
+  }, [dispatch, setResetFilter, emptyFilter]);
 
-  const filterButtons = [
-    {
-      text: t("inputs.all"),
-      value: null,
-      icon: "density-small",
-    },
-    {
-      text: t("inputs.paid"),
-      value: true,
-      icon: "attach-money",
-    },
-    {
-      text: t("inputs.no_paid"),
-      value: false,
-      icon: "money-off",
-    },
-  ];
+  const filterButtons = useMemo(
+    () => [
+      {
+        text: t("inputs.all"),
+        value: null,
+        icon: "density-small",
+      },
+      {
+        text: t("inputs.paid"),
+        value: true,
+        icon: "attach-money",
+      },
+      {
+        text: t("inputs.no_paid"),
+        value: false,
+        icon: "money-off",
+      },
+    ],
+    [t, getRegistersFilter.pay]
+  );
 
-  const RenderFilterButton = (props: {
-    value: boolean | null;
-    text: string;
-    iconName: "density-small" | "attach-money" | "money-off";
-  }) => (
-    <Button
-      twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
-        formModal.pay === props.value ? "bg-gray-200 dark:bg-zinc-500" : ""
-      } ${props.value == null && "ml-0"} ${props.value == false && "mr-0"}`}
-      text={props.text}
-      label="Filtro de registros"
-      textColor="ml-1 text-black dark:text-white text-xs"
-      onPress={() => handleChange(props.value, "pay")}
-      icon={
-        <MaterialIcons
-          name={props.iconName}
-          size={26}
-          color={colorScheme === "dark" ? "white" : "black"}
-        />
-      }
-    >
-      {formModal.pay === props.value && (
-        <View className="absolute -top-3 z-20 bg-green-600 rounded-full">
+  const RenderFilterButton = useCallback(
+    (props: {
+      value: boolean | null;
+      text: string;
+      iconName: "density-small" | "attach-money" | "money-off";
+    }) => (
+      <Button
+        twClass={`border-2 border-slate-600 dark:border-zinc-500 p-3 h-14 bg-white dark:bg-zinc-800 mx-2 flex-1 ${
+          getRegistersFilter.pay === props.value
+            ? "bg-gray-200 dark:bg-zinc-500"
+            : ""
+        } ${props.value == null && "ml-0"} ${props.value == false && "mr-0"}`}
+        text={props.text}
+        label="Filtro de registros"
+        textColor="ml-1 text-black dark:text-white text-xs"
+        onPress={() => handleChange(props.value, "pay")}
+        icon={
           <MaterialIcons
-            name="check-circle"
-            size={22}
-            color={colorScheme === "dark" ? "black" : "white"}
+            name={props.iconName}
+            size={26}
+            color={colorScheme === "dark" ? "white" : "black"}
           />
-        </View>
-      )}
-    </Button>
+        }
+      >
+        {getRegistersFilter.pay === props.value && (
+          <View className="absolute -top-3 z-20 bg-green-600 rounded-full">
+            <MaterialIcons
+              name="check-circle"
+              size={22}
+              color={colorScheme === "dark" ? "black" : "white"}
+            />
+          </View>
+        )}
+      </Button>
+    ),
+    [getRegistersFilter.pay, handleChange, colorScheme]
   );
 
   return (
@@ -216,8 +217,8 @@ export default function ModalFilter(props: { testID?: string }) {
           <InputDate
             twClass="flex-1 mr-2"
             label={t("inputs.date_start")}
-            value={formModal.startDate}
-            maximumDate={formModal.endDate}
+            value={getRegistersFilter.startDate}
+            maximumDate={getRegistersFilter.endDate}
             accessibilityLabel={`${t("inputs.date_start")} ${t("filter.btn")}`}
             onChangeDate={(date: Date | null) =>
               handleChange(date, "startDate")
@@ -226,9 +227,9 @@ export default function ModalFilter(props: { testID?: string }) {
           <InputDate
             twClass="flex-1 ml-2"
             label={t("inputs.date_end")}
-            value={formModal.endDate}
+            value={getRegistersFilter.endDate}
             accessibilityLabel={`${t("inputs.date_end")} ${t("filter.btn")}`}
-            minimumDate={formModal.startDate}
+            minimumDate={getRegistersFilter.startDate}
             onChangeDate={(date: Date | null) => handleChange(date, "endDate")}
           />
         </View>
@@ -238,7 +239,7 @@ export default function ModalFilter(props: { testID?: string }) {
             placeholder={t("inputs.search")}
             accessibilityLabel="Buscar registro"
             onChangeText={(value: string) => handleChange(value, "searchTerm")}
-            value={formModal.searchTerm}
+            value={getRegistersFilter.searchTerm}
             icon={
               <MaterialIcons
                 name="search"
