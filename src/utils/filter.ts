@@ -4,18 +4,9 @@ import {
   compareDesc,
   isAfter,
   isBefore,
+  isEqual,
   isWithinInterval,
-  parse,
 } from "date-fns";
-import { templateDate } from "@utils/locale";
-
-interface RegisterFilter {
-  short: string;
-  startDate: string;
-  endDate: string;
-  searchTerm: string;
-  pay: boolean | undefined;
-}
 
 import {
   setRegisterFilterExpense,
@@ -35,13 +26,13 @@ import {
   setEditRegisterInvestment,
   setResetFilterInvestment,
 } from "@store/investmentSlice";
+import { Register, RegisterFilter } from "@store/types";
 
 // Função auxiliar para obter o estado e as ações corretas com base no modalFilter
 export const getStateAndActions = (modalFilter: string | undefined) => {
   switch (modalFilter) {
     case "expense":
       return {
-        stateSelector: (state: RootState) => state.expenseState,
         setRegisterFilter: setRegisterFilterExpense,
         setRegister: setRegisterExpense,
         setEditRegister: setEditRegisterExpense,
@@ -49,7 +40,6 @@ export const getStateAndActions = (modalFilter: string | undefined) => {
       };
     case "entry":
       return {
-        stateSelector: (state: RootState) => state.entryState,
         setRegisterFilter: setRegisterFilterEntry,
         setRegister: setRegisterEntry,
         setEditRegister: setEditRegisterEntry,
@@ -57,7 +47,6 @@ export const getStateAndActions = (modalFilter: string | undefined) => {
       };
     case "investment":
       return {
-        stateSelector: (state: RootState) => state.investmentState,
         setRegisterFilter: setRegisterFilterInvestment,
         setRegister: setRegisterInvestment,
         setEditRegister: setEditRegisterInvestment,
@@ -85,11 +74,10 @@ export const getStateRegisters: any = (state: RootState, type: string) => {
 
 export const getFilledItemsCount = (filter: RegisterFilter): number => {
   let count = 0;
-
   for (const key in filter) {
     if (filter.hasOwnProperty(key)) {
       const value = filter[key as keyof RegisterFilter];
-      if (value !== "" && value !== undefined) {
+      if (value !== "" && value !== null) {
         count++;
       }
     }
@@ -98,61 +86,66 @@ export const getFilledItemsCount = (filter: RegisterFilter): number => {
   return count;
 };
 
-export const applyFilterData = (registers: any, filter: any) => {
+import { isDate, parseISO } from "date-fns";
+
+export const applyFilterData = (
+  registers: Array<Register>,
+  filter: RegisterFilter
+) => {
   let result = registers ? [...registers] : [];
 
-  const parsedStartDate = filter?.startDate
-    ? parse(filter?.startDate, templateDate, new Date())
-    : null;
+  // Verificar e converter startDate e endDate para Date, se necessário
+  let startDate = filter.startDate;
+  let endDate = filter.endDate;
 
-  const parsedEndDate = filter?.endDate
-    ? parse(filter?.endDate, templateDate, new Date())
-    : null;
+  if (startDate && !isDate(startDate)) {
+    startDate = parseISO(startDate as unknown as string);
+  }
 
-  if (parsedStartDate && parsedEndDate) {
-    if (isBefore(parsedEndDate, parsedStartDate)) {
+  if (endDate && !isDate(endDate)) {
+    endDate = parseISO(endDate as unknown as string);
+  }
+
+  if (startDate && endDate) {
+    if (isBefore(endDate, startDate)) {
       console.error("End date cannot be earlier than start date");
       return result;
     }
 
     result = result.filter((item) => {
-      const itemDate = parse(item.date, templateDate, new Date());
+      const itemDate = new Date(item.date);
       return isWithinInterval(itemDate, {
-        start: parsedStartDate,
-        end: parsedEndDate,
+        start: startDate,
+        end: endDate,
       });
     });
-  } else if (parsedStartDate) {
+  } else if (startDate) {
     result = result.filter((item) => {
-      const itemDate = parse(item.date, templateDate, new Date());
-      return (
-        isAfter(itemDate, parsedStartDate) ||
-        itemDate.getTime() === parsedStartDate.getTime()
-      );
+      const itemDate = new Date(item.date);
+      return isAfter(itemDate, startDate) || isEqual(itemDate, startDate);
     });
-  } else if (parsedEndDate) {
+  } else if (endDate) {
     result = result.filter((item) => {
-      const itemDate = parse(item.date, templateDate, new Date());
-      return (
-        isBefore(itemDate, parsedEndDate) ||
-        itemDate.getTime() === parsedEndDate.getTime()
-      );
+      const itemDate = new Date(item.date);
+      return isBefore(itemDate, endDate) || isEqual(itemDate, endDate);
     });
   }
 
-  if (filter?.searchTerm) {
-    result = result.filter((item) =>
-      item.name.toLowerCase().includes(filter.searchTerm.toLowerCase())
+  if (filter.searchTerm) {
+    result = result.filter(
+      (item) =>
+        filter.searchTerm &&
+        item.name.toLowerCase().includes(filter.searchTerm.toLowerCase())
     );
   }
 
-  if (filter?.short === "asc") {
+  if (filter.short === "asc") {
     result.sort((a, b) => compareAsc(a.value, b.value));
   } else {
     result.sort((a, b) => compareDesc(a.value, b.value));
   }
 
-  if (filter?.pay !== undefined) {
+  if (filter.pay !== null) {
     result = result.filter((item) => item.pay === filter.pay);
   }
 
