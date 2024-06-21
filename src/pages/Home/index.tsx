@@ -1,12 +1,51 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import PanelsRegisters from "@components/common/PanelsRegisters";
+import useIsTablet from "@hooks/useIsTablet";
+import useOrientation from "@hooks/useOrientation";
+import BalanceTotal from "@components/common/BalanceTotal";
+import { useAppDispatch } from "@store/hooks";
+import { setModalInfo } from "@store/modalsSlice";
+import { useBalance } from "@hooks/useBalance";
+import Summary from "@components/common/Summary";
 // import DevTest from "@components/beta/DevTest";
 
 export default function HomeScreen() {
+  const dispatch = useAppDispatch();
+  const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
+  const { getTotal, getLiquid } = useBalance();
+
+  const panelsData = [
+    { type: "liquid", value: getLiquid() },
+    { type: "expense", value: getTotal("expense") },
+    { type: "entry", value: getTotal("entry") },
+    { type: "investment", value: getTotal("investment") },
+  ];
+
+  const showSummary = !!(
+    getTotal("expense") ||
+    getTotal("entry") ||
+    getTotal("investment")
+  );
+
   return (
     <View testID="home-screen" className="flex-1 justify-between flex-col">
-      {/* <DevTest /> */}
-      <PanelsRegisters />
+      {!landscape && !isTablet && (
+        <BalanceTotal
+          type="patrimony"
+          onPress={() => dispatch(setModalInfo("patrimony"))}
+        />
+      )}
+      <ScrollView
+        className="flex"
+        contentContainerStyle={{
+          paddingBottom: landscape || isTablet ? 60 : 40,
+        }}
+      >
+        {/* <DevTest /> */}
+        <PanelsRegisters list={panelsData} />
+        {showSummary && <Summary />}
+      </ScrollView>
     </View>
   );
 }

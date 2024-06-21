@@ -85,8 +85,8 @@ export default function Summary({ testID }: any) {
       <View
         className={`flex rounded-lg ${
           landscape
-            ? "flex-row justify-center items-center mt-5"
-            : "flex-col p-5 bg-white dark:bg-zinc-800 shadow-lg"
+            ? "flex-row justify-center items-center mt-1"
+            : "flex-col p-5 bg-white dark:bg-zinc-800 shadow-lg mt-1"
         }`}
       >
         <View className="flex">
@@ -95,8 +95,7 @@ export default function Summary({ testID }: any) {
             <PieChart
               data={pieData}
               donut
-              showGradient
-              radius={90}
+              radius={77}
               innerRadius={60}
               innerCircleColor={colorScheme === "dark" ? "#27272a" : "#fff"}
               centerLabelComponent={() => (
