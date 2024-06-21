@@ -115,6 +115,11 @@ export default function ModalRegister(props: { testID?: string }) {
     { label: t("common.investment"), value: "investment" },
   ];
 
+  const dataPay = [
+    { label: t("inputs.pending"), value: false },
+    { label: t("inputs.paid_out"), value: true },
+  ];
+
   useEffect(() => {
     if (isEditing()) {
       setFormModal({ ...common.registerData });
@@ -166,6 +171,18 @@ export default function ModalRegister(props: { testID?: string }) {
       }}
     >
       <View className="flex flex-row mb-3 mt-3">
+        {isEditing() && formModal.type === "expense" && (
+          <InputSelect
+            twClass="flex-1 mr-2"
+            label={t("inputs.situation")}
+            data={dataPay}
+            maxHeight={300}
+            placeholder={t("inputs.select") as string}
+            value={formModal.pay}
+            handleChangeObject="pay"
+            onChange={handleChange}
+          />
+        )}
         {!isEditing() && (
           <InputSelect
             twClass="flex-1 mr-2"
@@ -180,7 +197,7 @@ export default function ModalRegister(props: { testID?: string }) {
           />
         )}
         <InputText
-          twClass={`flex-1 ${!isEditing() ? "ml-2" : ""}`}
+          twClass={`flex-1 ${formModal.type === "expense" && "ml-2"}`}
           label={t("inputs.name")}
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
@@ -207,23 +224,6 @@ export default function ModalRegister(props: { testID?: string }) {
           error={!!formError.value}
         />
       </View>
-      {isEditing() && formModal.type === "expense" && (
-        <View className="flex flex-row items-center justify-center absolute right-20 top-3">
-          <Text className="text-black dark:text-white mr-6 text-base text-center">
-            {t("inputs.pay")}
-          </Text>
-          <View className="flex items-center justify-center">
-            <Switch
-              accessibilityLabel="Pagamento"
-              value={formModal.pay}
-              onValueChange={(value) => handleChange(value, "pay")}
-              trackColor={{ false: "rgb(220 38 38)", true: "rgb(34 197 94)" }}
-              thumbColor="#f4f3f4"
-              style={{ transform: [{ scale: 1.5 }] }}
-            />
-          </View>
-        </View>
-      )}
     </Modal>
   );
 }
