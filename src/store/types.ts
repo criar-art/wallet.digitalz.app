@@ -8,8 +8,8 @@ export interface Register {
 }
 
 export interface RegisterFilter {
-  short: string | null;
-  startDate?: Date | null;
+  short: 'asc' | 'desc' | null;
+  startDate: Date | null;
   endDate: Date | null;
   searchTerm: string;
   pay: boolean | null;
