@@ -3,8 +3,6 @@ import { View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import ItemList from "@components/common/ListRegisters/Item";
 import EmptyRegisters from "@components/common/ListRegisters/Empty";
-import useIsTablet from "@hooks/useIsTablet";
-import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { setRegisterData } from "@store/commonSlice";
 import { RootState } from "@store";
@@ -13,20 +11,19 @@ import {
   setModalDelete,
   setModalPay,
 } from "@store/modalsSlice";
-import { Props, SelectorMapping } from "./types";
-
 import {
   selectRegistersFilteredEntry,
   selectRegistersFilteredExpense,
   selectRegistersFilteredInvestment,
 } from "@store/commonSelects";
+import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
+import { Props, SelectorMapping } from "./types";
 
 const FlatListRegisters = (props: Props) => {
-  const { landscape } = useOrientation();
-  const isTablet = useIsTablet();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const [optionsShow, setOptionsShow] = useState(null);
+  const { handleScroll } = useScrollMenuVisible();
 
   const getRegistersFilteredEntry = useAppSelector(
     selectRegistersFilteredEntry
@@ -85,6 +82,8 @@ const FlatListRegisters = (props: Props) => {
       data={getRegistersFiltered}
       extraData={[common.eyeStatus, optionsShow]}
       numColumns={props.numColumns}
+      onScroll={handleScroll}
+      scrollEventThrottle={16}
       renderItem={({ item }) => {
         return (
           <View className="flex flex-1 p-2">
@@ -99,7 +98,7 @@ const FlatListRegisters = (props: Props) => {
               setOptionsShow={setOptionsShow}
               handlePressOptionsShow={handlePressOptionsShow}
             />
-          </View >
+          </View>
         );
       }}
       estimatedItemSize={100}
@@ -108,7 +107,7 @@ const FlatListRegisters = (props: Props) => {
       contentContainerStyle={{
         paddingHorizontal: 10,
         paddingTop: 10,
-        paddingBottom: landscape || isTablet ? 100 : 40,
+        paddingBottom: 10,
       }}
       scrollEnabled={!!getRegistersFiltered?.length}
       ListEmptyComponent={
