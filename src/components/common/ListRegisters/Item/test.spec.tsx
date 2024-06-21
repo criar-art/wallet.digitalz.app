@@ -12,7 +12,7 @@ test("should render ItemList", () => {
           handlePay={null}
           testID="item-register"
           item={{
-            date: "13/05/2024",
+            date: new Date(),
             id: "6ff62c8a-61cb-42d4-977a-4b20f8e5ca53",
             name: "Hshs",
             type: "entry",

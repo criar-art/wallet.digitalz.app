@@ -58,54 +58,75 @@ describe("Utility Functions", () => {
 
   describe("Date Utilities", () => {
     describe("formatDate", () => {
-      test("should correctly format a date string into a 'dd/MM/yyyy' string", () => {
-        const dateStr = "15/05/2023";
+      test("should correctly format a date object into a 'dd/MM/yyyy' string", () => {
+        const date = new Date(2023, 4, 15); // Month is 0-indexed in JavaScript Date
         const expectedDateStr = "05/15/2023";
-        expect(utils.formatDate(dateStr)).toBe(expectedDateStr);
+        expect(utils.formatDate(date)).toBe(expectedDateStr);
       });
 
-      test("should correctly format a date string with leading zeros", () => {
-        const dateStr = "01/01/2024";
+      test("should correctly format a date object with leading zeros", () => {
+        const date = new Date(2024, 0, 1); // Month is 0-indexed in JavaScript Date
         const expectedDateStr = "01/01/2024";
-        expect(utils.formatDate(dateStr)).toBe(expectedDateStr);
-      });
-
-      test("should handle different date formats", () => {
-        const dateStr1 = "2023-05-15";
-        const dateStr2 = "05/15/2023";
-        const dateStr3 = "15-05-2023";
-        const expectedDateStr = "05/15/2023";
-
-        expect(utils.formatDate(dateStr1)).toBe(expectedDateStr);
-        expect(utils.formatDate(dateStr2)).toBe(expectedDateStr);
-        expect(utils.formatDate(dateStr3)).toBe(expectedDateStr);
-      });
-
-      test("should handle invalid date strings gracefully", () => {
-        const dateStr = "invalid-date";
-        expect(() => utils.formatDate(dateStr)).toThrow("Invalid date format");
+        expect(utils.formatDate(date)).toBe(expectedDateStr);
       });
     });
 
     describe("isDatePast", () => {
       test("should return true for a date in the past", () => {
-        const dateStr = "05/12/2020";
-        expect(utils.isDatePast(dateStr)).toBe(true);
+        const date = new Date(2020, 4, 12); // Month is 0-indexed in JavaScript Date
+        expect(utils.isDatePast(date)).toBe(true);
       });
 
       test("should return false for a date in the future", () => {
-        const dateStr = "05/15/2025";
-        expect(utils.isDatePast(dateStr)).toBe(false);
+        const date = new Date(2025, 4, 15); // Month is 0-indexed in JavaScript Date
+        expect(utils.isDatePast(date)).toBe(false);
       });
 
       test("should return false for today's date", () => {
         const today = new Date();
-        const day = String(today.getDate()).padStart(2, "0");
-        const month = String(today.getMonth() + 1).padStart(2, "0");
-        const year = today.getFullYear();
-        const dateStr = `${day}/${month}/${year}`;
+        expect(utils.isDatePast(today)).toBe(false);
+      });
+    });
 
-        expect(utils.isDatePast(dateStr)).toBe(false);
+    describe("isDateToday", () => {
+      test("should return true for today's date", () => {
+        const today = new Date();
+        expect(utils.isDateToday(today)).toBe(true);
+      });
+
+      test("should return false for a date that is not today", () => {
+        const notToday = new Date(2000, 0, 1);
+        expect(utils.isDateToday(notToday)).toBe(false);
+      });
+    });
+
+    describe("isDateTomorrow", () => {
+      test("should return true for tomorrow's date", () => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        expect(utils.isDateTomorrow(tomorrow)).toBe(true);
+      });
+
+      test("should return false for a date that is not tomorrow", () => {
+        const notTomorrow = new Date(2000, 0, 2);
+        expect(utils.isDateTomorrow(notTomorrow)).toBe(false);
+      });
+    });
+
+    describe("sortDataByDateDesc", () => {
+      test("should sort data by date in descending order", () => {
+        const data = [
+          { date: new Date(2023, 4, 15) },
+          { date: new Date(2021, 4, 15) },
+          { date: new Date(2024, 4, 15) },
+        ];
+        const sortedData = [
+          { date: new Date(2024, 4, 15) },
+          { date: new Date(2023, 4, 15) },
+          { date: new Date(2021, 4, 15) },
+        ];
+
+        expect(utils.sortDataByDateDesc(data)).toEqual(sortedData);
       });
     });
   });
