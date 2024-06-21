@@ -5,8 +5,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import utils from "@utils";
 import { Props } from "./types";
+import { formatDate } from "@utils/date";
 
 function InputDate(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -14,10 +14,15 @@ function InputDate(props: Props) {
   const [showDate, setShowDate] = useState<boolean>(false);
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    if (selectedDate) {
-      setShowDate(false);
+    setShowDate(false);
+
+    if (event.type == "set" && selectedDate) {
       setDate(selectedDate);
-      props.onChangeDate(utils.formatDateString(selectedDate), "date");
+      props.onChangeDate(selectedDate);
+    }
+    if (event.type == "dismissed") {
+      setDate(new Date());
+      props.onChangeDate(null);
     }
   };
 
@@ -31,7 +36,9 @@ function InputDate(props: Props) {
       </Text>
       <Pressable
         onPress={() => setShowDate(true)}
-        className="flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500"
+        className={`flex flex-row bg-white dark:bg-zinc-800 items-center p-3 pr-4 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
+          props.error ? "border-red-500" : ""
+        }`}
         accessibilityLabel={props.accessibilityLabel}
         accessibilityRole="button"
         testID="input-date-pressable"
@@ -45,7 +52,7 @@ function InputDate(props: Props) {
           testID="input-date-value"
           className="text-base ml-2 text-black dark:text-white"
         >
-          {props.value}
+          {props.value && formatDate(props.value)}
         </Text>
       </Pressable>
       {showDate && (
