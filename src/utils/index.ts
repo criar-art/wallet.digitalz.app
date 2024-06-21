@@ -56,7 +56,7 @@ const getLabel = (options: any, route: any): string =>
 const isObjectEmpty = (obj: any): boolean => {
   // Verifica se todos os valores das chaves do objeto são vazios
   return obj
-    ? Object.values(obj).every((value) => value === "" || value === undefined)
+    ? Object.values(obj).every((value) => value === "" || value === null)
     : false;
 };
 

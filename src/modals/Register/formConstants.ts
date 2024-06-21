@@ -1,11 +1,8 @@
-import { templateDate } from "@utils/locale";
-import { format } from "date-fns";
-
-export const intitialForm = {
+export const initialForm = {
   name: "",
   type: "",
   value: "",
-  date: format(new Date(), templateDate),
+  date: new Date(),
   pay: false,
 };
 
@@ -13,4 +10,5 @@ export const initialFormError = {
   type: false,
   name: false,
   value: false,
+  date: false,
 };
