@@ -2,6 +2,7 @@ import { RootState } from "@store";
 import {
   compareAsc,
   compareDesc,
+  formatISO,
   isAfter,
   isBefore,
   isEqual,
@@ -106,6 +107,14 @@ export const applyFilterData = (
     endDate = parseISO(endDate as unknown as string);
   }
 
+  // Converter startDate e endDate para formato ISO
+  const startDateISO = startDate
+    ? formatISO(startDate, { representation: "date" })
+    : null;
+  const endDateISO = endDate
+    ? formatISO(endDate, { representation: "date" })
+    : null;
+
   if (startDate && endDate) {
     if (isBefore(endDate, startDate)) {
       console.error("End date cannot be earlier than start date");
@@ -113,21 +122,33 @@ export const applyFilterData = (
     }
 
     result = result.filter((item) => {
-      const itemDate = new Date(item.date);
-      return isWithinInterval(itemDate, {
-        start: startDate,
-        end: endDate,
+      const itemDateISO = formatISO(new Date(item.date), {
+        representation: "date",
+      });
+      return isWithinInterval(new Date(itemDateISO), {
+        start: new Date(startDateISO!),
+        end: new Date(endDateISO!),
       });
     });
   } else if (startDate) {
     result = result.filter((item) => {
-      const itemDate = new Date(item.date);
-      return isAfter(itemDate, startDate) || isEqual(itemDate, startDate);
+      const itemDateISO = formatISO(new Date(item.date), {
+        representation: "date",
+      });
+      return (
+        isAfter(new Date(itemDateISO), new Date(startDateISO!)) ||
+        isEqual(new Date(itemDateISO), new Date(startDateISO!))
+      );
     });
   } else if (endDate) {
     result = result.filter((item) => {
-      const itemDate = new Date(item.date);
-      return isBefore(itemDate, endDate) || isEqual(itemDate, endDate);
+      const itemDateISO = formatISO(new Date(item.date), {
+        representation: "date",
+      });
+      return (
+        isBefore(new Date(itemDateISO), new Date(endDateISO!)) ||
+        isEqual(new Date(itemDateISO), new Date(endDateISO!))
+      );
     });
   }
 
