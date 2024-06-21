@@ -58,7 +58,9 @@
     "value": "价值",
     "type": "类型",
     "select": "选择",
-    "pay": "支付"
+    "situation": "情况",
+    "paid_out": "已支付",
+    "pending": "待处理"
   },
   "badge": {
     "due_today": "今日到期",

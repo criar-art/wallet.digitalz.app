@@ -58,7 +58,9 @@
     "value": "Value",
     "type": "Type",
     "select": "Select",
-    "pay": "Pay"
+    "situation": "Situation",
+    "paid_out": "Paid Out",
+    "pending": "Pending"
   },
   "badge": {
     "due_today": "DUE TODAY",
