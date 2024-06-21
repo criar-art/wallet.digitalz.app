@@ -13,6 +13,7 @@ import Button from "@components/common/Button";
 import RenderBadge from "../RenderBadge";
 import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
+import { formatDate } from "@utils/date";
 
 function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -86,7 +87,7 @@ function ItemList(props: Props) {
           color={colorScheme === "dark" ? "white" : "black"}
         />
         <Text className="ml-2 text-black dark:text-white text-base">
-          {props.item.date}
+          {props.item.date && formatDate(props.item.date)}
         </Text>
       </View>
       <Animated.View
