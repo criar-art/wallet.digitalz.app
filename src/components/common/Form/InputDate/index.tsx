@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useColorScheme } from "nativewind";
-import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -49,9 +49,9 @@ function InputDate(props: Props) {
         accessibilityRole="button"
         testID="input-date-pressable"
       >
-        <MaterialIcons
-          name="calendar-month"
-          size={25}
+        <FontAwesome
+          name="calendar"
+          size={20}
           color={colorScheme === "dark" ? "white" : "black"}
         />
         <Text

@@ -77,3 +77,38 @@ export const renderBackgroundClass = (
 
   return colorClass;
 };
+
+export const renderIconMoney = (item: any) => {
+  switch (item.type) {
+    case "entry":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "cash-check"
+        : "cash-plus";
+    case "expense":
+      return item.pay ? "cash-check" : "cash-remove";
+    case "investment":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "cash-check"
+        : "cash-lock";
+    default:
+      return "cash";
+  }
+};
+
+export const renderIconCalendar = (item: any) => {
+  switch (item.type) {
+    case "entry":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "calendar-check-o"
+        : "calendar";
+    case "expense":
+      return item.pay ? "calendar-check-o" : "calendar-times-o";
+    case "investment":
+      return isDateToday(item.date) || isDatePast(item.date)
+        ? "calendar-check-o"
+        : "calendar";
+    default:
+      return "calendar";
+  }
+};
+
