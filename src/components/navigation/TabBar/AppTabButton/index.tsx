@@ -1,10 +1,11 @@
 import { Text, Pressable, View } from "react-native";
 import { useColorScheme } from "nativewind";
-import useOrientation from "@hooks/useOrientation";
+import utils from "@utils";
 import { Props } from "./types";
 
 export default function NavigationButton({
   twClass,
+  name,
   labelButton,
   isFocused,
   onPress,
@@ -12,7 +13,6 @@ export default function NavigationButton({
   options,
 }: Props) {
   const { colorScheme } = useColorScheme();
-  const { landscape } = useOrientation();
 
   return (
     <Pressable
@@ -22,18 +22,10 @@ export default function NavigationButton({
       testID={options.tabBarTestID}
       onPress={onPress}
       onLongPress={onLongPress}
-      className={`flex flex-1 justify-center items-center py-2 border-gray-200 dark:border-zinc-900 border-l-2 border-t-2 ${
-        !isFocused
-          ? "bg-white dark:bg-zinc-800"
-          : "bg-gray-100 dark:bg-zinc-700"
-      } ${twClass}`}
+      className={`flex flex-1 bg-white dark:bg-zinc-800 justify-center items-center pt-2 px-2 pb-1 border-gray-200 dark:border-zinc-900 border-l-2 border-t-2 ${twClass}`}
       disabled={isFocused}
     >
-      <View
-        className={`flex items-center ${
-          !isFocused ? "scale-100" : "scale-125"
-        }`}
-      >
+      <View className="flex items-center">
         {
           <options.tabBarIcon
             size={25}
@@ -49,6 +41,17 @@ export default function NavigationButton({
           {options.tabBarBadge}
         </Text>
       )}
+      <View
+        className="mt-1 h-2 w-full rounded-full h-2"
+        style={
+          isFocused && {
+            backgroundColor: utils.renderColorType(
+              name.toLocaleLowerCase(),
+              colorScheme
+            ),
+          }
+        }
+      />
     </Pressable>
   );
 }

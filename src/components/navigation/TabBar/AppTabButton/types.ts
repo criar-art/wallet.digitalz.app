@@ -5,6 +5,7 @@ export type Props = {
   onPress: () => void;
   onLongPress: () => void;
   options: Options;
+  name: string;
 };
 
 export type Options = {

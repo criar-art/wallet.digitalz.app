@@ -31,7 +31,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
           pressableButton
           label="Novo registro"
           textColor="text-white"
-          twClass={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[30] left-1/2 -translate-x-7`}
+          twClass={`z-10 rounded-full absolute w-18 h-18 border-2 border-white dark:border-zinc-900 bg-green-600 bottom-[44] left-1/2 -translate-x-7`}
           onPress={handleNewRegister}
           icon={<MaterialIcons name="add" size={35} color="white" />}
         />
@@ -70,6 +70,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
               }`}
               key={index}
               labelButton={labelButton}
+              name={route.name}
               isFocused={isFocused}
               onPress={onPress}
               onLongPress={onLongPress}
