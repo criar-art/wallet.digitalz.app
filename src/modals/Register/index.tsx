@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Keyboard, Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigationState } from "@react-navigation/native";
 import uuid from "react-native-uuid";
+import { useTranslation } from "react-i18next";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootState } from "@store";
 import {
@@ -14,15 +16,13 @@ import {
   setEditRegisterInvestment,
 } from "@store/investmentSlice";
 import { setModalRegister } from "@store/modalsSlice";
-import { intitialForm, initialFormError } from "./formConstants";
+import { initialForm, initialFormError } from "./formConstants";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import InputSelect from "@components/common/Form/InputSelect";
 import InputText from "@components/common/Form/InputText";
 import InputMoney from "@components/common/Form/InputMoney";
 import InputDate from "@components/common/Form/InputDate";
-import { useNavigationState } from "@react-navigation/native";
-import { useTranslation } from "react-i18next";
 
 export default function ModalRegister(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -43,13 +43,16 @@ export default function ModalRegister(props: { testID?: string }) {
   );
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const [inputMoney, setInputMoney] = useState<string>("");
-  const [formModal, setFormModal] = useState(intitialForm);
+  const [formModal, setFormModal] = useState(initialForm);
   const [formError, setFormError] = useState(initialFormError);
   const isEditing = (): boolean => modals?.modalRegister === "edit";
   const isOpenModal = (): boolean =>
     ["register", "edit"].includes(modals?.modalRegister);
 
-  const handleChange = (value: string | boolean, name: string) => {
+  const handleChange = (
+    value: string | boolean | Date | null,
+    name: string
+  ) => {
     setFormModal((prevState) => ({ ...prevState, [name]: value }));
     if (name !== "pay")
       setFormError((prevState) => ({ ...prevState, [name]: !value }));
@@ -61,8 +64,8 @@ export default function ModalRegister(props: { testID?: string }) {
   };
 
   const saveStore = () => {
-    const { name, value, type } = formModal;
-    const errors = { name: !name, value: !value, type: !type };
+    const { name, value, type, date } = formModal;
+    const errors = { name: !name, value: !value, type: !type, date: !date };
     setFormError(errors);
 
     const data: any = isEditing()
@@ -118,9 +121,9 @@ export default function ModalRegister(props: { testID?: string }) {
       setInputMoney(common.registerData.value);
     } else {
       if (indexTab) {
-        setFormModal({ ...intitialForm, type: dataType[indexTab - 1].value });
+        setFormModal({ ...initialForm, type: dataType[indexTab - 1].value });
       } else {
-        setFormModal(intitialForm);
+        setFormModal(initialForm);
       }
       setFormError(initialFormError);
       setInputMoney("");
@@ -191,7 +194,8 @@ export default function ModalRegister(props: { testID?: string }) {
           label={t("inputs.date")}
           value={formModal.date}
           accessibilityLabel="Data do registro"
-          onChangeDate={handleChange}
+          onChangeDate={(date: Date | null) => handleChange(date, "date")}
+          error={!!formError.date}
         />
         <InputMoney
           twClass="flex-1 ml-2"
