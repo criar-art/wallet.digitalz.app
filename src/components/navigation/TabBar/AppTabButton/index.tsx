@@ -22,11 +22,11 @@ export default function NavigationButton({
       testID={options.tabBarTestID}
       onPress={onPress}
       onLongPress={onLongPress}
-      className={`flex flex-1 justify-center items-center py-2 border-gray-200 dark:border-zinc-900 border-l-2 ${
+      className={`flex flex-1 justify-center items-center py-2 border-gray-200 dark:border-zinc-900 border-l-2 border-t-2 ${
         !isFocused
           ? "bg-white dark:bg-zinc-800"
           : "bg-gray-100 dark:bg-zinc-700"
-      } ${landscape ? "border-t-2" : "border-y-2"} ${twClass}`}
+      } ${twClass}`}
       disabled={isFocused}
     >
       <View

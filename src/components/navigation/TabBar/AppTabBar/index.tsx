@@ -65,7 +65,7 @@ export default function AppTabBar({ state, descriptors, navigation }: Props) {
                 index == 0
                   ? "rounded-tl-3xl"
                   : state?.routes.length - 1 == index
-                  ? "rounded-tr-3xl"
+                  ? "rounded-tr-3xl border-r-2"
                   : ""
               }`}
               key={index}
