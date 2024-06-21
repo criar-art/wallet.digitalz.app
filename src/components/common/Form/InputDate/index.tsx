@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -12,6 +12,12 @@ function InputDate(props: Props) {
   const { colorScheme } = useColorScheme();
   const [date, setDate] = useState<Date>(new Date());
   const [showDate, setShowDate] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!props.value) {
+      setDate(new Date());
+    }
+  }, [props.value]);
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     setShowDate(false);
