@@ -4,7 +4,6 @@ import { useColorScheme } from "nativewind";
 import { setModalFilter, setModalInfo } from "@store/modalsSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import Button from "@components/common/Button";
-import useOrientation from "@hooks/useOrientation";
 import utils from "@utils";
 import { Props } from "./types";
 import {
@@ -25,7 +24,6 @@ export default function Header(props: Props) {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const dispatch = useAppDispatch();
-  const { portrait } = useOrientation();
 
   const getRegistersFilterEntry = useAppSelector(selectRegistersFilterEntry);
   const getRegistersEntry = useAppSelector(selectRegistersEntry);
