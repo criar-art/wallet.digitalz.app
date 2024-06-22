@@ -1,11 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 import TabBar from "@components/navigation/TabBar";
 import utils from "@utils";
 import Page from "@pages";
 import { useBalance } from "@hooks/useBalance";
-import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "@store/hooks";
+import { setMenuVisible } from "@store/commonSlice";
+import useOrientation from "@hooks/useOrientation";
+import { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,9 +17,13 @@ export function RoutesTab() {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { getQuantity } = useBalance();
-  const getCountRegisters = (type: string) => {
-    return getQuantity(type);
-  };
+  const dispatch = useAppDispatch();
+  const { orientation } = useOrientation();
+  const getCountRegisters = (type: string) => getQuantity(type);
+
+  useEffect(() => {
+    dispatch(setMenuVisible(true));
+  }, [orientation]);
 
   function configRegisterScreen(name: string, title: string, icon: any) {
     return {
@@ -61,6 +69,11 @@ export function RoutesTab() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBar={(props) => <TabBar {...props} />}
+      screenListeners={{
+        state: () => {
+          dispatch(setMenuVisible(true));
+        },
+      }}
     >
       {viewsTab.map((item: any) => (
         <Tab.Screen
