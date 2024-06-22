@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import { BackHandler, AppState } from "react-native";
+import { AppState } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setIsLogin, setIsProtected } from "@store/userSlice";
@@ -89,19 +89,8 @@ const useAuthentication = (navigate?: any) => {
       handleAppStateChange
     );
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        if (isProtected) {
-          handleLogout();
-        }
-        return false;
-      }
-    );
-
     return () => {
       appStateListener.remove();
-      backHandler.remove();
     };
   }, [isProtected, isLogin]);
 
