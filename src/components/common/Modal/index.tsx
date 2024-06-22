@@ -174,7 +174,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
               </View>
             )}
             {props.header && (
-              <View className="flex flex-row items-center justify-center border-b-2 pb-2 px-2 border-zinc-300 dark:border-zinc-500">
+              <View className="flex flex-row items-center justify-center border-b-2 pb-2 border-zinc-300 dark:border-zinc-500">
                 <Text className="text-black dark:text-white text-center text-xl mr-2">
                   {props.header.title}
                 </Text>
