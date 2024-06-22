@@ -170,7 +170,7 @@ export default function ModalRegister(props: { testID?: string }) {
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
-      <View className="flex flex-row mb-3 mt-3">
+      <View className="flex flex-row mb-2 mt-2">
         {isEditing() && formModal.type === "expense" && (
           <InputSelect
             twClass="flex-1 mr-2"
@@ -197,7 +197,9 @@ export default function ModalRegister(props: { testID?: string }) {
           />
         )}
         <InputText
-          twClass={`flex-1 ${formModal.type === "expense" && "ml-2"}`}
+          twClass={`flex-1 ${
+            (!isEditing() || formModal.type === "expense") && "ml-2"
+          }`}
           label={t("inputs.name")}
           accessibilityLabel="Nome do registro"
           onChangeText={(value: string) => handleChange(value, "name")}
@@ -205,7 +207,7 @@ export default function ModalRegister(props: { testID?: string }) {
           error={!!formError.name}
         />
       </View>
-      <View className="flex flex-row mb-6">
+      <View className="flex flex-row mb-4">
         <InputDate
           twClass="flex-1 mr-2"
           label={t("inputs.date")}
