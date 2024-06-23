@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
+import { Dimensions } from "react-native";
 import {
   Orientation,
   getOrientationAsync,
   addOrientationChangeListener,
   removeOrientationChangeListener,
 } from "expo-screen-orientation";
-import { act } from "@testing-library/react-native";
 
 export default function useOrientation() {
+  const { width, height } = Dimensions.get("window");
   const [orientation, setOrientation] = useState<Orientation | null>(null);
-  const [landscape, setLandscape] = useState<boolean>(false);
-  const [portrait, setPortrait] = useState<boolean>(false);
+  const [landscape, setLandscape] = useState<boolean>(width > height);
+  const [portrait, setPortrait] = useState<boolean>(width < height);
 
   const handleOrientationChange = useCallback((event: any) => {
     setOrientation((prevOrientation) => {
@@ -36,11 +37,9 @@ export default function useOrientation() {
 
     getOrientationAsync().then((value) => {
       if (isMounted) {
-        act(() => {
-          setOrientation(value);
-          setLandscape(value === 4 || value === 3);
-          setPortrait(value === 1 || value === 2 || value === 0);
-        });
+        setOrientation(value);
+        setLandscape(value === 4 || value === 3);
+        setPortrait(value === 1 || value === 2 || value === 0);
       }
     });
 
