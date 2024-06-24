@@ -1,0 +1,121 @@
+{
+  "routes": {
+    "home": "Accueil",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "expense": "Dépense",
+    "entry": "Entrée",
+    "investment": "Investissement"
+  },
+  "common": {
+    "version": "Version",
+    "enter": "Entrer",
+    "logout": "Déconnexion",
+    "register": "S'inscrire",
+    "wallet_negative": "Portefeuille négatif",
+    "total": "Total",
+    "filtered": "filtré(s)",
+    "liquid": "Liquide",
+    "patrimony": "Patrimoine",
+    "investment": "Investissement",
+    "entry": "Entrée",
+    "expense": "Dépense",
+    "vehicle": "Véhicule",
+    "empty_filter": "Aucun résultat filtré",
+    "empty_register": "Aucun enregistrement enregistré",
+    "new_register": "Nouvel enregistrement",
+    "edit_register": "Modifier l'enregistrement",
+    "btn_create": "Créer",
+    "btn_save": "Enregistrer",
+    "btn_confirm": "Confirmer",
+    "btn_understand": "J'ai compris",
+    "btn_cancel": "Annuler",
+    "btn_cancel_label": "Annuler cette action",
+    "validation": "Vous devez remplir tous les champs",
+    "alert_delete": "Êtes-vous sûr de vouloir supprimer ?",
+    "alert_paid": "Êtes-vous sûr de vouloir marquer comme payé ?",
+    "privacy": "Politique de confidentialité",
+    "summary": "Résumé en pourcentage"
+  },
+  "filter": {
+    "btn": "Filtrer",
+    "btn_label": "Ouvrir la modal de filtre",
+    "btn_apply": "Appliquer",
+    "btn_apply_label": "Ok, fermer la modal de filtre",
+    "btn_reset": "Effacer",
+    "btn_reset_label": "Effacer tous les filtres"
+  },
+  "inputs": {
+    "search": "Filtrer par nom",
+    "all": "Tout",
+    "paid": "Payé",
+    "no_paid": "Non payé",
+    "date_start": "Date de début",
+    "date_end": "Date de fin",
+    "date": "Date",
+    "name": "Nom",
+    "value": "Valeur",
+    "type": "Type",
+    "select": "Sélectionner",
+    "situation": "Situation",
+    "paid_out": "Payé",
+    "pending": "En attente"
+  },
+  "badge": {
+    "due_today": "ÉCHÉANCE AUJOURD'HUI",
+    "due_tomorrow": "ÉCHÉANCE DEMAIN",
+    "available_today": "DISPONIBLE AUJOURD'HUI",
+    "available_tomorrow": "DISPONIBLE DEMAIN",
+    "overdue": "EN RETARD",
+    "available": "DISPONIBLE",
+    "paid": "PAYÉ"
+  },
+  "modalContent": {
+    "liquid": {
+      "text": "Le calcul de la valeur nette est effectué en soustrayant le total des dépenses du total des entrées enregistrées.",
+      "note1": "Les investissements ne sont pas directement pris en compte dans ce calcul.",
+      "note2": "Ils constituent des réserves de capital pour des rendements futurs, gérées séparément."
+    },
+    "patrimony": {
+      "text": "La valeur du patrimoine est la somme de la valeur nette et de la valeur des investissements. Essentiellement, il s'agit de la combinaison de la valeur nette et des investissements.",
+      "note": "Cette mesure offre une vue d'ensemble complète de la valeur totale des actifs et des passifs de votre portefeuille."
+    },
+    "investment": {
+      "text": "Les investissements sont des allocations de ressources visant à obtenir des rendements futurs. Ils constituent une partie importante de la planification financière.",
+      "note": "Évaluer correctement les investissements est crucial pour garantir une santé financière à long terme."
+    },
+    "entry": {
+      "text": "Les entrées représentent les revenus totaux reçus sur une certaine période, tels que les ventes, les intérêts reçus et autres gains.",
+      "note": "Suivre les entrées permet de comprendre la capacité de génération de revenus de vos finances."
+    },
+    "expense": {
+      "text": "Les dépenses sont les coûts engagés pour exploiter et maintenir les activités de votre portefeuille. Elles peuvent inclure les salaires, le loyer et autres obligations.",
+      "note": "Contrôler les dépenses est essentiel pour maintenir la santé financière et éviter les déficits."
+    },
+    "vehicle": {
+      "text": "Les véhicules sont des actifs tangibles pouvant être utilisés pour les opérations ou comme partie des actifs de votre portefeuille. Ils peuvent inclure des voitures, des camions et d'autres moyens de transport.",
+      "note": "La dépréciation des véhicules doit être prise en compte pour refléter précisément leur valeur actuelle."
+    },
+    "protection": {
+      "text": "Pour une meilleure protection, activez le verrouillage pour garder vos informations privées. Si vous le désactivez, l'accès deviendra illimité, sans aucune sécurité ni restriction.",
+      "switchLabel": "Protection",
+      "buttonText": "Ouvrir les paramètres",
+      "buttonLabel": "Ouvrir les paramètres de verrouillage"
+    }
+  },
+  "modalInfo": {
+    "header": {
+      "protectionInformation": "Informations de protection",
+      "value": "Valeur {{value}}"
+    },
+    "confirmButton": {
+      "label": "Ok, fermer la modalité d'information"
+    }
+  },
+  "about": {
+    "intro1": "Wallet Digitalz a été développé pour vous aider à organiser vos finances.",
+    "intro2": "Nous vous proposons une manière simplifiée d'enregistrer vos dépenses et valeurs.",
+    "intro3": "Ayez la liberté de créer vos enregistrements de manière intuitive, avec la flexibilité de les supprimer et de les mettre à jour selon vos besoins."
+  }
+}

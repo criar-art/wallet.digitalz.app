@@ -1,0 +1,121 @@
+{
+  "routes": {
+    "home": "Home",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "expense": "Spesa",
+    "entry": "Entrata",
+    "investment": "Investimento"
+  },
+  "common": {
+    "version": "Versione",
+    "enter": "Entra",
+    "logout": "Esci",
+    "register": "Registrati",
+    "wallet_negative": "Portafoglio in negativo",
+    "total": "Totale",
+    "filtered": "filtrato(i)",
+    "liquid": "Liquidità",
+    "patrimony": "Patrimonio",
+    "investment": "Investimento",
+    "entry": "Entrata",
+    "expense": "Spesa",
+    "vehicle": "Veicolo",
+    "empty_filter": "Nessun risultato filtrato",
+    "empty_register": "Nessun record registrato",
+    "new_register": "Nuovo registro",
+    "edit_register": "Modifica registro",
+    "btn_create": "Crea",
+    "btn_save": "Salva",
+    "btn_confirm": "Conferma",
+    "btn_understand": "Ho capito",
+    "btn_cancel": "Annulla",
+    "btn_cancel_label": "Annulla questa azione",
+    "validation": "È necessario compilare tutti i campi",
+    "alert_delete": "Sei sicuro di voler eliminare?",
+    "alert_paid": "Sei sicuro di voler contrassegnare come pagato?",
+    "privacy": "Informativa sulla privacy",
+    "summary": "Riepilogo percentuale"
+  },
+  "filter": {
+    "btn": "Filtra",
+    "btn_label": "Apri il modalità di filtro",
+    "btn_apply": "Applica",
+    "btn_apply_label": "Ok, chiudi il modalità di filtro",
+    "btn_reset": "Cancella",
+    "btn_reset_label": "Cancella tutti i filtri"
+  },
+  "inputs": {
+    "search": "Filtra per nome",
+    "all": "Tutti",
+    "paid": "Pagato",
+    "no_paid": "Non pagato",
+    "date_start": "Data inizio",
+    "date_end": "Data fine",
+    "date": "Data",
+    "name": "Nome",
+    "value": "Valore",
+    "type": "Tipo",
+    "select": "Seleziona",
+    "situation": "Situation",
+    "paid_out": "Pagato",
+    "pending": "In sospeso"
+  },
+  "badge": {
+    "due_today": "SCADENZA OGGI",
+    "due_tomorrow": "SCADENZA DOMANI",
+    "available_today": "DISPONIBILE OGGI",
+    "available_tomorrow": "DISPONIBILE DOMANI",
+    "overdue": "SCADUTO",
+    "available": "DISPONIBILE",
+    "paid": "PAGATO"
+  },
+  "modalContent": {
+    "liquid": {
+      "text": "Il calcolo del valore netto viene effettuato sottraendo le spese totali dal totale delle entrate registrate.",
+      "note1": "Gli investimenti non sono direttamente considerati in questo calcolo.",
+      "note2": "Sono riserve di capitale per futuri rendimenti, gestite separatamente."
+    },
+    "patrimony": {
+      "text": "Il valore del patrimonio è la somma del valore netto e del valore degli investimenti. Essenzialmente, è la combinazione di valore netto e investimenti.",
+      "note": "Questa misura fornisce una visione completa del valore totale degli asset e dei passivi del tuo portafoglio."
+    },
+    "investment": {
+      "text": "Gli investimenti sono allocazioni di risorse con l'obiettivo di ottenere rendimenti futuri. Sono una parte importante della pianificazione finanziaria.",
+      "note": "Valutare correttamente gli investimenti è cruciale per garantire una salute finanziaria a lungo termine."
+    },
+    "entry": {
+      "text": "Le entrate rappresentano i ricavi totali ricevuti in un certo periodo, come vendite, interessi ricevuti e altri guadagni.",
+      "note": "Monitorare le entrate aiuta a comprendere la capacità di generare reddito delle tue finanze."
+    },
+    "expense": {
+      "text": "Le spese sono i costi sostenuti per operare e mantenere le attività nel tuo portafoglio. Possono includere stipendi, affitti e altre obbligazioni.",
+      "note": "Controllare le spese è essenziale per mantenere la salute finanziaria e evitare deficit."
+    },
+    "vehicle": {
+      "text": "I veicoli sono asset tangibili che possono essere utilizzati per le operazioni o come parte degli asset del tuo portafoglio. Possono includere auto, camion e altri mezzi di trasporto.",
+      "note": "La deprezzamento del veicolo deve essere considerata per riflettere con precisione il suo valore attuale."
+    },
+    "protection": {
+      "text": "Per una migliore protezione, attiva il blocco per mantenere riservate le tue informazioni. Se lo disattivi, l'accesso diventerà illimitato, senza alcuna sicurezza o restrizione.",
+      "switchLabel": "Protezione",
+      "buttonText": "Apri impostazioni",
+      "buttonLabel": "Apri le impostazioni di blocco"
+    }
+  },
+  "modalInfo": {
+    "header": {
+      "protectionInformation": "Informazioni sulla protezione",
+      "value": "Valore {{value}}"
+    },
+    "confirmButton": {
+      "label": "Ok, chiudi la modalità di informazione"
+    }
+  },
+  "about": {
+    "intro1": "Wallet Digitalz è stato sviluppato per aiutarti a organizzare le tue finanze.",
+    "intro2": "Offriamo un modo semplificato per registrare le tue spese e i tuoi valori.",
+    "intro3": "Hai la libertà di creare i tuoi record in modo intuitivo, con la flessibilità di eliminarli e aggiornarli secondo necessità."
+  }
+}
