@@ -1,6 +1,6 @@
 # Wallet Digitalz App
 
-Wallet Digitalz was developed to help organize your finances, offering a simple way to record your expenses and amounts. Have the freedom to create and manage your records intuitively, and can easily delete or update them as needed.
+Discover a new way to manage your finances with our app. Developed to simplify financial organization, we offer an intuitive interface to easily record expenses and amounts. Your data is stored securely on your device using encryption to protect your privacy. Our simple and elegant design provides a pleasant user experience as you create and manage your records with complete freedom to edit or delete them as needed. Light and efficient, our app was designed to help you keep your finances organized with ease.
 
 ## Download On PlayStore
 <a href="https://play.google.com/store/apps/details?id=com.criar.art.walletdigitalzapp" target="_blank">
@@ -31,7 +31,3 @@ Wallet Digitalz was developed to help organize your finances, offering a simple 
 
 * :ghost: @lucasferreiralimax
 * :email: contato@criar.art
-
----
-
-Se precisar de ajustes ou mais informações adicionais, me avise!
