@@ -26,7 +26,7 @@
     "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
-    "@reduxjs/toolkit": "^2.2.5",
+    "@reduxjs/toolkit": "^2.2.6",
     "@shopify/flash-list": "1.6.4",
     "crypto-es": "^2.1.0",
     "date-fns": "^3.6.0",
@@ -39,7 +39,7 @@
     "expo-screen-orientation": "~7.0.5",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.18",
-    "firebase": "^10.12.2",
+    "firebase": "^10.12.3",
     "i18next": "^23.11.5",
     "react": "18.2.0",
     "react-i18next": "^14.1.2",
@@ -70,7 +70,7 @@
     "jest-expo": "~51.0.3",
     "nativewind": "^2.0.11",
     "tailwindcss": "3.3.2",
-    "ts-jest": "^29.1.5",
+    "ts-jest": "^29.2.0",
     "typescript": "~5.3.3"
   },
   "jest": {
