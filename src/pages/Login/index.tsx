@@ -62,6 +62,7 @@ const LoginScreen = ({ navigation }: any) => {
         intensity={100}
         tint="dark"
         style={{
+          width: (!auth.isLogin && auth.isProtected) || landscape ? 'auto': '80%',
           justifyContent: "center",
           alignItems: "center",
           borderRadius: !auth.isLogin && auth.isProtected ? 100 : 20,
@@ -74,7 +75,7 @@ const LoginScreen = ({ navigation }: any) => {
           position: "absolute",
         }}
       >
-        <View className="flex flex-col">
+        <View className="flex flex-col w-full">
           {(auth.isLogin || !auth.isProtected) && (
             <View
               className={`flex " ${
@@ -105,7 +106,9 @@ const LoginScreen = ({ navigation }: any) => {
           >
             {(!auth.isProtected || auth.isLogin) && (
               <Button
-                twClass="p-4 px-6 my-2 rounded-full bg-zinc-900 border-white/10 border-2"
+                twClass={`p-4 my-2 rounded-full bg-zinc-900 border-white/10 border-2 justify-between ${
+                  !landscape && "flex-row-reverse"
+                }`}
                 textColor="text-lg text-white"
                 text={t("routes.home")}
                 label="Ir para o ínicio"
@@ -115,8 +118,10 @@ const LoginScreen = ({ navigation }: any) => {
             )}
             {!auth.isLogin && (
               <Button
-                twClass={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2 ${
-                  !auth.isProtected && "m-2"
+                twClass={`p-4 rounded-full bg-green-600 border-white/10 border-2 justify-between my-2 ${
+                  !auth.isProtected && landscape && "ml-4"
+                } ${
+                  !landscape && !auth.isProtected && "flex-row-reverse"
                 }`}
                 textColor="text-lg text-white"
                 text={
@@ -142,8 +147,8 @@ const LoginScreen = ({ navigation }: any) => {
             {auth.isLogin && (
               <>
                 <Button
-                  twClass={`p-4 px-6 rounded-full bg-green-600 border-white/10 border-2 my-2 ${
-                    landscape ? "mx-2 " : ""
+                  twClass={`p-4 rounded-full bg-green-600 border-white/10 border-2 my-2 justify-between ${
+                    landscape ? "mx-2" : "flex-row-reverse"
                   }`}
                   textColor="text-lg text-white"
                   text={t("modalContent.protection.switchLabel")}
@@ -159,8 +164,8 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {auth.isProtected && (
                   <Button
-                    twClass={`p-4 px-6 rounded-full bg-red-600 border-white/10 border-2 my-2 ${
-                      landscape ? "my-2" : ""
+                    twClass={`p-4 rounded-full bg-red-600 border-white/10 border-2 my-2 justify-between ${
+                      landscape ? "my-2" : "flex-row-reverse"
                     }`}
                     textColor="text-lg text-white"
                     text={t("common.logout")}
