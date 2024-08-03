@@ -113,7 +113,7 @@ export default function AppDrawerHeader(props: Props) {
     props.type == "right"
   ) {
     return (
-      <View className="flex flex-row">
+      <View className="flex flex-row items-center">
         {(landscape || isTablet) && (
           <View className="mt-1 flex flex-row">
             {
@@ -157,7 +157,7 @@ export default function AppDrawerHeader(props: Props) {
         )}
         <TouchableOpacity
           testID={props.testID}
-          className={`flex justify-center mr-4 rounded-full ${landscape ? 'px-3' : ''}`}
+          className="flex justify-center items-center mr-4 h-10 w-10"
           onPress={toggleEye}
           accessibilityLabel={
             common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
@@ -176,7 +176,7 @@ export default function AppDrawerHeader(props: Props) {
     return (
       <TouchableOpacity
         testID={props.testID}
-        className="mr-4 rounded-full"
+        className="flex justify-center items-center mr-4 h-10 w-10"
         onPress={() =>
           (!isProtected || isLogin) ? navigation.goBack() : navigation.navigate("Login")
         }
@@ -193,7 +193,7 @@ export default function AppDrawerHeader(props: Props) {
   return (
     <TouchableOpacity
       testID={props.testID}
-      className="ml-4 rounded-full"
+      className="flex justify-center items-center ml-4 h-10 w-10"
       onPress={props.onPress}
       accessibilityLabel="Abrir menu drawer de páginas"
     >
