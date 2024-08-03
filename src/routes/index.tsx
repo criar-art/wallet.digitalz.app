@@ -91,7 +91,7 @@ export default function Routes(props: any) {
                 color: colorScheme === "dark" ? "white" : "black",
               },
               headerStyle: {
-                height: 100,
+                height: landscape ? 85 : 100,
                 backgroundColor:
                   colorScheme === "dark" ? "rgb(39 39 42)" : "white",
                 elevation: 0,

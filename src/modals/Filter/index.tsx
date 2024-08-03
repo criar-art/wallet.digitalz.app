@@ -199,9 +199,9 @@ export default function ModalFilter(props: { testID?: string }) {
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
-      <View className="mb-6 pt-4">
+      <View className="mb-4 pt-4">
         {modals?.modalFilter === "expense" && (
-          <View className="flex flex-row mb-4 w-full">
+          <View className="flex flex-row mb-2 w-full">
             {filterButtons.map((item: any) => (
               <RenderFilterButton
                 key={item.text}
