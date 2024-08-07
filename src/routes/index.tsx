@@ -1,10 +1,11 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MaterialIcons, Entypo } from "@expo/vector-icons";
+import { MaterialIcons, Entypo  } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
-import { RoutesTab } from "./RoutesTab";
+import { RoutesTabWallet } from "./RoutesTabWallet";
+import { RoutesTabBudget } from "./RoutesTabBudget";
 import Page from "@pages";
 import AppDrawer from "@components/navigation/Drawer";
 import { useTranslation } from "react-i18next";
@@ -29,7 +30,16 @@ export default function Routes(props: any) {
       drawerIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
       ),
-      component: RoutesTab,
+      component: RoutesTabWallet,
+    },
+    {
+      name: "Budget",
+      title: "Budget",
+      drawerLabel: "Budget",
+      drawerIcon: (props: any) => (
+        <MaterialIcons name="layers" size={props.size} color={props.color} />
+      ),
+      component: RoutesTabBudget,
     },
     {
       name: "Login",
