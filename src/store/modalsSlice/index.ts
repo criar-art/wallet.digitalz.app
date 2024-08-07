@@ -9,6 +9,8 @@ export const modalsSlice = createSlice({
     modalDelete: "",
     modalPay: "",
     modalFilter: "",
+    modalBudget: "",
+    modalBudgetTransaction: "",
   } as modals,
   reducers: {
     setModalInfo(state, payload) {
@@ -26,11 +28,19 @@ export const modalsSlice = createSlice({
     setModalFilter(state, payload) {
       state.modalFilter = payload.payload;
     },
+    setModalBudget(state, payload) {
+      state.modalBudget = payload.payload;
+    },
+    setModalBudgetTransaction(state, payload) {
+      state.modalBudgetTransaction = payload.payload;
+    },
     setCloseAllModals(state) {
       state.modalRegister = "";
       state.modalInfo = "";
       state.modalDelete = "";
       state.modalFilter = "";
+      state.modalBudget = "";
+      state.modalBudgetTransaction = "";
     },
   },
 });
@@ -41,6 +51,8 @@ export const {
   setModalDelete,
   setModalPay,
   setModalFilter,
+  setModalBudget,
+  setModalBudgetTransaction,
   setCloseAllModals,
 } = modalsSlice.actions;
 
