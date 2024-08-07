@@ -3,6 +3,8 @@ import ModalAlert from "./Delete";
 import ModalPay from "./Pay";
 import ModalInfo from "./Information";
 import ModalFilter from "./Filter";
+import ModalBudget from "./Budget";
+import ModalBudgetTransaction from "./BudgetTransaction";
 
 export default function ModalGlobal() {
   return (
@@ -12,6 +14,8 @@ export default function ModalGlobal() {
       <ModalPay />
       <ModalInfo />
       <ModalFilter />
+      <ModalBudget />
+      <ModalBudgetTransaction />
     </>
   );
 }
