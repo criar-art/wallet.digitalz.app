@@ -1,3 +1,5 @@
+// Registers
+
 export interface Register {
   id: string;
   type: string;
@@ -19,6 +21,8 @@ export interface PaginationTest {
   startIndex: number;
   endIndex: number;
 }
+
+// Common Types
 
 export interface CommonState {
   registers: Array<Register>;

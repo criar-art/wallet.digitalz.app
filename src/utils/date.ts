@@ -27,7 +27,6 @@ export const isDateTomorrow = (date: Date): boolean => {
 };
 
 export const sortDataByDateDesc = (data: any[]) => {
-  // return data
   return [...data].sort((a, b) => {
     const dateA = a.date;
     const dateB = b.date;
