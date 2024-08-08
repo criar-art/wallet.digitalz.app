@@ -10,6 +10,8 @@ import ItemTransaction from "./Item";
 import ItemBudget from "../Budget/Item";
 import useBudgetCalculations from "@hooks/useBudgetCalculations";
 import { Transcation } from "@store/budgetSlice/types";
+import useOrientation from "@hooks/useOrientation";
+import useIsTablet from "@hooks/useIsTablet";
 
 type BudgetCalculation = {
   totalTransactionsValue: number;
@@ -32,6 +34,8 @@ export default function BudgetScreen() {
   const idBudget = route.params?.id;
   const budgetContent = useBudgetCalculations(idBudget);
   const [optionsShow, setOptionsShow] = useState(null);
+  const { landscape } = useOrientation();
+  const isTablet = useIsTablet();
 
   function handlePressOptionsShow(id: any) {
     setOptionsShow((prevActiveItem: any) =>
@@ -63,50 +67,59 @@ export default function BudgetScreen() {
   }
 
   return (
-    <View testID="home-screen" className="flex-1 flex-col">
+    <View testID="home-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
       {isBudgetCalculation(budgetContent) && (
         <>
-          <ItemBudget
-            key={budgetContent.id}
-            item={budgetContent}
-            eyeStatus={common.eyeStatus}
-            edit={() => edit(budgetContent, 'budget')}
-            remove={() => remove(budgetContent.id, 'budget')}
-            optionsShow={optionsShow}
-            setOptionsShow={setOptionsShow}
-            handlePressOptionsShow={handlePressOptionsShow}
-          />
-          {budgetContent?.transactions.length ? (
-            <>
-              <Text className="p-2 m-3 text-black dark:text-white text-base">
-                Money Register
+          <View className={` ${landscape ? "flex-1" : ""}`}>
+            <ItemBudget
+              tw={`flex flex-col mt-6 shadow-lg ${
+                landscape || isTablet ? "mt-4 ml-6" : "mx-5"
+              }`}
+              key={budgetContent.id}
+              item={budgetContent}
+              eyeStatus={common.eyeStatus}
+              edit={() => edit(budgetContent, 'budget')}
+              remove={() => remove(budgetContent.id, 'budget')}
+              optionsShow={optionsShow}
+              setOptionsShow={setOptionsShow}
+              handlePressOptionsShow={handlePressOptionsShow}
+            />
+          </View>
+          <View className="flex-1">
+            {budgetContent?.transactions.length ? (
+              <>
+                {!landscape && (
+                  <Text className="p-2 m-3 text-black dark:text-white text-base">
+                    Money Register
+                  </Text>
+                )}
+                <ScrollView
+                  className={`flex flex-1 ${landscape ? "pt-4" : ""}`}
+                  scrollEventThrottle={16}
+                  contentContainerStyle={{
+                    paddingBottom: 80,
+                  }}
+                >
+                  {budgetContent?.transactions.map((item: any) => (
+                    <ItemTransaction
+                      key={item.id}
+                      item={item}
+                      eyeStatus={common.eyeStatus}
+                      edit={() => edit(item)}
+                      remove={() => remove(item.id)}
+                      optionsShow={optionsShow}
+                      setOptionsShow={setOptionsShow}
+                      handlePressOptionsShow={handlePressOptionsShow}
+                    />
+                  ))}
+                </ScrollView>
+              </>
+            ) : (
+              <Text className="p-4 text-black dark:text-white text-base text-center">
+                Create first money register for budget
               </Text>
-              <ScrollView
-                className="flex flex-1"
-                scrollEventThrottle={16}
-                contentContainerStyle={{
-                  paddingBottom: 80,
-                }}
-              >
-                {budgetContent?.transactions.map((item: any) => (
-                  <ItemTransaction
-                    key={item.id}
-                    item={item}
-                    eyeStatus={common.eyeStatus}
-                    edit={() => edit(item)}
-                    remove={() => remove(item.id)}
-                    optionsShow={optionsShow}
-                    setOptionsShow={setOptionsShow}
-                    handlePressOptionsShow={handlePressOptionsShow}
-                  />
-                ))}
-              </ScrollView>
-            </>
-          ) : (
-            <Text className="p-4 text-black dark:text-white text-base text-center">
-              Create first money register for budget
-            </Text>
-          )}
+            )}
+          </View>
         </>
       )}
     </View>

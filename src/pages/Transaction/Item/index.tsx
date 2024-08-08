@@ -40,7 +40,7 @@ function ItemTransaction(props: Props) {
     <TouchableOpacity
       testID={props.testID}
       onPress={() => props.handlePressOptionsShow(props.item.id)}
-      className="p-4 mx-3 mb-3 bg-white dark:bg-zinc-800 rounded-lg"
+      className="p-4 mx-5 mb-4 bg-white dark:bg-zinc-800 rounded-lg"
     >
       <Text className="text-black dark:text-white text-base">
         {props.item.name}
