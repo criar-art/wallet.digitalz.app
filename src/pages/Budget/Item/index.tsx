@@ -3,17 +3,17 @@ import { Text, View, Animated, TouchableOpacity } from "react-native";
 import { NavigationProp, ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
 import { NumericFormat } from "react-number-format";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 import {
   FontAwesome,
   MaterialCommunityIcons,
   MaterialIcons
 } from "@expo/vector-icons";
-import utils from "@utils";
 import Button from "@components/common/Button";
 import { currencySymbol } from "@utils/locale";
+import utils from "@utils";
+import RenderBadge from "../RenderBadge";
 import { Props } from "./types";
-import { formatDate } from "@utils/date";
-import { useTranslation } from "react-i18next";
 
 function ItemBudget(props: Props) {
   const { colorScheme } = useColorScheme();
@@ -43,11 +43,18 @@ function ItemBudget(props: Props) {
   const totalTransactionsValue = typeof props.item.totalTransactionsValue === 'number' ? props.item.totalTransactionsValue : 0;
   const remainingBudget = typeof props.item.remainingBudget === 'number' ? props.item.remainingBudget : 0;
   const isOverBudget = typeof props.item.isOverBudget === 'boolean' ? props.item.isOverBudget : false;
+  const completeBudget = totalTransactionsValue == props.item.value && remainingBudget == 0;
+
+  const badgeComputed = () => {
+    let badge = isOverBudget ? "remaining" : "within";
+    if(completeBudget) badge = "complete";
+    return badge;
+  }
 
   return (
     <TouchableOpacity
       key={props.item.id}
-      className="p-4 mx-3 mt-3 bg-white dark:bg-zinc-800 rounded-lg"
+      className="p-4 mx-5 mt-6 bg-white dark:bg-zinc-800 rounded-lg"
       onPress={() => {
         if(props?.setOptionsShow) {
           props.handlePressOptionsShow(props.item.id)
@@ -56,6 +63,7 @@ function ItemBudget(props: Props) {
         }
       }}
     >
+      <RenderBadge type={badgeComputed()} />
       <Text className="text-black dark:text-white text-xl">{props.item.name}</Text>
       {props.setOptionsShow && props.item.description && (
         <Text className="text-black dark:text-white text-base">{props.item.description}</Text>
@@ -73,7 +81,7 @@ function ItemBudget(props: Props) {
             <Text className="text-black dark:text-white mr-2">
               {t("common.totalBudget")}
             </Text>
-            <Text className="text-black dark:text-white font-bold text-xl">
+            <Text className={`text-black dark:text-white font-bold text-xl ${!!completeBudget && 'text-green-500'}`}>
               {utils.parseMoney(value, props.eyeStatus)}
             </Text>
           </View>
@@ -92,34 +100,33 @@ function ItemBudget(props: Props) {
             <Text className="text-black dark:text-white mr-2">
               {t("common.totalTransactionsValue")}:
             </Text>
-            <Text className="text-black dark:text-white font-bold text-base">
+            <Text className={`text-black dark:text-white font-bold text-base ${!!completeBudget && 'text-green-500'}`}>
               {utils.parseMoney(value, props.eyeStatus)}
             </Text>
           </View>
         )}
       />
-      <NumericFormat
-        value={remainingBudget}
-        displayType={"text"}
-        thousandSeparator={"."}
-        decimalSeparator={","}
-        decimalScale={2}
-        fixedDecimalScale
-        prefix={`${currencySymbol} `}
-        renderText={(value: string) => (
-          <View className="flex flex-row items-center">
-            <Text className="text-black dark:text-white mr-2">
-            {t("common.remainingBudget")}:
-            </Text>
-            <Text className={`text-base ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
-              {utils.parseMoney(value, props.eyeStatus)}
-            </Text>
-          </View>
-        )}
-      />
-      <Text className={`text-xl ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
-        {isOverBudget ? t("common.budgetExceeded") : t("common.withinBudget")}
-      </Text>
+      {!completeBudget && (
+        <NumericFormat
+          value={remainingBudget}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          decimalScale={2}
+          fixedDecimalScale
+          prefix={`${currencySymbol} `}
+          renderText={(value: string) => (
+            <View className="flex flex-row items-center">
+              <Text className="text-black dark:text-white mr-2">
+              {t("common.remainingBudget")}:
+              </Text>
+              <Text className={`text-base ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
+                {utils.parseMoney(value, props.eyeStatus)}
+              </Text>
+            </View>
+          )}
+        />
+      )}
       {props.setOptionsShow && (
         <>
           <View className="flex flex-row items-center mt-2">
@@ -129,7 +136,7 @@ function ItemBudget(props: Props) {
               color={colorScheme === "dark" ? "white" : "black"}
             />
             <Text className="ml-2 text-black dark:text-white text-base mr-2">
-              {t("common.createDate")}: {props.item.date_create && formatDate(props.item.date_create)}
+              {t("common.createDate")}: {props.item.date_create && utils.formatDate(props.item.date_create)}
             </Text>
           </View>
           <View className="flex flex-row items-center mt-2">
@@ -139,7 +146,7 @@ function ItemBudget(props: Props) {
               color={colorScheme === "dark" ? "white" : "black"}
             />
             <Text className="ml-2 text-black dark:text-white text-base">
-              {t("common.endDate")}: {props.item.date_end && formatDate(props.item.date_end)}
+              {t("common.endDate")}: {props.item.date_end && utils.formatDate(props.item.date_end)}
             </Text>
           </View>
         </>

@@ -45,8 +45,9 @@
     "totalBudget": "Total Budget",
     "totalTransactionsValue": "Total Money",
     "remainingBudget": "Remaining Budget",
-    "budgetExceeded": "Exceeded Budget",
-    "withinBudget": "Within Budget",
+    "budgetExceeded": "Exceeded",
+    "withinBudget": "Working",
+    "completeBudget": "Complete",
     "createDate": "Create",
     "endDate": "End Date"
   },
