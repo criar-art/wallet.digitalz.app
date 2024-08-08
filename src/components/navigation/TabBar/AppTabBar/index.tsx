@@ -20,10 +20,7 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
   const handleNewRegister = () => dispatch(setModalRegister("register"));
   const handleNewBudget = () => dispatch(setModalBudget("budget"));
   const handleAddMoney = () => dispatch(setModalBudgetTransaction({ id: idBudget, type: 'add' }));
-  // const handleAddMoney = () => console.log("test");
   const menuTranslateY = useRef(new Animated.Value(0)).current;
-
-  console.log(idBudget)
 
   useEffect(() => {
     if (common.menuVisible) {

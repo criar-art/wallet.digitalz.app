@@ -36,8 +36,6 @@ export default function ModalBudget(props: { testID?: string }) {
   const isOpenModal = (): boolean => !!modals?.modalBudgetTransaction;
   const idBudget = modals?.modalBudgetTransaction?.id;
 
-  console.log(idBudget)
-
   const handleChange = (
     value: string | boolean | Date | null,
     name: string
