@@ -6,7 +6,8 @@
     "login": "Accedi",
     "expense": "Spesa",
     "entry": "Entrata",
-    "investment": "Investimento"
+    "investment": "Investimento",
+    "budget": "Bilancio"
   },
   "common": {
     "version": "Versione",
@@ -26,6 +27,10 @@
     "empty_register": "Nessun record registrato",
     "new_register": "Nuovo registro",
     "edit_register": "Modifica registro",
+    "new_budget": "Nuovo Bilancio",
+    "edit_budget": "Modifica Bilancio",
+    "new_transaction": "Nuova Transazione",
+    "edit_transaction": "Modifica Transazione",
     "btn_create": "Crea",
     "btn_save": "Salva",
     "btn_confirm": "Conferma",
@@ -36,7 +41,15 @@
     "alert_delete": "Sei sicuro di voler eliminare?",
     "alert_paid": "Sei sicuro di voler contrassegnare come pagato?",
     "privacy": "Informativa sulla privacy",
-    "summary": "Riepilogo percentuale"
+    "summary": "Riepilogo percentuale",
+    "totalBudget": "Bilancio Totale",
+    "totalTransactionsValue": "Totale Denaro",
+    "remainingBudget": "Bilancio Rimanente",
+    "budgetExceeded": "Superato",
+    "withinBudget": "Funzionante",
+    "completeBudget": "Completo",
+    "createDate": "Crea",
+    "endDate": "Data di Fine"
   },
   "filter": {
     "btn": "Filtra",
@@ -60,7 +73,8 @@
     "select": "Seleziona",
     "situation": "Situation",
     "paid_out": "Pagato",
-    "pending": "In sospeso"
+    "pending": "In sospeso",
+    "description": "Descrizione"
   },
   "badge": {
     "due_today": "SCADENZA OGGI",

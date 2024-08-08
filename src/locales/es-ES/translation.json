@@ -6,7 +6,8 @@
     "login": "Iniciar sesión",
     "expense": "Gasto",
     "entry": "Entrada",
-    "investment": "Inversión"
+    "investment": "Inversión",
+    "budget": "Presupuesto"
   },
   "common": {
     "version": "Versión",
@@ -26,6 +27,10 @@
     "empty_register": "Ningún registro registrado",
     "new_register": "Nuevo Registro",
     "edit_register": "Editar Registro",
+    "new_budget": "Nuevo Presupuesto",
+    "edit_budget": "Editar Presupuesto",
+    "new_transaction": "Nueva Transacción",
+    "edit_transaction": "Editar Transacción",
     "btn_create": "Crear",
     "btn_save": "Guardar",
     "btn_confirm": "Confirmar",
@@ -36,7 +41,15 @@
     "alert_delete": "¿Estás seguro de que deseas eliminar?",
     "alert_paid": "¿Estás seguro de que deseas marcar como pagado?",
     "privacy": "Política de Privacidad",
-    "summary": "Resumen porcentual"
+    "summary": "Resumen porcentual",
+    "totalBudget": "Total Budget",
+    "totalTransactionsValue": "Total Money",
+    "remainingBudget": "Remaining Budget",
+    "budgetExceeded": "Exceeded",
+    "withinBudget": "Working",
+    "completeBudget": "Complete",
+    "createDate": "Create",
+    "endDate": "End Date"
   },
   "filter": {
     "btn": "Filtro",
@@ -60,7 +73,8 @@
     "select": "Seleccionar",
     "situation": "Situación",
     "paid_out": "Pagado",
-    "pending": "Pendiente"
+    "pending": "Pendiente",
+    "description": "Descripción"
   },
   "badge": {
     "due_today": "VENCE HOY",

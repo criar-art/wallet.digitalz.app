@@ -6,7 +6,8 @@
     "login": "Connexion",
     "expense": "Dépense",
     "entry": "Entrée",
-    "investment": "Investissement"
+    "investment": "Investissement",
+    "budget": "Budget"
   },
   "common": {
     "version": "Version",
@@ -26,6 +27,10 @@
     "empty_register": "Aucun enregistrement enregistré",
     "new_register": "Nouvel enregistrement",
     "edit_register": "Modifier l'enregistrement",
+    "new_budget": "Nouveau Budget",
+    "edit_budget": "Modifier le Budget",
+    "new_transaction": "Nouvelle Transaction",
+    "edit_transaction": "Modifier la Transaction",
     "btn_create": "Créer",
     "btn_save": "Enregistrer",
     "btn_confirm": "Confirmer",
@@ -36,7 +41,15 @@
     "alert_delete": "Êtes-vous sûr de vouloir supprimer ?",
     "alert_paid": "Êtes-vous sûr de vouloir marquer comme payé ?",
     "privacy": "Politique de confidentialité",
-    "summary": "Résumé en pourcentage"
+    "summary": "Résumé en pourcentage",
+    "totalBudget": "Budget Total",
+    "totalTransactionsValue": "Argent Total",
+    "remainingBudget": "Budget Restant",
+    "budgetExceeded": "Dépassé",
+    "withinBudget": "Fonctionnel",
+    "completeBudget": "Complet",
+    "createDate": "Créer",
+    "endDate": "Date de Fin"
   },
   "filter": {
     "btn": "Filtrer",
@@ -60,7 +73,8 @@
     "select": "Sélectionner",
     "situation": "Situation",
     "paid_out": "Payé",
-    "pending": "En attente"
+    "pending": "En attente",
+    "description": "Description"
   },
   "badge": {
     "due_today": "ÉCHÉANCE AUJOURD'HUI",
