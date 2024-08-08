@@ -121,7 +121,7 @@ function ItemBudget(props: Props) {
               <Text className="text-black dark:text-white mr-2">
               {t("common.remainingBudget")}:
               </Text>
-              <Text className={`text-base ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
+              <Text className={`text-base ${isOverBudget ? 'text-red-500 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-300'}`}>
                 {utils.parseMoney(value, props.eyeStatus)}
               </Text>
             </View>
