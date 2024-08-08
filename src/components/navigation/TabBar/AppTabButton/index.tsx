@@ -3,7 +3,7 @@ import { useColorScheme } from "nativewind";
 import utils from "@utils";
 import { Props } from "./types";
 
-export default function NavigationButton({
+export default function AppTabButton({
   twClass,
   name,
   labelButton,
