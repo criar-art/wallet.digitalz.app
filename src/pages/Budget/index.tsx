@@ -35,7 +35,7 @@ export default function BudgetScreen() {
   }
 
   return (
-    <View testID="home-screen" className="flex-1 justify-between flex-col">
+    <View testID="budget-screen" className="flex-1 justify-between flex-col">
       <ScrollView
         className="flex flex-1"
         scrollEventThrottle={16}

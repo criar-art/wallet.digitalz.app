@@ -53,6 +53,7 @@ function ItemBudget(props: Props) {
 
   return (
     <TouchableOpacity
+      testID={props.testID}
       key={props.item.id}
       className={`p-4 bg-white dark:bg-zinc-800 rounded-lg ${props.tw ? props.tw : ""}`}
       onPress={() => {

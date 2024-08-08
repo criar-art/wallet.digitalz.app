@@ -69,7 +69,7 @@ export default function BudgetScreen() {
   }
 
   return (
-    <View testID="home-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
+    <View testID="transaction-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
       {isBudgetCalculation(budgetContent) && (
         <>
           <View className={` ${landscape ? "flex-1" : ""}`}>

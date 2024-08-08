@@ -11,6 +11,7 @@ test("should render AppTabButton", () => {
   const { getByTestId } = render(
     <AppTabButton
       key={1}
+      name="test button"
       labelButton="Test"
       isFocused={false}
       onPress={() => console.log("test")}
