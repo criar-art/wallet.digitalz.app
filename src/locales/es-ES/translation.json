@@ -82,7 +82,7 @@
     "due_today": "VENCE HOY",
     "due_tomorrow": "VENCE MAÑANA",
     "available_today": "DISPONIBLE HOY",
-    "available_tomorrou": "DISPONIBLE MAÑANA",
+    "available_tomorrow": "DISPONIBLE MAÑANA",
     "overdue": "VENCIDO",
     "available": "DISPONIBLE",
     "paid": "PAGADO"

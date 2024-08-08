@@ -82,7 +82,7 @@
     "due_today": "СРОК СЕГОДНЯ",
     "due_tomorrow": "СРОК ЗАВТРА",
     "available_today": "ДОСТУПНО СЕГОДНЯ",
-    "available_tomorrou": "ДОСТУПНО ЗАВТРА",
+    "available_tomorrow": "ДОСТУПНО ЗАВТРА",
     "overdue": "ПРОСРОЧЕНО",
     "available": "ДОСТУПНО",
     "paid": "ОПЛАЧЕНО"
