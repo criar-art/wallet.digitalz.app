@@ -6,8 +6,7 @@ import { useColorScheme } from "nativewind";
 import {
   FontAwesome,
   MaterialCommunityIcons,
-  MaterialIcons,
-  SimpleLineIcons,
+  MaterialIcons
 } from "@expo/vector-icons";
 import utils from "@utils";
 import Button from "@components/common/Button";
@@ -25,7 +24,7 @@ function ItemBudget(props: Props) {
   const optionsShow = props.optionsShow === props.item.id;
 
   useEffect(() => {
-    if (!isFocused) props.setOptionsShow(null);
+    if (!isFocused && props?.setOptionsShow) props?.setOptionsShow(null);
   }, [isFocused]);
 
   useEffect(() => {
@@ -40,13 +39,27 @@ function ItemBudget(props: Props) {
     };
   }, [optionsShow, fadeAnim]);
 
+  // Ensure totalTransactionsValue and remainingBudget are numbers
+  const totalTransactionsValue = typeof props.item.totalTransactionsValue === 'number' ? props.item.totalTransactionsValue : 0;
+  const remainingBudget = typeof props.item.remainingBudget === 'number' ? props.item.remainingBudget : 0;
+  const isOverBudget = typeof props.item.isOverBudget === 'boolean' ? props.item.isOverBudget : false;
+
   return (
     <TouchableOpacity
       key={props.item.id}
       className="p-4 mx-3 mt-3 bg-white dark:bg-zinc-800 rounded-lg"
-      onPress={() => navigation.navigate('Transaction', { id: props.item.id })}
+      onPress={() => {
+        if(props?.setOptionsShow) {
+          props.handlePressOptionsShow(props.item.id)
+        } else{
+          navigation.navigate('Transaction', { id: props.item.id })
+        }
+      }}
     >
       <Text className="text-black dark:text-white text-xl">{props.item.name}</Text>
+      {props.setOptionsShow && props.item.description && (
+        <Text className="text-black dark:text-white text-base">{props.item.description}</Text>
+      )}
       <NumericFormat
         value={props.item.value}
         displayType={"text"}
@@ -58,7 +71,7 @@ function ItemBudget(props: Props) {
         renderText={(value: string) => (
           <View className="flex flex-row items-center">
             <Text className="text-black dark:text-white mr-2">
-              {t("common.total")}
+              {t("common.totalBudget")}
             </Text>
             <Text className="text-black dark:text-white font-bold text-xl">
               {utils.parseMoney(value, props.eyeStatus)}
@@ -66,69 +79,102 @@ function ItemBudget(props: Props) {
           </View>
         )}
       />
-      <View className="flex flex-row items-center">
-        <FontAwesome
-          name="calendar"
-          size={20}
-          color={colorScheme === "dark" ? "white" : "black"}
-        />
-        <Text className="ml-2 text-black dark:text-white text-base mr-2">
-          Create: {props.item.date_create && formatDate(props.item.date_create)}
-        </Text>
-      </View>
-      <View className="flex flex-row items-center">
-        <FontAwesome
-          name="calendar"
-          size={20}
-          color={colorScheme === "dark" ? "white" : "black"}
-        />
-        <Text className="ml-2 text-black dark:text-white text-base">
-          End: {props.item.date_end && formatDate(props.item.date_end)}
-        </Text>
-      </View>
-    <Button
-      twClass="absolute top-[50%] -translate-y-3 right-2 z-20 w-10 h-10 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
-      label="Actions"
-      onPress={() => props.handlePressOptionsShow(props.item.id)}
-      icon={
-        <SimpleLineIcons
-          name="options-vertical"
-          size={18}
-          color={colorScheme === "dark" ? "white" : "#888"}
-        />
-      }
-    />
-    <Animated.View
-      className="flex flex-row items-center z-19 absolute top-0 right-10 bottom-0 bg-white"
-      style={{ opacity: fadeAnim }}
-      pointerEvents={!optionsShow ? "none" : "auto"}
-    >
-      <Button
-        twClass="z-20 w-14 h-14 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
-        onPress={props.edit}
-        label={`Editar registro ${props.item.name}`}
-        icon={
-          <MaterialIcons
-            name="edit"
-            size={22}
-            color={colorScheme === "dark" ? "white" : "black"}
-          />
-        }
+      <NumericFormat
+        value={totalTransactionsValue}
+        displayType={"text"}
+        thousandSeparator={"."}
+        decimalSeparator={","}
+        decimalScale={2}
+        fixedDecimalScale
+        prefix={`${currencySymbol} `}
+        renderText={(value: string) => (
+          <View className="flex flex-row items-center">
+            <Text className="text-black dark:text-white mr-2">
+              {t("common.totalTransactionsValue")}:
+            </Text>
+            <Text className="text-black dark:text-white font-bold text-base">
+              {utils.parseMoney(value, props.eyeStatus)}
+            </Text>
+          </View>
+        )}
       />
-      <Button
-        twClass="z-20 w-14 h-14 m-2 mr-4 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
-        onPress={props.remove}
-        label={`Excluir registro ${props.item.name}`}
-        icon={
-          <MaterialCommunityIcons
-            name="trash-can-outline"
-            size={22}
-            color={colorScheme === "dark" ? "rgb(252 165 165)" : "red"}
-          />
-        }
+      <NumericFormat
+        value={remainingBudget}
+        displayType={"text"}
+        thousandSeparator={"."}
+        decimalSeparator={","}
+        decimalScale={2}
+        fixedDecimalScale
+        prefix={`${currencySymbol} `}
+        renderText={(value: string) => (
+          <View className="flex flex-row items-center">
+            <Text className="text-black dark:text-white mr-2">
+            {t("common.remainingBudget")}:
+            </Text>
+            <Text className={`text-base ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
+              {utils.parseMoney(value, props.eyeStatus)}
+            </Text>
+          </View>
+        )}
       />
-    </Animated.View>
-  </TouchableOpacity>
+      <Text className={`text-xl ${isOverBudget ? 'text-red-500' : 'text-green-500'}`}>
+        {isOverBudget ? t("common.budgetExceeded") : t("common.withinBudget")}
+      </Text>
+      {props.setOptionsShow && (
+        <>
+          <View className="flex flex-row items-center mt-2">
+            <FontAwesome
+              name="calendar"
+              size={20}
+              color={colorScheme === "dark" ? "white" : "black"}
+            />
+            <Text className="ml-2 text-black dark:text-white text-base mr-2">
+              {t("common.createDate")}: {props.item.date_create && formatDate(props.item.date_create)}
+            </Text>
+          </View>
+          <View className="flex flex-row items-center mt-2">
+            <FontAwesome
+              name="calendar"
+              size={20}
+              color={colorScheme === "dark" ? "white" : "black"}
+            />
+            <Text className="ml-2 text-black dark:text-white text-base">
+              {t("common.endDate")}: {props.item.date_end && formatDate(props.item.date_end)}
+            </Text>
+          </View>
+        </>
+      )}
+      <Animated.View
+        className="flex flex-row items-center z-20 absolute top-0 right-0 bottom-0"
+        style={{ opacity: fadeAnim }}
+        pointerEvents={!optionsShow ? "none" : "auto"}
+      >
+        <Button
+          twClass="z-20 w-14 h-14 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
+          onPress={props.edit}
+          label={`Editar registro ${props.item.name}`}
+          icon={
+            <MaterialIcons
+              name="edit"
+              size={22}
+              color={colorScheme === "dark" ? "white" : "black"}
+            />
+          }
+        />
+        <Button
+          twClass="z-20 w-14 h-14 m-2 mr-4 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
+          onPress={props.remove}
+          label={`Excluir registro ${props.item.name}`}
+          icon={
+            <MaterialCommunityIcons
+              name="trash-can-outline"
+              size={22}
+              color={colorScheme === "dark" ? "rgb(252 165 165)" : "red"}
+            />
+          }
+        />
+      </Animated.View>
+    </TouchableOpacity>
   );
 }
 

@@ -3,8 +3,8 @@ export type Props = {
   item: any;
   eyeStatus: boolean;
   orientation?: number | null;
-  edit: any;
-  remove: any;
+  edit?: any;
+  remove?: any;
   setOptionsShow?: any;
   optionsShow?: any;
   handlePressOptionsShow?: any;

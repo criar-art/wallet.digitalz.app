@@ -1,42 +1,32 @@
-import { ScrollView, View } from "react-native";
-import useOrientation from "@hooks/useOrientation";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setModalBudget } from "@store/modalsSlice";
+import { ScrollView, View, Text } from "react-native";
+import { useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
-import { setBudgetData } from "@store/commonSlice";
-import { setDeleteBudget } from "@store/budgetSlice";
-import utils from "@utils";
-import { useTranslation } from "react-i18next";
-import { useColorScheme } from "nativewind";
 import Item from "./Item";
-import { useState } from "react";
+import useBudgetCalculations from '@hooks/useBudgetCalculations'; // Adjust the path as necessary
+import { Transcation } from "@store/budgetSlice/types";
+
+type BudgetCalculation = {
+  totalTransactionsValue: number;
+  remainingBudget: number;
+  isOverBudget: boolean;
+  id: string;
+  name: string;
+  description: string;
+  value: number;
+  date_end: Date | null;
+  date_create: Date | null;
+  transactions: Transcation[];
+};
 
 export default function BudgetScreen() {
-
-  const dispatch = useAppDispatch();
-  const { landscape } = useOrientation();
-
-  const { colorScheme } = useColorScheme();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const budgets = useAppSelector(
-    (state: RootState) => state.budgetState.budgets
-  );
+  const budgetCalculations = useBudgetCalculations();
 
-  const [optionsShow, setOptionsShow] = useState(null);
-
-  function handlePressOptionsShow(id: any) {
-    setOptionsShow((prevActiveItem: any) =>
-      prevActiveItem === id ? null : id
-    );
-  }
-
-  function edit(target: any) {
-    dispatch(setModalBudget('edit'));
-    dispatch(setBudgetData({ ...target }));
-  }
-
-  function remove(id: any) {
-    dispatch(setDeleteBudget(id));
+  // Type guard to check if budgetCalculations is an array
+  function isBudgetArray(
+    calculations: BudgetCalculation[] | BudgetCalculation | null
+  ): calculations is BudgetCalculation[] {
+    return Array.isArray(calculations);
   }
 
   return (
@@ -45,21 +35,28 @@ export default function BudgetScreen() {
         className="flex flex-1"
         scrollEventThrottle={16}
         contentContainerStyle={{
-          paddingBottom: 10,
+          paddingBottom: 100,
         }}
       >
-        {budgets.map((item: any) => (
-          <Item
-           key={item.id}
-            item={item}
-            eyeStatus={common.eyeStatus}
-            edit={() => edit(item)}
-            remove={() => remove(item.id)}
-            optionsShow={optionsShow}
-            setOptionsShow={setOptionsShow}
-            handlePressOptionsShow={handlePressOptionsShow}
-          />
-        ))}
+        {budgetCalculations ? (
+          isBudgetArray(budgetCalculations) ? (
+            budgetCalculations.length > 0 ? (
+              budgetCalculations.map((item: BudgetCalculation) => (
+                <Item
+                  key={item.id}
+                  item={item}
+                  eyeStatus={common.eyeStatus}
+                />
+              ))
+            ) : (
+              <Text>No budgets available</Text>
+            )
+          ) : (
+            <Text>Error: Expected an array of budget calculations</Text>
+          )
+        ) : (
+          <Text>Loading...</Text>
+        )}
       </ScrollView>
     </View>
   );
