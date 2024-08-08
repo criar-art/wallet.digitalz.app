@@ -49,7 +49,9 @@
     "withinBudget": "正常",
     "completeBudget": "完成",
     "createDate": "创建",
-    "endDate": "结束日期"
+    "endDate": "结束日期",
+    "moneyRegister": "资金登记",
+    "createFirstMoneyRegister": "为预算创建第一个资金登记"
   },
   "filter": {
     "btn": "筛选",
@@ -74,7 +76,7 @@
     "situation": "情况",
     "paid_out": "已支付",
     "pending": "待处理",
-     "description": "描述"
+    "description": "描述"
   },
   "badge": {
     "due_today": "今日到期",

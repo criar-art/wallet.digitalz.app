@@ -34,7 +34,7 @@ export default function Routes(props: any) {
     },
     {
       name: "Budget",
-      title: "Budget",
+      title: t("routes.budget"),
       drawerLabel: "Budget",
       drawerIcon: (props: any) => (
         <MaterialIcons name="layers" size={props.size} color={props.color} />

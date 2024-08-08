@@ -49,7 +49,9 @@
     "withinBudget": "Working",
     "completeBudget": "Complete",
     "createDate": "Create",
-    "endDate": "End Date"
+    "endDate": "End Date",
+    "moneyRegister": "Registro de Dinero",
+    "createFirstMoneyRegister": "Crea el primer registro de dinero para el presupuesto"
   },
   "filter": {
     "btn": "Filtro",

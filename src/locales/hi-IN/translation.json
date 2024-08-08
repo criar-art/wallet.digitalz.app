@@ -49,7 +49,9 @@
     "withinBudget": "कार्यरत",
     "completeBudget": "पूर्ण",
     "createDate": "बनाएं",
-    "endDate": "समाप्ति तिथि"
+    "endDate": "समाप्ति तिथि",
+    "moneyRegister": "मनी रजिस्टर",
+    "createFirstMoneyRegister": "बजट के लिए पहला मनी रजिस्टर बनाएं"
   },
   "filter": {
     "btn": "फ़िल्टर",

@@ -46,10 +46,12 @@
     "totalTransactionsValue": "Dinheiro Total",
     "remainingBudget": "Orçamento Restante",
     "budgetExceeded": "Excedido",
-    "withinBudget": "Funcionando",
+    "withinBudget": "Progresso",
     "completeBudget": "Completo",
     "createDate": "Criar",
-    "endDate": "Data de Término"
+    "endDate": "Data de Término",
+    "moneyRegister": "Registro de Dinheiro",
+    "createFirstMoneyRegister": "Crie o primeiro registro de dinheiro para o orçamento"
   },
   "filter": {
     "btn": "Filtro",

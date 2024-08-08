@@ -49,7 +49,9 @@
     "withinBudget": "Работающий",
     "completeBudget": "Завершён",
     "createDate": "Создать",
-    "endDate": "Дата Окончания"
+    "endDate": "Дата Окончания",
+    "moneyRegister": "Регистрация Денег",
+    "createFirstMoneyRegister": "Создайте первый учёт денег для бюджета"
   },
   "filter": {
     "btn": "Фильтр",

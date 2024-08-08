@@ -49,7 +49,9 @@
     "withinBudget": "Fonctionnel",
     "completeBudget": "Complet",
     "createDate": "Créer",
-    "endDate": "Date de Fin"
+    "endDate": "Date de Fin",
+    "moneyRegister": "Registre d'Argent",
+    "createFirstMoneyRegister": "Créez le premier registre d'argent pour le budget"
   },
   "filter": {
     "btn": "Filtrer",

@@ -12,6 +12,7 @@ import useBudgetCalculations from "@hooks/useBudgetCalculations";
 import { Transcation } from "@store/budgetSlice/types";
 import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
+import { useTranslation } from "react-i18next";
 
 type BudgetCalculation = {
   totalTransactionsValue: number;
@@ -29,6 +30,7 @@ type BudgetCalculation = {
 export default function BudgetScreen() {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const route: any = useRoute();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const idBudget = route.params?.id;
@@ -90,7 +92,7 @@ export default function BudgetScreen() {
               <>
                 {!landscape && (
                   <Text className="p-2 m-3 text-black dark:text-white text-base">
-                    Money Register
+                    {t("common.moneyRegister")}
                   </Text>
                 )}
                 <ScrollView
@@ -116,7 +118,7 @@ export default function BudgetScreen() {
               </>
             ) : (
               <Text className="p-4 text-black dark:text-white text-base text-center">
-                Create first money register for budget
+                {t("common.createFirstMoneyRegister")}
               </Text>
             )}
           </View>
