@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
 import TabBar from "@components/navigation/TabBar";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
 
-export function RoutesTab() {
+export function RoutesTabBudget() {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { getQuantity } = useBalance();
@@ -38,28 +38,23 @@ export function RoutesTab() {
 
   const viewsTab = [
     {
-      name: "Home",
-      title: "Geral",
-      tabBarLabel: t("routes.home"),
+      name: "HomeBudget",
+      title: "HomeBudget",
+      tabBarLabel: t("routes.budget"),
       tabBarIcon: (props: any) => (
-        <MaterialIcons name="home" size={props.size} color={props.color} />
+        <MaterialIcons name="layers" size={props.size} color={props.color} />
       ),
-      children: <Page.Home />,
+      children: <Page.Budget />,
     },
-    configRegisterScreen("Expense", t("routes.expense"), (props: any) => (
-      <MaterialCommunityIcons
-        name="cash-remove"
-        size={props.size}
-        color={props.color}
-      />
-    )),
-    configRegisterScreen("Entry", t("routes.entry"), (props: any) => (
-      <MaterialCommunityIcons
-        name="cash-plus"
-        size={props.size}
-        color={props.color}
-      />
-    )),
+    {
+      name: "Transaction",
+      title: "Transaction",
+      tabBarLabel: t("routes.transaction"),
+      tabBarIcon: (props: any) => (
+        <MaterialIcons name="money" size={props.size} color={props.color} />
+      ),
+      children: <Page.Transaction />,
+    },
     configRegisterScreen("Investment", t("routes.investment"), (props: any) => (
       <MaterialIcons name="trending-up" size={props.size} color={props.color} />
     )),
@@ -68,12 +63,7 @@ export function RoutesTab() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      tabBar={(props) => <TabBar {...props} />}
-      screenListeners={{
-        state: () => {
-          dispatch(setMenuVisible(true));
-        },
-      }}
+      tabBar={(props) => <TabBar {...props} type="budget" />}
     >
       {viewsTab.map((item: any) => (
         <Tab.Screen

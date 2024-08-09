@@ -6,7 +6,8 @@
     "login": "Login",
     "expense": "Expense",
     "entry": "Entry",
-    "investment": "Investment"
+    "investment": "Investment",
+    "budget": "Budget"
   },
   "common": {
     "version": "Version",
@@ -26,6 +27,10 @@
     "empty_register": "No records registered",
     "new_register": "New Register",
     "edit_register": "Edit Register",
+    "new_budget": "New Budget",
+    "edit_budget": "Edit Budget",
+    "new_transaction": "New Transaction",
+    "edit_transaction": "Edit Transaction",
     "btn_create": "Create",
     "btn_save": "Save",
     "btn_confirm": "Confirm",
@@ -36,7 +41,17 @@
     "alert_delete": "Are you sure you want to delete?",
     "alert_paid": "Are you sure you want to mark as paid?",
     "privacy": "Privacy Policy",
-    "summary": "Percentage Summary"
+    "summary": "Percentage Summary",
+    "totalBudget": "Total Budget",
+    "totalTransactionsValue": "Total Money",
+    "remainingBudget": "Remaining Budget",
+    "budgetExceeded": "Exceeded",
+    "withinBudget": "Working",
+    "completeBudget": "Complete",
+    "createDate": "Create",
+    "endDate": "End Date",
+    "moneyRegister": "Money Register",
+    "createFirstMoneyRegister": "Create first money register for budget"
   },
   "filter": {
     "btn": "Filter",
@@ -60,7 +75,8 @@
     "select": "Select",
     "situation": "Situation",
     "paid_out": "Paid Out",
-    "pending": "Pending"
+    "pending": "Pending",
+    "description": "Description"
   },
   "badge": {
     "due_today": "DUE TODAY",

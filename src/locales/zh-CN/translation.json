@@ -6,7 +6,8 @@
     "login": "登录",
     "expense": "支出",
     "entry": "收入",
-    "investment": "投资"
+    "investment": "投资",
+    "budget": "预算"
   },
   "common": {
     "version": "版本",
@@ -26,6 +27,10 @@
     "empty_register": "无记录注册",
     "new_register": "新注册",
     "edit_register": "编辑注册",
+    "new_budget": "新预算",
+    "edit_budget": "编辑预算",
+    "new_transaction": "新交易",
+    "edit_transaction": "编辑交易",
     "btn_create": "创建",
     "btn_save": "保存",
     "btn_confirm": "确认",
@@ -36,7 +41,17 @@
     "alert_delete": "您确定要删除吗？",
     "alert_paid": "您确定要标记为已支付吗？",
     "privacy": "隐私政策",
-    "summary": "百分比摘要"
+    "summary": "百分比摘要",
+    "totalBudget": "总预算",
+    "totalTransactionsValue": "总金额",
+    "remainingBudget": "剩余预算",
+    "budgetExceeded": "超出",
+    "withinBudget": "正常",
+    "completeBudget": "完成",
+    "createDate": "创建",
+    "endDate": "结束日期",
+    "moneyRegister": "资金登记",
+    "createFirstMoneyRegister": "为预算创建第一个资金登记"
   },
   "filter": {
     "btn": "筛选",
@@ -60,7 +75,8 @@
     "select": "选择",
     "situation": "情况",
     "paid_out": "已支付",
-    "pending": "待处理"
+    "pending": "待处理",
+    "description": "描述"
   },
   "badge": {
     "due_today": "今日到期",

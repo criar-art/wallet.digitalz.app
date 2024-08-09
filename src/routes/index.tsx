@@ -1,14 +1,16 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MaterialIcons, Entypo } from "@expo/vector-icons";
+import { MaterialIcons, Entypo  } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import useOrientation from "@hooks/useOrientation";
-import { useAppSelector } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
-import { RoutesTab } from "./RoutesTab";
+import { RoutesTabWallet } from "./RoutesTabWallet";
+import { RoutesTabBudget } from "./RoutesTabBudget";
 import Page from "@pages";
 import AppDrawer from "@components/navigation/Drawer";
 import { useTranslation } from "react-i18next";
 import useIsTablet from "@hooks/useIsTablet";
+import { setMenuVisible } from "@store/commonSlice";
 
 const Drawer = createDrawerNavigator();
 
@@ -17,6 +19,7 @@ export default function Routes(props: any) {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const { colorScheme } = useColorScheme();
+  const dispatch = useAppDispatch();
   const { isLogin, isProtected } = useAppSelector(
     (state: RootState) => state.userState
   );
@@ -29,7 +32,16 @@ export default function Routes(props: any) {
       drawerIcon: (props: any) => (
         <MaterialIcons name="home" size={props.size} color={props.color} />
       ),
-      component: RoutesTab,
+      component: RoutesTabWallet,
+    },
+    {
+      name: "Budget",
+      title: t("routes.budget"),
+      drawerLabel: "Budget",
+      drawerIcon: (props: any) => (
+        <MaterialIcons name="layers" size={props.size} color={props.color} />
+      ),
+      component: RoutesTabBudget,
     },
     {
       name: "Login",
@@ -64,6 +76,11 @@ export default function Routes(props: any) {
     <Drawer.Navigator
       initialRouteName={(!isProtected || isLogin) ? "Root" : "Login"}
       drawerContent={(props: any) => <AppDrawer.Content {...props} />}
+      screenListeners={{
+        state: () => {
+          dispatch(setMenuVisible(true));
+        },
+      }}
     >
       {pages.map(({ name, title, drawerIcon, drawerLabel, component }) => {
         if (

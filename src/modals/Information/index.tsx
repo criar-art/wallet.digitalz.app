@@ -7,7 +7,6 @@ import useAuthentication from "@hooks/useAuthentication";
 import { RootState } from "@store";
 import { setModalInfo } from "@store/modalsSlice";
 import { setIsProtected } from "@store/userSlice";
-import utils from "@utils";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import Button from "@components/common/Button";

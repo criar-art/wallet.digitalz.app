@@ -3,7 +3,7 @@ import { useColorScheme } from "nativewind";
 import utils from "@utils";
 import { Props } from "./types";
 
-export default function NavigationButton({
+export default function AppTabButton({
   twClass,
   name,
   labelButton,
@@ -13,6 +13,10 @@ export default function NavigationButton({
   options,
 }: Props) {
   const { colorScheme } = useColorScheme();
+
+  if(!options.tabBarIcon) {
+    return;
+  }
 
   return (
     <Pressable
@@ -42,7 +46,7 @@ export default function NavigationButton({
         </Text>
       )}
       <View
-        className="mt-1 h-2 w-full rounded-full h-2"
+        className="mt-1 h-2 w-full rounded-full"
         style={
           isFocused && {
             backgroundColor: utils.renderColorType(

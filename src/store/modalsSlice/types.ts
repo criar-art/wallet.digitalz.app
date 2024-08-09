@@ -4,4 +4,6 @@ export interface modals {
   modalDelete: any;
   modalPay: any;
   modalFilter: string;
+  modalBudget: string;
+  modalBudgetTransaction: any;
 }

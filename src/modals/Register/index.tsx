@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Keyboard, Switch, Text, View } from "react-native";
+import { Keyboard, View } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigationState } from "@react-navigation/native";
 import uuid from "react-native-uuid";

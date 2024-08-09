@@ -6,7 +6,8 @@
     "login": "लॉगिन",
     "expense": "व्यय",
     "entry": "एंट्री",
-    "investment": "निवेश"
+    "investment": "निवेश",
+    "budget": "बजट"
   },
   "common": {
     "version": "संस्करण",
@@ -26,6 +27,10 @@
     "empty_register": "कोई रिकॉर्ड पंजीकृत नहीं",
     "new_register": "नया पंजीकरण",
     "edit_register": "पंजीकरण संपादित करें",
+    "new_budget": "नया बजट",
+    "edit_budget": "बजट संपादित करें",
+    "new_transaction": "नया लेनदेन",
+    "edit_transaction": "लेनदेन संपादित करें",
     "btn_create": "बनाएं",
     "btn_save": "सहेजें",
     "btn_confirm": "पुष्टि करें",
@@ -36,7 +41,17 @@
     "alert_delete": "क्या आपको वाकई हटाना है?",
     "alert_paid": "क्या आपको वाकई इसे भुगतान के रूप में चिह्नित करना है?",
     "privacy": "गोपनीयता नीति",
-    "summary": "प्रतिशत सारांश"
+    "summary": "प्रतिशत सारांश",
+    "totalBudget": "कुल बजट",
+    "totalTransactionsValue": "कुल धनराशि",
+    "remainingBudget": "शेष बजट",
+    "budgetExceeded": "अधिक",
+    "withinBudget": "कार्यरत",
+    "completeBudget": "पूर्ण",
+    "createDate": "बनाएं",
+    "endDate": "समाप्ति तिथि",
+    "moneyRegister": "मनी रजिस्टर",
+    "createFirstMoneyRegister": "बजट के लिए पहला मनी रजिस्टर बनाएं"
   },
   "filter": {
     "btn": "फ़िल्टर",
@@ -60,7 +75,8 @@
     "select": "चयन करें",
     "situation": "स्थिति",
     "paid_out": "भुगतान हुआ",
-    "pending": "अपूर्ण"
+    "pending": "अपूर्ण",
+    "description": "विवरण"
   },
   "badge": {
     "due_today": "आज समाप्त होने वाला",

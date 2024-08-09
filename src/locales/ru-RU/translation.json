@@ -6,7 +6,8 @@
     "login": "Войти",
     "expense": "Расход",
     "entry": "Доход",
-    "investment": "Инвестиции"
+    "investment": "Инвестиции",
+    "budget": "Бюджет"
   },
   "common": {
     "version": "Версия",
@@ -26,6 +27,10 @@
     "empty_register": "Нет зарегистрированных записей",
     "new_register": "Новая запись",
     "edit_register": "Редактировать запись",
+    "new_budget": "Новый бюджет",
+    "edit_budget": "Редактировать бюджет",
+    "new_transaction": "Новая транзакция",
+    "edit_transaction": "Редактировать транзакцию",
     "btn_create": "Создать",
     "btn_save": "Сохранить",
     "btn_confirm": "Подтвердить",
@@ -36,7 +41,17 @@
     "alert_delete": "Вы уверены, что хотите удалить?",
     "alert_paid": "Вы уверены, что хотите отметить как оплаченное?",
     "privacy": "Политика конфиденциальности",
-    "summary": "Сводка по процентам"
+    "summary": "Сводка по процентам",
+    "totalBudget": "Общий Бюджет",
+    "totalTransactionsValue": "Общая Сумма",
+    "remainingBudget": "Оставшийся Бюджет",
+    "budgetExceeded": "Превышено",
+    "withinBudget": "Работающий",
+    "completeBudget": "Завершён",
+    "createDate": "Создать",
+    "endDate": "Дата Окончания",
+    "moneyRegister": "Регистрация Денег",
+    "createFirstMoneyRegister": "Создайте первый учёт денег для бюджета"
   },
   "filter": {
     "btn": "Фильтр",
@@ -60,13 +75,14 @@
     "select": "Выбрать",
     "situation": "Ситуация",
     "paid_out": "Выплачено",
-    "pending": "В ожидании"
+    "pending": "В ожидании",
+    "description": "Описание"
   },
   "badge": {
     "due_today": "СРОК СЕГОДНЯ",
     "due_tomorrow": "СРОК ЗАВТРА",
     "available_today": "ДОСТУПНО СЕГОДНЯ",
-    "available_tomorrou": "ДОСТУПНО ЗАВТРА",
+    "available_tomorrow": "ДОСТУПНО ЗАВТРА",
     "overdue": "ПРОСРОЧЕНО",
     "available": "ДОСТУПНО",
     "paid": "ОПЛАЧЕНО"

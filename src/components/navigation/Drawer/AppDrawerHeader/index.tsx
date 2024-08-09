@@ -108,6 +108,30 @@ export default function AppDrawerHeader(props: Props) {
   }
 
   if (
+    stateRoute?.routeNames.includes("Budget") &&
+    indexRoute === 1 &&
+    props.type == "right"
+  ) {
+    return (
+      <View className="flex flex-row items-center">
+        <TouchableOpacity
+        testID={props.testID}
+        className="flex justify-center items-center mr-4 h-10 w-10"
+        onPress={toggleEye}
+        accessibilityLabel={
+          common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
+        }
+      >
+        <Ionicons
+          name={common.eyeStatus ? "eye" : "eye-off"}
+          {...iconConfig}
+        />
+      </TouchableOpacity>
+    </View>
+    )
+  }
+
+  if (
     stateRoute?.routeNames.includes("Root") &&
     indexRoute === 0 &&
     props.type == "right"

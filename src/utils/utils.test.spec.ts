@@ -60,7 +60,7 @@ describe("Utility Functions", () => {
     describe("formatDate", () => {
       test("should correctly format a date object into a 'dd/MM/yyyy' string", () => {
         const date = new Date(2023, 4, 15); // Month is 0-indexed in JavaScript Date
-        const expectedDateStr = "05/15/2023";
+        const expectedDateStr = "15/05/2023";
         expect(utils.formatDate(date)).toBe(expectedDateStr);
       });
 
