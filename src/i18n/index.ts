@@ -31,6 +31,7 @@ const loadSpanishTranslations = () => {
 const loadPortuguesTranslations = () => {
   return {
     "pt-BR": { translation: translationPt },
+    "pt-AO": { translation: translationPt },
     "pt-PT": { translation: translationPt },
   };
 };

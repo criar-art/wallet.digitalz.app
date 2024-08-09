@@ -7,6 +7,7 @@ interface LocaleConfig {
 
 const localeConfigs: { [key: string]: LocaleConfig } = {
   "pt-BR": { dateFormat: "dd/MM/yyyy", currencySymbol: "R$" },
+  "pt-AO": { dateFormat: "dd/MM/yyyy", currencySymbol: "Kz" },
   "pt-PT": { dateFormat: "dd/MM/yyyy", currencySymbol: "€" },
   "en-US": { dateFormat: "MM/dd/yyyy", currencySymbol: "$" },
   "ru-RU": { dateFormat: "dd.MM.yyyy", currencySymbol: "₽" },
