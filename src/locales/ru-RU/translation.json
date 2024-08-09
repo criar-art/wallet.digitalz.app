@@ -165,5 +165,11 @@
     "enterLogin": "Войти",
     "logoutLabel": "Выйти",
     "enableProtection": "Показать информацию о защите"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "Скрыть значения",
+    "eyeStatusEnable": "Показать значения",
+    "goBack": "Вернуться назад",
+    "openMenuNavigation": "Открыть меню навигации"
   }
 }

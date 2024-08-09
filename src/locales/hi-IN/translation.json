@@ -164,5 +164,11 @@
     "enterLogin": "लॉगिन करें",
     "logoutLabel": "लॉगआउट करें",
     "enableProtection": "सुरक्षा जानकारी दिखाएं"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "मूल्य छिपाएँ",
+    "eyeStatusEnable": "मूल्य दिखाएँ",
+    "goBack": "वापस जाएँ",
+    "openMenuNavigation": "नेविगेशन मेनू खोलें"
   }
 }

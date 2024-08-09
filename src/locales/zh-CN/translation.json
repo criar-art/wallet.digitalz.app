@@ -164,5 +164,11 @@
     "enterLogin": "登录",
     "logoutLabel": "登出",
     "enableProtection": "显示保护信息"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "隐藏值",
+    "eyeStatusEnable": "显示值",
+    "goBack": "返回",
+    "openMenuNavigation": "打开导航菜单"
   }
 }

@@ -164,5 +164,11 @@
     "enterLogin": "Iniciar sesión",
     "logoutLabel": "Cerrar sesión",
     "enableProtection": "Mostrar información de protección"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "Ocultar valores",
+    "eyeStatusEnable": "Mostrar valores",
+    "goBack": "Volver atrás",
+    "openMenuNavigation": "Abrir menú de navegación"
   }
 }

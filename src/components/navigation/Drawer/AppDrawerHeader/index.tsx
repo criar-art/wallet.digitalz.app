@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 import useOrientation from "@hooks/useOrientation";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { setEyeStatus } from "@store/commonSlice";
@@ -26,6 +27,7 @@ import BalanceTotal from "@components/common/BalanceTotal";
 import useIsTablet from "@hooks/useIsTablet";
 
 export default function AppDrawerHeader(props: Props) {
+  const { t } = useTranslation();
   const { landscape } = useOrientation();
   const { colorScheme } = useColorScheme();
   const isTablet = useIsTablet();
@@ -119,7 +121,7 @@ export default function AppDrawerHeader(props: Props) {
         className="flex justify-center items-center mr-4 h-10 w-10"
         onPress={toggleEye}
         accessibilityLabel={
-          common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
+          common.eyeStatus ? t("drawerHeader.eyeStatusDisable") : t("drawerHeader.eyeStatusEnable")
         }
       >
         <Ionicons
@@ -184,7 +186,7 @@ export default function AppDrawerHeader(props: Props) {
           className="flex justify-center items-center mr-4 h-10 w-10"
           onPress={toggleEye}
           accessibilityLabel={
-            common.eyeStatus ? "Ocultar valores" : "Mostrar valores"
+            common.eyeStatus ? t("drawerHeader.eyeStatusDisable") : t("drawerHeader.eyeStatusEnable")
           }
         >
           <Ionicons
@@ -204,7 +206,7 @@ export default function AppDrawerHeader(props: Props) {
         onPress={() =>
           (!isProtected || isLogin) ? navigation.goBack() : navigation.navigate("Login")
         }
-        accessibilityLabel="Voltar página"
+        accessibilityLabel={t("drawerHeader.goBack")}
       >
         <MaterialIcons
           name={(!isProtected || isLogin) ? "close" : "lock"}
@@ -219,7 +221,7 @@ export default function AppDrawerHeader(props: Props) {
       testID={props.testID}
       className="flex justify-center items-center ml-4 h-10 w-10"
       onPress={props.onPress}
-      accessibilityLabel="Abrir menu drawer de páginas"
+      accessibilityLabel={t("drawerHeader.openMenuNavigation")}
     >
       <MaterialIcons name="menu" {...iconConfig} />
     </TouchableOpacity>

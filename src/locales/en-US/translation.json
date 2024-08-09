@@ -164,5 +164,11 @@
     "enterLogin": "Log in",
     "logoutLabel": "Log out",
     "enableProtection": "Show protection information"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "Hide values",
+    "eyeStatusEnable": "Show values",
+    "goBack": "Go back",
+    "openMenuNavigation": "Open navigation menu"
   }
 }

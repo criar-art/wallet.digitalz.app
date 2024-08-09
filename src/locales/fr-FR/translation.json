@@ -164,5 +164,11 @@
     "enterLogin": "Se connecter",
     "logoutLabel": "Se déconnecter",
     "enableProtection": "Afficher les informations de protection"
+  },
+  "drawerHeader": {
+    "eyeStatusDisable": "Masquer les valeurs",
+    "eyeStatusEnable": "Afficher les valeurs",
+    "goBack": "Revenir en arrière",
+    "openMenuNavigation": "Ouvrir le menu de navigation"
   }
 }
