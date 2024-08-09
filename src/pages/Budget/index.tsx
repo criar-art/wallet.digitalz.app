@@ -1,4 +1,4 @@
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useAppSelector } from "@store/hooks";
 import { RootState } from "@store";
 import Item from "./Item";
@@ -7,12 +7,14 @@ import useBudgetCalculations from '@hooks/useBudgetCalculations';
 import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
 import { BudgetCalculation } from "./types";
+import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
 
 export default function BudgetScreen() {
   const common = useAppSelector((state: RootState) => state.commonState);
   const budgetCalculations = useBudgetCalculations();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
+  const { handleScroll } = useScrollMenuVisible();
 
   function isBudgetArray(
     calculations: BudgetCalculation[] | BudgetCalculation | null
@@ -24,9 +26,10 @@ export default function BudgetScreen() {
     <View testID="budget-screen" className="flex-1 justify-between flex-col">
       <ScrollView
         className="flex flex-1"
+        onScroll={handleScroll}
         scrollEventThrottle={16}
         contentContainerStyle={{
-          paddingBottom: 100,
+          paddingBottom: landscape ? 70 : 100,
         }}
       >
         {isBudgetArray(budgetCalculations) ? (

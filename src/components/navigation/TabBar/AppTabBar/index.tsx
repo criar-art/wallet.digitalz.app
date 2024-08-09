@@ -44,7 +44,7 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
       className={`absolute bottom-0 flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
         landscape ? "h-0 left-[50%]" : ""
       }`}
-      style={type == 'wallet' && [{ transform: [{ translateY: menuTranslateY }] }]}
+      style={[{ transform: [{ translateY: menuTranslateY }] }]}
     >
       <View
         className={`flex flex-row ${

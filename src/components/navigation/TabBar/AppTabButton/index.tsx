@@ -46,7 +46,7 @@ export default function AppTabButton({
         </Text>
       )}
       <View
-        className="mt-1 h-2 w-full rounded-full h-2"
+        className="mt-1 h-2 w-full rounded-full"
         style={
           isFocused && {
             backgroundColor: utils.renderColorType(

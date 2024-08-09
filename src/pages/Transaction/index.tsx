@@ -13,6 +13,7 @@ import { Transcation } from "@store/budgetSlice/types";
 import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
 import { useTranslation } from "react-i18next";
+import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
 
 type BudgetCalculation = {
   totalTransactionsValue: number;
@@ -38,6 +39,7 @@ export default function BudgetScreen() {
   const [optionsShow, setOptionsShow] = useState(null);
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
+  const { handleScroll } = useScrollMenuVisible();
 
   function handlePressOptionsShow(id: any) {
     setOptionsShow((prevActiveItem: any) =>
@@ -72,10 +74,10 @@ export default function BudgetScreen() {
     <View testID="transaction-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
       {isBudgetCalculation(budgetContent) && (
         <>
-          <View className={` ${landscape ? "flex-1" : ""}`}>
+          <View className={`${landscape ? "flex-1 pb-5" : ""}`}>
             <ItemBudget
               twClass={`flex flex-col mt-6 shadow-lg ${
-                landscape || isTablet ? "mt-4 ml-6" : "mx-5"
+                landscape || isTablet ? "flex-1 mt-4 ml-6" : "mx-5"
               }`}
               key={budgetContent.id}
               item={budgetContent}
@@ -98,8 +100,9 @@ export default function BudgetScreen() {
                 <ScrollView
                   className={`flex flex-1 ${landscape ? "pt-4" : ""}`}
                   scrollEventThrottle={16}
+                  onScroll={handleScroll}
                   contentContainerStyle={{
-                    paddingBottom: 80,
+                    paddingBottom: landscape ? 20 : 60,
                   }}
                 >
                   {budgetContent?.transactions.map((item: any) => (

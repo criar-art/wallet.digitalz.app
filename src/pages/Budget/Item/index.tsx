@@ -54,8 +54,8 @@ function ItemBudget(props: Props) {
 
   return (
     <TouchableOpacity
-      testID={props.testID}
       key={props.item.id}
+      testID={props.testID}
       className={`p-4 bg-white dark:bg-zinc-800 rounded-lg ${props.twClass ? props.twClass : ""}`}
       onPress={() => {
         if(props?.setOptionsShow) {
@@ -84,7 +84,9 @@ function ItemBudget(props: Props) {
         />
       </View>
       {props.setOptionsShow && props.item.description && (
-        <Text className="text-black dark:text-white text-lg">{props.item.description}</Text>
+        <Text className="text-black dark:text-white text-lg">
+          {props.item.description}
+        </Text>
       )}
       <NumericFormat
         value={totalTransactionsValue}
