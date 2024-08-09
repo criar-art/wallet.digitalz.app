@@ -4,6 +4,7 @@ import { NavigationProp, ParamListBase, useIsFocused, useNavigation } from "@rea
 import { NumericFormat } from "react-number-format";
 import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import {
   FontAwesome,
   MaterialCommunityIcons,
@@ -65,29 +66,26 @@ function ItemBudget(props: Props) {
       }}
     >
       <RenderBadge type={badgeComputed()} />
-      <Text className="text-black dark:text-white text-xl">{props.item.name}</Text>
-      {props.setOptionsShow && props.item.description && (
-        <Text className="text-black dark:text-white text-base">{props.item.description}</Text>
-      )}
-      <NumericFormat
-        value={props.item.value}
-        displayType={"text"}
-        thousandSeparator={"."}
-        decimalSeparator={","}
-        decimalScale={2}
-        fixedDecimalScale
-        prefix={`${currencySymbol} `}
-        renderText={(value: string) => (
-          <View className="flex flex-row items-center">
-            <Text className="text-black dark:text-white mr-2">
-              {t("common.totalBudget")}
-            </Text>
+      <View className="flex flex-row items-start w-full border-b-2 border-zinc-200 dark:border-zinc-700 pb-2 mb-2">
+        <Text className="flex-1 text-black dark:text-white text-xl">{props.item.name}</Text>
+        <NumericFormat
+          value={props.item.value}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          decimalScale={2}
+          fixedDecimalScale
+          prefix={`${currencySymbol} `}
+          renderText={(value: string) => (
             <Text className={`text-black dark:text-white font-bold text-xl ${!!completeBudget && 'text-green-500'}`}>
               {utils.parseMoney(value, props.eyeStatus)}
             </Text>
-          </View>
-        )}
-      />
+          )}
+        />
+      </View>
+      {props.setOptionsShow && props.item.description && (
+        <Text className="text-black dark:text-white text-lg">{props.item.description}</Text>
+      )}
       <NumericFormat
         value={totalTransactionsValue}
         displayType={"text"}
@@ -97,8 +95,9 @@ function ItemBudget(props: Props) {
         fixedDecimalScale
         prefix={`${currencySymbol} `}
         renderText={(value: string) => (
-          <View className="flex flex-row items-center">
-            <Text className="text-black dark:text-white mr-2">
+          <View className="flex flex-row items-center mt-2">
+            <FontAwesome6 name="money-bill-trend-up" size={20} color={colorScheme === "dark" ? "white" : "black"} />
+            <Text className="text-black dark:text-white mx-2 text-base">
               {t("common.totalTransactionsValue")}:
             </Text>
             <Text className={`text-black dark:text-white font-bold text-base ${!!completeBudget && 'text-green-500'}`}>
@@ -117,8 +116,9 @@ function ItemBudget(props: Props) {
           fixedDecimalScale
           prefix={`${currencySymbol} `}
           renderText={(value: string) => (
-            <View className="flex flex-row items-center">
-              <Text className="text-black dark:text-white mr-2">
+            <View className="flex flex-row items-center mt-2">
+              <FontAwesome6 name="money-bill-transfer" size={17} color={colorScheme === "dark" ? "white" : "black"} />
+              <Text className="text-black dark:text-white mx-2 text-base">
               {t("common.remainingBudget")}:
               </Text>
               <Text className={`text-base ${isOverBudget ? 'text-red-500 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-300'}`}>
