@@ -39,11 +39,11 @@ export default function AppTabButton({
       </View>
       <Text className="text-black dark:text-white text-xs">{labelButton}</Text>
       {!!options.tabBarBadge && (
-        <Text
-          className={`scale-[.85] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 absolute rounded-full -top-3`}
-        >
-          {options.tabBarBadge}
-        </Text>
+        <View className={`scale-[.85] text-xs bg-black dark:bg-white font-bold text-white dark:text-black px-2 py-1 absolute rounded-full -top-3`}>
+          <Text className="text-xsfont-bold text-white dark:text-black">
+            {options.tabBarBadge}
+          </Text>
+        </View>
       )}
       <View
         className="mt-1 h-2 w-full rounded-full"
