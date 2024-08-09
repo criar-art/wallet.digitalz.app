@@ -4,22 +4,9 @@ import { RootState } from "@store";
 import Item from "./Item";
 import Empty from "./Empty";
 import useBudgetCalculations from '@hooks/useBudgetCalculations';
-import { Transcation } from "@store/budgetSlice/types";
 import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
-
-type BudgetCalculation = {
-  totalTransactionsValue: number;
-  remainingBudget: number;
-  isOverBudget: boolean;
-  id: string;
-  name: string;
-  description: string;
-  value: number;
-  date_end: Date | null;
-  date_create: Date | null;
-  transactions: Transcation[];
-};
+import { BudgetCalculation } from "./types";
 
 export default function BudgetScreen() {
   const common = useAppSelector((state: RootState) => state.commonState);
@@ -27,7 +14,6 @@ export default function BudgetScreen() {
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
 
-  // Type guard to check if budgetCalculations is an array
   function isBudgetArray(
     calculations: BudgetCalculation[] | BudgetCalculation | null
   ): calculations is BudgetCalculation[] {
