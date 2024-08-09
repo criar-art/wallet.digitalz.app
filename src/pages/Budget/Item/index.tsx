@@ -5,32 +5,30 @@ import { NumericFormat } from "react-number-format";
 import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import {
-  FontAwesome,
-  MaterialCommunityIcons,
-  MaterialIcons
-} from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import Button from "@components/common/Button";
 import { currencySymbol } from "@utils/locale";
 import utils from "@utils";
 import RenderBadge from "../RenderBadge";
 import { Props } from "./types";
 
-function ItemBudget(props: Props) {
+function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow, twClass, testID, eyeStatus, edit, remove }: Props) {
   const { colorScheme } = useColorScheme();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const { t } = useTranslation();
   const isFocused = useIsFocused();
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const optionsShow = props.optionsShow === props.item.id;
+  const isOptionsVisible = optionsShow === item.id;
 
   useEffect(() => {
-    if (!isFocused && props?.setOptionsShow) props?.setOptionsShow(null);
+    if (!isFocused && setOptionsShow) {
+      setOptionsShow(null);
+    }
   }, [isFocused]);
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
-      toValue: optionsShow ? 1 : 0,
+      toValue: isOptionsVisible ? 1 : 0,
       duration: 500,
       useNativeDriver: true,
     }).start();
@@ -38,38 +36,36 @@ function ItemBudget(props: Props) {
     return () => {
       fadeAnim.setValue(0);
     };
-  }, [optionsShow, fadeAnim]);
+  }, [isOptionsVisible]);
 
-  // Ensure totalTransactionsValue and remainingBudget are numbers
-  const totalTransactionsValue = typeof props.item.totalTransactionsValue === 'number' ? props.item.totalTransactionsValue : 0;
-  const remainingBudget = typeof props.item.remainingBudget === 'number' ? props.item.remainingBudget : 0;
-  const isOverBudget = typeof props.item.isOverBudget === 'boolean' ? props.item.isOverBudget : false;
-  const completeBudget = totalTransactionsValue == props.item.value && remainingBudget == 0;
+  const totalTransactionsValue = typeof item.totalTransactionsValue === 'number' ? item.totalTransactionsValue : 0;
+  const remainingBudget = typeof item.remainingBudget === 'number' ? item.remainingBudget : 0;
+  const isOverBudget = typeof item.isOverBudget === 'boolean' ? item.isOverBudget : false;
+  const isCompleteBudget = totalTransactionsValue === item.value && remainingBudget === 0;
 
-  const badgeComputed = () => {
-    let badge = isOverBudget ? "remaining" : "within";
-    if(completeBudget) badge = "complete";
-    return badge;
-  }
+  const getBadgeType = (): "remaining" | "within" | "complete" => {
+    if (isCompleteBudget) return "complete";
+    return isOverBudget ? "remaining" : "within";
+  };
 
   return (
     <TouchableOpacity
-      key={props.item.id}
-      testID={props.testID}
-      className={`p-4 bg-white dark:bg-zinc-800 rounded-lg ${props.twClass ? props.twClass : ""}`}
+      key={item.id}
+      testID={testID}
+      className={`p-4 bg-white dark:bg-zinc-800 rounded-lg ${twClass || ""}`}
       onPress={() => {
-        if(props?.setOptionsShow) {
-          props.handlePressOptionsShow(props.item.id)
-        } else{
-          navigation.navigate('Transaction', { id: props.item.id })
+        if (setOptionsShow) {
+          handlePressOptionsShow(item.id);
+        } else {
+          navigation.navigate('Transaction', { id: item.id });
         }
       }}
     >
-      <RenderBadge type={badgeComputed()} />
+      <RenderBadge type={getBadgeType()} />
       <View className="flex flex-row items-start w-full border-b-2 border-zinc-200 dark:border-zinc-700 pb-2 mb-2">
-        <Text className="flex-1 text-black dark:text-white text-xl">{props.item.name}</Text>
+        <Text className="flex-1 text-black dark:text-white text-xl">{item.name}</Text>
         <NumericFormat
-          value={props.item.value}
+          value={item.value}
           displayType={"text"}
           thousandSeparator={"."}
           decimalSeparator={","}
@@ -77,15 +73,15 @@ function ItemBudget(props: Props) {
           fixedDecimalScale
           prefix={`${currencySymbol} `}
           renderText={(value: string) => (
-            <Text className={`text-black dark:text-white font-bold text-xl ${!!completeBudget && 'text-green-500'}`}>
-              {utils.parseMoney(value, props.eyeStatus)}
+            <Text className={`text-black dark:text-white font-bold text-xl ${isCompleteBudget ? 'text-green-500' : ''}`}>
+              {utils.parseMoney(value, eyeStatus)}
             </Text>
           )}
         />
       </View>
-      {props.setOptionsShow && props.item.description && (
+      {setOptionsShow && item.description && (
         <Text className="text-black dark:text-white text-lg">
-          {props.item.description}
+          {item.description}
         </Text>
       )}
       <NumericFormat
@@ -102,13 +98,13 @@ function ItemBudget(props: Props) {
             <Text className="text-black dark:text-white mx-2 text-base">
               {t("common.totalTransactionsValue")}:
             </Text>
-            <Text className={`text-black dark:text-white font-bold text-base ${!!completeBudget && 'text-green-500'}`}>
-              {utils.parseMoney(value, props.eyeStatus)}
+            <Text className={`text-black dark:text-white font-bold text-base ${isCompleteBudget ? 'text-green-500' : ''}`}>
+              {utils.parseMoney(value, eyeStatus)}
             </Text>
           </View>
         )}
       />
-      {!completeBudget && (
+      {!isCompleteBudget && (
         <NumericFormat
           value={remainingBudget}
           displayType={"text"}
@@ -121,16 +117,16 @@ function ItemBudget(props: Props) {
             <View className="flex flex-row items-center mt-2">
               <FontAwesome6 name="money-bill-transfer" size={17} color={colorScheme === "dark" ? "white" : "black"} />
               <Text className="text-black dark:text-white mx-2 text-base">
-              {t("common.remainingBudget")}:
+                {t("common.remainingBudget")}:
               </Text>
               <Text className={`text-base ${isOverBudget ? 'text-red-500 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-300'}`}>
-                {utils.parseMoney(value, props.eyeStatus)}
+                {utils.parseMoney(value, eyeStatus)}
               </Text>
             </View>
           )}
         />
       )}
-      {props.setOptionsShow && (
+      {setOptionsShow && (
         <>
           <View className="flex flex-row items-center mt-2">
             <FontAwesome
@@ -139,7 +135,7 @@ function ItemBudget(props: Props) {
               color={colorScheme === "dark" ? "white" : "black"}
             />
             <Text className="ml-2 text-black dark:text-white text-base mr-2">
-              {t("common.createDate")}: {props.item.date_create && utils.formatDate(props.item.date_create)}
+              {t("common.createDate")}: {item.date_create && utils.formatDate(item.date_create)}
             </Text>
           </View>
           <View className="flex flex-row items-center mt-2">
@@ -149,7 +145,7 @@ function ItemBudget(props: Props) {
               color={colorScheme === "dark" ? "white" : "black"}
             />
             <Text className="ml-2 text-black dark:text-white text-base">
-              {t("common.endDate")}: {props.item.date_end && utils.formatDate(props.item.date_end)}
+              {t("common.endDate")}: {item.date_end && utils.formatDate(item.date_end)}
             </Text>
           </View>
         </>
@@ -157,12 +153,12 @@ function ItemBudget(props: Props) {
       <Animated.View
         className="flex flex-row items-center z-20 absolute top-0 right-0 bottom-0"
         style={{ opacity: fadeAnim }}
-        pointerEvents={!optionsShow ? "none" : "auto"}
+        pointerEvents={isOptionsVisible ? "auto" : "none"}
       >
         <Button
           twClass="z-20 w-14 h-14 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
-          onPress={props.edit}
-          label={`Editar registro ${props.item.name}`}
+          onPress={edit}
+          label={`${t("common.edit_budget")} ${item.name}`}
           icon={
             <MaterialIcons
               name="edit"
@@ -173,8 +169,8 @@ function ItemBudget(props: Props) {
         />
         <Button
           twClass="z-20 w-14 h-14 m-2 mr-4 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
-          onPress={props.remove}
-          label={`Excluir registro ${props.item.name}`}
+          onPress={remove}
+          label={`${t("common.delete_budget")} ${item.name}`}
           icon={
             <MaterialCommunityIcons
               name="trash-can-outline"

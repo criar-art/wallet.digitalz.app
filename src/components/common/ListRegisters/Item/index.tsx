@@ -14,9 +14,11 @@ import RenderBadge from "../RenderBadge";
 import { currencySymbol } from "@utils/locale";
 import { Props } from "./types";
 import { formatDate } from "@utils/date";
+import { useTranslation } from "react-i18next";
 
 function ItemList(props: Props) {
   const { colorScheme } = useColorScheme();
+  const { t } = useTranslation();
   const isFocused = useIsFocused();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const optionsShow = props.optionsShow === props.item.id;
@@ -111,7 +113,7 @@ function ItemList(props: Props) {
         <Button
           twClass="z-20 w-14 h-14 my-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
           onPress={props.edit}
-          label={`Editar registro ${props.item.name}`}
+          label={`${t("common.edit_register")} ${props.item.name}`}
           icon={
             <MaterialIcons
               name="edit"
@@ -123,7 +125,7 @@ function ItemList(props: Props) {
         <Button
           twClass="z-20 w-14 h-14 m-2 mr-4 rounded-full border-2 border-red-300 bg-white dark:bg-zinc-800"
           onPress={props.remove}
-          label={`Excluir registro ${props.item.name}`}
+          label={`${t("common.delete_register")} ${props.item.name}`}
           icon={
             <MaterialCommunityIcons
               name="trash-can-outline"
