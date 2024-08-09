@@ -7,6 +7,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome,
+  FontAwesome6,
 } from "@expo/vector-icons";
 import utils from "@utils";
 import Button from "@components/common/Button";
@@ -55,7 +56,8 @@ function ItemTransaction(props: Props) {
         prefix={`${currencySymbol} `}
         renderText={(value: string) => (
           <View className="flex flex-row items-center">
-            <Text className="text-black dark:text-white font-bold text-base">
+            <FontAwesome6 name="money-bill-wave" size={17} color={colorScheme === "dark" ? "white" : "black"} />
+            <Text className="text-black dark:text-white font-bold text-base ml-2">
               {utils.parseMoney(value, props.eyeStatus)}
             </Text>
           </View>
