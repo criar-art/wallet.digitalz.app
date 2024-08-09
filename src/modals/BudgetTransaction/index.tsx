@@ -25,9 +25,6 @@ export default function ModalBudget(props: { testID?: string }) {
   const modalRef = useRef<ModalHandle>(null);
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
-  const budgets = useAppSelector(
-    (state: RootState) => state.budgetState.budgets
-  );
   const modals = useAppSelector((state: RootState) => state.modalsState);
   const [inputMoney, setInputMoney] = useState<string>("");
   const [formModal, setFormModal] = useState(initialForm);
@@ -63,33 +60,6 @@ export default function ModalBudget(props: { testID?: string }) {
       : { id: uuid.v4(), ...formModal, name: formModal.name.trim() };
 
     if (!Object.values(errors).some((error) => error)) {
-
-      // const foundObject = budgets.find((item: any) => item.id === modals?.modalBudgetTransaction);
-      // console.log('foundObject: ', foundObject)
-
-      // if (foundObject) {
-      //   console.log('foundObject: ', foundObject);
-
-      //   dispatch(
-      //     isEditing()
-      //       ? setEditTransaction(data)
-      //       : setTransaction([data, ...foundObject.transactions] as any)
-      //   );
-      // } else {
-      //   dispatch(
-      //     isEditing()
-      //       ? setEditTransaction(data)
-      //       : setTransaction([data] as any)
-      //   );
-      // }
-
-      // if(modals?.modalBudgetTransaction) {
-      //   console.log({ id: modals?.modalBudgetTransaction, transaction: data} as any)
-
-      //   // dispatch(setTransaction({ id: modals?.modalBudgetTransaction, transaction: data} as any));
-      // }
-
-
       dispatch(
         isEditing()
           ? setEditTransaction({ id: idBudget, transaction: data} as any)
@@ -148,7 +118,7 @@ export default function ModalBudget(props: { testID?: string }) {
       }}
       confirmButton={{
         text: isEditing() ? t("common.btn_save") : t("common.btn_create"),
-        label: "Ok fechar o modal de informações",
+        label: `${t("common.btn_confirm_label")} ${isEditing() ? t("common.btn_save") : t("common.btn_create")}`,
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
@@ -156,7 +126,7 @@ export default function ModalBudget(props: { testID?: string }) {
         <InputText
           twClass="flex-1 mr-2"
           label={t("inputs.name")}
-          accessibilityLabel="Nome do registro"
+          accessibilityLabel={t("modalContent.budgetTransaction.inputsLabel.nameOfBudget")}
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
           error={!!formError.name}
@@ -164,7 +134,7 @@ export default function ModalBudget(props: { testID?: string }) {
         <InputMoney
           twClass="flex-1 ml-2"
           label={t("inputs.value")}
-          accessibilityLabel="Valor do registro"
+          accessibilityLabel={t("modalContent.budgetTransaction.inputsLabel.valueOfBudget")}
           value={inputMoney}
           onValueChange={(values: any) => handleChange(values.value, "value")}
           onChangeText={(value: string) => setInputMoney(value)}

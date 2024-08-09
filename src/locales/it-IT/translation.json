@@ -40,6 +40,7 @@
     "btn_understand": "Ho capito",
     "btn_cancel": "Annulla",
     "btn_cancel_label": "Annulla questa azione",
+     "btn_confirm_label": "Conferma quest'azione",
     "validation": "È necessario compilare tutti i campi",
     "alert_delete": "Sei sicuro di voler eliminare?",
     "alert_paid": "Sei sicuro di voler contrassegnare come pagato?",
@@ -121,6 +122,27 @@
       "switchLabel": "Protezione",
       "buttonText": "Apri impostazioni",
       "buttonLabel": "Apri le impostazioni di blocco"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "Il nome del registro",
+        "dateEndOfBudget": "La data del registro",
+        "valueOfBudget": "Il valore del registro"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "Il nome del budget",
+        "descriptionOfBudget": "La descrizione del budget",
+        "dateEndOfBudget": "La data di fine del budget",
+        "valueOfBudget": "Il valore totale del budget"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "Il nome della transazione",
+        "valueOfBudget": "Il valore della transazione"
+      }
     }
   },
   "modalInfo": {

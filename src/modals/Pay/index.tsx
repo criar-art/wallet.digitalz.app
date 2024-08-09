@@ -104,7 +104,7 @@ export default function ModalDelete(props: { testID?: string }) {
       confirmAction={confirmModal}
       confirmButton={{
         text: t("common.btn_confirm"),
-        label: "Ok fechar o modal de pagamento",
+        label: t("common.btn_confirm_label"),
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >

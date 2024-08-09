@@ -40,6 +40,7 @@
     "btn_understand": "J'ai compris",
     "btn_cancel": "Annuler",
     "btn_cancel_label": "Annuler cette action",
+    "btn_confirm_label": "Confirmer cette action",
     "validation": "Vous devez remplir tous les champs",
     "alert_delete": "Êtes-vous sûr de vouloir supprimer?",
     "alert_paid": "Êtes-vous sûr de vouloir marquer comme payé ?",
@@ -121,6 +122,27 @@
       "switchLabel": "Protection",
       "buttonText": "Ouvrir les paramètres",
       "buttonLabel": "Ouvrir les paramètres de verrouillage"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "Le nom de l'enregistrement",
+        "dateEndOfBudget": "La date de l'enregistrement",
+        "valueOfBudget": "La valeur de l'enregistrement"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "Le nom du budget",
+        "descriptionOfBudget": "La description du budget",
+        "dateEndOfBudget": "La date de fin du budget",
+        "valueOfBudget": "La valeur totale du budget"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "Le nom de la transaction",
+        "valueOfBudget": "La valeur de la transaction"
+      }
     }
   },
   "modalInfo": {

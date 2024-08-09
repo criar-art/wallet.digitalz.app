@@ -166,7 +166,7 @@ export default function ModalRegister(props: { testID?: string }) {
       }}
       confirmButton={{
         text: isEditing() ? t("common.btn_save") : t("common.btn_create"),
-        label: "Ok fechar o modal de informações",
+        label: `${t("common.btn_confirm_label")} ${isEditing() ? t("common.btn_save") : t("common.btn_create")}`,
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
@@ -201,7 +201,7 @@ export default function ModalRegister(props: { testID?: string }) {
             (!isEditing() || formModal.type === "expense") && "ml-2"
           }`}
           label={t("inputs.name")}
-          accessibilityLabel="Nome do registro"
+          accessibilityLabel={t("modalContent.register.inputsLabel.nameOfBudget")}
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
           error={!!formError.name}
@@ -212,14 +212,14 @@ export default function ModalRegister(props: { testID?: string }) {
           twClass="flex-1 mr-2"
           label={t("inputs.date")}
           value={formModal.date}
-          accessibilityLabel="Data do registro"
+          accessibilityLabel={t("modalContent.register.inputsLabel.dateOfBudget")}
           onChangeDate={(date: Date | null) => handleChange(date, "date")}
           error={!!formError.date}
         />
         <InputMoney
           twClass="flex-1 ml-2"
           label={t("inputs.value")}
-          accessibilityLabel="Valor do registro"
+          accessibilityLabel={t("modalContent.register.inputsLabel.valueOfBudget")}
           value={inputMoney}
           onValueChange={(values: any) => handleChange(values.value, "value")}
           onChangeText={(value: string) => setInputMoney(value)}

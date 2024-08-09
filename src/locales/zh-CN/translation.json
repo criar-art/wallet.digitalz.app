@@ -40,6 +40,7 @@
     "btn_understand": "我了解",
     "btn_cancel": "取消",
     "btn_cancel_label": "取消此操作",
+    "btn_confirm_label": "确认此操作",
     "validation": "您需要填写所有字段",
     "alert_delete": "您确定要删除吗？",
     "alert_paid": "您确定要标记为已支付吗？",
@@ -121,6 +122,27 @@
       "switchLabel": "保护",
       "buttonText": "打开设置",
       "buttonLabel": "打开锁定设置"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "记录名称",
+        "dateEndOfBudget": "记录日期",
+        "valueOfBudget": "记录金额"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "预算名称",
+        "descriptionOfBudget": "预算描述",
+        "dateEndOfBudget": "预算结束日期",
+        "valueOfBudget": "预算总金额"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "交易名称",
+        "valueOfBudget": "交易金额"
+      }
     }
   },
   "modalInfo": {

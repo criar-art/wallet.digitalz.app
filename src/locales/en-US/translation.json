@@ -40,6 +40,7 @@
     "btn_understand": "I understood",
     "btn_cancel": "Cancel",
     "btn_cancel_label": "Cancel this action",
+    "btn_confirm_label": "Confirm this action",
     "validation": "You need to fill in all the fields",
     "alert_delete": "Are you sure you want to delete?",
     "alert_paid": "Are you sure you want to mark as paid?",
@@ -121,6 +122,27 @@
       "switchLabel": "Protection",
       "buttonText": "Open settings",
       "buttonLabel": "Open lock settings"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "The name of the register",
+        "dateEndOfBudget": "The date of the register",
+        "valueOfBudget": "The value of the register"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "The name of the budget",
+        "descriptionOfBudget": "The description of the budget",
+        "dateEndOfBudget": "The end date of the budget",
+        "valueOfBudget": "The total value of the budget"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "The name of the transaction",
+        "valueOfBudget": "The value of the transaction"
+      }
     }
   },
   "modalInfo": {

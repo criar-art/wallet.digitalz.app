@@ -40,6 +40,7 @@
     "btn_understand": "Понятно",
     "btn_cancel": "Отмена",
     "btn_cancel_label": "Отменить это действие",
+    "btn_confirm_label": "Подтвердите это действие",
     "validation": "Вы должны заполнить все поля",
     "alert_delete": "Вы уверены, что хотите удалить?",
     "alert_paid": "Вы уверены, что хотите отметить как оплаченное?",
@@ -121,6 +122,27 @@
       "switchLabel": "Защита",
       "buttonText": "Открыть настройки",
       "buttonLabel": "Открыть настройки блокировки"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "Название записи",
+        "dateEndOfBudget": "Дата записи",
+        "valueOfBudget": "Сумма записи"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "Название бюджета",
+        "descriptionOfBudget": "Описание бюджета",
+        "dateEndOfBudget": "Дата окончания бюджета",
+        "valueOfBudget": "Общая сумма бюджета"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "Название транзакции",
+        "valueOfBudget": "Сумма транзакции"
+      }
     }
   },
 

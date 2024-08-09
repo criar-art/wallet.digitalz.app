@@ -40,6 +40,7 @@
     "btn_understand": "मैंने समझ लिया",
     "btn_cancel": "रद्द करें",
     "btn_cancel_label": "इस क्रिया को रद्द करें",
+    "btn_confirm_label": "इस क्रिया की पुष्टि करें",
     "validation": "आपको सभी फ़ील्ड भरने होंगे",
     "alert_delete": "क्या आपको वाकई हटाना है?",
     "alert_paid": "क्या आपको वाकई इसे भुगतान के रूप में चिह्नित करना है?",
@@ -121,6 +122,27 @@
       "switchLabel": "सुरक्षा",
       "buttonText": "सेटिंग्स खोलें",
       "buttonLabel": "लॉक सेटिंग्स खोलें"
+    },
+    "register": {
+      "inputsLabel": {
+        "nameOfBudget": "रजिस्टर का नाम",
+        "dateEndOfBudget": "रजिस्टर की तारीख",
+        "valueOfBudget": "रजिस्टर का मूल्य"
+      }
+    },
+    "budget": {
+      "inputsLabel": {
+        "nameOfBudget": "बजट का नाम",
+        "descriptionOfBudget": "बजट का विवरण",
+        "dateEndOfBudget": "बजट की समाप्ति तिथि",
+        "valueOfBudget": "बजट का कुल मूल्य"
+      }
+    },
+    "budgetTransaction": {
+      "inputsLabel": {
+        "nameOfBudget": "लेनदेन का नाम",
+        "valueOfBudget": "लेनदेन का मूल्य"
+      }
     }
   },
   "modalInfo": {

@@ -17,7 +17,6 @@ import { ModalHandle } from "@components/common/Modal/types";
 import InputText from "@components/common/Form/InputText";
 import InputMoney from "@components/common/Form/InputMoney";
 import InputDate from "@components/common/Form/InputDate";
-import { BudgetType } from "@store/types";
 
 export default function ModalBudget(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -35,7 +34,6 @@ export default function ModalBudget(props: { testID?: string }) {
   const [formModal, setFormModal] = useState(initialForm);
   const [formError, setFormError] = useState(initialFormError);
   const isEditing = (): boolean => modals?.modalBudget === "edit";
-  const isTransaction = (): boolean => modals?.modalBudget === "transaction";
   const isOpenModal = (): boolean =>
     ["budget", "edit", "transaction"].includes(modals?.modalBudget);
 
@@ -123,7 +121,7 @@ export default function ModalBudget(props: { testID?: string }) {
       }}
       confirmButton={{
         text: isEditing() ? t("common.btn_save") : t("common.btn_create"),
-        label: "Ok fechar o modal de informações",
+        label: `${t("common.btn_confirm_label")} ${isEditing() ? t("common.btn_save") : t("common.btn_create")}`,
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
@@ -131,7 +129,7 @@ export default function ModalBudget(props: { testID?: string }) {
         <InputText
           twClass="flex-1"
           label={t("inputs.name")}
-          accessibilityLabel="Nome do registro"
+          accessibilityLabel={t("modalContent.budget.inputsLabel.nameOfBudget")}
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
           error={!!formError.name}
@@ -141,7 +139,7 @@ export default function ModalBudget(props: { testID?: string }) {
         <InputText
           twClass="flex-1"
           label={t("inputs.description")}
-          accessibilityLabel="Nome do descricao"
+          accessibilityLabel={t("modalContent.budget.inputsLabel.descriptionOfBudget")}
           onChangeText={(value: string) => handleChange(value, "description")}
           value={formModal.description}
         />
@@ -151,14 +149,14 @@ export default function ModalBudget(props: { testID?: string }) {
           twClass="flex-1 mr-2"
           label={t("inputs.date")}
           value={formModal.date_end}
-          accessibilityLabel="Data do registro"
+          accessibilityLabel={t("modalContent.budget.inputsLabel.dateEndOfBudget")}
           onChangeDate={(date_end: Date | null) => handleChange(date_end, "date_end")}
           error={!!formError.date_end}
         />
         <InputMoney
           twClass="flex-1 ml-2"
           label={t("inputs.value")}
-          accessibilityLabel="Valor do registro"
+          accessibilityLabel={t("modalContent.budget.inputsLabel.valueOfBudget")}
           value={inputMoney}
           onValueChange={(values: any) => handleChange(values.value, "value")}
           onChangeText={(value: string) => setInputMoney(value)}
