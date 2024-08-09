@@ -11,7 +11,7 @@ export default function ContactScreen() {
       {landscape ? (
         <View
           testID="contact-screen"
-          className="flex flex-col h-full flex-row"
+          className="flex h-full flex-row"
         >
           <Image
             style={{

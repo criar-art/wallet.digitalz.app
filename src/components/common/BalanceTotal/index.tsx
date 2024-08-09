@@ -103,8 +103,9 @@ function TotalCategory(props: Props) {
                   {!isFilterEmpty ? t("common.filtered") : ""}
                 </Text>
                 <Text
-                  className={`text-black dark:text-white font-bold text-lg ${totalValue < 0 && "text-red-700"
-                    } ${props.drawer && "text-right"}`}
+                  className={`text-black dark:text-white font-bold text-lg ${
+                    totalValue < 0 && "text-red-700"
+                  } ${props.drawer && "text-right"}`}
                 >
                   {utils.parseMoney(value, common.eyeStatus)}
                 </Text>

@@ -13,7 +13,7 @@ export default function AboutScreen() {
       {landscape ? (
         <View
           testID="about-screen"
-          className="flex flex-col h-full flex-row"
+          className="flex h-full flex-row"
         >
           <Image
             style={{
