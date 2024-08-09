@@ -45,7 +45,7 @@ const useBudgetCalculations = (budgetId?: string) => {
     }
   }, [budgets, budgetId]);
 
-  return budgetCalculations;
+  return { budgetCalculations, budgetCount: budgets.length };
 };
 
 export default useBudgetCalculations;

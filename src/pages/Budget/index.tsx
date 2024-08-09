@@ -11,7 +11,7 @@ import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
 
 export default function BudgetScreen() {
   const common = useAppSelector((state: RootState) => state.commonState);
-  const budgetCalculations = useBudgetCalculations();
+  const { budgetCalculations } = useBudgetCalculations();
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
   const { handleScroll } = useScrollMenuVisible();

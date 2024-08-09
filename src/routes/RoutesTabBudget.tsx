@@ -6,9 +6,10 @@ import TabBar from "@components/navigation/TabBar";
 import utils from "@utils";
 import Page from "@pages";
 import { useBalance } from "@hooks/useBalance";
+import useBudgetCalculations from '@hooks/useBudgetCalculations';
+import useOrientation from "@hooks/useOrientation";
 import { useAppDispatch } from "@store/hooks";
 import { setMenuVisible } from "@store/commonSlice";
-import useOrientation from "@hooks/useOrientation";
 import { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
@@ -20,6 +21,7 @@ export function RoutesTabBudget() {
   const dispatch = useAppDispatch();
   const { orientation } = useOrientation();
   const getCountRegisters = (type: string) => getQuantity(type);
+  const { budgetCount } = useBudgetCalculations();
 
   useEffect(() => {
     dispatch(setMenuVisible(true));
@@ -40,6 +42,7 @@ export function RoutesTabBudget() {
     {
       name: "HomeBudget",
       title: "HomeBudget",
+      tabBarBadge: budgetCount,
       tabBarLabel: t("routes.budget"),
       tabBarIcon: (props: any) => (
         <MaterialIcons name="layers" size={props.size} color={props.color} />

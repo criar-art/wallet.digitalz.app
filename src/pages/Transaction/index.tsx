@@ -35,7 +35,7 @@ export default function BudgetScreen() {
   const dispatch = useAppDispatch();
   const common = useAppSelector((state: RootState) => state.commonState);
   const idBudget = route.params?.id;
-  const budgetContent = useBudgetCalculations(idBudget);
+  const { budgetCalculations } = useBudgetCalculations(idBudget);
   const [optionsShow, setOptionsShow] = useState(null);
   const { landscape } = useOrientation();
   const isTablet = useIsTablet();
@@ -72,25 +72,25 @@ export default function BudgetScreen() {
 
   return (
     <View testID="transaction-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
-      {isBudgetCalculation(budgetContent) && (
+      {isBudgetCalculation(budgetCalculations) && (
         <>
           <View className={`${landscape ? "flex-1 pb-5" : ""}`}>
             <ItemBudget
               twClass={`flex flex-col mt-6 shadow-lg ${
                 landscape || isTablet ? "flex-1 mt-4 ml-6" : "mx-5"
               }`}
-              key={budgetContent.id}
-              item={budgetContent}
+              key={budgetCalculations.id}
+              item={budgetCalculations}
               eyeStatus={common.eyeStatus}
-              edit={() => edit(budgetContent, 'budget')}
-              remove={() => remove(budgetContent.id, 'budget')}
+              edit={() => edit(budgetCalculations, 'budget')}
+              remove={() => remove(budgetCalculations.id, 'budget')}
               optionsShow={optionsShow}
               setOptionsShow={setOptionsShow}
               handlePressOptionsShow={handlePressOptionsShow}
             />
           </View>
           <View className="flex-1">
-            {budgetContent?.transactions.length ? (
+            {budgetCalculations?.transactions.length ? (
               <>
                 {!landscape && (
                   <Text className="p-2 m-3 text-black dark:text-white text-base">
@@ -105,7 +105,7 @@ export default function BudgetScreen() {
                     paddingBottom: landscape ? 20 : 60,
                   }}
                 >
-                  {budgetContent?.transactions.map((item: any) => (
+                  {budgetCalculations?.transactions.map((item: any) => (
                     <ItemTransaction
                       key={item.id}
                       item={item}
