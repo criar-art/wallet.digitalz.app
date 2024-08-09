@@ -136,5 +136,11 @@
     "intro1": "Wallet Digitalz fue desarrollado con el objetivo de ayudarlo a organizar sus finanzas.",
     "intro2": "Proporcionamos una forma simplificada para que registre sus gastos y valores.",
     "intro3": "Tiene la libertad de crear sus registros de forma intuitiva, con la flexibilidad de eliminarlos y actualizarlos según sea necesario."
+  },
+  "login": {
+    "goToHome": "Ir al inicio",
+    "enterLogin": "Iniciar sesión",
+    "logoutLabel": "Cerrar sesión",
+    "enableProtection": "Mostrar información de protección"
   }
 }

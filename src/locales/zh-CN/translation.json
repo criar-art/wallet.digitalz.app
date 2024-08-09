@@ -136,5 +136,11 @@
     "intro1": "Wallet Digitalz旨在帮助您组织您的财务。",
     "intro2": "我们提供了一种简化的方式让您记录您的支出和价值。",
     "intro3": "您有自由地直观地创建您的记录，并灵活地根据需要删除和更新它们。"
+  },
+  "login": {
+    "goToHome": "回到主页",
+    "enterLogin": "登录",
+    "logoutLabel": "登出",
+    "enableProtection": "显示保护信息"
   }
 }

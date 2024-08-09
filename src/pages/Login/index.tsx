@@ -111,7 +111,7 @@ const LoginScreen = ({ navigation }: any) => {
                 }`}
                 textColor="text-lg text-white"
                 text={t("routes.home")}
-                label="Ir para o ínicio"
+                label={t("login.goToHome")}
                 onPress={() => navigation.navigate("Root")}
                 icon={<MaterialIcons name="home" size={25} color="#fff" />}
               />
@@ -129,7 +129,7 @@ const LoginScreen = ({ navigation }: any) => {
                     ? t("common.enter")
                     : t("modalContent.protection.switchLabel")
                 }
-                label={auth.isProtected ? "Faça login" : "Faça proteção"}
+                label={auth.isProtected ? t("login.enterLogin") : t("login.enableProtection")}
                 onPress={() =>
                   auth.isProtected
                     ? auth.authenticate()
@@ -152,7 +152,7 @@ const LoginScreen = ({ navigation }: any) => {
                   }`}
                   textColor="text-lg text-white"
                   text={t("modalContent.protection.switchLabel")}
-                  label="Mostrar informações de proteção"
+                  label={t("login.enableProtection")}
                   onPress={() => auth.protectionInformation(true)}
                   icon={
                     <MaterialIcons
@@ -169,7 +169,7 @@ const LoginScreen = ({ navigation }: any) => {
                     }`}
                     textColor="text-lg text-white"
                     text={t("common.logout")}
-                    label="Faça logout"
+                    label={t("login.logoutLabel")}
                     onPress={auth.handleLogout}
                     icon={
                       <MaterialIcons name="logout" size={25} color="#fff" />
