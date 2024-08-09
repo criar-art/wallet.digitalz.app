@@ -64,11 +64,6 @@ export function RoutesTabBudget() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBar={(props) => <TabBar {...props} type="budget" />}
-      screenListeners={{
-        state: () => {
-          dispatch(setMenuVisible(true));
-        },
-      }}
     >
       {viewsTab.map((item: any) => (
         <Tab.Screen

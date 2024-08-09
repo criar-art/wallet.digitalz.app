@@ -69,11 +69,6 @@ export function RoutesTabWallet() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBar={(props) => <TabBar {...props} type="wallet" />}
-      screenListeners={{
-        state: () => {
-          dispatch(setMenuVisible(true));
-        },
-      }}
     >
       {viewsTab.map((item: any) => (
         <Tab.Screen
