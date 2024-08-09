@@ -74,7 +74,7 @@ export default function BudgetScreen() {
         <>
           <View className={` ${landscape ? "flex-1" : ""}`}>
             <ItemBudget
-              tw={`flex flex-col mt-6 shadow-lg ${
+              twClass={`flex flex-col mt-6 shadow-lg ${
                 landscape || isTablet ? "mt-4 ml-6" : "mx-5"
               }`}
               key={budgetContent.id}

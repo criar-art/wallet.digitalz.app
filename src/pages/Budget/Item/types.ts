@@ -1,6 +1,6 @@
 export type Props = {
   testID?: string;
-  tw?: string;
+  twClass?: string;
   item: any;
   eyeStatus: boolean;
   orientation?: number | null;

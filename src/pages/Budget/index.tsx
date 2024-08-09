@@ -55,7 +55,7 @@ export default function BudgetScreen() {
                   landscape || isTablet ? "w-1/2" : "w-full"
                 }`}>
                   <Item
-                    tw={`flex flex-1 flex-col mt-6 shadow-lg ${
+                    twClass={`flex flex-1 flex-col mt-6 shadow-lg ${
                       landscape || isTablet ? "mx-3" : "mx-5"
                     }`}
                     key={item.id}
