@@ -71,7 +71,8 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
             icon={<MaterialIcons name="add" size={35} color="white" />}
           />
         )}
-        {state?.routes.lenght && state?.routes.map((route: Route, index: number) => {
+
+        {state.routes.map((route: Route, index: number) => {
           const { options } = descriptors[route.key];
           const labelButton: string = utils.getLabel(options, route);
           const isFocused = state.index === index;

@@ -14,6 +14,10 @@ export default function AppTabButton({
 }: Props) {
   const { colorScheme } = useColorScheme();
 
+  if(!options.tabBarIcon) {
+    return;
+  }
+
   return (
     <Pressable
       accessibilityRole="button"
