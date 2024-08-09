@@ -6,21 +6,29 @@ import { useTranslation } from "react-i18next";
 const RenderBadge = ({ type, testID }: Props) => {
   const { t } = useTranslation();
 
-  let badgeText = type === "remaining" ? t("common.budgetExceeded") : t("common.withinBudget");
-  let badgeColor = type === "remaining" ? "bg-red-500" : "bg-zinc-700 dark:bg-white";
+  const badgeStyles: Record<"remaining" | "within" | "complete", { text: string; color: string }> = {
+    remaining: {
+      text: t("common.budgetExceeded"),
+      color: "bg-red-500",
+    },
+    within: {
+      text: t("common.withinBudget"),
+      color: "bg-zinc-700 dark:bg-white",
+    },
+    complete: {
+      text: t("common.completeBudget"),
+      color: "bg-green-500",
+    },
+  };
 
-  if(type === "complete") {
-    badgeText = t("common.completeBudget");
-    badgeColor = "bg-green-500" ;
-  }
-
+  const { text: badgeText, color: badgeColor } = badgeStyles[type];
 
   return badgeText ? (
     <View
       testID={testID}
       className={`p-1 px-2 rounded-full absolute z-10 left-2 -top-3 ${badgeColor}`}
     >
-      <Text className={`text-white text-center font-black text-xs uppercase ${type === "within" && "dark:text-black"}`}>
+      <Text className={`text-white text-center font-black text-xs uppercase ${type === "within" ? "dark:text-black" : ""}`}>
         {badgeText}
       </Text>
     </View>
