@@ -41,7 +41,7 @@ function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow,
   const totalTransactionsValue = typeof item.totalTransactionsValue === 'number' ? item.totalTransactionsValue : 0;
   const remainingBudget = typeof item.remainingBudget === 'number' ? item.remainingBudget : 0;
   const isOverBudget = typeof item.isOverBudget === 'boolean' ? item.isOverBudget : false;
-  const isCompleteBudget = totalTransactionsValue === item.value && remainingBudget === 0;
+  const isCompleteBudget = totalTransactionsValue == item.value && remainingBudget == 0;
 
   const getBadgeType = (): "remaining" | "within" | "complete" => {
     if (isCompleteBudget) return "complete";
