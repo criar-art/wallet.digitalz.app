@@ -10,6 +10,7 @@ import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
 import Actions from "./Actions";
 import { Props, ModalHandle } from "./types";
+import { animatinoOpen, animationClose, animationShake } from "./animation";
 
 function Modal(props: Props, ref: React.Ref<ModalHandle>) {
   const isTablet = useIsTablet();
@@ -23,62 +24,13 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
   });
 
   const closeModal = () => {
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-      Animated.timing(transformAnim, {
-        toValue: 500,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      props.closeAction();
-    });
+    animationClose({transformAnim, fadeAnim, closeAction: props.closeAction });
   };
 
-  const startShakeAnimation = () => {
-    Animated.sequence([
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: -10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 0,
-        duration: 50,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
+  const startShakeAnimation = () => animationShake(shakeAnimation);
 
   useEffect(() => {
-    if (props.isOpen) {
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 500,
-          useNativeDriver: true,
-        }),
-        Animated.timing(transformAnim, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
+    if (props.isOpen) animatinoOpen({ fadeAnim, transformAnim })
 
     return () => {
       fadeAnim.setValue(0);
