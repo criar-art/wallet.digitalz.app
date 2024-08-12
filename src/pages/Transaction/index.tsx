@@ -8,25 +8,11 @@ import { setBudgetData, setBudgetTransactionData } from "@store/commonSlice";
 import { setDeleteBudget, setDeleteTransaction } from "@store/budgetSlice";
 import ItemTransaction from "./Item";
 import ItemBudget from "../Budget/Item";
-import useBudgetCalculations from "@hooks/useBudgetCalculations";
-import { Transcation } from "@store/budgetSlice/types";
+import useBudgetCalculations, { BudgetCalculation } from "@hooks/useBudgetCalculations";
 import useOrientation from "@hooks/useOrientation";
 import useIsTablet from "@hooks/useIsTablet";
 import { useTranslation } from "react-i18next";
 import useScrollMenuVisible from "@hooks/useScrollMenuVisible";
-
-type BudgetCalculation = {
-  totalTransactionsValue: number;
-  remainingBudget: number;
-  isOverBudget: boolean;
-  id: string;
-  name: string;
-  description: string;
-  value: number;
-  date_end: Date | null;
-  date_create: Date | null;
-  transactions: Transcation[];
-};
 
 export default function BudgetScreen() {
   const navigation: NavigationProp<ParamListBase> = useNavigation();

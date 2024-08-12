@@ -2,6 +2,20 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { BudgetType } from '@store/budgetSlice/types';
+import { Transcation } from "@store/budgetSlice/types";
+
+export type BudgetCalculation = {
+  totalTransactionsValue: number;
+  remainingBudget: number;
+  isOverBudget: boolean;
+  id: string;
+  name: string;
+  description: string;
+  value: number;
+  date_end: Date | null;
+  date_create: Date | null;
+  transactions: Transcation[];
+};
 
 const useBudgetCalculations = (budgetId?: string) => {
   const budgets = useSelector((state: RootState) => state.budgetState.budgets);
