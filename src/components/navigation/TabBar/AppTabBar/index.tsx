@@ -10,6 +10,7 @@ import AppTabButton from "../AppTabButton";
 import useIsTablet from "@hooks/useIsTablet";
 import { RootState } from "@store";
 import { Props, Route } from "./types";
+import { animationMenuSlideDown, animationMenuSlideUp } from "./animation";
 
 export default function AppTabBar({ state, descriptors, navigation, type }: Props) {
   const { landscape } = useOrientation();
@@ -23,19 +24,7 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
   const menuTranslateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (common.menuVisible) {
-      Animated.timing(menuTranslateY, {
-        toValue: 0, // Slide up out of view
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(menuTranslateY, {
-        toValue: 100, // Slide down into view
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
+    common.menuVisible ? animationMenuSlideUp(menuTranslateY) : animationMenuSlideDown(menuTranslateY);
   }, [common.menuVisible]);
 
   return (
