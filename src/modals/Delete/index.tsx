@@ -11,6 +11,7 @@ import { setDeleteRegisterExpense } from "@store/expenseSlice";
 import { setDeleteRegisterEntry } from "@store/entrySlice";
 import { setDeleteRegisterInvestment } from "@store/investmentSlice";
 import { useTranslation } from "react-i18next";
+import { animationModalDelete, animationModalScale } from "./animation";
 
 export default function ModalDelete(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -27,17 +28,8 @@ export default function ModalDelete(props: { testID?: string }) {
   });
 
   useEffect(() => {
-    if (modals.modalDelete) {
-      Animated.spring(scaleAnimation, {
-        toValue: 1,
-        friction: 5,
-        useNativeDriver: true,
-      }).start();
-    }
-
-    return () => {
-      scaleAnimation.setValue(0);
-    };
+    if (modals.modalDelete) animationModalScale(scaleAnimation);
+    return () => { scaleAnimation.setValue(0) };
   }, [modals.modalDelete, scaleAnimation]);
 
   const registerFunctions: any = {
@@ -55,43 +47,7 @@ export default function ModalDelete(props: { testID?: string }) {
   const confirmModal = () => {
     const { setDeleteRegister } = registerFunctions[modals.modalDelete?.type];
     dispatch(setDeleteRegister(modals.modalDelete?.id));
-
-    Animated.parallel([
-      Animated.sequence([
-        Animated.spring(scaleAnimation, {
-          toValue: 1.3,
-          friction: 10,
-          useNativeDriver: true,
-        }),
-        Animated.spring(scaleAnimation, {
-          toValue: 1,
-          friction: 10,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.sequence([
-        Animated.timing(shakeAnimation, {
-          toValue: 1,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shakeAnimation, {
-          toValue: -1,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shakeAnimation, {
-          toValue: 0,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-      ])
-    ]).start(() => {
-      modalRef.current?.closeModal();
-    })
+    animationModalDelete({ scaleAnimation, shakeAnimation, modalRef: modalRef.current?.closeModal() })
   };
 
   return (
