@@ -1,17 +1,17 @@
 import { useEffect, useRef } from "react";
-import { Animated, Easing, Text } from "react-native";
+import { Animated, Text } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { setModalDelete } from "@store/modalsSlice";
 import { RootState } from "@store";
 import Modal from "@components/common/Modal";
+import { animationModalIcon, animationModalScale } from "@components/common/Modal/animation";
 import { ModalHandle } from "@components/common/Modal/types";
 import { setDeleteRegisterExpense } from "@store/expenseSlice";
 import { setDeleteRegisterEntry } from "@store/entrySlice";
 import { setDeleteRegisterInvestment } from "@store/investmentSlice";
 import { useTranslation } from "react-i18next";
-import { animationModalDelete, animationModalScale } from "./animation";
 
 export default function ModalDelete(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ export default function ModalDelete(props: { testID?: string }) {
   const confirmModal = () => {
     const { setDeleteRegister } = registerFunctions[modals.modalDelete?.type];
     dispatch(setDeleteRegister(modals.modalDelete?.id));
-    animationModalDelete({ scaleAnimation, shakeAnimation, modalRef: modalRef.current?.closeModal() })
+    animationModalIcon({ scaleAnimation, shakeAnimation, modalRef: modalRef.current?.closeModal() })
   };
 
   return (

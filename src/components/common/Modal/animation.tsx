@@ -1,4 +1,4 @@
-import { Animated } from "react-native";
+import { Animated, Easing } from "react-native";
 
 export const animationClose = (props: any) => {
   Animated.parallel([
@@ -32,6 +32,14 @@ export const animatinoOpen = (props: any) => {
   ]).start();
 }
 
+export const animationModalScale = (scaleAnimation: Animated.Value) => {
+  Animated.spring(scaleAnimation, {
+    toValue: 1,
+    friction: 5,
+    useNativeDriver: true,
+  }).start();
+}
+
 export const animationShake = (shakeAnimation: Animated.Value) => {
   Animated.sequence([
     Animated.timing(shakeAnimation, {
@@ -56,3 +64,42 @@ export const animationShake = (shakeAnimation: Animated.Value) => {
     }),
   ]).start();
 };
+
+export const animationModalIcon = (props: any) => {
+  Animated.parallel([
+    Animated.sequence([
+      Animated.spring(props.scaleAnimation, {
+        toValue: 1.3,
+        friction: 10,
+        useNativeDriver: true,
+      }),
+      Animated.spring(props.scaleAnimation, {
+        toValue: 1,
+        friction: 10,
+        useNativeDriver: true,
+      }),
+    ]),
+    Animated.sequence([
+      Animated.timing(props.shakeAnimation, {
+        toValue: 1,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(props.shakeAnimation, {
+        toValue: -1,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(props.shakeAnimation, {
+        toValue: 0,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ])
+  ]).start(() => {
+    props.modalRef.current?.closeModal();
+  })
+}
