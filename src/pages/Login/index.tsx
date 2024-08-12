@@ -8,6 +8,7 @@ import Button from "@components/common/Button";
 import useOrientation from "@hooks/useOrientation";
 import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
+import { animationLogin } from "./animation";
 
 const LoginScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
@@ -17,30 +18,7 @@ const LoginScreen = ({ navigation }: any) => {
   const translateX = new Animated.Value(0);
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateX, {
-          toValue: -100,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX, {
-          toValue: 0,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX, {
-          toValue: 100,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX, {
-          toValue: 0,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
+    animationLogin(translateX);
   }, []);
 
   return (
