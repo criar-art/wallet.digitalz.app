@@ -11,6 +11,7 @@ import { RootState } from "@store";
 import Modal from "@components/common/Modal";
 import { ModalHandle } from "@components/common/Modal/types";
 import { useTranslation } from "react-i18next";
+import { animationModalPay, animationModalScale } from "./animation";
 
 export default function ModalDelete(props: { testID?: string }) {
   const { t } = useTranslation();
@@ -27,13 +28,7 @@ export default function ModalDelete(props: { testID?: string }) {
   });
 
   useEffect(() => {
-    if (modals.modalPay) {
-      Animated.spring(scaleAnimation, {
-        toValue: 1,
-        friction: 5,
-        useNativeDriver: true,
-      }).start();
-    }
+    if (modals.modalPay) animationModalScale(scaleAnimation);
 
     return () => {
       scaleAnimation.setValue(0);
@@ -55,43 +50,7 @@ export default function ModalDelete(props: { testID?: string }) {
   const confirmModal = () => {
     const { setDeleteRegister } = registerFunctions[modals.modalPay?.type];
     dispatch(setDeleteRegister({ ...modals.modalPay, pay: true }));
-
-    Animated.parallel([
-      Animated.sequence([
-        Animated.spring(scaleAnimation, {
-          toValue: 1.3,
-          friction: 10,
-          useNativeDriver: true,
-        }),
-        Animated.spring(scaleAnimation, {
-          toValue: 1,
-          friction: 10,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.sequence([
-        Animated.timing(shakeAnimation, {
-          toValue: 1,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shakeAnimation, {
-          toValue: -1,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shakeAnimation, {
-          toValue: 0,
-          duration: 50,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-      ])
-    ]).start(() => {
-      modalRef.current?.closeModal();
-    });
+    animationModalPay({ scaleAnimation, shakeAnimation, modalRef: modalRef.current?.closeModal() });
   };
 
   return (
