@@ -1,6 +1,6 @@
 import { Animated } from "react-native";
 
-export const animationMenuSlideUp = (menuTranslateY: Animated.Value) {
+export const animationMenuSlideUp = (menuTranslateY: Animated.Value) => {
   Animated.timing(menuTranslateY, {
     toValue: 0,
     duration: 800,
@@ -8,7 +8,7 @@ export const animationMenuSlideUp = (menuTranslateY: Animated.Value) {
   }).start();
 }
 
-export const animationMenuSlideDown = (menuTranslateY: Animated.Value) {
+export const animationMenuSlideDown = (menuTranslateY: Animated.Value) => {
   Animated.timing(menuTranslateY, {
     toValue: 100,
     duration: 300,
