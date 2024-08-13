@@ -91,6 +91,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
         className="z-10 absolute bg-black/80 min-h-full min-w-full top-0 bottom-0 flex justify-end items-center"
         style={{ opacity: fadeAnim }}
         pointerEvents={props.isOpen ? "auto" : "none"}
+        accessible={props.isOpen}
       >
         <TouchableWithoutFeedback onPress={undefined}>
           <Animated.View

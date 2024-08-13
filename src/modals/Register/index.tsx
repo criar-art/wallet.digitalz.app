@@ -212,7 +212,7 @@ export default function ModalRegister(props: { testID?: string }) {
           twClass="flex-1 mr-2"
           label={t("inputs.date")}
           value={formModal.date}
-          accessibilityLabel={t("modalContent.register.inputsLabel.dateOfBudget")}
+          accessibilityLabel={t("modalContent.register.inputsLabel.dateEndOfBudget")}
           onChangeDate={(date: Date | null) => handleChange(date, "date")}
           error={!!formError.date}
         />

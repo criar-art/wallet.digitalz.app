@@ -12,6 +12,7 @@ export default function Select(props: Props) {
         {props.label}
       </Text>
       <Dropdown
+        accessibilityLabel={`${props.placeholder} ${props.label}`}
         style={{
           paddingHorizontal: 12,
           paddingVertical: 8,
