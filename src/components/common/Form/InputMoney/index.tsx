@@ -9,7 +9,10 @@ function InputMoney(props: Props) {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View testID={props.testID} className={`flex ${props.twClass}`}>
+    <View
+      testID={props.testID}
+      className={`flex ${props.twClass}`}
+    >
       <Text
         testID="input-money-label"
         className="text-black dark:text-white mb-1 text-base"
@@ -28,7 +31,7 @@ function InputMoney(props: Props) {
         renderText={(formattedValue) => (
           <TextInput
             testID="input-money-textinput"
-            accessibilityLabel="Valor do registro"
+            accessibilityLabel={props.accessibilityLabel}
             className={`h-[54px] text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
               props.error ? "border-red-500" : ""
             }`}
