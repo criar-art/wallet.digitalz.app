@@ -24,6 +24,7 @@ function InputText(props: Props) {
       <TextInput
         testID="input-text-textinput"
         accessibilityLabel={props.accessibilityLabel}
+        accessibilityRole={props.accessibilityRole ? props.accessibilityRole : 'none'}
         className={`h-[54px] text-base dark:text-white p-3 px-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-slate-600 dark:border-zinc-500 ${
           props.inputClassName
         } ${props.error ? "border-red-500" : ""} ${props.icon && "pl-12"}`}

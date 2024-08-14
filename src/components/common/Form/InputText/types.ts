@@ -1,3 +1,5 @@
+import { AccessibilityRole } from "react-native";
+
 export type Props = {
   testID?: string;
   twClass?: string;
@@ -7,6 +9,7 @@ export type Props = {
   icon?: any;
   value: string;
   accessibilityLabel?: string;
+  accessibilityRole?: AccessibilityRole;
   onChangeText: (text: string) => void;
   error?: boolean;
 }

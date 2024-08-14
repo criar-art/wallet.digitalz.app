@@ -134,7 +134,7 @@ export default function ModalFilter(props: { testID?: string }) {
           props.value == null && "ml-0"
         } ${props.value == false && "mr-0"}`}
         text={props.text}
-        label="Filtro de registros"
+        label={`${t("filter.btn")} ${props.text}`}
         textColor="ml-1 text-black dark:text-white text-xs"
         onPress={() => handleChange(props.value, "pay")}
         icon={
@@ -237,6 +237,7 @@ export default function ModalFilter(props: { testID?: string }) {
             twClass={`flex-1`}
             placeholder={t("inputs.search")}
             accessibilityLabel="Buscar registro"
+            accessibilityRole="search"
             onChangeText={(value: string) => handleChange(value, "searchTerm")}
             value={getRegistersFilter.searchTerm}
             icon={
