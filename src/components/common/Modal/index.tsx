@@ -65,7 +65,7 @@ function Modal(props: Props, ref: React.Ref<ModalHandle>) {
             style={{
               transform: [{ scale: scaleAnim }, { translateY: shakeAnimation }],
             }}
-            accessibilityViewIsModal
+            accessibilityViewIsModal={props.isOpen}
             aria-hidden={!props.isOpen}
           >
             {props.children}
