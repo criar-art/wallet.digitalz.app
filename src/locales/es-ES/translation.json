@@ -159,6 +159,13 @@
     "intro2": "Proporcionamos una forma simplificada para que registre sus gastos y valores.",
     "intro3": "Tiene la libertad de crear sus registros de forma intuitiva, con la flexibilidad de eliminarlos y actualizarlos según sea necesario."
   },
+  "contact": {
+    "site": "Visitar sitio web criar.art",
+    "instagram": "Visitar Instagram criar.art.tecnologia",
+    "email": "Enviar un correo electrónico a contato@criar.art",
+    "whatsapp": "Enviar un mensaje en WhatsApp Criar.Art +55 (83) 98210-7202",
+    "linkedin": "Visitar LinkedIn del creador Lucas Ferreira de Lima"
+  },
   "login": {
     "goToHome": "Ir al inicio",
     "enterLogin": "Iniciar sesión",

@@ -4,9 +4,11 @@ import { Zocial } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { Fontisto } from "@expo/vector-icons";
 import Button from "../../components/common/Button";
+import { useTranslation } from "react-i18next";
 
 export default function ListContact() {
   const { colorScheme } = useColorScheme();
+  const { t } = useTranslation();
 
   const iconConfig = {
     size: 28,
@@ -16,20 +18,20 @@ export default function ListContact() {
   const buttonData = [
     {
       text: "criar.art",
-      label: "Acessar site criar.art",
+      label: t("contact.site"),
       onPress: () => Linking.openURL("https://criar.art/contact"),
       icon: <Fontisto name="world" {...iconConfig} />,
     },
     {
       text: "criar.art.tecnologia",
-      label: "Acessar Instagram criar.art.tecnologia",
+      label: t("contact.instagram"),
       onPress: () =>
         Linking.openURL("http://instagram.com/criar.art.tecnologia"),
       icon: <Zocial name="instagram" {...iconConfig} />,
     },
     {
       text: "contato@criar.art",
-      label: "Enviar email para contato@criar.art",
+      label: t("contact.email"),
       onPress: () =>
         Linking.openURL(
           "mailto:contato@criar.art?subject=Wallet Digitalz APP&body=Olá tudo bem?\nPreciso de ajuda com"
@@ -38,7 +40,7 @@ export default function ListContact() {
     },
     {
       text: "+55 (83) 98210-7202",
-      label: "Enviar mensagem no whatsapp Criar.Art",
+      label: t("contact.whatsapp"),
       onPress: () =>
         Linking.openURL(
           "https://wa.me/5583982107202?text=Ol%C3%A1+tudo+bem%3F"
@@ -47,7 +49,7 @@ export default function ListContact() {
     },
     {
       text: "@lucasferreiralimax",
-      label: "Acessar linkedin do Lucas Ferreira",
+      label: t("contact.linkedin"),
       onPress: () =>
         Linking.openURL("https://linkedin.com/in/lucasferreiralimax"),
       icon: <Zocial name="linkedin" {...iconConfig} />,

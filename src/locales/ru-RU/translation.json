@@ -160,6 +160,13 @@
     "intro2": "Мы предоставляем упрощенный способ регистрации ваших расходов и значений.",
     "intro3": "У вас есть свобода создавать свои записи интуитивно, с гибкостью их удаления и обновления по мере необходимости."
   },
+  "contact": {
+    "site": "Посетить сайт criar.art",
+    "instagram": "Посетить Instagram criar.art.tecnologia",
+    "email": "Отправить письмо на contato@criar.art",
+    "whatsapp": "Отправить сообщение в WhatsApp Criar.Art +55 (83) 98210-7202",
+    "linkedin": "Посетить LinkedIn создателя Lucas Ferreira de Lima"
+  },
   "login": {
     "goToHome": "Перейти на главную",
     "enterLogin": "Войти",

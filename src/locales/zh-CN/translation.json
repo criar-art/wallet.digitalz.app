@@ -159,6 +159,13 @@
     "intro2": "我们提供了一种简化的方式让您记录您的支出和价值。",
     "intro3": "您有自由地直观地创建您的记录，并灵活地根据需要删除和更新它们。"
   },
+  "contact": {
+    "site": "访问网站 criar.art",
+    "instagram": "访问 Instagram criar.art.tecnologia",
+    "email": "发送电子邮件至 contato@criar.art",
+    "whatsapp": "发送消息到 WhatsApp Criar.Art +55 (83) 98210-7202",
+    "linkedin": "访问创作者 Lucas Ferreira de Lima 的 LinkedIn"
+  },
   "login": {
     "goToHome": "回到主页",
     "enterLogin": "登录",

@@ -159,6 +159,13 @@
     "intro2": "Nous vous proposons une manière simplifiée d'enregistrer vos dépenses et valeurs.",
     "intro3": "Ayez la liberté de créer vos enregistrements de manière intuitive, avec la flexibilité de les supprimer et de les mettre à jour selon vos besoins."
   },
+  "contact": {
+    "site": "Visiter le site criar.art",
+    "instagram": "Visiter Instagram criar.art.tecnologia",
+    "email": "Envoyer un email à contato@criar.art",
+    "whatsapp": "Envoyer un message sur WhatsApp Criar.Art +55 (83) 98210-7202",
+    "linkedin": "Visiter LinkedIn du créateur Lucas Ferreira de Lima"
+  },
   "login": {
     "goToHome": "Aller à l'accueil",
     "enterLogin": "Se connecter",
