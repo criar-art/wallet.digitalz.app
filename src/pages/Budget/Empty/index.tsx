@@ -20,6 +20,7 @@ export default function Empty({ testID }: Props) {
       testID={testID}
       style={{ height: adjustedHeight }}
       className="flex-1 flex flex-col items-center justify-center"
+      accessible={true}
     >
       <MaterialCommunityIcons
         name="sticker-alert-outline"

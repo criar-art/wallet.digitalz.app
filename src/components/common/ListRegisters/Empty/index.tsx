@@ -20,6 +20,7 @@ export default function Empty(props: Props) {
       testID={props.testID}
       style={{ height: landscape ? Dimensions.get('window').height - 180 : Dimensions.get('window').height - 270 }}
       className="flex-1 flex flex-col items-center justify-center"
+      accessible={true}
     >
       {props.filtered ? (
         <MaterialIcons
