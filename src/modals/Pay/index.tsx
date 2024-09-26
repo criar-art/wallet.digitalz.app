@@ -50,7 +50,7 @@ export default function ModalDelete(props: { testID?: string }) {
   const confirmModal = () => {
     const { setDeleteRegister } = registerFunctions[modals.modalPay?.type];
     dispatch(setDeleteRegister({ ...modals.modalPay, pay: true }));
-    animationModalIcon({ scaleAnimation, shakeAnimation, modalRef: modalRef.current?.closeModal() });
+    animationModalIcon({ scaleAnimation, shakeAnimation, modalRef: modalRef });
   };
 
   return (
