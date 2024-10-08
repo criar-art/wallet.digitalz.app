@@ -43,6 +43,7 @@
     "btn_confirm_label": "确认此操作",
     "validation": "您需要填写所有字段",
     "alert_delete": "您确定要删除吗？",
+    "alert_duplicate": "您确定要复制此记录吗？",
     "alert_paid": "您确定要标记为已支付吗？",
     "privacy": "隐私政策",
     "summary": "百分比摘要",
