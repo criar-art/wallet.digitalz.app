@@ -1,3 +1,4 @@
+import uuid from "react-native-uuid";
 import { createSlice } from "@reduxjs/toolkit";
 import { CommonState } from "@store/types";
 import { sortDataByDateDesc } from "@utils/date";
@@ -33,6 +34,15 @@ export const entrySlice = createSlice({
         ({ id }) => id !== action.payload
       );
     },
+    setDuplicateRegisterEntry(state: CommonState, action: any) {
+      state.registers = sortDataByDateDesc([
+        ...state.registers,
+        {
+          ...action.payload,
+          id: uuid.v4(),
+        },
+      ]);
+    },
     setRegisterFilterEntry(state: CommonState, action: any) {
       state.registerFilter = action.payload;
     },
@@ -52,6 +62,7 @@ export const {
   setRegisterEntry,
   setEditRegisterEntry,
   setRegisterFilterEntry,
+  setDuplicateRegisterEntry,
   setResetFilterEntry,
   setDeleteRegisterEntry,
 } = entrySlice.actions;
