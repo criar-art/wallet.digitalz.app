@@ -116,7 +116,19 @@ function ItemList(props: Props) {
           label={`${t("common.edit_register")} ${props.item.name}`}
           icon={
             <MaterialIcons
-              name="edit"
+            name="edit"
+            size={22}
+            color={colorScheme === "dark" ? "white" : "black"}
+            />
+          }
+        />
+        <Button
+          twClass="z-20 w-14 h-14 m-2 rounded-full border-2 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-800"
+          onPress={props.duplicate}
+          label={`${t("common.duplicate_register")} ${props.item.name}`}
+          icon={
+            <MaterialCommunityIcons
+              name="content-duplicate"
               size={22}
               color={colorScheme === "dark" ? "white" : "black"}
             />

@@ -8,6 +8,7 @@ export const modalsSlice = createSlice({
     modalInfo: "",
     modalDelete: "",
     modalPay: "",
+    modalDuplicate: "",
     modalFilter: "",
     modalBudget: "",
     modalBudgetTransaction: "",
@@ -21,6 +22,9 @@ export const modalsSlice = createSlice({
     },
     setModalDelete(state, payload) {
       state.modalDelete = payload.payload;
+    },
+    setModalDuplicate(state, payload) {
+      state.modalDuplicate = payload.payload;
     },
     setModalPay(state, payload) {
       state.modalPay = payload.payload;
@@ -38,6 +42,7 @@ export const modalsSlice = createSlice({
       state.modalRegister = "";
       state.modalInfo = "";
       state.modalDelete = "";
+      state.modalDuplicate = "";
       state.modalFilter = "";
       state.modalBudget = "";
       state.modalBudgetTransaction = "";
@@ -49,6 +54,7 @@ export const {
   setModalInfo,
   setModalRegister,
   setModalDelete,
+  setModalDuplicate,
   setModalPay,
   setModalFilter,
   setModalBudget,

@@ -10,6 +10,7 @@ import {
   setModalRegister,
   setModalDelete,
   setModalPay,
+  setModalDuplicate,
 } from "@store/modalsSlice";
 import {
   selectRegistersFilteredEntry,
@@ -66,6 +67,10 @@ const FlatListRegisters = (props: Props) => {
     dispatch(setModalDelete({ id: target.id, type: target.type }));
   }
 
+  function duplicate(target: any) {
+    dispatch(setModalDuplicate({ ...target }));
+  }
+
   function handlePay(target: any) {
     dispatch(setModalPay(target));
   }
@@ -93,6 +98,7 @@ const FlatListRegisters = (props: Props) => {
               eyeStatus={common.eyeStatus}
               edit={() => edit(item)}
               remove={() => remove(item)}
+              duplicate={() => duplicate(item)}
               handlePay={() => handlePay(item)}
               optionsShow={optionsShow}
               setOptionsShow={setOptionsShow}

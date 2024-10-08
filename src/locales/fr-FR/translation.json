@@ -43,6 +43,7 @@
     "btn_confirm_label": "Confirmer cette action",
     "validation": "Vous devez remplir tous les champs",
     "alert_delete": "Êtes-vous sûr de vouloir supprimer?",
+    "alert_duplicate": "Êtes-vous sûr de vouloir dupliquer cet enregistrement?",
     "alert_paid": "Êtes-vous sûr de vouloir marquer comme payé ?",
     "privacy": "Politique de confidentialité",
     "summary": "Résumé en pourcentage",
