@@ -5,6 +5,7 @@ export type Props = {
   orientation?: number | null;
   edit: any;
   remove: any;
+  duplicate: any;
   handlePay?: any;
   setOptionsShow?: any;
   optionsShow?: any;
