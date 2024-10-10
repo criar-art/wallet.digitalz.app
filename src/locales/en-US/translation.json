@@ -43,6 +43,7 @@
     "btn_confirm_label": "Confirm this action",
     "validation": "You need to fill in all the fields",
     "alert_delete": "Are you sure you want to delete?",
+    "alert_duplicate": "Are you sure you want to duplicate this record?",
     "alert_paid": "Are you sure you want to mark as paid?",
     "privacy": "Privacy Policy",
     "summary": "Percentage Summary",
