@@ -2,10 +2,11 @@
   "expo": {
     "name": "Wallet Digitalz",
     "slug": "wallet-digitalz",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash.jpg",
       "resizeMode": "cover",
