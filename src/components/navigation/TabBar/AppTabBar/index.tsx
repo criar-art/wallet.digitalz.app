@@ -30,7 +30,7 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
   return (
     <Animated.View
       testID="app-tab-bar"
-      className={`absolute bottom-0 flex bg-transparent dark:bg-zinc-900 flex-row justify-center ${
+      className={`absolute bottom-0 flex bg-transparent flex-row justify-center pt-6 ${
         landscape ? "h-0 left-[50%]" : ""
       }`}
       style={[{ transform: [{ translateY: menuTranslateY }] }]}
