@@ -31,14 +31,14 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
     <Animated.View
       testID="app-tab-bar"
       className={`absolute bottom-0 flex bg-transparent flex-row justify-center pt-6 ${
-        landscape ? "h-0 left-[50%]" : ""
+        landscape || isTablet ? "left-1/2" : ""
       }`}
-      style={[{ transform: [{ translateY: menuTranslateY }] }]}
+      style={[
+        { transform: [{ translateX: landscape || isTablet ? -200 : 0 }, { translateY: menuTranslateY }] }
+      ]}
     >
       <View
-        className={`flex flex-row ${
-          landscape || isTablet ? "w-[400] absolute bottom-0" : "w-full"
-        }`}
+        className={`flex flex-row ${landscape || isTablet ? "w-[400]" : "w-full"}`}
       >
         {type == 'wallet' && (
           <Button
@@ -85,19 +85,18 @@ export default function AppTabBar({ state, descriptors, navigation, type }: Prop
             });
           };
 
-          if(route.name == 'Transaction') {
+          if (route.name == 'Transaction') {
             return;
           }
 
           return (
             <AppTabButton
-              twClass={`${
-                index == 0
-                  ? "rounded-tl-3xl"
-                  : state?.routes.length - 1 == index
+              twClass={`${index == 0
+                ? "rounded-tl-3xl"
+                : state?.routes.length - 1 == index
                   ? "rounded-tr-3xl border-r-2"
                   : ""
-              }`}
+                }`}
               key={index}
               labelButton={labelButton}
               name={route.name}
