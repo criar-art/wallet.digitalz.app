@@ -50,6 +50,7 @@
     "totalBudget": "Orçamento",
     "totalTransactionsValue": "Dinheiro Total",
     "remainingBudget": "Orçamento Restante",
+    "remainingBudgetOver": "Orçamento excedido",
     "budgetExceeded": "Excedido",
     "withinBudget": "Progresso",
     "completeBudget": "Completo",

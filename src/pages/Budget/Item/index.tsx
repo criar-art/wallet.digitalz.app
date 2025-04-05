@@ -6,6 +6,8 @@ import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { FontAwesome, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { setDuplicateBudget } from "@store/budgetSlice";
 import Button from "@components/common/Button";
 import { currencySymbol } from "@utils/locale";
 import utils from "@utils";
@@ -19,6 +21,7 @@ function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow,
   const isFocused = useIsFocused();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const isOptionsVisible = optionsShow === item.id;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isFocused && setOptionsShow) {
@@ -46,6 +49,10 @@ function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow,
   const getBadgeType = (): "remaining" | "within" | "complete" => {
     if (isCompleteBudget) return "complete";
     return isOverBudget ? "remaining" : "within";
+  };
+
+  const duplicate = (budget: any) => {
+    dispatch(setDuplicateBudget(budget.id)); // Chama a ação para duplicar o orçamento
   };
 
   return (
@@ -118,7 +125,7 @@ function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow,
               <View className="flex flex-row items-center mt-2">
                 <FontAwesome6 name="money-bill-transfer" size={17} color={colorScheme === "dark" ? "white" : "black"} />
                 <Text className="text-black dark:text-white mx-2 text-base">
-                  {t("common.remainingBudget")}:
+                  {isOverBudget ? t("common.remainingBudgetOver"): t("common.remainingBudget")}:
                 </Text>
                 <Text className={`text-base ${isOverBudget ? 'text-red-500 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-300'}`}>
                   {utils.parseMoney(value, eyeStatus)}
@@ -163,6 +170,18 @@ function ItemBudget({ item, optionsShow, setOptionsShow, handlePressOptionsShow,
             icon={
               <MaterialIcons
                 name="edit"
+                size={22}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
+            }
+          />
+          <Button
+            twClass="z-20 w-14 h-14 my-2 mx-2 rounded-full border-2 border-gray-300 bg-white dark:bg-zinc-800"
+            onPress={() => duplicate(item)}
+            label={`${t("common.duplicate_budget")} ${item.name}`}
+            icon={
+              <MaterialCommunityIcons
+                name="content-duplicate"
                 size={22}
                 color={colorScheme === "dark" ? "white" : "black"}
               />

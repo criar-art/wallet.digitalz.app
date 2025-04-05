@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { sortDataByDateDesc } from "@utils/date";
 import { BudgetState } from "./types";
+import uuid from "react-native-uuid"; // Certifique-se de ter o pacote uuid instalado
 
 export const budgetSlice = createSlice({
   name: "budgetState",
@@ -47,6 +48,26 @@ export const budgetSlice = createSlice({
         ({ id }) => id !== action.payload.idTransaction
       );
     },
+    setDuplicateBudget(state: BudgetState, action: any) {
+      const budgetToDuplicate = state.budgets.find(
+        ({ id }) => id === action.payload
+      );
+
+      if (budgetToDuplicate) {
+        const duplicatedBudget: any = {
+          ...budgetToDuplicate,
+          id: uuid.v4(), // Gera um novo ID único
+          name: `${budgetToDuplicate.name} (Copy)`, // Adiciona "(Copy)" ao nome
+          date_create: new Date().toISOString(), // Atualiza a data de criação
+          transactions: budgetToDuplicate.transactions.map((transaction) => ({
+            ...transaction,
+            id: uuid.v4(), // Gera novos IDs para as transações
+          })),
+        };
+
+        state.budgets = [duplicatedBudget, ...state.budgets];
+      }
+    },
   },
 });
 
@@ -56,7 +77,8 @@ export const {
   setDeleteBudget,
   setTransaction,
   setEditTransaction,
-  setDeleteTransaction
+  setDeleteTransaction,
+  setDuplicateBudget, // Exporta a nova ação
 } = budgetSlice.actions;
 
 export default budgetSlice.reducer;

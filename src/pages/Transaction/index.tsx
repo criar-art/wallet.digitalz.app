@@ -60,10 +60,10 @@ export default function BudgetScreen() {
     <View testID="transaction-screen" className={`flex-1 ${landscape ? "flex-row" : "flex-col"}`}>
       {isBudgetCalculation(budgetCalculations) && (
         <>
-          <View className={`${landscape ? "flex-1 pb-5" : "min-h-[240px] pr-5"}`}>
+          <View className={`min-h-[240px] ${landscape ? "flex-1 pb-5" : ""}`}>
             <ItemBudget
-              twClass={`flex flex-col mt-6 shadow-lg ${
-                landscape || isTablet ? "flex-1 mt-4 ml-6" : "mx-5"
+              twClass={`flex flex-col mt-6 shadow-lg flex-1 ${
+                landscape || isTablet ? "mt-4 ml-5" : "mx-5"
               }`}
               key={budgetCalculations.id}
               item={budgetCalculations}

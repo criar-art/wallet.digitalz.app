@@ -50,6 +50,7 @@
     "totalBudget": "Общий Бюджет",
     "totalTransactionsValue": "Общая Сумма",
     "remainingBudget": "Оставшийся Бюджет",
+    "remainingBudgetOver": "Бюджет превышен",
     "budgetExceeded": "Превышено",
     "withinBudget": "Работающий",
     "completeBudget": "Завершён",

@@ -50,6 +50,7 @@
     "totalBudget": "Budget Total",
     "totalTransactionsValue": "Argent Total",
     "remainingBudget": "Budget Restant",
+    "remainingBudgetOver": "Budget dépassé",
     "budgetExceeded": "Dépassé",
     "withinBudget": "Fonctionnel",
     "completeBudget": "Complet",

@@ -50,6 +50,7 @@
     "totalBudget": "कुल बजट",
     "totalTransactionsValue": "कुल धनराशि",
     "remainingBudget": "शेष बजट",
+    "remainingBudgetOver": "बजट पार हो गया",
     "budgetExceeded": "अधिक",
     "withinBudget": "कार्यरत",
     "completeBudget": "पूर्ण",

@@ -50,6 +50,7 @@
     "totalBudget": "总预算",
     "totalTransactionsValue": "总金额",
     "remainingBudget": "剩余预算",
+    "remainingBudgetOver": "预算超出",
     "budgetExceeded": "超出",
     "withinBudget": "正常",
     "completeBudget": "完成",
