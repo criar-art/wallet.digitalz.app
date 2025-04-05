@@ -37,9 +37,16 @@ export default function ModalBudget(props: { testID?: string }) {
     value: string | boolean | Date | null,
     name: string
   ) => {
+    if (name === "quantity") {
+      const isNumeric = /^[0-9]*$/.test(value as string); // Verifica se o valor é numérico
+      if (!isNumeric) return; // Ignora valores não numéricos
+    }
+
     setFormModal((prevState) => ({ ...prevState, [name]: value }));
-    if(name !== 'description')
+    if (name !== "description" && name !== "quantity") {
+      // Ignora validação de erro para "quantity"
       setFormError((prevState) => ({ ...prevState, [name]: !value }));
+    }
   };
 
   const closeModal = () => {
@@ -122,7 +129,7 @@ export default function ModalBudget(props: { testID?: string }) {
         icon: <MaterialIcons name="check" size={28} color="white" />,
       }}
     >
-      <View className="flex flex-row mt-2 mb-4">
+      <View className="flex flex-row mt-2">
         <InputText
           twClass="flex-1 mr-2"
           label={t("inputs.name")}
@@ -130,6 +137,16 @@ export default function ModalBudget(props: { testID?: string }) {
           onChangeText={(value: string) => handleChange(value, "name")}
           value={formModal.name}
           error={!!formError.name}
+        />
+      </View>
+      <View className="flex flex-row mt-2 mb-4">
+        <InputText
+          twClass="flex-1 mr-2"
+          label={t("inputs.quantify")}
+          accessibilityLabel={t("modalContent.budgetTransaction.inputsLabel.quantityOfBudget")}
+          onChangeText={(value: string) => handleChange(value, "quantity")}
+          value={formModal.quantity}
+          keyboardType="numeric"
         />
         <InputMoney
           twClass="flex-1 ml-2"

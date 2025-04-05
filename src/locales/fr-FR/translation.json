@@ -81,7 +81,8 @@
     "situation": "Situation",
     "paid_out": "Payé",
     "pending": "En attente",
-    "description": "Description"
+    "description": "Description",
+    "quantify": "Quantité"
   },
   "badge": {
     "due_today": "ÉCHÉANCE AUJOURD'HUI",
@@ -142,7 +143,8 @@
     "budgetTransaction": {
       "inputsLabel": {
         "nameOfBudget": "Le nom de la transaction",
-        "valueOfBudget": "La valeur de la transaction"
+        "valueOfBudget": "La valeur de la transaction",
+        "quantifyOfBudget": "La quantité d'articles"
       }
     }
   },

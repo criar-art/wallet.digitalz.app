@@ -75,6 +75,7 @@
     "date_end": "Data final",
     "date": "Data",
     "name": "Nome",
+    "quantify": "Quantidade",
     "value": "Valor",
     "type": "Tipo",
     "select": "Selecionar",
@@ -142,6 +143,7 @@
     "budgetTransaction": {
       "inputsLabel": {
         "nameOfBudget": "O nome da transação",
+        "quantifyOfBudget": "A quantidade de itens",
         "valueOfBudget": "O valor da transação"
       }
     }

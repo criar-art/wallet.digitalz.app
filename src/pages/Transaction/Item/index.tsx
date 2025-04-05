@@ -65,6 +65,30 @@ function ItemTransaction(props: Props) {
           </View>
         )}
       />
+      {props.item.quantity > 1 && (
+        <>
+          <Text className="text-black dark:text-white text-base">
+            <FontAwesome6 name="chart-pie" size={17} color={colorScheme === "dark" ? "white" : "black"} /> {t("inputs.quantify")}: {props.item.quantity}
+          </Text>
+          <NumericFormat
+            value={props.item.value * props.item.quantity}
+            displayType={"text"}
+            thousandSeparator={"."}
+            decimalSeparator={","}
+            decimalScale={2}
+            fixedDecimalScale
+            prefix={`${currencySymbol} `}
+            renderText={(value: string) => (
+              <View className="flex flex-row items-center">
+                <FontAwesome6 name="money-check-dollar" size={17} color={colorScheme === "dark" ? "white" : "black"} />
+                <Text className="text-red-500 dark:text-red-400 text-base ml-2">
+                  {t('common.total')}: {utils.parseMoney(value, props.eyeStatus)}
+                </Text>
+              </View>
+            )}
+          />
+        </>
+      )}
       <View className="flex flex-row items-center">
         <FontAwesome
           name="calendar"

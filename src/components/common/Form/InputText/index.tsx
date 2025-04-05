@@ -32,6 +32,7 @@ function InputText(props: Props) {
         value={props.value}
         placeholder={props.placeholder}
         placeholderTextColor={colorScheme === "dark" ? "white" : "black"}
+        keyboardType={props.keyboardType}
       />
     </View>
   );

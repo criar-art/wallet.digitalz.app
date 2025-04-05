@@ -81,7 +81,8 @@
     "situation": "情况",
     "paid_out": "已支付",
     "pending": "待处理",
-    "description": "描述"
+    "description": "描述",
+    "quantify": "数量"
   },
   "badge": {
     "due_today": "今日到期",
@@ -142,7 +143,8 @@
     "budgetTransaction": {
       "inputsLabel": {
         "nameOfBudget": "交易名称",
-        "valueOfBudget": "交易金额"
+        "valueOfBudget": "交易金额",
+        "quantifyOfBudget": "项目数量"
       }
     }
   },

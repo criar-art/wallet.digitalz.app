@@ -81,7 +81,8 @@
     "situation": "स्थिति",
     "paid_out": "भुगतान हुआ",
     "pending": "अपूर्ण",
-    "description": "विवरण"
+    "description": "विवरण",
+    "quantify": "मात्रा"
   },
   "badge": {
     "due_today": "आज समाप्त होने वाला",
@@ -142,7 +143,8 @@
     "budgetTransaction": {
       "inputsLabel": {
         "nameOfBudget": "लेनदेन का नाम",
-        "valueOfBudget": "लेनदेन का मूल्य"
+        "valueOfBudget": "लेनदेन का मूल्य",
+        "quantifyOfBudget": "आइटम्स की मात्रा"
       }
     }
   },

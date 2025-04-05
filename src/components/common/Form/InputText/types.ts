@@ -12,4 +12,5 @@ export type Props = {
   accessibilityRole?: AccessibilityRole;
   onChangeText: (text: string) => void;
   error?: boolean;
+  keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "decimal-pad" | "url" | "number-pad";
 }

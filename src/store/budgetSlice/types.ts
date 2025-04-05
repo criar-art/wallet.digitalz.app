@@ -3,6 +3,7 @@ export interface Transcation {
   id: string;
   name: string;
   value: number;
+  quantity: number;
   date: Date | null;
 }
 
