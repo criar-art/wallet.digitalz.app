@@ -28,7 +28,8 @@ const useBudgetCalculations = (budgetId?: string) => {
 
       const totalTransactionsValue = budget.transactions.reduce((acc, transaction) => {
         const transactionValue = typeof transaction.value === 'string' ? parseFloat(transaction.value) : transaction.value;
-        return acc + (isNaN(transactionValue) ? 0 : transactionValue);
+        const quantity = transaction.quantity || 1; // Considera 1 como padrão se quantity não estiver definido
+        return acc + (isNaN(transactionValue) ? 0 : transactionValue * quantity);
       }, 0);
 
       const remainingBudget = budget.value - totalTransactionsValue;
@@ -44,7 +45,8 @@ const useBudgetCalculations = (budgetId?: string) => {
       return budgets.map((budget: BudgetType) => {
         const totalTransactionsValue = budget.transactions.reduce((acc, transaction) => {
           const transactionValue = typeof transaction.value === 'string' ? parseFloat(transaction.value) : transaction.value;
-          return acc + (isNaN(transactionValue) ? 0 : transactionValue);
+          const quantity = transaction.quantity || 1; // Considera 1 como padrão se quantity não estiver definido
+          return acc + (isNaN(transactionValue) ? 0 : transactionValue * quantity);
         }, 0);
 
         const remainingBudget = budget.value - totalTransactionsValue;
